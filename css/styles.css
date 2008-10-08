@@ -1,0 +1,419 @@
+BODY {
+	font-size: 72%;
+	_font-size: 70%;
+}
+
+HTML/**/>BODY {
+	font-size: 70%;
+}
+
+BODY, INPUT, SELECT, TEXTAREA {
+	font-family: Trebuchet MS, Arial, Verdana, Helvetica;
+}
+
+A IMG {
+	border: 0px;
+	vertical-align: middle;
+}
+
+HR {
+	border: 1px solid #E5E5E5;
+}
+
+DIV.top {
+	background: #f9f5c8 url(../image/common/top_bg.png) top left repeat-x;
+	_background-image: none;
+	_filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='../image/common/top_bg.png',sizingMethod='scale');	
+}
+
+DIV.identification H2 {
+	font-weight: normal;
+	font-size: 100%;
+	text-transform: lowercase;
+}
+
+DIV.identification H1 {
+	font-size: 240%;
+	color: #406f8c;
+}
+
+DIV.otherVersions A {
+	color: #646356;
+	text-decoration: none;
+}
+
+DIV.otherVersions A IMG {
+	border: 1px solid #7d7b6b;
+	filter: Alpha(Opacity=20);
+	opacity: 0.2;
+}
+
+DIV.login A {
+	text-decoration: none;
+} 
+
+DIV.login IMG {	
+	margin: 5px 5px 0px 0px;
+}
+
+DIV.otherVersions A.selected {
+	color: #000;
+}
+
+DIV.otherVersions A.selected IMG, DIV.otherVersions A:hover IMG {
+	border: 1px solid #e1ddbb;
+	filter: Alpha(Opacity=100);
+	opacity: 1;
+}
+
+DIV.search DIV.informationTypes A {
+	color: #00f;
+	text-decoration: underline;
+}
+
+DIV.search DIV.informationTypes A.selected {
+	color: #000;
+	text-decoration: none;
+	background: #d9e2e8 url(../image/common/informationTypes_selected_b.gif) bottom center no-repeat;
+}
+
+DIV.search DIV.informationTypes SPAN {
+	text-decoration: underline;
+}
+
+DIV.search DIV.searchForm {
+	background: #d9e2e8;
+}
+
+DIV.search DIV.searchForm INPUT.inputText {
+	font-size: 140%;
+	*font-size: 120%;
+	_font-size: 120%;
+	font-weight: bold;
+}
+
+DIV.search DIV.searchForm SELECT.inputText {
+	font-size: 100%;
+	background: #f7f9fa;
+	border: 1px solid #acaeaf;
+}
+
+DIV.search DIV.searchForm INPUT.submit {
+	font-size: 80%;
+	background: #82888b;
+	border-top: 1px solid #9ba0a2;
+	border-left: 1px solid #9ba0a2;
+	color: #fff;
+	border-right: 1px solid #5b5f61;
+	border-bottom: 1px solid #5b5f61; 	
+}
+
+DIV.search DIV.searchForm A {
+	color: #000;
+}
+
+DIV.resultsBar DIV.print {
+	background: url(../image/common/icon_print.gif) center left no-repeat;
+	color: #7f7f7f;
+}
+
+DIV.resultsBar DIV.feed {
+	background: url(../image/common/icon_feed.gif) center left no-repeat;
+	color: #7f7f7f;
+}
+
+DIV.resultsBar DIV.feed A,
+DIV.resultsBar DIV.print A {
+	color: #000;
+	border: 1px solid #e5e5e5;
+	text-decoration: none;
+}
+
+DIV.resultsBar DIV.print A:hover {
+	background: #F7F7F7;
+}
+
+DIV.resultsBar DIV.feed A:hover {
+	background: #dd6e2f;
+	color: #fff;
+}
+
+DIV.resultsBar DIV.orderBy {
+	color: #7f7f7f;
+}
+
+DIV.resultsBar DIV.orderBy SELECT {
+	font-size: 100%;
+}
+
+DIV.results DIV.resultServices DIV {
+	border: 1px solid #ecf0f3;
+}
+
+DIV.results DIV.resultServices DIV DIV {
+	border: 0px;
+}
+
+DIV.results DIV.resultServices DIV.closed {
+	border-bottom: 1px solid #dae3e8;
+}
+
+DIV.results DIV.resultServices DIV H4 {
+	background: #ecf0f3 url(../image/common/resultServices_minus_icon.gif) top left no-repeat;
+	font-size: 100%;
+}
+
+DIV.results DIV.resultServices DIV.closed H4 {
+	background-image: url(../image/common/resultServices_plus_icon.gif);
+}
+
+DIV.results DIV.resultServices DIV H4 A {
+	text-decoration: none;
+	color: #000;
+	cursor: pointer;
+}
+
+DIV.resultServices DIV.refineSearch UL LI, DIV.resultServices DIV.yourSelection LI {
+	list-style: none;	
+	color: #696969;
+}
+
+DIV.resultServices DIV.refineSearch DIV.expandAll,
+DIV.resultServices DIV.refineSearch DIV.collapseAll{
+	cursor: pointer;
+}
+
+DIV.resultServices DIV.refineSearch UL LI A {
+	color: #00f;
+}
+
+DIV.resultServices DIV.yourSelection LI A {
+	color: #00f;
+	text-decoration: none;
+	cursor: pointer;	
+}
+
+DIV.resultServices DIV.searchHistory UL LI {
+	border-top: 1px solid #ecf0f3;
+}
+
+DIV.resultServices DIV.searchHistory UL LI A {
+	color: #000;
+	text-decoration: none;
+}
+
+DIV.resultServices DIV.refineSearch UL LI.more{
+	margin-right: 10px;
+	text-align:right;
+}
+
+DIV.resultServices DIV.searchHistory UL LI A:hover {
+	text-decoration: underline;
+}
+
+DIV.resultServices DIV.searchHistory UL LI A/*.addExpr*/ IMG {
+	filter: Alpha(Opacity=40);
+	opacity: 0.4;
+	height: 14px;
+	width: 15px;
+}
+
+DIV.resultServices DIV.searchHistory UL LI A/*.addExpr*/:hover IMG {
+	filter: Alpha(Opacity=100);
+	opacity: 1;
+}
+
+DIV.resultServices DIV.mailSend INPUT.inputText {
+	border-top: 1px solid #cccccc;
+	border-left: 1px solid #cccccc;
+	border-bottom: 1px solid #e5e5e5;
+	border-right: 1px solid #e5e5e5;
+	*font-size: 100%;
+	_font-size: 100%; 
+}
+
+DIV.resultServices DIV.mailSend INPUT.submit {
+	background: #999;
+	color: #fff;
+	font-size: 95%;
+	border-top: 1px solid #adadad;
+	border-left: 1px solid #adadad;
+	border-bottom: 1px solid #6b6b6b;
+	border-right: 1px solid #6b6b6b;
+}
+
+DIV.resultServices DIV.mailSend FORM.disabled INPUT.inputText {
+	background: #F3F7FA;
+}
+
+DIV.resultServices DIV.mailSend FORM.disabled DIV{
+	color: #AAAAAA;
+}
+
+DIV.resultSet DIV.infoBar {
+	background: #ecf0f3;
+}
+
+DIV.resultSet DIV.infoBar DIV.pagination A {
+	color: #00f;
+}
+
+DIV.resultSet DIV.record {
+	border: 1px solid #e5e5e5;
+}
+
+/*
+DIV.resultSet DIV.firstRec {
+	border-top: 1px solid #e5e5e5;
+}
+*/
+
+DIV.resultSet DIV.record DIV.user-actions {
+	background-color: #ECF0F3;
+	border-top: 1px solid #E5E5E5;
+}
+
+DIV.resultSet DIV.record DIV.user-actions A,
+DIV.resultSet DIV.record DIV.user-actions A:visited {
+	text-decoration: none;
+	color: #000000;
+}
+
+DIV.user-actions SPAN {
+	vertical-align: middle;
+}
+
+DIV.user-actions DIV A {
+	cursor: pointer;
+}
+
+DIV.record DIV.data H3, DIV.record DIV.data DIV.author, DIV.data DIV.source {
+	font-size: 110%;
+}
+
+DIV.record DIV.data A {
+	color: #00f;
+}
+
+DIV.record DIV.data DIV.source,DIV.record DIV.data DIV.language, DIV.record DIV.data DIV.description, DIV.record DIV.data DIV.tags {
+  /*color: #6d6d6d; */
+	color: #000;
+}
+
+DIV.record DIV.data DIV.source {
+	color: #6d6d6d;
+}
+
+
+DIV.record DIV.data DIV.description SPAN, DIV.record DIV.data DIV.description A, DIV.record DIV.data DIV.tags A.more {
+	color: #000;
+}
+
+DIV.record DIV.data SPAN{
+	font-weight: bold;
+}
+
+DIV.record DIV.services DIV {
+	font-size: 90%;
+}
+
+DIV.record DIV.services DIV.lilacs_express {
+	background: url(../image/common/icon_lilacs.gif) top right no-repeat;
+}
+
+DIV.record DIV.services DIV.print {
+	background: url(../image/common/icon_print.gif) top right no-repeat;
+}
+
+DIV.record DIV.services DIV.scad {
+	background: url(../image/common/icon_scad.gif) top right no-repeat;
+}
+
+DIV.record DIV.services DIV.scielo {
+	background: url(../image/common/icon_scielo.gif) top right no-repeat;
+}
+
+DIV.record DIV.services DIV.related {
+	background: url(../image/common/icon_related.gif) top right no-repeat;
+}
+
+DIV.record DIV.services DIV A {
+	color: #000;
+}
+
+DIV.footer {
+	border-top: 2px solid #f0f0f0;
+	color: #646464;
+}
+
+DIV.footer STRONG {
+	color: #000;
+}
+
+DIV.footer A {
+	color: #646464;
+}
+
+FORM SPAN.transmission {
+	border-width: 1px;
+	border-style: solid;
+}
+
+#sendingMail {
+	background-color: #FFFFEE;
+	border-color: #AAAA00;
+}
+
+#mailSent {
+	background-color: #EEFFEE;
+	border-color: #00AA00;
+}
+
+#mailError {
+	background-color: #FFEEEE;
+	border-color: #AA0000;	
+}
+
+#refine_facet div strong {
+	background: transparent url(../image/common/resultServices_minus_icon2.jpg) no-repeat scroll left center;
+	cursor: pointer;
+}
+
+#refine_facet div.closed {
+	border: 0px;
+}
+
+#refine_facet div.closed strong {
+	background: transparent url(../image/common/resultServices_plus_icon2.jpg) no-repeat scroll left center;
+}
+
+#refine_facet div.closed ul {
+	display: none;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup {
+	border: 1px solid #acaeaf;
+	background-color: #FFF;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup H4 {
+	background: #ECF0F3 none no-repeat scroll left top;
+	border-bottom: 1px solid #acaeaf;
+	cursor: default; 
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup H4 IMG {
+	cursor: pointer;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup UL {
+	list-style-type: none;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup UL LI{
+	cursor: pointer;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup UL LI:hover {
+	background-color: #F3F7FA;
+}

@@ -1,0 +1,507 @@
+BODY, FORM {
+	margin: 0px;
+	padding: 0px;
+}
+
+UL{
+	list-style-type: none;
+}
+
+DIV.container {
+	
+}
+
+DIV.top {
+	position: relative;
+	padding: 12px 6px 6px 6px;
+	clear: both;
+	height: 54px;
+}
+
+DIV.parent {
+	width: 77px;
+	float: left;
+	margin-right: 14px;
+}
+
+DIV.identification {
+	width: 500px;
+
+}
+
+DIV.identification H1, DIV.identification H2 {
+	margin: 0px;
+}
+
+DIV.login {
+	position: absolute;
+	top: 2px;
+	right: 200px;
+	text-align: right;
+
+}
+
+DIV.otherVersions {
+	position: absolute;
+	top: 12px;
+	right: 6px;
+	text-align: right;
+}
+
+DIV.otherVersions A {
+	margin-left: 10px;
+}
+
+DIV.otherVersions A IMG {
+	margin-right: 7px;
+}
+
+DIV.breadcrumb {	
+	padding: 2px 10px;
+	clear: both;
+	float: left;
+}
+DIV.content {
+	clear: both;
+	padding: 6px 6px 6px 6px;
+}
+
+DIV.search DIV.informationTypes {
+	padding-left: 150px;
+}
+
+DIV.search DIV.informationTypes A {
+	display: -moz-inline-box;
+	display: inline-block;
+	padding: 5px 0px;
+	margin-right: 25px;
+}
+
+DIV.search DIV.searchForm {
+	padding: 2px 10px;
+}
+
+DIV.search DIV.searchForm *.inputText, DIV.search DIV.searchForm *.submit {
+	vertical-align: middle;
+	padding: 2px;
+}
+
+DIV.search DIV.searchForm INPUT.inputText {
+	width: 28%;
+}
+
+DIV.search DIV.searchForm SELECT.inputText {
+	padding: 5px 4px;
+	width: 180px;
+	_width: 170px;
+}
+
+DIV.search DIV.searchForm INPUT.submit {
+	padding: 5px 3px;
+	_padding: 2px 3px;
+	*padding: 2px 3px;
+}
+
+DIV.resultsBar {
+	margin: 6px 0px;
+	padding: 2px 10px;
+	clear: both;
+	height: 18px;
+}
+
+DIV.noResults {
+	margin: 20px 0px;
+	padding: 2px 10px;
+	clear: both;
+	height: 380px;
+	font-size: 200%;
+}
+
+DIV.resultsBar DIV.resultsFor {
+	//width: 65%;
+	width: 58%;
+	float: left;
+	margin-right: 6px;
+	padding-top: 2px;
+	font-size: 110%;
+}
+
+DIV.resultsBar DIV.print{
+	float:left;
+	padding: 0px 0px 0px 17px;
+}
+
+DIV.resultsBar DIV.feed {
+	width: 140px;
+	float: left;
+	margin-left: 10px;
+	padding: 0px 0px 0px 22px;
+}
+
+DIV.resultsBar DIV.feed A,
+DIV.resultsBar DIV.print A {
+	display: -moz-inline-box;
+	display: inline-block;
+	padding: 1px 5px;
+	vertical-align: middle;
+}
+
+#bookmark_button {
+	float: left;
+	text-align: right;
+	width: 20%;
+	font-size: larger;
+}
+
+#bookmark_button img{
+	cursor: pointer;
+}
+
+DIV.resultsBar DIV.orderBy {
+	//width: 18%;
+	width: 200px;
+	float: right;
+	text-align: right;
+}
+
+DIV.resultsBar DIV.orderBy SELECT {
+	vertical-align: middle;
+}
+
+DIV.results {
+	clear: both;
+}
+
+DIV.results DIV.resultServices {
+	width: 180px;
+	float: left;
+	margin-right: 6px;
+}
+
+DIV.results DIV.resultServices DIV {
+	margin-bottom: 2px;
+}
+
+DIV.resultServices DIV.refineSearch UL {
+	margin: 0px 0px 0px 16px;
+	padding: 0px;
+}
+
+DIV.resultServices DIV.refineSearch UL LI {
+	margin-bottom: 5px;	
+}
+
+DIV.resultServices DIV.refineSearch DIV.collapseAll,
+DIV.resultServices DIV.refineSearch DIV.expandAll{
+	padding: 0 0 0 6px;
+	margin: 0px;
+	width: 48%;
+	float: left;
+}
+
+DIV.resultServices DIV.refineSearch DIV.expandAll{
+	padding: 0px;
+}
+
+DIV.resultServices DIV.refineSearch DIV.bContent {
+	clear: both;
+}
+
+DIV.resultServices DIV.yourSelection P {
+	margin: 0px;
+}
+
+DIV.resultServices DIV.yourSelection P IMG {
+	vertical-align: middle;
+}
+
+DIV.resultServices DIV.yourSelection UL {
+	margin: 15px 0px;
+	padding: 0px;
+}
+
+DIV.resultServices DIV.yourSelection UL LI {
+	margin-bottom: 10px;
+}
+
+DIV.resultServices DIV.searchHistory DIV.bContent {
+	padding: 1px;
+}
+
+DIV.resultServices DIV.searchHistory UL {
+	margin: 0px;
+	padding: 0px;
+	clear: both;
+}
+
+DIV.resultServices DIV.searchHistory UL LI {
+	padding: 1px;
+	clear: both;
+	position: relative;
+}
+
+DIV.resultServices DIV.searchHistory UL LI A {
+	display: block;
+	width: 70%;
+	padding: 3px 7px
+}
+
+DIV.resultServices DIV.searchHistory UL LI A.addExpr,
+DIV.resultServices DIV.searchHistory UL LI A.remExpr {
+	position: absolute;
+	top: 3px;
+	right: 5px;
+	width: 15px;
+	padding: 3px 0px;
+}
+
+DIV.resultServices DIV.searchHistory UL LI A.remExpr{
+	right: 24px;
+}
+
+DIV.resultServices DIV.mailSend DIV.bContent {
+	padding: 9px;
+}
+
+DIV.resultServices DIV.mailSend DIV.bContent DIV {
+	padding: 0px 0px 10px 0px;
+}
+
+DIV.resultServices DIV.mailSend DIV.bContent P.disabled{
+	display: none;
+}
+
+DIV.resultServices DIV.mailSend DIV.bContent FORM.disabled P.disabled{
+	display: block
+}
+
+DIV.resultServices DIV.mailSend DIV.bContent FORM.disabled P.message{
+	display: none;
+}
+
+DIV.resultServices DIV.mailSend DIV.bContent DIV LABEL {
+	display: block;
+}
+
+DIV.resultServices DIV.mailSend INPUT.inputText {
+	width: 148px;
+	padding: 4px;
+}
+
+DIV.resultServices DIV.mailSend INPUT.submit {
+	padding: 6px 6px;
+	*padding: 6px 3px;
+	_padding: 6px 3px;
+	float: left;
+}
+
+DIV.results DIV.resultServices DIV H4 {
+	padding-left: 10px;
+	margin: 0px;
+}
+
+DIV.results DIV.resultServices DIV H4 A {
+	display: block;
+	padding: 6px 10px;
+}
+
+DIV.results DIV.resultServices DIV DIV {
+	padding: 8px;
+}
+
+DIV.results DIV.resultServices DIV.closed DIV {
+	display: none;
+}
+
+DIV.results DIV.resultSet {
+	margin: 0px 0px 0px 186px;
+}
+
+DIV.resultSet DIV.infoBar {
+	padding: 6px 10px;
+	height: 18px;
+	margin-bottom: 1px;
+	clear: right;
+	*clear: none;
+	_clear: none;
+}
+
+DIV.resultSet DIV.infoBar DIV.totalResults {
+	//width: 40%;
+	width: 29%;
+	float: left;
+}
+
+DIV.resultSet DIV.infoBar DIV.pagination {
+	//width: 50%;
+	width: 70%;
+	float: right;
+	text-align: right;
+}
+
+DIV.resultSet DIV.infoBar DIV.pagination SPAN {
+	//margin-left: 14px;
+	margin-left: 6px;
+}
+
+DIV.resultSet DIV.record {
+	padding: 6px 10px 6px 10px;
+	margin-top: 2px;
+	margin-bottom: 4px;
+	min-height: 90px;
+	height: auto;
+	/*float: right;*/
+	*float: none;
+	_float: none;
+	_height: 100px;
+	clear: right;
+	position: relative;
+}
+
+DIV.resultSet DIV.record DIV.spacer{
+  margin-bottom: 20px;
+}
+
+DIV.resultSet DIV.record DIV.user-actions {
+	height: 22px;
+	margin: 0px -10px -6px -10px;
+	position: absolute;
+	bottom: 6px;
+	width: 100%;
+}
+
+DIV.user-actions DIV{
+	margin: -1px 0px 0px 10px;
+	float: left;
+	width: auto;
+}
+
+DIV.user-actions DIV.bookmark IMG{
+	margin-top: 5px;
+}
+
+DIV.record DIV.position {
+	float: left;
+	width: 22px;
+}
+
+DIV.record DIV.data {
+	//margin: 0px 166px 0px 44px;
+	margin: 0px 0px 0px 24px;
+}
+
+DIV.record DIV.data H3 {
+	margin: 0px;
+}
+
+DIV.record DIV.data DIV.tags A {
+	padding: 2px;
+	margin-right: 6px;
+}
+
+DIV.record DIV.data DIV.tags A.more {
+	padding: 0px;
+	margin: 0px;
+}
+
+DIV.record DIV.data DIV.links{
+	margin: 8px 0px 8px;
+}
+
+DIV.record DIV.data DIV.links UL {
+	padding: 0px;
+	margin: 0px;	
+}
+
+DIV.record DIV.data DIV.links LI {	
+	padding-top: 6px;
+}
+
+DIV.record DIV.data DIV.links A {
+	font-size: 110%;
+	text-decoration: none;
+}
+
+DIV.record DIV.data DIV.links A:hover {
+	text-decoration: underline;
+}
+
+
+DIV.record DIV.services {
+	width: 160px;
+	float: right;
+	text-align: right;
+}
+
+DIV.record DIV.services DIV {
+	padding: 4px;
+	padding-right: 20px;
+}
+
+DIV.footer {
+	clear: both;
+	padding: 10px 12px;
+	margin-top: 7px;
+	height: 15px;
+}
+
+DIV.footer DIV.powered {
+	width: 50%;
+	float: left;
+}
+
+DIV.footer DIV.links {
+	width: 30%;
+	float: right;
+	text-align: right;
+}
+
+DIV.source SPAN.type span{
+	padding: 0px 50px 0px 2px;
+}
+
+DIV.source SPAN.type IMG {
+	margin-bottom: -3px;
+}
+
+FORM SPAN.transmission {
+	display: block;
+	padding: 7px 8px;
+	margin-left: 8px;
+	float: left;
+}
+
+#refine_facet div strong {
+	padding-left: 15px;
+	display: block;
+}
+
+
+#refine_facet div{
+	padding: 0px;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup {
+	padding: 0px;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup H4 IMG {
+	position:absolute;
+	right:4px;
+	top:3px;
+}
+
+DIV.popup {
+	position: absolute;
+	height: auto;
+	width: 100px;
+}
+
+DIV.resultServices DIV.searchHistory DIV.popup UL LI {
+	padding-left: 10px;
+}
+
+DIV.resultServices DIV.searchHistory DIV.altpopup{
+	width: auto;
+	padding: 5px 5px 5px 20px;
+}

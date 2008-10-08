@@ -1,0 +1,43 @@
+@import url(./layout.css);
+@import url(./styles.css);
+
+DIV.spacer {
+	/* clear: both; */
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	float: none;
+	font-size: 1px;
+	height: 1px;
+}
+
+/* 
+	Styles para simples customiza��o
+	Vini: 
+		D� uma olhada neste recurso abaixo, tentei preservar a hist�ria do LILDBI, onde
+		se pode customizar a interface a partir de poucas defini��es.
+	
+	ATEN��O: S� utilizar as propriedades descritas abaixo
+
+ */
+
+DIV.top {
+	/*  background-color: #CCC; */
+}
+
+DIV.identification H1 {
+	/* color: #CCC; */	
+}
+
+DIV.search DIV.informationTypes A.selected, DIV.search DIV.searchForm {
+	/* background-color: #CCC; */
+}
+
+DIV.results DIV.resultServices DIV H4, 
+DIV.resultSet DIV.infoBar {
+	/* background-color: #CCC; */
+}
+
+DIV.results DIV.resultServices DIV {
+	/* border-color: #CCC; */
+}

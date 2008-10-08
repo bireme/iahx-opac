@@ -1,0 +1,110 @@
+<?PHP
+	require_once("config.php");	
+	require_once("./classes/Dia.php");
+	require_once("./classes/Page.php");
+	require_once("./classes/Log.php");
+	require_once('./classes/smarty/Smarty.class.php');
+
+	$col = $_REQUEST["col"];
+	$site = $_REQUEST["site"];
+	$printMode = $_REQUEST["printMode"];
+
+	if ( !isset($col) ){
+		$col = $defaultCollection; 				// valor default criada no script de configuracao do sistema
+	}
+	if ( !isset($site) ){	
+		$site= $defaultSite;					// valor default criada no script de configuracao do sistema
+	}
+
+	$from= ( isset($_REQUEST["from"]) && $_REQUEST["from"] != ''? $_REQUEST["from"] : 0 );
+	
+	$q  = stripslashes($_REQUEST["q"]);			//query
+	$qt = $_REQUEST["qt"];						//query type
+	$index= $_REQUEST["index"];
+
+	if (isset($_REQUEST['sort']) && $_REQUEST['sort'] != ""){
+		$sort = getSortValue($colectionData,$_REQUEST["sort"]);		//get sort field to apply
+	}
+
+	$output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
+		
+	$filter = $_REQUEST["filter"];         		//initial filter to apply
+	$filterLabel = $_REQUEST["filterLabel"];	//initial filter label
+	
+	$filter_chain = $_REQUEST["filter_chain"];	//user filter sequence (history)
+	$addFilter = $_REQUEST["addfilter"];   		//new filter to apply
+	$backFilter= $_REQUEST["backfilter"];  		//back to filter position
+
+	$where = $_REQUEST["where"];							//select where search
+	$whereFilter = getWhereFilter($colectionData,$where);	//select where search
+	$count = ( isset($_REQUEST["count"]) ? $_REQUEST["count"] : $config->documents_per_page );
+
+	//cluster parameters
+	$fl = $colectionData->cluster_items_limit;
+	$fb = $_REQUEST["fb"];									// facet browse
+
+	if ( $addFilter != "" ){
+		$filter_chain[] = $addFilter;
+	}
+	if (isset($backFilter) && $backFilter != ""){
+		if ($backFilter == -1)	{  		//delete filter history
+			$filter_chain = null;
+		}else{
+			if ($backFilter == -2)	{  	//delete filter history and query
+				$filter_chain = null;
+				$q = null;
+			}else{
+				$reduceFilter = array_slice($filter_chain,0,$backFilter+1);		//delete filter history to position
+				$filter_chain = $reduceFilter;
+			}
+		}	
+	}
+
+	$debug = $_REQUEST['debug'];
+	$detail = $_REQUEST['detail'];
+
+	//DIA server connection object
+	$dia = new Dia($site, $col, $count, $output, $lang);	
+	$page= new Page();
+
+	$initial_restricion = html_entity_decode($colectionData->restriction);
+	// filtro de pesquisa = restricao inicial  E filtro where  E filtro externo E filtro(s) selecionados
+	$filterSearch = array_merge((array)$initial_restricion,(array)$whereFilter, (array)$filter,(array)$filter_chain);
+
+	// set additiona parameters
+	$dia->setParam('fb',$fb);
+	$dia->setParam('fl',$fl);
+	$dia->setParam('qt',$qt);
+	$dia->setParam('sort',$sort);
+
+	$diaResponse = $dia->search($q, $index, $filterSearch, $from);
+	$result = json_decode($diaResponse);
+
+	if ($output == "xml" || $output == "sol"){
+		header("Content-type: text/xml; charset=UTF-8");
+		print $diaResponse;
+	}else if($output == "rss"){
+		header("Content-type: text/xml; charset=UTF-8");
+		$page->RSS();
+	}else{		
+		// html output
+		$page->show();
+	}
+
+	flush();
+	// log de pesquisas realizadas
+	$log = new Log();
+	$log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
+	$log->fields['lang'] = $lang;
+	$log->fields['col']  = $col;
+	$log->fields['site'] = $site;
+	$log->fields['query']= ($q != ''? $q : "*");
+	$log->fields['index']= ($index != ''? $index : "*");
+	$log->fields['where']= ($_REQUEST['where'] != ''? $_REQUEST['where'] : "*");;
+	$log->fields['filter'] = $dia->getFilterParam();
+	$page = (($from-1)/$count) + 1;
+	$log->fields['from'] = (strval($page) < 1? "1": $page);
+
+	$log->writeLog();
+
+?>
