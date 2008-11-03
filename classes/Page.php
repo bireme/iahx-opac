@@ -15,7 +15,7 @@ class Page
 	}
 	
 	public function show(){
-		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData;	
+		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort;	
 
 		if (isset($q) && $q != ''){
 			$getParams .= "&q=" . urlencode(utf8_decode($q));
@@ -37,6 +37,10 @@ class Page
 				$getParams .= "&filter_chain[]=" . str_replace("\\\"","&quot;",$filterValue);
 			}
 		}
+        if (isset($sort) && $sort != ''){
+            $getParams .= "&sort=" . $sort;
+        }
+
 		
 		$q_escaped = str_replace("\"","&quot;",$q);
 		$textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
