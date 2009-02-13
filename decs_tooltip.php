@@ -10,7 +10,7 @@ if(isset($_REQUEST['lang'])){
 }else if(isset($_COOKIE['clientLanguage'])){
 	if(preg_match("/en|pt|es/",$_COOKIE['clientLanguage'])){
 		$lang = $_COOKIE['clientLanguage'];
-	}	
+	}
 }
 
 $trans = parse_ini_file("languages/$lang/texts.ini");
@@ -18,13 +18,13 @@ $trans = parse_ini_file("languages/$lang/texts.ini");
 if ($lang == 'pt'){
 	$langOneLetter = "p";
 }else if ($lang == 'es'){
-	$langOneLetter = "p";
+	$langOneLetter = "e";
 }else{
 	$langOneLetter = "i";
 }
 
 
-$bool = array( "101", // Termo autorizado 
+$bool = array( "101", // Termo autorizado
 			  	"102", // Sinônimo
 			  	"104"  // Termo histórico
 			);
