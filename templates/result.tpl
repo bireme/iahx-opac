@@ -67,44 +67,9 @@
 		<div class="expandAll" onclick="expandRetractResults('expand')">
 			<img src="image/common/resultServices_plus_icon2.jpg" alt="Expand All"/>
 			&#160;{$texts.EXPAND_ALL}
-		</div>			
-		
-		{include file="result-clusters.tpl"}
-		
-	</div>	
-
-	<div id="mailSend" class="mailSend closed">
-		<h4><a onclick="showHideBox('mailSend');" title="{$texts.SHOW_HIDE}"><span>{$texts.SEND_BY_EMAIL}</span></a></h4>
-		<div class="bContent">
-			<form method="post" action="mail.php" name="mailSend" onsubmit="sendMail(this);return false;">
-				<p class="message">
-					{$texts.SELECTION_YOU_HAVE}&#160;<span id="sizeOfBookmarks_2">0</span>&#160;{$texts.SELECTION_REGISTERS}.
-				</p>
-				<p class="disabled">
-					{$texts.MAIL_SELECT_MSG}
-				</p>
-				<input type="hidden" name="lang" value="{$lang}"/>
-				<div>
-					<label>{$texts.MAIL_FROM}:</label>
-					<input type="text" class="inputText" value="" name="senderMail"/>
-				</div>
-				<div>
-					<label>{$texts.MAIL_TO}:</label>
-					<input type="text" class="inputText" value="" name="recipientMail"/>
-				</div>
-				<div>
-					<label>{$texts.SUBJECT}:</label>
-					<input type="text" class="inputText" value="" name="subject"/>
-				</div>
-				<input type="submit" class="submit" value="{$texts.MAIL_SUBMIT}" name="go"/>
-				
-				<span id="sendingMail" class="transmission" style="display:none;">{$texts.MAIL_SENDING}</span>
-				<span id="mailSent" class="transmission" style="display:none;">{$texts.MAIL_SENT}</span>
-				<span id="mailError" class="transmission" style="display:none;">Erro!</span>
-				&#160;
-				<div class="spacer"/>
-			</form>
 		</div>
+		{include file="result-clusters.tpl"}
+		<div class="spacer"/>
 	</div>
 </div>
 </div>
@@ -117,7 +82,7 @@
 	{include file="result-navigation.tpl"}
 </div>
 
-<script language="JavaScript" type="text/javascript">recoverBookmarks();</script>
+
 </div>
 
 {/if}
