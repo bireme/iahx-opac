@@ -144,7 +144,16 @@
 						}
 					{/php}
 					</div>
-
+					
+					<div class="selectAll">
+						<a href="#" class="add" onclick="markAll();">Selecionar Todos</a>
+						<a href="#" class="add" onclick="unmarkAll();">Remover Todos</a>
+					</div>
+					
+					<div class="mailSend">
+						<a href="#TB_inline?height=280&width=320&inlineId=mailSendContent" class="thickbox" title="{$texts.SEND_BY_EMAIL}" onclick="enableDisableForm(document.forms.mailSend)">{$texts.SEND_BY_EMAIL}</a>
+					</div>
+					
 					<div class="feed">
 						{$texts.EXPORT_OPTIONS}
 						<a href="index.php?output=rss&site={$site}&col={$col}&lang={$lang}{$getParams}">RSS</a>	
