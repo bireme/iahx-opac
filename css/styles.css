@@ -122,6 +122,18 @@ DIV.resultsBar DIV.feed {
 	color: #7f7f7f;
 }
 
+DIV.resultsBar DIV.selectAll {
+	background: url(../image/common/box_selected.gif) center left no-repeat;
+	color: #7f7f7f;
+}
+
+DIV.resultsBar DIV.mailSend {
+	background: url(../image/common/bt_contact.gif) center left no-repeat;
+	color: #7f7f7f;
+}
+
+DIV.resultsBar DIV.mailSend A,
+DIV.resultsBar DIV.selectAll A,
 DIV.resultsBar DIV.feed A,
 DIV.resultsBar DIV.print A {
 	color: #000;
@@ -129,6 +141,8 @@ DIV.resultsBar DIV.print A {
 	text-decoration: none;
 }
 
+DIV.resultsBar DIV.mailSend A:hover,
+DIV.resultsBar DIV.selectAll A:hover,
 DIV.resultsBar DIV.print A:hover {
 	background: #F7F7F7;
 }
@@ -416,4 +430,8 @@ DIV.resultServices DIV.searchHistory DIV.popup UL LI{
 
 DIV.resultServices DIV.searchHistory DIV.popup UL LI:hover {
 	background-color: #F3F7FA;
+}
+
+DIV#TB_ajaxContent FORM.mailForm DIV INPUT {
+	border: 1px solid #7F9DB9;
 }

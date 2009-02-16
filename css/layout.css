@@ -26,7 +26,6 @@ DIV.parent {
 
 DIV.identification {
 	width: 500px;
-
 }
 
 DIV.identification H1, DIV.identification H2 {
@@ -61,6 +60,7 @@ DIV.breadcrumb {
 	clear: both;
 	float: left;
 }
+
 DIV.content {
 	clear: both;
 	padding: 6px 6px 6px 6px;
@@ -118,8 +118,8 @@ DIV.noResults {
 }
 
 DIV.resultsBar DIV.resultsFor {
-	//width: 65%;
-	width: 58%;
+	//width: 52%;
+	width: 45%;
 	float: left;
 	margin-right: 6px;
 	padding-top: 2px;
@@ -131,6 +131,8 @@ DIV.resultsBar DIV.print{
 	padding: 0px 0px 0px 17px;
 }
 
+DIV.resultsBar DIV.mailSend,
+DIV.resultsBar DIV.selectAll,
 DIV.resultsBar DIV.feed {
 	width: 140px;
 	float: left;
@@ -138,6 +140,12 @@ DIV.resultsBar DIV.feed {
 	padding: 0px 0px 0px 22px;
 }
 
+DIV.resultsBar DIV.selectAll {
+	width: 200px;	
+}
+
+DIV.resultsBar DIV.mailSend A,
+DIV.resultsBar DIV.selectAll A,
 DIV.resultsBar DIV.feed A,
 DIV.resultsBar DIV.print A {
 	display: -moz-inline-box;
@@ -504,4 +512,30 @@ DIV.resultServices DIV.searchHistory DIV.popup UL LI {
 DIV.resultServices DIV.searchHistory DIV.altpopup{
 	width: auto;
 	padding: 5px 5px 5px 20px;
+}
+
+DIV#TB_ajaxContent FORM.mailForm INPUT.submit {
+	display: block;
+	float: left;
+}
+
+DIV#TB_ajaxContent FORM.mailForm DIV.field{ 
+	clear: both;
+	float: none;
+	margin-top: 10px;
+}
+
+DIV#TB_ajaxContent FORM.mailForm DIV.field LABEL {
+	display: block;
+	float: left;
+	width: 70px;
+}
+
+DIV#TB_ajaxContent FORM.mailForm DIV.field INPUT {
+	width: 15em;
+}
+
+DIV#TB_ajaxContent FORM.mailForm DIV.options * {
+	display: run-in;
+	width: auto;
 }
