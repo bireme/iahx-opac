@@ -2,8 +2,17 @@
 session_start();
 require("classes/Bookmark.php");
 
-$action = $_POST['action'];
-$id = $_POST['id'];
+$action = $_REQUEST['action'];
+
+$id = 0;
+if(!strpos($_REQUEST['id'],'|')){
+	$id = $_REQUEST['id'];
+}else{
+	$id = explode('|',$_REQUEST['id']);
+	array_pop($id);
+}
+
+//die(var_dump($id));
 
 if( !isset($_SESSION["bookmark"])){
 	$bm = new ArrayList();
@@ -14,9 +23,21 @@ $bookmark = unserialize($_SESSION["bookmark"]);
 //$bookmark = new Bookmark();
 
 switch($action){
-	case 'a': $bookmark->addElement($id);
+	case 'a': if(is_array($id)){
+			      foreach($id as $i){
+			      	$bookmark->addElement($i);
+			      }
+			  }else{
+		      	$bookmark->addElement($id);
+			  }
 			  break;
-	case 'r': $bookmark->removeElement($id);
+	case 'r': if(is_array($id)){
+			      foreach($id as $i){
+			      	$bookmark->removeElement($i);
+			      }
+			  }else{
+		      	$bookmark->removeElement($id);
+			  }
 			  break;
 	case 'c': $bookmark->removeAll();
 			  break;
