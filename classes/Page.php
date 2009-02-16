@@ -98,12 +98,16 @@ class Page
 
 
 	public function email(){
-		global $col, $texts, $result, $lang;
+		global $col, $texts, $result, $lang, $from, $count;
 		
 		$textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
 		$url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
 		$url = str_replace("mail.php","index.php",$url);
 
+        $total = $result->diaServerResponse[0]->response->numFound;
+        $pagination = $this->pagination($from, $count, $total);
+
+        $this->template->assign('pagination',$pagination);
 		$this->template->assign('url',$url);
 		$this->template->assign('texts',$texts + $textsCol);
 		$this->template->assign('result',$result->diaServerResponse[0]);
@@ -113,7 +117,7 @@ class Page
 
 	private function pagination($from, $count, $total){
 
-		$from = ($from != 0 ? $_REQUEST['from'] : 1);	
+		$from = ($from != 0 ? $from : 1);
 		
 		if ( ($from + $count) <= $total ){
 			$to = ($from + $count)-1;
