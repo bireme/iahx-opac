@@ -26,7 +26,6 @@ function showHideBox(divId)
 		box.className = box.className.replace("closed","");
 	}
 	return false;
-
 }
 
 function showHideAbstract(nodeId) {
@@ -151,7 +150,7 @@ function changeUrlParameter( parName, parValue ){
 	var url = document.URL;
 	var parPos = url.indexOf( parName + "=" )
 	
-	if( parPos == -1 ) return;
+	if( parPos == -1 ) return null;
 	
 	var section = url.substring( parPos );
 	var eop = section.indexOf("&");
@@ -162,7 +161,6 @@ function changeUrlParameter( parName, parValue ){
 		section = section.substring( 0, eop);
 		url = url.replace( section, parName+"="+parValue );
 	}
-	alert(url);
 	return url;
 }
 
@@ -274,9 +272,9 @@ function createAjax(){
  * Faz POST através do AJAX e retorna
  * a reposta do processo caso a resposta
  * exista
- * @param String page
- * @param String vars
- * @return String responseText
+ * @param {String} page
+ * @param {String} vars
+ * @return {String} responseText
  */
 function postVars(page,vars){
 	if(!xmlhttp){
@@ -288,25 +286,10 @@ function postVars(page,vars){
 	return xmlhttp.responseText;
 }
 
-function enableDisableForm(form,option){
-	if(option == "enable"){
-		form.className.replace(/\s*disabled$/gi,'');
-		for(var i = 0; i < form.length; i++){
-			form[i].disabled = false;
-		}
-	}else if(option == "disable"){
-		form.className += " disabled";
-		for(var i = 0; i < form.length; i++){
-			if(!form[i].type.match(/checkbox/i))
-				form[i].disabled = true;
-		}
-	}
-}
-
 /**
  * Adiciona ou remove ocorrência dos favoritos
- * @param Node element
- * @param String id
+ * @param {Node} element
+ * @param {String} id
  */
 function markUnmark(element,id){
   var state = element.getAttribute('state');
@@ -420,7 +403,7 @@ function showBookmarks(){
 
 	if(bookmarks){
 		searchStrategy = "\""+bookmarks[0]+"\"";
-		for(var i = 1; i < bookmarks.length; i++){
+		for(i = 1; i < bookmarks.length; i++){
 			searchStrategy += " OR \""+ bookmarks[i]+"\"";
 		}
 
@@ -433,22 +416,11 @@ function clearBookmarks(){
 	postVars("bookmark.php","action=c");
 }
 
-/**
- * Exibe no elemento especificado
- * o numero de registros selecionados
- * pelo usuario
- * @param String id
- */
 function countBookmarksTo(id,listSize){
 	var element = document.getElementById(id);
 	element.innerHTML = listSize;
 }
 
-/**
- * Verifica se o navegador têm a opção
- * de cookies habilitados
- * @return boolean
- */
 function cookiesEnabled(){
 	document.cookie = "CookieTest=Enabled";
 	var allcookies = document.cookie;
@@ -467,8 +439,8 @@ function cookiesEnabled(){
 
 /**
  * Esconde elementos de uma determinada classe
- * @param String tagName
- * @param String className
+ * @param {String} tagName
+ * @param {String} className
  */
 function hideClass(tagName,className){
 	var elements = document.getElementsByTagName(tagName);
@@ -520,12 +492,12 @@ function removeSearchTerm(term,node){
 function eventPosition(e){
 	var coord = [];
 	
-	if (!e) var e = window.event;
+	if (!e) e = window.event;
 
-	if (e.pageX || e.pageY) 	{
+	if (e.pageX || e.pageY){
 		coord[0] = e.pageX;
 		coord[1] = e.pageY;
-	}else if (e.clientX || e.clientY) 	{
+	}else if (e.clientX || e.clientY){
 		coord[0] = e.clientX + document.body.scrollLeft
 			+ document.documentElement.scrollLeft;
 		coord[1] = e.clientY + document.body.scrollTop
@@ -555,7 +527,7 @@ function chooseOperatorToSearch(sTerm,e){
  * Adiciona um termo do histórico
  * de pesquisa no formulário de
  * pesquisa.
- * @param {String} term
+ * @param {String} operator
  */
 function addTermToSearch(operator){
 	var term = document.getElementById('searchHistoryOperators').term;
@@ -572,21 +544,19 @@ function addTermToSearch(operator){
 			if(!form.q.value.match(/\s+(AND|OR)\s+/))
 				form.q.value = "(" + form.q.value + ")";
 	
-	// add to input field			
+	// add to input field
 	form.q.value = form.q.value + " " + operator + " " + term;
-	
 	document.getElementById('searchHistoryOperators').style.display = "none";
 }
 
 function searchFromHistory(term){
 	var form = document.forms[0];
-
 	form.q.value = term;
 	form.submit();
 }
 
 function enableDisableForm(form){
-	if( !window.listSize && !form.q.value){
+	if( !window.listSize && !form.q.value && !document.searchForm['filter_chain[]']){
 		for(var i=0;i<form.length;i++){
 			form[i].disabled = true;
 		}
@@ -598,7 +568,7 @@ function enableDisableForm(form){
             form.option[0].disabled = true;
             form.option[1].checked = true;
         }
-        if(!form.q.value){
+        if(!form.q.value && !document.searchForm['filter_chain[]']){
             form.option[1].disabled = true;
             form.option[2].disabled = true;
             form.option[1].checked = false;
@@ -608,7 +578,6 @@ function enableDisableForm(form){
 }
 
 function sendMail(form){
-	var transmissionResult = document.getElementById('transmissionResult');
 	var sendingMail = document.getElementById('sendingMail');
 	var mailSent = document.getElementById('mailSent');
 	var mailError = document.getElementById('mailError');
@@ -616,9 +585,10 @@ function sendMail(form){
 	var error = false;
 	var vars = '';			
 	for(var i=0;i<form.length;i++){
-		if (form[i].type == 'radio' && form[i].checked == true) {
-			vars += '&'+form[i].name+'='+ form[i].value;
-		} else if(form[i].type != 'radio'){
+		if (form[i].type == 'radio') {
+            if(form[i].checked == true)
+                vars += '&'+form[i].name+'='+ form[i].value;
+		} else if(form[i].type == 'text'){
 			vars += '&'+form[i].name+'=';
 			if (form[i].value) {
 				vars += form[i].value;
@@ -627,8 +597,16 @@ function sendMail(form){
 				error = true;
 				form[i].style.backgroundColor = '#FAA';
 			}
-		}
+		} else {
+            vars += '&'+form[i].name+'='+form[i].value;
+        }
 	}
+    alert(vars);
+    if(document.searchForm['filter_chain[]']){
+        for(i=0;idocument.searchForm['filter_chain[]'].length;i++){
+            vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'][i].value;
+        }
+    }
     
 	if (!error) {
 		mailSent.style.display = 'none';
@@ -715,7 +693,6 @@ function showPrintDialog(){
 	}
 }
 
-
 function printMode(){
 	var form = document.searchForm;
 	var printMode = form.printMode;
@@ -759,9 +736,9 @@ function showMoreClusterItems(field, limit){
 
 /**
  * Mostra janela com grafico do cluster selecionado
- * @param Node element
- * @param String id
- * @param String id
+ * @param {Node} obj
+ * @param {String} titulo
+ * @param {String} id
  */
 function showChart(obj, titulo, id){
 	var regex = /\(\d+\)/;

@@ -39,7 +39,7 @@
 	
 	// define constants
 	define("VERSION","1.0");
-	define("USE_SERVER_PATH", true);
+	define("USE_SERVER_PATH", false);
 
 	if (USE_SERVER_PATH == true){
 		$PATH = dirname($_SERVER["PATH_TRANSLATED"]);
@@ -47,11 +47,12 @@
 		$PATH = dirname(__FILE__).'/';
 	}		
 	
-	$PATH_DATA = substr($PATH,strlen($_SERVER["DOCUMENT_ROOT"])) . "/";
+	$PATH_DATA = substr($PATH,strlen($_SERVER["DOCUMENT_ROOT"]));
+	$PATH_DATA = str_replace('\\','/',$PATH_DATA);
 
 	$config = simplexml_load_file('config/dia-config.xml');
 
-	//idioma da interface
+	// idioma da interface
 	if(!isset($_REQUEST["lang"])) {
 		$_REQUEST["lang"] = $config->default_lang;
 	}	

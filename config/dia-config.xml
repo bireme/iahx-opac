@@ -8,7 +8,7 @@
 		<search_server>localhost:8080</search_server>
 	-->
 	<!-- pr10dx dia_controller -->
-	<search_server>regional.homolog.bvsalud.org:8080</search_server>
+	<search_server>regional.bvsalud.org:8080</search_server>
 
 	<log_dir>../bases/logs/</log_dir>
 	<documents_per_page>10</documents_per_page>
@@ -18,6 +18,7 @@
 	<search_collection_list>
 		<collection>
 			<name>regional</name>
+			<cluster_items_limit>20</cluster_items_limit>
 			<set></set>
 			<filter></filter>
 			<index_list>
