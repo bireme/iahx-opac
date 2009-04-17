@@ -601,7 +601,7 @@ function sendMail(form){
             vars += '&'+form[i].name+'='+form[i].value;
         }
 	}
-    alert(vars);
+    
     if(document.searchForm['filter_chain[]']){
         for(i=0;idocument.searchForm['filter_chain[]'].length;i++){
             vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'][i].value;
