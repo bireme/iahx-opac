@@ -90,6 +90,7 @@ class Page
 		$url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
 
 		$this->template->assign('url',$url);
+		$this->template->assign('lang',$lang);
 		$this->template->assign('texts',$texts + $textsCol);
 		$this->template->assign('result',$result->diaServerResponse[0]);
 

@@ -10,7 +10,7 @@
 			<item>
 				<title>{occ element=$doc->ti separator=/}</title>
 				<author>{occ element=$doc->au separator=;}</author>
-				<link>{$url}?q=%2Bid:("{$doc->id}")</link>
+				<link>{$url}?q=%2Bid:("{$doc->id}")&amp;lang={$lang}</link>
 				<description>
 					&lt;table width="90%"&gt;
 						&lt;tr valign="top"&gt;
