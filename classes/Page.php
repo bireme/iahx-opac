@@ -15,7 +15,7 @@ class Page
 	}
 	
 	public function show(){
-		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort;	
+		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt;
 
 		if (isset($q) && $q != ''){
 			$getParams .= "&q=" . urlencode(utf8_decode($q));
@@ -58,6 +58,7 @@ class Page
 		$this->template->assign('filter_chain',$filter_chain);
 		$this->template->assign('index',$index);
 		$this->template->assign('from',$from);
+        $this->template->assign('fmt',$fmt);
 		$this->template->assign('numFound',$result->diaServerResponse[0]->response->numFound);
 		$this->template->assign('colectionData',$colectionData);
 		$this->template->assign('getParams',$getParams);
@@ -103,7 +104,7 @@ class Page
 		
 		$textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
 		$url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
-		$url = str_replace("mail.php","index.php",$url);
+		$url = str_replace("mail.php","",$url);
 
         $total = $result->diaServerResponse[0]->response->numFound;
         $pagination = $this->pagination($from, $count, $total);
