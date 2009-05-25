@@ -15,8 +15,8 @@
  * Purpose:  return a <br>
  * Input:<br>
  *         - label
- *         - element 
- *         - separator 
+ *         - element
+ *         - separator
  *         - class
  *
  * Examples:
@@ -32,7 +32,9 @@
 function smarty_function_occ($params, &$smarty)
 {
 	$output = "";
-    if (!isset($params['element'])) {
+    $element = $params['element'];
+
+    if (!isset($element) || $element == '' || count($element) == 0 ) {
         return;
     }
 
@@ -40,11 +42,15 @@ function smarty_function_occ($params, &$smarty)
 
 	if ( isset($params['class']) ){
 		$output .= "<div class=\"". $params['class'] ."\">\n";
-	}	
+	}
 	if ( isset($params['label']) ){
 		$output .= $params['label'] . ": ";
 	}
-	
+
+    if ( isset($params['span']) ){
+        $output .= "<span>";
+    }
+
 	if ( is_array($element) ){
 		for ($occ = 0; $occ <  count($element); $occ++) {
 			if ($occ > 0){
@@ -60,9 +66,13 @@ function smarty_function_occ($params, &$smarty)
 		$output .= $element;
 	}
 
+    if ( isset($params['span']) ){
+        $output .= "</span>";
+    }
+
 	if ( isset($params['class']) ){
 		$output .= "</div>\n";
-	}	
+	}
 
     return $output;
 }
@@ -75,7 +85,7 @@ function smarty_function_occ_translate($text, $suffix, $translation)
 	$find .= $text;
 
 	$output = $translation[$find];
-	
+
 	return $output;
 
 }
