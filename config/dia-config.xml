@@ -121,6 +121,14 @@
 					<filter>db:LIS</filter>
 				</where>
 			 </where_list>
+             <presentation_format_list>
+                 <format>
+                     <name>summary</name>
+                 </format>
+                 <format>
+                     <name>detailed</name>
+                 </format>
+             </presentation_format_list>
 		</collection>
 	</search_collection_list>
 </dia_config>
