@@ -77,7 +77,11 @@
 <div class="resultSet">
 	{include file="result-navigation.tpl"}
 
-	{include file="result-doc.tpl"}
+    {if $fmt eq ''}
+        {include file="result-doc.tpl"}
+    {else}
+        {include file="result-doc-$fmt.tpl"}
+    {/if}
 
 	{include file="result-navigation.tpl"}
 </div>

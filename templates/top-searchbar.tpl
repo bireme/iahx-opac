@@ -144,12 +144,41 @@
 						}
 					{/php}
 					</div>
-					
+
 					<div class="selectAll">
 						<a href="#" class="add" onclick="markAll();">Selecionar Todos</a>
+                        <!--
 						<a href="#" class="add" onclick="unmarkAll();">Remover Todos</a>
+                        -->
 					</div>
-					
+
+					{if $colectionData->presentation_format_list->format|@count > 0}
+						<div class="presentationFormat">
+							{$texts.FORMAT_OPTIONS}
+							<select name="fmt" class="inputText" onchange="document.searchForm.submit();">
+								{foreach from=$colectionData->presentation_format_list->format item=fmtItem}
+									{assign var=fmtName value=$fmtItem->name}
+
+									{if $fmtName neq ''}
+										{if $fmtName == $smarty.request.fmt}
+											<option value="{$fmtName}" selected="1">{$texts.PRESENTATION.$fmtName}</option>
+										{else}
+											<option value="{$fmtName}">{$texts.PRESENTATION.summary}</option>
+										{/if}
+									{/if}
+								{/foreach}
+							</select>
+						</div>
+					{/if}
+<!--
+					<div>
+                        Formato
+                        <select name="fmt">
+                            <option value="summary">Sumário</option>
+                            <option value="detailed">Detalhado</option>
+                        </select>
+                    <div>
+-->
 					<div class="mailSend">
 						<a href="#TB_inline?height=280&width=320&inlineId=mailSendContent" class="thickbox" title="{$texts.SEND_BY_EMAIL}" onclick="enableDisableForm(document.forms.mailSend)">{$texts.SEND_BY_EMAIL}</a>
 					</div>
