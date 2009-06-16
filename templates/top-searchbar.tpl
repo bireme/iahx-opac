@@ -152,33 +152,26 @@
                         -->
 					</div>
 
-					{if $colectionData->presentation_format_list->format|@count > 0}
-						<div class="presentationFormat">
-							{$texts.FORMAT_OPTIONS}
-							<select name="fmt" class="inputText" onchange="document.searchForm.submit();">
-								{foreach from=$colectionData->presentation_format_list->format item=fmtItem}
-									{assign var=fmtName value=$fmtItem->name}
+                    {if $colectionData->format_list->format|@count > 0}
+                        <div class="format">
 
-									{if $fmtName neq ''}
-										{if $fmtName == $smarty.request.fmt}
-											<option value="{$fmtName}" selected="1">{$texts.PRESENTATION.$fmtName}</option>
-										{else}
-											<option value="{$fmtName}">{$texts.PRESENTATION.summary}</option>
-										{/if}
-									{/if}
-								{/foreach}
-							</select>
-						</div>
-					{/if}
-<!--
-					<div>
-                        Formato
-                        <select name="fmt">
-                            <option value="summary">Sumário</option>
-                            <option value="detailed">Detalhado</option>
-                        </select>
-                    <div>
--->
+                            <select name="fmt" class="inputText" onchange="javascript:changeDisplayFormat(this);">
+								<option value="">{$texts.FORMAT_OPTIONS}</option>
+                                {foreach from=$colectionData->format_list->format item=formatItem}
+                                    {assign var=formatName value=$formatItem->name|strip}
+                                    {assign var=textsDisplay value=$texts.DISPLAY}
+
+                                    {if $formatName neq ''}
+                                        {if $formatName == $smarty.request.fmt}
+                                            <option value="{$formatName}" selected="1">{$texts.DISPLAY.$formatName}</option>
+                                        {else}
+                                            <option value="{$formatName}">{$texts.DISPLAY.$formatName}</option>
+                                        {/if}
+                                    {/if}
+                                {/foreach}
+                            </select>
+                        </div>
+                    {/if}
 					<div class="mailSend">
 						<a href="#TB_inline?height=280&width=320&inlineId=mailSendContent" class="thickbox" title="{$texts.SEND_BY_EMAIL}" onclick="enableDisableForm(document.forms.mailSend)">{$texts.SEND_BY_EMAIL}</a>
 					</div>
@@ -194,9 +187,9 @@
 					</div>
 
 					{if $colectionData->sort_list->sort|@count > 0}
-						<div class="orderBy">
-							{$texts.SORT_OPTIONS}
+						<div class="orderBy">							
 							<select name="sort" class="inputText" onchange="document.searchForm.submit();">
+                                <option value="">{$texts.SORT_OPTIONS}</option>
 								{foreach from=$colectionData->sort_list->sort item=sortItem}
 									{assign var=sortName value=$sortItem->name|upper}
 									{assign var=sortValue value=$sortItem->value}
