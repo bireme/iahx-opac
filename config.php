@@ -24,12 +24,26 @@
 
 	function getSortValue($colectionData, $sort){
 		$whereFilter = "";
-		foreach( $colectionData->sort_list->sort as $sortItem  ){
-			if ($sortItem->name == $sort){
-				$sortValue = $sortItem->value;
-				break;
-			}
-		}
+        if ( isset($colectionData->sort_list) ){
+            foreach( $colectionData->sort_list->sort as $sortItem  ){
+                if ($sortItem->name == $sort || $sortItem->value == $sort){
+                    $sortValue = $sortItem->value;
+                    break;
+                }
+            }
+        }
+		return urlencode($sortValue);
+	}
+
+    function getDefaultSortForEmptyQuery($colectionData){
+		$sortValue = "";
+        if ( isset($colectionData->sort_list) ){
+            foreach( $colectionData->sort_list->sort as $sortItem  ){
+                if ( isset($sortItem->default_for_empty_query) ){
+    				$sortValue = $sortItem->value;
+        		}
+            }
+        }
 		return urlencode($sortValue);
 	}
 
