@@ -24,6 +24,8 @@
 
 	if (isset($_REQUEST['sort']) && $_REQUEST['sort'] != ""){
 		$sort = getSortValue($colectionData,$_REQUEST["sort"]);		//get sort field to apply
+	}elseif (!isset($q) || $q == '' ){
+		$sort = getDefaultSortForEmptyQuery($colectionData);		//get sort value when query is empty
 	}
 
 	$output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
@@ -38,6 +40,8 @@
 	$where = $_REQUEST["where"];							//select where search
 	$whereFilter = getWhereFilter($colectionData,$where);	//select where search
 	$count = ( isset($_REQUEST["count"]) ? $_REQUEST["count"] : $config->documents_per_page );
+    
+    $fmt = $_REQUEST["fmt"];                                //display format
 
 	//cluster parameters
 	$fl = $colectionData->cluster_items_limit;
