@@ -45,7 +45,7 @@ function smarty_function_iahlinks($params, &$smarty)
 			foreach($link as $site => $url){
 				if ($site != 'id'){
 					foreach($url as $pid){
-						$fullLink = $scieloUrl[$site] . "scielo.php?script=sci_arttext&pid=" . $pid . "&lang=" . $lang;
+						$fullLink = $scieloUrl[$site] . "scielo.php?script=sci_arttext&amp;pid=" . $pid . "&amp;lang=" . $lang;
 						$scieloLinkList[] = $fullLink;
 
 						$output .= '<li><a href="' . $fullLink  . '">' . $fullLink . '</a></li>';	
