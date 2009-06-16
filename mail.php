@@ -9,13 +9,14 @@
 
 	// Registrar caminho completo para os arquivos de imagem e CSS
     $dia_path = "http://" . $config['SERVERNAME'] . $config['PATH_DATA'];
+    $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
 
     $q  = stripslashes($_POST["q"]);
 	// Formar consulta a partir dos favoritos marcados
-    if( $_POST["option"] == 'from_to' ){
+    if( $option == 'from_to' ){
         $from = ( isset($_POST["from"]) ? abs( $_POST["from"] ) : 1 );
         $count = ( isset($_POST["count"]) ? abs( $_POST["count"] ) : sizeOf($bookmark->list) );
-    }else if( $_POST["option"] == 'selected' ){
+    }else if( $option == 'selected' ){
         session_start();
         if( isset($_SESSION["bookmark"]) ){
             $bookmark = unserialize($_SESSION["bookmark"]);
@@ -36,6 +37,8 @@
     // Dados do endereço eletrônico
     $recipientMail = $_POST['recipientMail'];
     $senderMail = $_POST['senderMail'];
+    $senderName = (isset($_POST['senderName']) ? $_POST['senderName']: $senderMail);
+    $comments  = $_POST['comments'];
     $subject = $_POST['subject'];
     $lang = $_POST['lang'];
     
@@ -101,8 +104,12 @@
 	$mail->Password = "c0nt@t0"; // SMTP password
 	
 	$mail->From = $senderMail;
-	$mail->FromName = $senderMail;
-	$mail->AddAddress( $recipientMail, "$recipientMail");
+	$mail->FromName = $senderName;
+    $recipientMailList = split(',', $recipientMail);
+
+    foreach($recipientMailList as $recipient){
+        $mail->AddAddress( $recipient, "$recipient");
+    }	
 	$mail->Subject = $subject;
 	$mail->Body = $html_code;
 	
