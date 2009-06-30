@@ -43,10 +43,10 @@
 .cluetip-default h3#cluetip-title {
   margin: 0 0 5px;
   padding: 8px 10px 4px;
-  font-size: 1.1em;
-  font-weight: normal;
-  background-color: #87876a;
-  color: #fff;
+  font-size: 14px;
+  font-weight: bold;
+  color: #000;
+  
 }
 .cluetip-default #cluetip-title a {
   color: #d9d9c2;
@@ -230,11 +230,12 @@
 }
 
 div#cluetip div#cluetip-outer {
-	background-color: #c6dac9;
+	background-color: #fff;
+	border: 1px solid #808080;
 }
 
 div#cluetip h3#cluetip-title {
-	background-color: #006633;
+	background-color: #D9E2E8;
 }
 
 div#cluetip-inner {

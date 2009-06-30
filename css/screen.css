@@ -11,23 +11,29 @@ DIV.spacer {
 	height: 1px;
 }
 
-/* 
-	Styles para simples customiza��o
-	Vini: 
-		D� uma olhada neste recurso abaixo, tentei preservar a hist�ria do LILDBI, onde
-		se pode customizar a interface a partir de poucas defini��es.
-	
-	ATEN��O: S� utilizar as propriedades descritas abaixo
-
- */
 
 DIV.top {
-	/*  background-color: #CCC; */
+        background:#EDF3F3 url(../image/common/topBackground.jpg) repeat-x scroll right top;
+        height:95px;
 }
 
-DIV.identification H1 {
-	/* color: #CCC; */	
+
+DIV.identification {
+        background: url(../image/common/banner.jpg) no-repeat left;
+		height: 111px;
+        margin-left: 80px;
+		margin-top: -12px;
+
 }
+
+DIV.identification H1{
+	padding: 93px 0px 0px 190px;	
+}
+
+DIV.identification H2{
+	display:none;
+}
+
 
 DIV.search DIV.informationTypes A.selected, DIV.search DIV.searchForm {
 	/* background-color: #CCC; */
@@ -40,4 +46,8 @@ DIV.resultSet DIV.infoBar {
 
 DIV.results DIV.resultServices DIV {
 	/* border-color: #CCC; */
+}
+
+.record:hover {
+	background: #f9fcfe;
 }

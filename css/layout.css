@@ -1,4 +1,4 @@
-BODY, FORM {
+DIV.resultsBar .orderBy,BODY, FORM {
 	margin: 0px;
 	padding: 0px;
 }
@@ -8,7 +8,7 @@ UL{
 }
 
 DIV.container {
-	
+
 }
 
 DIV.top {
@@ -26,23 +26,16 @@ DIV.parent {
 
 DIV.identification {
 	width: 500px;
+
 }
 
 DIV.identification H1, DIV.identification H2 {
 	margin: 0px;
 }
 
-DIV.login {
-	position: absolute;
-	top: 2px;
-	right: 200px;
-	text-align: right;
-
-}
-
 DIV.otherVersions {
 	position: absolute;
-	top: 12px;
+	top: 5px;
 	right: 6px;
 	text-align: right;
 }
@@ -55,11 +48,20 @@ DIV.otherVersions A IMG {
 	margin-right: 7px;
 }
 
-DIV.breadcrumb {	
-	padding: 2px 10px;
-	clear: both;
-	float: left;
+DIV.feedback {
+	position: absolute;
+	top: 3px;
+	right: 180px;
+	text-align: right;
 }
+
+DIV.resourcesArea {
+	position: absolute;
+	top: 3px;
+	right: 200px;
+	text-align: right;
+}
+
 
 DIV.content {
 	clear: both;
@@ -67,7 +69,7 @@ DIV.content {
 }
 
 DIV.search DIV.informationTypes {
-	padding-left: 150px;
+	padding-left: 50px;
 }
 
 DIV.search DIV.informationTypes A {
@@ -78,7 +80,7 @@ DIV.search DIV.informationTypes A {
 }
 
 DIV.search DIV.searchForm {
-	padding: 2px 10px;
+	padding: 4px 10px;
 }
 
 DIV.search DIV.searchForm *.inputText, DIV.search DIV.searchForm *.submit {
@@ -91,22 +93,63 @@ DIV.search DIV.searchForm INPUT.inputText {
 }
 
 DIV.search DIV.searchForm SELECT.inputText {
-	padding: 5px 4px;
+	padding: 2px 2px 2px 4px;
 	width: 180px;
 	_width: 170px;
 }
 
 DIV.search DIV.searchForm INPUT.submit {
-	padding: 5px 3px;
+	padding: 2px 3px;
 	_padding: 2px 3px;
 	*padding: 2px 3px;
+	font-size: 100%;
 }
 
+DIV.resultNavigation {
+	margin: 5px 0px;
+	padding: 2px;
+	float: right;
+	width: 100%;
+}
 DIV.resultsBar {
-	margin: 6px 0px;
-	padding: 2px 10px;
-	clear: both;
-	height: 18px;
+	margin: 0px 0px 4px 0px;
+	padding: 5px 0px;
+	border-top: 2px solid #D9E2E8;
+	border-bottom: 2px solid #D9E2E8;
+	float: right;
+	width: 100%;
+	font-size: 90% !important;
+}
+
+DIV.resultsBar select {
+	font-size: 110% !important;
+}
+
+
+DIV.resultsBar DIV {
+	float: left;
+}
+DIV.resultsBar .orderBy, DIV.resultsBar .format, DIV.resultsBar .feed, DIV.resultsBar .email , DIV.resultsBar .print {
+	margin-left: 0.75%;
+}
+DIV.resultsBar .orderBy, DIV.resultsBar .format, DIV.resultsBar .feed {
+	margin-top: 3px;
+}
+
+.feed a {
+	width: 40px;
+	height: 17px;
+}
+.feed a span {
+	display: none;
+}
+
+DIV.resultsBar DIV.email {
+	width: 120px;
+}
+
+DIV.resultsBar DIV.print {
+	width: 85px;
 }
 
 DIV.noResults {
@@ -118,39 +161,126 @@ DIV.noResults {
 }
 
 DIV.resultsBar DIV.resultsFor {
-	//width: 52%;
-	width: 45%;
+	/*width: 65%;*/
+	width: 58%;
 	float: left;
-	margin-right: 6px;
+	margin-right:2px;
 	padding-top: 2px;
 	font-size: 110%;
 }
 
-DIV.resultsBar DIV.print{
-	float:left;
-	padding: 0px 0px 0px 17px;
+DIV.resultsBar DIV.print, DIV.resultsBar DIV.email{
+}
+DIV.resultsBar DIV.print a, DIV.resultsBar DIV.email a{
+	font-size: 120%;
+	padding: 2px 3px 2px 25px !important;
+
 }
 
-DIV.resultsBar DIV.mailSend,
-DIV.resultsBar DIV.selectAll,
-DIV.resultsBar DIV.feed {
-	width: 140px;
+DIV.resultsBar DIV.print {
+	/*float: right;*/
+}
+
+Div.print li {
+	margin: 10px;
+}
+Div.print .submit {
+	margin: 0px 0px 10px 10px;
+	text-align: left;
+}
+
+.showBox {
+	margin-top: 0px;
+}
+.linkBox {
+}
+.linkBox .showBox {
+	width: 400px;
+	margin-left: 230px !important;
+	margin-top: 30px;
+	padding: 5px;
+}
+
+.linkBox .showBox li {
+	margin-top: 5px;
+	}
+
+.record .arrowBox {
+	margin-left: 250px;
+	margin-top: 25px;
+}
+.emailBox .showBox {
+	width: 270px;
+	margin-left: -200px;
+}
+
+.emailBox form {
+	margin: 5px;
+}
+.emailBox form span {
+	color: #999999;
+}
+
+.emailBox .formBox {
 	float: left;
-	margin-left: 10px;
-	padding: 0px 0px 0px 22px;
+}
+.emailBox .formBox.inputName, .emailBox .formBox.inputEmail {
+	width: 130px;
 }
 
-DIV.resultsBar DIV.selectAll {
-	width: 200px;	
+.inputName .formEmail, .inputEmail .formEmail,
+.inputName span, .inputEmail span{
+	width: 120px;
+	float: left;
+}
+.inputButton {
+	margin: 10px;
+	float: right !important;
+}
+.formEmail {
+	width: 250px;
+	font-size: 80%;
+	border: 1px solid #898989;
 }
 
-DIV.resultsBar DIV.mailSend A,
-DIV.resultsBar DIV.selectAll A,
+.formEmail:hover {
+	border: 1px solid #83cdf1;
+}
+
+.inputMessage .formEmail {
+	height: 60px;
+	margin-bottom: 10px;
+}
+
+
+
+.printBox.boxContent {
+	position: absolute;
+	*margin-top: 15px;
+	margin-left: -170px;
+}
+.printBox .arrowBox {
+	margin-left: 200px;
+}
+
+.emailBox .arrowBox {
+	margin-left: 30px;
+}
+
+DIV.resultsBar DIV.feed {
+	float: left;
+}
+
+.bosContent {
+	float: none;
+}
+
 DIV.resultsBar DIV.feed A,
+DIV.resultsBar DIV.email A,
 DIV.resultsBar DIV.print A {
 	display: -moz-inline-box;
 	display: inline-block;
-	padding: 1px 5px;
+	padding: 1px;
 	vertical-align: middle;
 }
 
@@ -165,23 +295,13 @@ DIV.resultsBar DIV.print A {
 	cursor: pointer;
 }
 
-DIV.resultsBar DIV.orderBy {
-	//width: 18%;
-	width: 200px;
-	float: right;
-	text-align: right;
-}
-
-DIV.resultsBar DIV.orderBy SELECT {
-	vertical-align: middle;
-}
 
 DIV.results {
 	clear: both;
 }
 
 DIV.results DIV.resultServices {
-	width: 180px;
+	width: 230px;
 	float: left;
 	margin-right: 6px;
 }
@@ -193,16 +313,27 @@ DIV.results DIV.resultServices DIV {
 DIV.resultServices DIV.refineSearch UL {
 	margin: 0px 0px 0px 16px;
 	padding: 0px;
+	font-size: 95%;
 }
 
 DIV.resultServices DIV.refineSearch UL LI {
-	margin-bottom: 5px;	
+	margin: 3px 0px;
+}
+
+DIV.resultServices DIV.refineSearch H4 {
+    float: none;
+    clear: both;
+    height: 100%;
+}
+
+.resultServices #searchHistory H4 a, .resultServices #yourSelection H4 a {
+	padding-top: 8px;
 }
 
 DIV.resultServices DIV.refineSearch DIV.collapseAll,
 DIV.resultServices DIV.refineSearch DIV.expandAll{
-	padding: 0 0 0 6px;
-	margin: 0px;
+	padding: 0px;
+	margin: 0px 0px 8px 0px;
 	width: 48%;
 	float: left;
 }
@@ -223,17 +354,34 @@ DIV.resultServices DIV.yourSelection P IMG {
 	vertical-align: middle;
 }
 
-DIV.resultServices DIV.yourSelection UL {
-	margin: 15px 0px;
-	padding: 0px;
-}
-
 DIV.resultServices DIV.yourSelection UL LI {
-	margin-bottom: 10px;
+	margin: 8px 0px 4px 10px;
 }
 
-DIV.resultServices DIV.searchHistory DIV.bContent {
-	padding: 1px;
+DIV.boxContent {
+	width: 230px;
+	float: none;
+}
+.showBox {
+	background: #FFF;
+	border: 1px solid #666666;
+	width: 100%;
+	position: absolute;
+	margin-top: 6px;
+	width: 230px;
+}
+.arrowBox {
+	width: 16px;
+	height: 7px;
+	float: left;
+	position: absolute;
+	margin-left: 107px;
+	background: url(../image/common/bg_box.gif) top center no-repeat;
+}
+
+#searchHistoryList.showBox , .yourSelection .showBox {
+	margin-top: 6px;
+	position: absolute;
 }
 
 DIV.resultServices DIV.searchHistory UL {
@@ -313,8 +461,8 @@ DIV.results DIV.resultServices DIV H4 A {
 	padding: 6px 10px;
 }
 
-DIV.results DIV.resultServices DIV DIV {
-	padding: 8px;
+DIV.results DIV.resultServices DIV DIV, .boxContent {
+	padding: 0px;
 }
 
 DIV.results DIV.resultServices DIV.closed DIV {
@@ -322,7 +470,10 @@ DIV.results DIV.resultServices DIV.closed DIV {
 }
 
 DIV.results DIV.resultSet {
-	margin: 0px 0px 0px 186px;
+	margin: 0px 0px 0px 236px;*/
+	/*IE Hacks*/
+	*float: left;
+	*margin: 0px 0px 0px 2px;*/
 }
 
 DIV.resultSet DIV.infoBar {
@@ -334,14 +485,12 @@ DIV.resultSet DIV.infoBar {
 	_clear: none;
 }
 
-DIV.resultSet DIV.infoBar DIV.totalResults {
-	//width: 40%;
+.totalResults {
 	width: 29%;
 	float: left;
 }
 
-DIV.resultSet DIV.infoBar DIV.pagination {
-	//width: 50%;
+.pagination {
 	width: 70%;
 	float: right;
 	text-align: right;
@@ -353,7 +502,7 @@ DIV.resultSet DIV.infoBar DIV.pagination SPAN {
 }
 
 DIV.resultSet DIV.record {
-	padding: 6px 10px 6px 10px;
+	padding: 6px 10px 6px 4px;
 	margin-top: 2px;
 	margin-bottom: 4px;
 	min-height: 90px;
@@ -363,43 +512,39 @@ DIV.resultSet DIV.record {
 	_float: none;
 	_height: 100px;
 	clear: right;
-	position: relative;
-}
 
-DIV.resultSet DIV.record DIV.spacer{
-  margin-bottom: 20px;
 }
 
 DIV.resultSet DIV.record DIV.user-actions {
 	height: 22px;
-	margin: 0px -10px -6px -10px;
-	position: absolute;
-	bottom: 6px;
-	width: 100%;
+	margin: 0px 0px 0px 44px;
 }
 
 DIV.user-actions DIV{
-	margin: -1px 0px 0px 10px;
+	margin: 0px 10px 0px 0px;
 	float: left;
-	width: auto;
 }
 
 DIV.user-actions DIV.bookmark IMG{
-	margin-top: 5px;
+	margin-top: 6px;
 }
 
 DIV.record DIV.position {
 	float: left;
-	width: 22px;
+	width: 24px;
 }
 
 DIV.record DIV.data {
-	//margin: 0px 166px 0px 44px;
-	margin: 0px 0px 0px 24px;
+	/*margin: 0px 166px 0px 44px;*/
+	margin: 0px 0px 0px 44px;
 }
 
 DIV.record DIV.data H3 {
 	margin: 0px;
+}
+
+DIV.record DIV.data DIV {
+	margin-left: 0px;
 }
 
 DIV.record DIV.data DIV.tags A {
@@ -413,16 +558,16 @@ DIV.record DIV.data DIV.tags A.more {
 }
 
 DIV.record DIV.data DIV.links{
-	margin: 8px 0px 8px;
+	margin-top: 2px;
 }
 
 DIV.record DIV.data DIV.links UL {
 	padding: 0px;
-	margin: 0px;	
+	margin: 0px;
 }
 
-DIV.record DIV.data DIV.links LI {	
-	padding-top: 6px;
+DIV.record DIV.data DIV.links LI {
+	padding-top: 2px;
 }
 
 DIV.record DIV.data DIV.links A {
@@ -434,7 +579,6 @@ DIV.record DIV.data DIV.links A:hover {
 	text-decoration: underline;
 }
 
-
 DIV.record DIV.services {
 	width: 160px;
 	float: right;
@@ -445,6 +589,7 @@ DIV.record DIV.services DIV {
 	padding: 4px;
 	padding-right: 20px;
 }
+
 
 DIV.footer {
 	clear: both;
@@ -481,7 +626,7 @@ FORM SPAN.transmission {
 
 #refine_facet div strong {
 	padding-left: 15px;
-	display: block;
+	xdisplay: block;
 }
 
 
@@ -514,28 +659,10 @@ DIV.resultServices DIV.searchHistory DIV.altpopup{
 	padding: 5px 5px 5px 20px;
 }
 
-DIV#TB_ajaxContent FORM.mailForm INPUT.submit {
-	display: block;
+.resultOptions {
+	margin-left: 236px;
+}
+.yourSelectionCheck {
 	float: left;
-}
-
-DIV#TB_ajaxContent FORM.mailForm DIV.field{ 
-	clear: both;
-	float: none;
-	margin-top: 10px;
-}
-
-DIV#TB_ajaxContent FORM.mailForm DIV.field LABEL {
-	display: block;
-	float: left;
-	width: 70px;
-}
-
-DIV#TB_ajaxContent FORM.mailForm DIV.field INPUT {
-	width: 15em;
-}
-
-DIV#TB_ajaxContent FORM.mailForm DIV.options * {
-	display: run-in;
-	width: auto;
+	margin: 3px;
 }
