@@ -17,7 +17,12 @@ class Page
 	public function show(){
 		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt;
 
-		if (isset($q) && $q != ''){
+        if (!get_magic_quotes_gpc()) {
+            $q = addslashes_array($q);
+            $filter = addslashes_array($filter);
+            $filter_chain = addslashes_array($filter_chain);
+        }
+        if (isset($q) && $q != ''){
 			$getParams .= "&q=" . urlencode(utf8_decode($q));
 		}
 		if (isset($filter) && $filter != ''){
@@ -32,7 +37,7 @@ class Page
 		if (isset($from) && $from != ''){
 			$getParams .= "&from=" . $from;
 		}
-		if (isset($filter_chain)){
+		if ( isset($filter_chain) ){
 			foreach($filter_chain  as $filterValue ){
 				$getParams .= "&filter_chain[]=" . str_replace("\\\"","&quot;",$filterValue);
 			}
@@ -41,8 +46,7 @@ class Page
             $getParams .= "&sort=" . $sort;
         }
 
-		
-		$q_escaped = str_replace("\"","&quot;",$q);
+		$q_escaped = str_replace("\\\"","&quot;",$q);
 		$textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
 
 		$this->template->assign('lang',$lang);
@@ -150,7 +154,7 @@ class Page
 		return $pagination;
 
 	}
-
+    
 }
 
 ?>
