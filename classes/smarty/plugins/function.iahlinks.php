@@ -29,11 +29,32 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloUrl['prt'] = "http://www.scielo.oces.mctes.pt/";
 	$scieloUrl['sss'] = "http://socialsciences.scielo.org/";
 
+	$scieloLabel['scielo-scl']['pt'] = "Brasil";
+	$scieloLabel['scielo-scl']['en'] = "Brazil";
+	$scieloLabel['scielo-chl']['pt'] = "Chile";
+	$scieloLabel['scielo-spa']['pt'] = "Saúde Pública";
+	$scieloLabel['scielo-spa']['es'] = "Salud Pública";
+	$scieloLabel['scielo-spa']['en'] = "Public Health";
+	
+	$scieloLabel['scl']['pt'] = $scieloLabel['scielo-scl']['pt'];
+	$scieloLabel['scl']['en'] = $scieloLabel['scielo-scl']['en'];
+	$scieloLabel['arg']['pt'] = "Argentina";
+	$scieloLabel['esp']['pt'] = "Espanha";
+	$scieloLabel['esp']['es'] = "España";
+	$scieloLabel['esp']['en'] = "Spain";
+	$scieloLabel['col']['pt'] = "Colômbia";
+	$scieloLabel['cub']['pt'] = "Cuba";
+	$scieloLabel['mex']['pt'] = "México";
+	$scieloLabel['ven']['pt'] = "Venezuela";
+	$scieloLabel['sss']['pt'] = "Social Sciences";
+	$scieloLabel['prt']['pt'] = "Portugual";
+	
 	$scielo  = $params['scielo'];		//scielo links service
 	$document= $params['document'];		//url's descritos no documento
-	$lang = $params['lang'];
+	$lang = (string)$params['lang'];
 	$id = $params['id'];
 	$scieloLinkList = array();
+	$fulltextLinkList = array();
 
 	// 1. tratamento dos links do servico iahlinks	
 	for ($occ = 0; $occ <  count($scielo); $occ++) {
@@ -47,8 +68,14 @@ function smarty_function_iahlinks($params, &$smarty)
 					foreach($url as $pid){
 						$fullLink = $scieloUrl[$site] . "scielo.php?script=sci_arttext&amp;pid=" . $pid . "&amp;lang=" . $lang;
 						$scieloLinkList[] = $fullLink;
+						
+						if ( isset($scieloLabel[$site][$lang]) ){
+							$label = $scieloLabel[$site][$lang];
+						}else{
+							$label = $scieloLabel[$site]["pt"];
+						}
 
-						$output .= '<li><a href="' . $fullLink  . '">' . $fullLink . '</a></li>';	
+						$output .= '<li><a href="' . $fullLink  . '">SciELO ' . $label . '</a></li>';	
 					}
 				}
 			}
@@ -67,7 +94,10 @@ function smarty_function_iahlinks($params, &$smarty)
 			$output.= '<li><a href="' . $link  . '">' . $link . '</a></li>';
 			if ( eregi('scielo',$url['host']) ){
 				$scieloLinkList[] = $link;
+			}else{
+				$fulltextLinkList[] = $link;
 			}
+			
 		}
 	}	
 	
@@ -87,6 +117,7 @@ function smarty_function_iahlinks($params, &$smarty)
 	}
 
 	$smarty->assign(scieloLinkList, $scieloLinkList);
+	$smarty->assign(fulltextLinkList, $fulltextLinkList);
 	
     return $output;
 }
