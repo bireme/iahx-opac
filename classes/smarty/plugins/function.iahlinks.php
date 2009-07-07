@@ -75,7 +75,7 @@ function smarty_function_iahlinks($params, &$smarty)
 							$label = $scieloLabel[$site]["pt"];
 						}
 
-						$output .= '<li><a href="' . $fullLink  . '">SciELO ' . $label . '</a></li>';	
+						$output .= '<li><a href="' . $fullLink  . '" target="_blank">SciELO ' . $label . '</a></li>';
 					}
 				}
 			}
@@ -91,7 +91,7 @@ function smarty_function_iahlinks($params, &$smarty)
 		if ( eregi('scielo',$url['host']) && eregi($url['host'],$output) ){
 			// caso seja link para o scielo e já tenha sido adicionado na varivel output não duplica
 		}else{
-			$output.= '<li><a href="' . $link  . '">' . $link . '</a></li>';
+			$output.= '<li><a href="' . $link  . '" target="_blank">' . $link . '</a></li>';
 			if ( eregi('scielo',$url['host']) ){
 				$scieloLinkList[] = $link;
 			}else{
@@ -108,7 +108,7 @@ function smarty_function_iahlinks($params, &$smarty)
 		$site = substr($id,strpos($id,'^c')+2);
 	
 		$artLink = $scieloUrl[$site] . "scielo.php?script=sci_arttext&pid=" . $pid . "&lang=" . $lang;
-		$output.= '<li><a href="' . $artLink  . '">' . $artLink . '</a></li>';
+		$output.= '<li><a href="' . $artLink  . '" target="_blank">' . $artLink . '</a></li>';
 	}
 
 
