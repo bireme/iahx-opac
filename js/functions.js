@@ -1,9 +1,9 @@
 // DIA-client javascript functions
 
-function showhideLayers(divId) 
+function showhideLayers(divId)
 { //v1.0
-	var v,divObj;	
-	
+	var v,divObj;
+
 	if ((divObj=MM_findObj(divId))!=null) {
       v=divObj.style.display;
 
@@ -17,7 +17,7 @@ function showhideLayers(divId)
 
 }
 
-function showHideBox(divId) 
+function showHideBox(divId)
 {
 	var box = document.getElementById(divId);
 	if (box.className.indexOf("closed") == -1){
@@ -37,7 +37,6 @@ function showHideAbstract(nodeId) {
   showhideLayers(divFull);
 
 }
-
 
 function MM_findObj(n, d)
 { //v4.01
@@ -60,7 +59,7 @@ function MM_findObj(n, d)
 function openWindow ( url, params ){
 	var d = new Date();
 	var winId = d.getDate() + d.getHours() + d.getMinutes() + d.getSeconds();
-	
+
 	newWindow = window.open(url, winId , params);
 	newWindow.focus();
 	return;
@@ -78,11 +77,11 @@ function postHref ( href, target){
 
 	if ( target == '' || !target ){
 		target = 'postHref';
-	}	
-	
+	}
+
 	submitForm.action = hrefAction;
 	submitForm.target = target;
-	
+
 	for ( var i = 0; i < qtt; i++ )
 	{
 		splitedHidden = splitedHref[i].split("=");
@@ -96,14 +95,14 @@ function postHref ( href, target){
 		submitForm.elements[i].name = hiddenName;
 		submitForm.elements[i].value = hiddenValue.substring(1);
 	}
-	
+
 	//resultWindow = window.open('about:blank',target);
 	//resultWindow.focus();
 
 	submitForm.submit();
-	// realizar testes de compatibilidade do codigo abaixo	
-	resultWindow = window.open('',target);		
-	resultWindow.focus();	
+	// realizar testes de compatibilidade do codigo abaixo
+	resultWindow = window.open('',target);
+	resultWindow.focus();
 }
 
 
@@ -113,35 +112,35 @@ function openDeCS(){
 	if (lang == "pt"){ decsLang = "p"; }
 	if (lang == "es"){ decsLang = "e"; }
 	if (lang == "en"){ decsLang = "i"; }
-	
+
 	decsUrl = "http://decs.bvs.br/cgi-bin/wxis1660.exe/decsserver/?IsisScript=../cgi-bin/decsserver/decsserver.xis&interface_language=" + decsLang + "&previous_page=homepage&previous_task=NULL&task=start";
 	decsWindow = window.open(decsUrl, "decs", "height=550,width=750,menubar=yes,toolbar=yes,location=no,resizable=yes,scrollbars=yes,status=no");
 	decsWindow.focus();
-	
+
 	return;
-	
+
 }
 
 function showDeCSTerm( id ){
-	
+
 	lang = document.formSearch.lang.value;
 	if (lang == "pt"){ decsLang = "p"; }
 	if (lang == "es"){ decsLang = "e"; }
 	if (lang == "en"){ decsLang = "i"; }
-	
+
 	decsUrl = "http://decs.bvs.br/cgi-bin/wxis1660.exe/decsserver/?IsisScript=../cgi-bin/decsserver/decsserver.xis&interface_language=" + decsLang + "&search_language=" + decsLang + "&previous_page=homepage&task=exact_term&search_exp=mfn=" + id + "#RegisterTop";
 	decsWindow = window.open(decsUrl, "decsTerm", "height=450,width=630,menubar=yes,toolbar=yes,location=no,resizable=yes,scrollbars=yes,status=no");
 	decsWindow.focus();
-	
+
 	return;
 }
 
 function changeLang(lang ){
 	form = document.formMain;
-	form.lang.value = lang;	
+	form.lang.value = lang;
 	if (home == "true"){
 		form.task.value = 'init';
-	}	
+	}
 	form.submit();
 	return;
 }
@@ -149,12 +148,12 @@ function changeLang(lang ){
 function changeUrlParameter( parName, parValue ){
 	var url = document.URL;
 	var parPos = url.indexOf( parName + "=" )
-	
+
 	if( parPos == -1 ) return null;
-	
+
 	var section = url.substring( parPos );
 	var eop = section.indexOf("&");
-	
+
 	if( eop == -1 ){
 		url = url.replace( section, parName+"="+parValue );
 	} else {
@@ -175,7 +174,7 @@ function changeFormParameter( parName, parValue ){
 function applyFilter( query, index ){
 	var form = document.forms[0];
 	var filter = form.addfilter;
-	
+
 	filter.value = index + ":\"" + query + "\"";
 	form.submit();
 }
@@ -185,19 +184,19 @@ function newSearch( ){
 	var backfilter = form.backfilter;
 	//clear filter
 	backfilter.value = "-1";
-	
+
 	// don't add blank queries
 	if( !form.q.value.match(/^\s*$/) )
 		addSearchToHistory( form.q.value );
-		
+
 	form.submit();
 }
 
 function changeCollection( _col, _site  ){
 	var form = document.forms[0];
-		
+
 	form.col.value = _col;
-	form.site.value = _site;	
+	form.site.value = _site;
 	form.backfilter.value = "-1";
 
 	form.submit();
@@ -206,21 +205,21 @@ function changeCollection( _col, _site  ){
 
 function refineByIndex( query, index){
 	var form = document.forms[0];
-	
+
 	var formQuery = form.q;
 	var formIndex = form.index;
 	var backfilter = form.backfilter;
 
 	// set the new query expression
-	formQuery.value = "\"" + query + "\"";	
-	
+	formQuery.value = "\"" + query + "\"";
+
 	// set the new index
     for ( i = 0; i < formIndex.length; i++ ) {
 		currentIndex = formIndex[i];
 		if (currentIndex.value == index){
 			currentIndex.selected = true;
-		}	
-		
+		}
+
 	}
 	// clear history filter
 	backfilter.value = "-1";
@@ -230,12 +229,12 @@ function refineByIndex( query, index){
 
 function detail(id){
 	var form = document.forms[0];
-	
+
 	var formQuery = form.q;
 	var backfilter = form.backfilter;
 
 	// set the new query expression
-	formQuery.value = "detail:" + id;	
+	formQuery.value = "detail:" + id;
 	// clear history filter
 	backfilter.value = "-1";
 	form.submit();
@@ -245,9 +244,9 @@ function detail(id){
 function backHistoryFilter( pos ){
 	var form = document.forms[0];
 	var backfilter = form.backfilter;
-	
+
 	backfilter.value = pos;
-	
+
 	form.submit();
 }
 
@@ -294,8 +293,8 @@ function postVars(page,vars){
 function markUnmark(element,id){
   var state = element.getAttribute('state');
   var link = document.getElementsByTagName('a')[1];
-  
-  if(state == "u"){  
+
+  if(state == "u"){
     element.src = "./image/common/box_selected.gif";
     element.setAttribute('state','s');
 	postVars("bookmark.php","action=a&id="+id);
@@ -317,7 +316,7 @@ function markAll(){
 					this.src = './image/common/box_selected.gif';
 					this.state = 's';
 				}
-			) 
+			)
 		});
 	postVars("bookmark.php","action=a&id="+ids);
 	refreshElements();
@@ -333,7 +332,7 @@ function unmarkAll(){
 					this.src = './image/common/box_unselected.gif';
 					this.state = 'u';
 				}
-			) 
+			)
 		});
 	postVars("bookmark.php","action=r&id="+ids);
 	refreshElements();
@@ -364,7 +363,7 @@ function refreshElements(){
 function recoverBookmarks(){
 	var bookmarks = postVars("bookmark.php","action=l");
 	bookmarks = bookmarks.split(';');
-	
+
 	for(var i = 0; i < bookmarks.length; i++){
 		var register = document.getElementById(bookmarks[i]);
 		if(register){
@@ -409,6 +408,7 @@ function showBookmarks(){
 
 		query.value = "+id:(" + searchStrategy + ")";
 		form.submit();
+        query.value = "";
 	}
 }
 
@@ -431,7 +431,7 @@ function cookiesEnabled(){
 		if (end == -1) end = allcookies.length;
 		var value = allcookies.substring(start,end);
 		value = unescape(value);
-		
+
 		return value == "Enabled";
 	}
 	return false;
@@ -444,7 +444,7 @@ function cookiesEnabled(){
  */
 function hideClass(tagName,className){
 	var elements = document.getElementsByTagName(tagName);
-	
+
 	for(var i = 0; i < elements.length; i++){
 		if( elements[i].className == className ){
 			elements[i].style.display = "none";
@@ -468,7 +468,7 @@ function alertBookmarkUnavailable(){
 /* Funções para o searchHistory */
 
 /**
- * Adiciona termo pesquisado 
+ * Adiciona termo pesquisado
  * lista de termos presente na
  * sessão
  * @param {String} term
@@ -491,7 +491,7 @@ function removeSearchTerm(term,node){
 
 function eventPosition(e){
 	var coord = [];
-	
+
 	if (!e) e = window.event;
 
 	if (e.pageX || e.pageY){
@@ -511,7 +511,7 @@ function chooseOperatorToSearch(sTerm,e){
 	var coord;
 	var form = document.forms[0];
 	var operatorBox = document.getElementById("searchHistoryOperators");
-	
+
 	coord = eventPosition(e);
 	if( form.q.value == "" ){
 		form.q.value = sTerm;
@@ -543,7 +543,7 @@ function addTermToSearch(operator){
 		if(!form.q.value.match(/\)$/))
 			if(!form.q.value.match(/\s+(AND|OR)\s+/))
 				form.q.value = "(" + form.q.value + ")";
-	
+
 	// add to input field
 	form.q.value = form.q.value + " " + operator + " " + term;
 	document.getElementById('searchHistoryOperators').style.display = "none";
@@ -581,9 +581,9 @@ function sendMail(form){
 	var sendingMail = document.getElementById('sendingMail');
 	var mailSent = document.getElementById('mailSent');
 	var mailError = document.getElementById('mailError');
-	
+
 	var error = false;
-	var vars = '';			
+	var vars = '';
 	for(var i=0;i<form.length;i++){
 		if (form[i].type == 'radio') {
             if(form[i].checked == true)
@@ -601,22 +601,22 @@ function sendMail(form){
             vars += '&'+form[i].name+'='+form[i].value;
         }
 	}
-    
+    //alert(vars);
     if(document.searchForm['filter_chain[]']){
         for(i=0;idocument.searchForm['filter_chain[]'].length;i++){
             vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'][i].value;
         }
     }
-    
+
 	if (!error) {
 		mailSent.style.display = 'none';
 		mailError.style.display = 'none';
 		sendingMail.style.display = 'block';
-		
+
 		setTimeout(function(){
 			var status = postVars('mail.php', vars);
 			sendingMail.style.display = 'none';
-			if (status.substring(0, 5) == "Error") 
+			if (status.substring(0, 5) == "Error")
 				mailError.style.display = 'block';
 			else{
                 setTimeout(function(){
@@ -670,10 +670,10 @@ function showInfo(msg,node,e){
 	msg = unescape(msg);
 	var coord = eventPosition(e);
 	var div = document.createElement("DIV");
-	
+
 	coord[0] -= 10;
 	coord[1] -= 10;
-	
+
 	div.innerHTML = msg;
 	div.className = "popup altpopup";
 	div.style.left = coord[0]+"px";
@@ -682,24 +682,35 @@ function showInfo(msg,node,e){
 		var parent = this.parentNode;
 		parent.removeChild(this);
 	};
-	
+
 	node.appendChild(div);
 }
 
 function showPrintDialog(){
-	var version = Math.round(parseFloat(navigator.appVersion) * 1000);		
+	var version = Math.round(parseFloat(navigator.appVersion) * 1000);
 	if (version >= 4000){
 		setTimeout("window.print()",1000);
 	}
 }
 
-function printMode(){
+function printMode(printOption){
 	var form = document.searchForm;
 	var printMode = form.printMode;
 	var from = form.from;
-	
+
 	printMode.value = "true";
 	from.value = form.pageFrom.value;
+    if (printOption){
+        for( i = 0; i < printOption.length; i++ ){
+            if( printOption[i].checked == true ){
+               var printValue = printOption[i].value;
+            }
+        }
+        if (printValue == 'selection'){
+            showBookmarks();
+        }
+    }
+
 	form.submit();
 
 	//reset form values
@@ -711,7 +722,7 @@ function exportMode(mode){
 	var form = document.searchForm;
 	var output = form.output;
 	var from = form.from;
-	
+
 	output.value = mode;
 	from.value = form.pageFrom.value;
 	form.submit();
@@ -725,12 +736,39 @@ function showMoreClusterItems(field, limit){
 	var form = document.searchForm;
 	form.action = form.action + "#" + field;
 	var fb = form.fb;
-		
+
 	fb.value = field + ":" + limit;
 	form.submit();
 
 	//reset form values
 	fb.value = "";
+}
+
+function changeOrderBy(field){
+    var form = document.searchForm;
+    var sort = form.sort;
+
+    var fieldIndex = field.selectedIndex;
+
+
+    sort.value = field[fieldIndex].value;
+    form.submit();
+
+    //reset form value
+    sort.value = "";
+}
+
+function changeDisplayFormat(field){
+    var form = document.searchForm;
+    var fmt = form.fmt;
+
+    var fieldIndex = field.selectedIndex;
+
+    fmt.value = field[fieldIndex].value;
+    form.submit();
+
+    //reset form value
+    fmt.value = "";
 }
 
 
@@ -750,7 +788,7 @@ function showChart(obj, titulo, id){
 	for (i = 0; i < lista.length; i++){
 		cluster = lista[i].innerHTML;
 		clusterLabel = lista[i].getElementsByTagName('a')[0].innerHTML;
-		
+
 		ma = regex.exec(cluster);
 		if (ma != null) {
 			clusterTotal = ma[0].replace(/[()]/g,'');
@@ -763,4 +801,9 @@ function showChart(obj, titulo, id){
 	}
 	url = "chart.php?title=" + titulo + params + "&KeepThis=true&TB_iframe=true&height=480&width=650";
 	obj.href = url;
+}
+
+function clearDefault(id, newclass) {
+	identity=document.getElementById(id);
+	identity.className=newclass;
 }
