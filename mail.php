@@ -58,6 +58,11 @@
 
         $index= $_REQUEST["index"];
         $sort = $_REQUEST["sort"]; 		      		//sort parameter
+        if (isset($_REQUEST['sort']) && $_REQUEST['sort'] != ""){
+            $sort = getSortValue($colectionData,$_REQUEST["sort"]);		//get sort field to apply
+        }else{
+            $sort = getDefaultSort($colectionData, $q);		//get default sort
+        }
         $output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
 
         $VARS["count"] = $count;
