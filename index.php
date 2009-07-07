@@ -19,15 +19,19 @@
 	$from= ( isset($_REQUEST["from"]) && $_REQUEST["from"] != ''? $_REQUEST["from"] : 0 );
 	
 	$q  = stripslashes($_REQUEST["q"]);			//query
+	
+	if ($q == $texts['ENTER_WORDS']){
+		$q = "";
+	}	
+	
 	$qt = $_REQUEST["qt"];						//query type
 	$index= $_REQUEST["index"];
 
 	if (isset($_REQUEST['sort']) && $_REQUEST['sort'] != ""){
 		$sort = getSortValue($colectionData,$_REQUEST["sort"]);		//get sort field to apply
-	}elseif (!isset($q) || $q == '' ){
-		$sort = getDefaultSortForEmptyQuery($colectionData);		//get sort value when query is empty
+	}else{
+		$sort = getDefaultSort($colectionData, $q);		//get default sort
 	}
-
 	$output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
 		
 	$filter = $_REQUEST["filter"];         		//initial filter to apply
