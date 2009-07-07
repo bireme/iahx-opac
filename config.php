@@ -35,25 +35,45 @@
 		return urlencode($sortValue);
 	}
 
-    function getDefaultSortForEmptyQuery($colectionData){
+    function getDefaultSort($colectionData, $q){
 		$sortValue = "";
+		$count = 0;
         if ( isset($colectionData->sort_list) ){
             foreach( $colectionData->sort_list->sort as $sortItem  ){
-                if ( isset($sortItem->default_for_empty_query) ){
+            	// seleciona primeito item do config como default
+            	if ( $count == 0){
+            		$sortValue = $sortItem->value;            	
+            	}
+            	// caso a query esteja vazia verifica se o item possue default_for_empty_query	
+                if ( $q == '' && isset($sortItem->default_for_empty_query) ){
     				$sortValue = $sortItem->value;
         		}
+        		$count++;
             }
         }
 		return urlencode($sortValue);
 	}
-
+    // function to work when PHP directive magic_quotes_gpc is OFF
+    function addslashes_array($a){
+        if(is_array($a)){
+            foreach($a as $n=>$v){
+                $b[$n]=addslashes_array($v);
+            }
+            return $b;
+        }else{
+            if ($a != ''){
+                return addslashes($a);
+            }
+        }
+    }
+	
 	//=========================================================================================================
 
 	$lang = "";
 	
 	// define constants
 	define("VERSION","1.0");
-	define("USE_SERVER_PATH", false);
+	define("USE_SERVER_PATH", true);
 
 	if (USE_SERVER_PATH == true){
 		$PATH = dirname($_SERVER["PATH_TRANSLATED"]);
@@ -66,7 +86,7 @@
 
 	$config = simplexml_load_file('config/dia-config.xml');
 
-	// idioma da interface
+	//idioma da interface
 	if(!isset($_REQUEST["lang"])) {
 		$_REQUEST["lang"] = $config->default_lang;
 	}	
