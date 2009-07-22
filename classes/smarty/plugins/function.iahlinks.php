@@ -35,9 +35,12 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloLabel['scielo-spa']['pt'] = "Saúde Pública";
 	$scieloLabel['scielo-spa']['es'] = "Salud Pública";
 	$scieloLabel['scielo-spa']['en'] = "Public Health";
-	
+
 	$scieloLabel['scl']['pt'] = $scieloLabel['scielo-scl']['pt'];
 	$scieloLabel['scl']['en'] = $scieloLabel['scielo-scl']['en'];
+	$scieloLabel['spa']['pt'] = $scieloLabel['scielo-spa']['pt'];
+	$scieloLabel['spa']['es'] = $scieloLabel['scielo-spa']['es'];
+	$scieloLabel['spa']['en'] = $scieloLabel['scielo-spa']['en'];
 	$scieloLabel['arg']['pt'] = "Argentina";
 	$scieloLabel['esp']['pt'] = "Espanha";
 	$scieloLabel['esp']['es'] = "España";
@@ -48,7 +51,7 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloLabel['ven']['pt'] = "Venezuela";
 	$scieloLabel['sss']['pt'] = "Social Sciences";
 	$scieloLabel['prt']['pt'] = "Portugual";
-	
+
 	$scielo  = $params['scielo'];		//scielo links service
 	$document= $params['document'];		//url's descritos no documento
 	$lang = (string)$params['lang'];
@@ -56,19 +59,19 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloLinkList = array();
 	$fulltextLinkList = array();
 
-	// 1. tratamento dos links do servico iahlinks	
+	// 1. tratamento dos links do servico iahlinks
 	for ($occ = 0; $occ <  count($scielo); $occ++) {
 		$link = $scielo[$occ];
 
 		$found = array_search($id,$link->id);
-		
+
 		if 	($found !== false){
 			foreach($link as $site => $url){
 				if ($site != 'id'){
 					foreach($url as $pid){
 						$fullLink = $scieloUrl[$site] . "scielo.php?script=sci_arttext&amp;pid=" . $pid . "&amp;lang=" . $lang;
 						$scieloLinkList[] = $fullLink;
-						
+
 						if ( isset($scieloLabel[$site][$lang]) ){
 							$label = $scieloLabel[$site][$lang];
 						}else{
@@ -79,14 +82,14 @@ function smarty_function_iahlinks($params, &$smarty)
 					}
 				}
 			}
-		}	
-	}	
+		}
+	}
 
 	// 2. tratamento dos links que estao registrados no documento
 	for ($occ = 0; $occ <  count($document); $occ++) {
 		$link = $document[$occ];
 		$url = parse_url($link);
-	
+
 		// verificar se urls scielos descritos no documento já não estão no output
 		if ( eregi('scielo',$url['host']) && eregi($url['host'],$output) ){
 			// caso seja link para o scielo e já tenha sido adicionado na varivel output não duplica
@@ -97,18 +100,24 @@ function smarty_function_iahlinks($params, &$smarty)
 			}else{
 				$fulltextLinkList[] = $link;
 			}
-			
+
 		}
-	}	
-	
+	}
+
 	// 3. tratamento de artigos SciELO (campo id é composto pelo PID mais subcampo ^c que indica qual SciELO)
 	// ex. art-S1413-81232008000200004^cscl
 	if (eregi('\^c[a-z]{3,5}',$id) ){
 		$pid = substr($id,strpos($id,'-')+1,strpos($id,'^c')-4);
 		$site = substr($id,strpos($id,'^c')+2);
-	
+
+		if ( isset($scieloLabel[$site][$lang]) ){
+			$label = $scieloLabel[$site][$lang];
+		}else{
+			$label = $scieloLabel[$site]["pt"];
+		}
+
 		$artLink = $scieloUrl[$site] . "scielo.php?script=sci_arttext&pid=" . $pid . "&lang=" . $lang;
-		$output.= '<li><a href="' . $artLink  . '" target="_blank">' . $artLink . '</a></li>';
+		$output.= '<li><a href="' . $artLink  . '" target="_blank">SciELO ' . $label . '</a></li>';
 	}
 
 
@@ -118,7 +127,7 @@ function smarty_function_iahlinks($params, &$smarty)
 
 	$smarty->assign(scieloLinkList, $scieloLinkList);
 	$smarty->assign(fulltextLinkList, $fulltextLinkList);
-	
+
     return $output;
 }
 ?>
