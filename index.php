@@ -94,6 +94,9 @@
 	}else if($output == "rss"){
 		header("Content-type: text/xml; charset=UTF-8");
 		$page->RSS();
+	}else if($output == "ris"){
+		header("Content-type: text/plain; charset=UTF-8");
+		$page->RIS();
 	}else{		
 		// html output
 		$page->show();
