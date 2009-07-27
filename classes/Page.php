@@ -47,6 +47,7 @@ class Page
         }
 
 		$q_escaped = str_replace("\\\"","&quot;",$q);
+        $q_escaped = str_replace("\"","&quot;",$q_escaped);
 		$textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
 
 		$this->template->assign('lang',$lang);
