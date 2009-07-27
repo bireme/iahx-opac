@@ -12,6 +12,7 @@ function smarty_function_iahlinks($params, &$smarty)
 {
 
 	$output = "";
+	$scieloUrl['scielo-arg'] = "http://www.scielo.org.ar/";
 	$scieloUrl['scielo-scl'] = "http://www.scielo.br/";
 	$scieloUrl['scielo-chl'] = "http://www.scielo.cl/";
 	$scieloUrl['scielo-spa'] = "http://www.scielosp.org/";
@@ -19,8 +20,8 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloUrl['scl'] = $scieloUrl['scielo-scl'];
 	$scieloUrl['chl'] = $scieloUrl['scielo-chl'];
 	$scieloUrl['spa'] = $scieloUrl['scielo-spa'];
+	$scieloUrl['arg'] = $scieloUrl['scielo-arg'];
 
-	$scieloUrl['arg'] = "http://www.scielo.org.ar/";
 	$scieloUrl['cub'] = "http://scielo.sld.cu/";
 	$scieloUrl['esp'] = "http://scielo.isciii.es/";
 	$scieloUrl['col'] = "http://www.scielo.org.co/";
@@ -29,6 +30,7 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloUrl['prt'] = "http://www.scielo.oces.mctes.pt/";
 	$scieloUrl['sss'] = "http://socialsciences.scielo.org/";
 
+	$scieloLabel['scielo-arg']['pt'] = "Argentina";
 	$scieloLabel['scielo-scl']['pt'] = "Brasil";
 	$scieloLabel['scielo-scl']['en'] = "Brazil";
 	$scieloLabel['scielo-chl']['pt'] = "Chile";
