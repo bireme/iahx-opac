@@ -63,7 +63,11 @@ function smarty_function_occ($params, &$smarty)
 			}
 		}
 	}else{
-		$output .= $element;
+    	if ( isset($params['translation']) ){
+			$output .= smarty_function_occ_translate($element, $params['suffix'], $params['translation']);
+		}else{
+ 			$output .= $element;
+		}
 	}
 
     if ( isset($params['span']) ){
