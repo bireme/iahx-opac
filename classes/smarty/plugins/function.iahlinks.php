@@ -12,6 +12,7 @@ function smarty_function_iahlinks($params, &$smarty)
 {
 
 	$output = "";
+    
 	$scieloUrl['scielo-arg'] = "http://www.scielo.org.ar/";
 	$scieloUrl['scielo-scl'] = "http://www.scielo.br/";
 	$scieloUrl['scielo-chl'] = "http://www.scielo.cl/";
@@ -54,12 +55,16 @@ function smarty_function_iahlinks($params, &$smarty)
 	$scieloLabel['sss']['pt'] = "Social Sciences";
 	$scieloLabel['prt']['pt'] = "Portugual";
 
-	$scielo  = $params['scielo'];		//scielo links service
-	$document= $params['document'];		//url's descritos no documento
+	$scielo  = $params['scielo'];           //scielo links service
+	$document= $params['document'];         //url's descritos no documento
+    $la_text = $params['la_text'];      //idiomas disponiveis do texto completo (array)
+    $la_abstract = $params['la_abstract'];	//idiomas disponiveis do resumo (array)
+    
 	$lang = (string)$params['lang'];
 	$id = $params['id'];
 	$scieloLinkList = array();
 	$fulltextLinkList = array();
+    $abstractFulltextList="";
 
 	// 1. tratamento dos links do servico iahlinks
 	for ($occ = 0; $occ <  count($scielo); $occ++) {
@@ -106,6 +111,10 @@ function smarty_function_iahlinks($params, &$smarty)
 		}
 	}
 
+    if ( count($scieloLinkList) > 0 && $la_text != '' && $la_text != '' ){
+        $abstractFulltextList = makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang);
+    }
+
 	// 3. tratamento de artigos SciELO (campo id é composto pelo PID mais subcampo ^c que indica qual SciELO)
 	// ex. art-S1413-81232008000200004^cscl
 	if (eregi('\^c[a-z]{3,5}',$id) ){
@@ -129,7 +138,66 @@ function smarty_function_iahlinks($params, &$smarty)
 
 	$smarty->assign(scieloLinkList, $scieloLinkList);
 	$smarty->assign(fulltextLinkList, $fulltextLinkList);
+    $smarty->assign(abstractFulltextList, $abstractFulltextList);
 
     return $output;
 }
+
+function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang){   
+        $firsScieloOfList = $scieloLinkList[0];
+        $abstractFulltextList = "";
+
+        $translate['pt'] = array( 'pt' => 'português',
+                                  'es' => 'espanhol',
+                                  'en' => 'inglês',
+                                  'text' => 'Texto em',
+                                  'abstract' => 'Resumo em'
+                                );
+
+        $translate['es'] = array( 'pt' => 'portugués',
+                                  'es' => 'español',
+                                  'en' => 'inglés',
+                                  'text' => 'Texto en',
+                                  'abstract' => 'Resumen en'
+                                );
+
+        $translate['en'] = array( 'pt' => 'portuguese',
+                                  'es' => 'spanish',
+                                  'en' => 'english',
+                                  'text' => 'Text in',
+                                  'abstract' => 'Abstract in'
+                                );
+
+        $abstractFulltextList = "<ul>";
+        // monta lista em html contendo as opções de idioma disponíveis para o resumo e texto do artigo
+        if ( isset($la_abstract) ){
+            $abstractFulltextList .= '<li>' .  $translate[$lang]['abstract'] . ' ';
+            $c = 0;
+            foreach($la_abstract as $la){
+                if ($c > 0) {
+                    $abstractFulltextList .= " | ";
+                }
+                $abstractFulltextList .= '<a href="' . str_replace('sci_arttext','sci_abstract',$firsScieloOfList)  . '&tlng='. $la .  '" target="_blank">' . $translate[$lang][$la] . '</a>';
+                $c++;
+            }
+            $abs_fulltext_links .= '</li>';
+        }
+        if ( isset($la_text) ){
+            $abstractFulltextList .= '<li>' . $translate[$lang]['text'] . ' ';
+            $c = 0;
+            foreach($la_text as $la){
+                if ($c > 0) {
+                    $abstractFulltextList .= " | ";
+                }
+                $abstractFulltextList .= '<a href="' . $firsScieloOfList  . '&tlng='. $la .  '" target="_blank">' . $translate[$lang][$la] . '</a>';
+                $c++;
+            }
+            $abstractFulltextList .= '</li>';
+        }
+        $abstractFulltextList .= "</ul>";
+
+        return $abstractFulltextList;
+}
+
+
 ?>

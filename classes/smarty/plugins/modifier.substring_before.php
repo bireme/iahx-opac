@@ -22,7 +22,11 @@
  */
 function smarty_modifier_substring_before($text, $needle = '-')
 {
-    return substr($text, 0,strpos($text, $needle));
+    if (strpos($text, $needle) !== false){
+        return substr($text, 0,strpos($text, $needle));
+    }else{
+        return "";
+    }
 }
 
 ?>
