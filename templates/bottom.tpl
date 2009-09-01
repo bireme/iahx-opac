@@ -51,6 +51,9 @@
 					<input type="radio" name="option" value="query_only" style="border:none"/>
 					<span>{$texts.SEND_SEARCH_TERM_ONLY}</span>&nbsp;
                     <input type="hidden" name="q" value="{$q_escaped}"/>
+                    <input type="hidden" name="where" value="{$smarty.request.where}"/>
+                    <input type="hidden" name="index" value="{$smarty.request.index}"/>
+
 					<br/><br/>
 					
 					<input type="radio" name="option" value="from_to" style="border:none"/>
