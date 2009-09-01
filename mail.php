@@ -65,6 +65,8 @@
         }
         $output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
 
+    	$where = $_REQUEST["where"];							//select where search
+        $whereFilter = getWhereFilter($colectionData,$where);	
         $VARS["count"] = $count;
 
         //DIA server connection object
