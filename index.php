@@ -97,6 +97,9 @@
 	}else if($output == "ris"){
 		header("Content-type: text/plain; charset=UTF-8");
 		$page->RIS();
+	}else if($output == "metasearch"){
+		header("Content-type: text/xml; charset=UTF-8");
+		$page->MetaSearch();
 	}else{		
 		// html output
 		$page->show();

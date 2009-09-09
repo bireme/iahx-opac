@@ -117,6 +117,23 @@ class Page
 		$this->template->display('export-ris.tpl');
 	}
 
+	public function MetaSearch(){
+		global $q, $col, $texts, $result, $lang;
+
+		$url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
+
+        $q_escaped = str_replace("\\\"","&quot;",$q);
+        $q_escaped = str_replace("\"","&quot;",$q_escaped);
+
+
+		$this->template->assign('url',$url);
+		$this->template->assign('lang',$lang);
+		$this->template->assign('result',$result->diaServerResponse[0]);
+        $this->template->assign('q_escaped',$q_escaped);
+
+		$this->template->display('export-metasearch.tpl');
+	}
+
 	public function email(){
 		global $col, $texts, $result, $lang, $from, $count;
 		
