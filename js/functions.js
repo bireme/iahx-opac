@@ -17,6 +17,28 @@ function showhideLayers(divId)
 
 }
 
+function showLayer(divId)
+{ //v1.0
+	var v,divObj;
+
+	if ((divObj=MM_findObj(divId))!=null) {
+    	v=divObj.style.display;
+		disp = 'block';
+    	divObj.style.display = disp;
+ 	}
+}
+
+function hideLayer(divId)
+{ //v1.0
+	var v,divObj;
+
+	if ((divObj=MM_findObj(divId))!=null) {
+    	v=divObj.style.display;
+		disp = 'none';
+    	divObj.style.display = disp;
+ 	}
+}
+
 function showHideBox(divId)
 {
 	var box = document.getElementById(divId);
@@ -601,7 +623,7 @@ function sendMail(form){
             vars += '&'+form[i].name+'='+form[i].value;
         }
 	}
-    //alert(vars);
+    alert(vars);
     if(document.searchForm['filter_chain[]']){
         for(i=0;idocument.searchForm['filter_chain[]'].length;i++){
             vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'][i].value;
@@ -718,17 +740,28 @@ function printMode(printOption){
 	from.value = "";
 }
 
-function exportMode(mode){
+function exportMode(exportOption){
 	var form = document.searchForm;
-	var output = form.output;
+	var exportMode = form.output;
 	var from = form.from;
 
-	output.value = mode;
+    exportMode.value = "ris";
 	from.value = form.pageFrom.value;
+    if (exportOption){
+        for( i = 0; i < exportOption.length; i++ ){
+            if( exportOption[i].checked == true ){
+               var exportValue = exportOption[i].value;
+            }
+        }
+        if (exportValue == 'selection'){
+            showBookmarks();
+        }
+    }
+
 	form.submit();
 
 	//reset form values
-	output.value = "";
+	exportMode.value = "";
 	from.value = "";
 }
 
