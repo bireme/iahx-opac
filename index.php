@@ -95,7 +95,8 @@
 		header("Content-type: text/xml; charset=UTF-8");
 		$page->RSS();
 	}else if($output == "ris"){
-		header("Content-type: text/plain; charset=UTF-8");
+		header("Content-type: application/x-Research-Info-Systems; charset=UTF-8");
+        header('Content-Disposition: attachment; filename="citation.ris"');
 		$page->RIS();
 	}else if($output == "metasearch"){
 		header("Content-type: text/xml; charset=UTF-8");
@@ -114,7 +115,7 @@
 	$log->fields['site'] = $site;
 	$log->fields['query']= ($q != ''? $q : "*");
 	$log->fields['index']= ($index != ''? $index : "*");
-	$log->fields['where']= ($_REQUEST['where'] != ''? $_REQUEST['where'] : "*");;
+	$log->fields['where']= ($_REQUEST['where'] != ''? $_REQUEST['where'] : "*");
 	$log->fields['filter'] = $dia->getFilterParam();
 	$page = (($from-1)/$count) + 1;
 	$log->fields['from'] = (strval($page) < 1? "1": $page);
