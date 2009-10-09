@@ -33,6 +33,7 @@ function smarty_function_occ($params, &$smarty)
 {
 	$output = "";
     $element = $params['element'];
+    $text_transform = $params['text_transform'];
 
     if (!isset($element) || $element == '' || count($element) == 0 ) {
         return;
@@ -57,10 +58,18 @@ function smarty_function_occ($params, &$smarty)
 				$output .= $params['separator'] . " ";
 			}
 			if ( isset($params['translation']) ){
-				$output .= smarty_function_occ_translate($element[$occ], $params['suffix'], $params['translation']);
+                $text = smarty_function_occ_translate($element[$occ], $params['suffix'], $params['translation']);
 			}else{
- 				$output .= $element[$occ];
+ 				$text = $element[$occ];
 			}
+            if ( isset($text_transform) && $text_transform != '' ){
+                if ($text_transform == 'lowercase'){
+                    $text = strtolower_utf8($text);
+                }elseif ($text_transform == 'uppercase'){
+                    $text = strtoupper_utf8($text);
+                }
+            }
+            $output .= $text;
 		}
 	}else{
     	if ( isset($params['translation']) ){
@@ -92,6 +101,22 @@ function smarty_function_occ_translate($text, $suffix, $translation)
 
 	return $output;
 
+}
+
+/* funções para garantir o lowercase e uppercase em UTF-8 */
+
+function strtolower_utf8($inputString) {
+    $outputString    = utf8_decode($inputString);
+    $outputString    = strtolower($outputString);
+    $outputString    = utf8_encode($outputString);
+    return $outputString;
+}
+
+function strtoupper_utf8($inputString) {
+    $outputString    = utf8_decode($inputString);
+    $outputString    = strtoupper($outputString);
+    $outputString    = utf8_encode($outputString);
+    return $outputString;
 }
 
 ?>

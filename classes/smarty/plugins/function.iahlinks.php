@@ -168,10 +168,12 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
                                   'abstract' => 'Abstract in'
                                 );
 
-        $abstractFulltextList = "<ul>";
+        
         // monta lista em html contendo as opções de idioma disponíveis para o resumo e texto do artigo
+         $abstractFulltextList = '';
         if ( isset($la_abstract) ){
-            $abstractFulltextList .= '<li>' .  $translate[$lang]['abstract'] . ' ';
+            $abstractFulltextList = '<span>';
+            $abstractFulltextList .= '' .  $translate[$lang]['abstract'] . ' ';
             $c = 0;
             foreach($la_abstract as $la){
                 if ($c > 0) {
@@ -180,10 +182,11 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
                 $abstractFulltextList .= '<a href="' . str_replace('sci_arttext','sci_abstract',$firsScieloOfList)  . '&tlng='. $la .  '" target="_blank">' . $translate[$lang][$la] . '</a>';
                 $c++;
             }
-            $abs_fulltext_links .= '</li>';
+            $abstractFulltextList .= '</span>';
         }
         if ( isset($la_text) ){
-            $abstractFulltextList .= '<li>' . $translate[$lang]['text'] . ' ';
+            $abstractFulltextList .= '<span>';
+            $abstractFulltextList .= '' . $translate[$lang]['text'] . ' ';
             $c = 0;
             foreach($la_text as $la){
                 if ($c > 0) {
@@ -192,9 +195,9 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
                 $abstractFulltextList .= '<a href="' . $firsScieloOfList  . '&tlng='. $la .  '" target="_blank">' . $translate[$lang][$la] . '</a>';
                 $c++;
             }
-            $abstractFulltextList .= '</li>';
+            $abstractFulltextList .= '</span>';
         }
-        $abstractFulltextList .= "</ul>";
+        
 
         return $abstractFulltextList;
 }
