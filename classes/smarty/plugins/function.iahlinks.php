@@ -12,7 +12,7 @@ function smarty_function_iahlinks($params, &$smarty)
 {
 
 	$output = "";
-    
+
 	$scieloUrl['scielo-arg'] = "http://www.scielo.org.ar/";
 	$scieloUrl['scielo-scl'] = "http://www.scielo.br/";
 	$scieloUrl['scielo-chl'] = "http://www.scielo.cl/";
@@ -59,11 +59,12 @@ function smarty_function_iahlinks($params, &$smarty)
 	$document= $params['document'];         //url's descritos no documento
     $la_text = $params['la_text'];      //idiomas disponiveis do texto completo (array)
     $la_abstract = $params['la_abstract'];	//idiomas disponiveis do resumo (array)
-    
+
 	$lang = (string)$params['lang'];
 	$id = $params['id'];
 	$scieloLinkList = array();
 	$fulltextLinkList = array();
+    $mediaLinkList = array();
     $abstractFulltextList="";
 
 	// 1. tratamento dos links do servico iahlinks
@@ -104,6 +105,8 @@ function smarty_function_iahlinks($params, &$smarty)
 			$output.= '<li><a href="' . $link  . '" target="_blank">' . $link . '</a></li>';
 			if ( eregi('scielo',$url['host']) ){
 				$scieloLinkList[] = $link;
+            }elseif( preg_match( '/\.wma|\.mp3|\.mp4|\.wav/i', $link) ){
+                $mediaLinkList[] = $link;
 			}else{
 				$fulltextLinkList[] = $link;
 			}
@@ -139,11 +142,12 @@ function smarty_function_iahlinks($params, &$smarty)
 	$smarty->assign(scieloLinkList, $scieloLinkList);
 	$smarty->assign(fulltextLinkList, $fulltextLinkList);
     $smarty->assign(abstractFulltextList, $abstractFulltextList);
+    $smarty->assign(mediaLinkList, $mediaLinkList);
 
     return $output;
 }
 
-function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang){   
+function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang){
         $firsScieloOfList = $scieloLinkList[0];
         $abstractFulltextList = "";
 
@@ -168,7 +172,7 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
                                   'abstract' => 'Abstract in'
                                 );
 
-        
+
         // monta lista em html contendo as opções de idioma disponíveis para o resumo e texto do artigo
          $abstractFulltextList = '';
         if ( isset($la_abstract) ){
@@ -197,7 +201,7 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
             }
             $abstractFulltextList .= '</span>';
         }
-        
+
 
         return $abstractFulltextList;
 }
