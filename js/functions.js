@@ -230,6 +230,7 @@ function refineByIndex( query, index){
 
 	var formQuery = form.q;
 	var formIndex = form.index;
+    var formWhere = form.where;
 	var backfilter = form.backfilter;
 
 	// set the new query expression
@@ -245,6 +246,10 @@ function refineByIndex( query, index){
 	}
 	// clear history filter
 	backfilter.value = "-1";
+    // set where (source) parameter to all
+    if (formWhere.length > 0){
+        formWhere[0].selected = true;
+    }
 
 	form.submit();
 }
