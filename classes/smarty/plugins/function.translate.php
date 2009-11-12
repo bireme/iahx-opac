@@ -5,7 +5,6 @@
  * @subpackage plugins
  */
 
-
 /**
  * Smarty {translate} function plugin
  *
@@ -35,14 +34,21 @@ function smarty_function_translate($params, &$smarty)
     if (!isset($params['text'])) {
         return;
     }
+    $text_to_find = (string) $params['text'];
+
+    $text_to_find = preg_replace ('/ +/', ' ', $text_to_find);
+    $text_to_find = preg_replace('/[ ,\-]/','_', $text_to_find);
+    $text_to_find = preg_replace('/_+/','_', $text_to_find);
+
+    //print '[[' . $text_to_find . ']]';
 
 	if ( isset($params['suffix']) ){
 		$find .= $params['suffix'];
 	}
-	$find .= $params['text'];
+	$find .= $text_to_find;
 
 	$output = $params['translation'][$find];
-	
+
 	return $output;
 
 }
