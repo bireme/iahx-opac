@@ -50,31 +50,12 @@ $i = $i-1;
 /*
  * Link para a página do DeCS
  */
-$href = "http://decs.bvs.br/cgi-bin/wxis1660.exe/decsserver/".
-"?IsisScript=../cgi-bin/decsserver/decsserver.xis".
-"&path_database=/home/decs2008/www/bases/".
-"&path_cgibin=/home/decs2008/www/cgi-bin/decsserver/".
-"&path_data=/decsserver/".
-"&temp_dir=/tmp".
-"&interface_language=".$langOneLetter.
-"&navigation_bar=Y".
-"&from=1&count=5".
-"&format=LONG".
-"&list_size=200".
-"&show_tree_number=F".
-"&client=".
-"&task=exact_term".
-"&previous_task=start".
-"&previous_page=mainmenu".
-"&no_frame=T".
-"&config=".
-"&search=T".
-"&index=".
-"&search_language=".$langOneLetter.
-"&search_exp=".$term.
-"&task_aux1=exact_term".
-"&task_aux2=alphabetic_index";
 
+$href = "http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/".
+"?IsisScript=../cgi-bin/decsserver/decsserver.xis".
+"&search_language=".$langOneLetter.
+"&interface_language=".$langOneLetter.
+"&previous_page=homepage&task=exact_term&search_exp=".$term;
 
 header("Content-Type: text/plain Charset=UTF-8");
 if(isset($_GET['debug'])){
