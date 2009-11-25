@@ -33,6 +33,8 @@
 		$sort = getDefaultSort($colectionData, $q);		//get default sort
 	}
 	$output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
+
+    $media =  $_REQUEST["media"];               // media template: screen(default) or handheld (mobile)
 		
 	$filter = $_REQUEST["filter"];         		//initial filter to apply
 	$filterLabel = $_REQUEST["filterLabel"];	//initial filter label

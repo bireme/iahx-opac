@@ -72,7 +72,7 @@
 	$lang = "";
 	
 	// define constants
-	define("VERSION","1.0");
+	define("VERSION","1.1");
 	define("USE_SERVER_PATH", true);
 
 	if (USE_SERVER_PATH == true){
