@@ -26,9 +26,12 @@
 		<script language="JavaScript" type="text/javascript" src="./js/jquery.hoverIntent.js"></script>
 		<script language="JavaScript" type="text/javascript" src="./js/jquery.cluetip.js"></script>
 		<script language="JavaScript" type="text/javascript" src="./js/decs_window.js"></script>
+        <script language="JavaScript" type="text/javascript" src="./js/pubmed_linkout.js"></script>
 		<script language="JavaScript" type="text/javascript" src="./js/thickbox.js"></script>
 		<script language="JavaScript" type="text/javascript" src="./local/functions.js"></script>
-		
+        <script language="JavaScript" type="text/javascript" src="./local/add_collection.js"></script>
+
+
 		<!-- Page icon -->
 		<link rel="shortcut icon" href="./image/favicon.ico">
 		
@@ -36,8 +39,7 @@
 		{if $printMode eq 'true'}
 			<link rel="stylesheet" rev="stylesheet" href="./css/print.css" type="text/css"/>
 		{else}
-			<link rel="stylesheet" rev="stylesheet" href="./css/print.css" type="text/css" media="print"/>
-			<link rel="stylesheet" rev="stylesheet" href="./css/language-{$global->lang}.css" type="text/css" media="screen"/>
+			<link rel="stylesheet" rev="stylesheet" href="./css/print.css" type="text/css" media="print"/>	
 			<link rel="stylesheet" rev="stylesheet" href="./css/screen.css" type="text/css" media="screen"/>
 			<link rel="stylesheet" rev="stylesheet" href="./css/thickbox.css" type="text/css" media="screen"/>
 			<link rel="stylesheet" rev="stylesheet" href="./css/jquery.cluetip.css" type="text/css" media="screen"/>

@@ -6,7 +6,7 @@ $page_head =
 <html lang=\"$lang\" xmlns=\"http://www.w3.org/1999/xhtml\" xml:lang=\"$lang\">
 	<head>
 		<!-- title -->
-		<title>{$texts['TITLE']}</title>
+		<title>$texts[TITLE]</title>
 		
 		<!-- meta-tags -->
 		<meta http-equiv=\"Expires\" content=\"-1\" />
@@ -15,8 +15,8 @@ $page_head =
 		<meta http-equiv=\"Content-Language\" content=\"$lang\" />
 		<meta name=\"robots\" content=\"all\" />
 		
-		<meta http-equiv=\"keywords\" content=\"{$texts['KEYWORDS']}\" />
-		<meta http-equiv=\"description\" content=\"{$texts['DESCRIPTION']};\" />
+		<meta http-equiv=\"keywords\" content=\"$texts[KEYWORDS]\" />
+		<meta http-equiv=\"description\" content=\"$texts[DESCRIPTION];\" />
 				
 		
 		<link rel=\"shortcut icon\" href=\"./image/favicon.ico\">

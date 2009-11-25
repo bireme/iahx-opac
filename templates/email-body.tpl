@@ -1,17 +1,16 @@
 
 <div class="results">
 	<div class="resultSet">
-	{foreach from=$result->response->docs item=doc name=doclist}
+	{foreach from=$result->response->docs item=doc}
 			<table width="90%">
 				<tr valign="top">
-					<td colspan="2">	
+					<td colspan="2">
 						<br/>
 						<font size="4" color="#0068CF">
-                            
-							<a href="{$url}?q=%2Bid:(&quot;{$doc->id}&quot;)">
-								{$smarty.foreach.doclist.index+$pagination.from} - {occ element=$doc->ti separator=/}
+							<a href="{$url}resources/{$doc->id}">
+								{occ element=$doc->ti separator=/}
 							</a>
-						</font>	
+						</font>
 					</td>
 				</tr>
 				<tr valign="top">
