@@ -161,3 +161,26 @@ margin-top: expression(0 - parseInt(this.offsetHeight / 2) + (TBWindowMargin = d
 	margin-top:1px;
 	_margin-bottom:1px;
 }
+#cluetip-inner table th {
+    background: #F4F6F8;
+    text-align: center;
+    padding: 2px;
+    margin: 0px;
+    border-left: 1px solid #cecece
+}
+
+
+#cluetip-inner table td {
+    border-left: 1px solid #cecece;
+}
+
+#cluetip-inner table th:first-child, #cluetip-inner table td:first-child  {
+    border: none
+}
+#cluetip-inner table tr:hover {
+    background: #EFEFEF;
+
+}
+#cluetip-inner table {
+    border: 2px solid #D9E2E8 !important;
+}

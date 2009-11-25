@@ -2,7 +2,6 @@
 @import url(./styles.css);
 
 DIV.spacer {
-	/* clear: both; */
 	width: 100%;
 	margin: 0px;
 	padding: 0px;
@@ -13,16 +12,16 @@ DIV.spacer {
 
 
 DIV.top {
-        background:#EDF3F3 url(../image/common/topBackground.jpg) repeat-x scroll right top;
-        height:95px;
+	background:#EDF3F3 url(../image/common/topBackground.jpg) repeat-x scroll right top;
+	height:95px;
 }
 
 
 DIV.identification {
-        background: url(../image/common/banner.jpg) no-repeat left;
-		height: 111px;
-        margin-left: 80px;
-		margin-top: -12px;
+	background: url(../image/common/banner.jpg) no-repeat left;
+	height: 111px;
+	margin-left: 80px;
+	margin-top: -12px;
 
 }
 
@@ -36,18 +35,24 @@ DIV.identification H2{
 
 
 DIV.search DIV.informationTypes A.selected, DIV.search DIV.searchForm {
-	/* background-color: #CCC; */
 }
 
 DIV.results DIV.resultServices DIV H4, 
 DIV.resultSet DIV.infoBar {
-	/* background-color: #CCC; */
 }
 
 DIV.results DIV.resultServices DIV {
-	/* border-color: #CCC; */
 }
 
 .record:hover {
 	background: #f9fcfe;
+}
+
+
+#fulltext strong {
+	background: none !important;
+}
+
+#fulltext.closed strong {
+	background: none !important;
 }
