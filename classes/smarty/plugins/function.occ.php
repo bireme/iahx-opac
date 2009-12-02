@@ -67,6 +67,8 @@ function smarty_function_occ($params, &$smarty)
                     $text = strtolower_utf8($text);
                 }elseif ($text_transform == 'uppercase'){
                     $text = strtoupper_utf8($text);
+                }elseif ($text_transform == 'capitalize'){
+                    $text = capitalize_utf8($text);
                 }
             }
             $output .= $text;
@@ -119,4 +121,10 @@ function strtoupper_utf8($inputString) {
     return $outputString;
 }
 
+function capitalize_utf8($inputString) {
+    $outputString    = utf8_decode($inputString);
+    $outputString    = ucwords(strtolower($outputString));
+    $outputString    = utf8_encode($outputString);
+    return $outputString;
+}
 ?>
