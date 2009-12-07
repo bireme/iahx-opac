@@ -1,5 +1,5 @@
 <?php
-require_once('/home/aplicacoes/bvs/regional/htdocs/apps/servicesplat/client/config.php');
+require_once('/home/aplicacoes-bvs/regional/htdocs/apps/servicesplat/client/config.php');
 
 $userTK = isset($_REQUEST['userTK'])?$_REQUEST['userTK']:false;
 
