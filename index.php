@@ -34,7 +34,7 @@
 	}
 	$output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
 
-    $media =  $_REQUEST["media"];               // media template: screen(default) or handheld (mobile)
+    $media =  $_REQUEST["media"];               // media template: screen (default) or mobile
 		
 	$filter = $_REQUEST["filter"];         		//initial filter to apply
 	$filterLabel = $_REQUEST["filterLabel"];	//initial filter label

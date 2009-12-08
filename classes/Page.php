@@ -15,7 +15,7 @@ class Page
 	}
 	
 	public function show(){
-		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt;
+		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt, $media;
 
         if (!get_magic_quotes_gpc()) {
             $q = addslashes_array($q);
@@ -67,6 +67,7 @@ class Page
 		$this->template->assign('numFound',$result->diaServerResponse[0]->response->numFound);
 		$this->template->assign('colectionData',$colectionData);
 		$this->template->assign('getParams',$getParams);
+        $this->template->assign('media',$media);
 
 		$total = $result->diaServerResponse[0]->response->numFound;
 		$pagination = $this->pagination($from, $count, $total);
@@ -75,17 +76,23 @@ class Page
 		$this->template->assign('result',$result->diaServerResponse[0]);
 		$this->template->assign('links',$result->diaServerResponse[1]);
 
-		// display TOP (banner, searchbar)
-		$this->template->display('top.tpl');
+        // check for media (handheld, etc) parameter to apply specific templates
+        if (isset($media) && $media != ''){
 
-		// display RESULT (refine, docs)
-		if ($detail == '1'){
-			$this->template->display('result-detail.tpl');
-		}else{
-			$this->template->display('result.tpl');
-		}
-		// display BOTTOM
-		$this->template->display('bottom.tpl');
+            $this->template->display($media . '/top.tpl');
+            $this->template->display($media . '/result.tpl');
+            $this->template->display($media . '/bottom.tpl');
+
+        }else{  // default (screen) templates
+
+            $this->template->display('top.tpl');
+            if ($detail == '1'){
+                $this->template->display('result-detail.tpl');
+            }else{
+    			$this->template->display('result.tpl');
+    		}	
+        	$this->template->display('bottom.tpl');
+        }
 
 	}
 

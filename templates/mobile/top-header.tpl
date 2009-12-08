@@ -4,6 +4,8 @@
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <title>BVS - Literatura Científica e Técnica</title>
+
+        <script language="JavaScript" type="text/javascript" src="./js/functions.js"></script>
         <link rel="stylesheet" rev="stylesheet" href="./css/{$media}/style.css" type="text/css"/>
     </head>
 

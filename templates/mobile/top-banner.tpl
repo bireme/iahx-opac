@@ -1,3 +1,10 @@
-<img src="./image/{$media}/logo.jpg" alt="logo BVS" class="logo" />
-
-<h1>{$texts.TITLE}</h1>
+<table>
+    <tr>
+        <td>
+            <img src="./image/{$media}/logo.jpg" alt="logo BVS" class="logo" />
+         </td>
+         <td valign="top">
+            {$texts.TITLE}
+         </td>
+    </tr>
+</table>
