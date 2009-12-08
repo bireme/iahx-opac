@@ -19,7 +19,11 @@
 
 
 <div class="resultSet">
-    {include file="$media/result-doc.tpl"}
+    {if $detail == '1'}
+        {include file="$media/result-detail.tpl"}
+    {else}
+        {include file="$media/result-doc.tpl"}
+    {/if}
 
     {include file="$media/result-navigation.tpl"}
 </div>

@@ -1,7 +1,3 @@
-{if isset($smarty.request.debug)}
-	{debug}
-{/if}
-
 {foreach from=$result->response->docs item=doc name=doclist}
 
 	{* assign var=refID value=$doc->id|regex_replace:"/.*-/":"" *}
@@ -31,7 +27,7 @@
 					{occ element=$doc->ti separator=/}
 				</a>
 			{else}
-				<a href="resources/{$doc->id}">
+				<a href="mobile/resources/{$doc->id}">
 					{occ element=$doc->ti separator=/}
 				</a>
 			{/if}
