@@ -248,7 +248,7 @@ function refineByIndex( query, index){
 	// clear history filter
 	backfilter.value = "-1";
         // set where (source) parameter to all
-        if (formWhere != null){
+        if (formWhere != null && formWhere.length > 0){
             formWhere[0].selected = true;
         }
 	form.submit();
