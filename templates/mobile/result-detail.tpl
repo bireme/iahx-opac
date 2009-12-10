@@ -99,7 +99,7 @@
 	<div class="spacer"></div>
 
 	<div class="user-actions">
-        {include file="doc-actions-bar.tpl"}
+        {include file="$media/  doc-actions-bar.tpl"}
 
         <div class="bookmark">
                 <!-- AddThis Button BEGIN -->
