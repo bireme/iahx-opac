@@ -26,39 +26,41 @@
 				{/if}
 
 				<div class="searchForm">
-						<input type="hidden" name="lang" value="{$lang}"/>
-						<input type="hidden" name="col" value="{$col}"/>
-						<input type="hidden" name="site" value="{$site}"/>
-						<input type="hidden" name="count" value="{$config->documents_per_page}"/>
-						<input type="hidden" name="filter" value="{$filter|replace:"\\\"":"&quot;"}"/>
-						<input type="hidden" name="filterLabel" value="{$filterLabel}"/>
-                        <input type="hidden" name="media" value="{$media}"/>
-						
-						<!-- fields used by javascript functions -->
-						<input type="hidden" name="pageFrom" value="{$from}"/>
-						<input type="hidden" name="from" value=""/>
-						<input type="hidden" name="addfilter" value=""/>
-						<input type="hidden" name="backfilter" value=""/>
-						<input type="hidden" name="printMode" value=""/>
-						<input type="hidden" name="output" value=""/>
-						<input type="hidden" name="fb" value=""/>
+                                    <input type="hidden" name="lang" value="{$lang}"/>
+                                    <input type="hidden" name="col" value="{$col}"/>
+                                    <input type="hidden" name="site" value="{$site}"/>
+                                    <input type="hidden" name="count" value="{$config->documents_per_page}"/>
+                                    <input type="hidden" name="filter" value="{$filter|replace:"\\\"":"&quot;"}"/>
+                                    <input type="hidden" name="filterLabel" value="{$filterLabel}"/>
+                                    <input type="hidden" name="media" value="{$media}"/>
+                                    <input type="hidden" name="media" value="{$smarty.request.where}"/>
 
-						{if isset($smarty.request.debug)}
-							<input type="hidden" name="debug" value="1"/>
-						{/if}
 
-						{foreach from=$filter_chain item=filterValue}
-							{assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
-							<input type="hidden" name="filter_chain[]" value="{$fvalue}">
-						{/foreach}
+                                    <!-- fields used by javascript functions -->
+                                    <input type="hidden" name="pageFrom" value="{$from}"/>
+                                    <input type="hidden" name="from" value=""/>
+                                    <input type="hidden" name="addfilter" value=""/>
+                                    <input type="hidden" name="backfilter" value=""/>
+                                    <input type="hidden" name="printMode" value=""/>
+                                    <input type="hidden" name="output" value=""/>
+                                    <input type="hidden" name="fb" value=""/>
 
-						<input type="text" name="q" value="{$q_escaped}" class="inputText" onKeyDown="if(event.keyCode==13) newSearch();"/>
+                                    {if isset($smarty.request.debug)}
+                                            <input type="hidden" name="debug" value="1"/>
+                                    {/if}
 
-						<input type="button" name="go" value="{$texts.SEARCH_SUBMIT}" class="submit" onclick="javascript:newSearch()" />
-						<!--
-						&#160;
-						<a href="#"><?=$texts['SEARCH_ADVANCED']?></a>
-						-->
+                                    {foreach from=$filter_chain item=filterValue}
+                                            {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
+                                            <input type="hidden" name="filter_chain[]" value="{$fvalue}">
+                                    {/foreach}
+
+                                    <input type="text" name="q" value="{$q_escaped}" class="inputText" onKeyDown="if(event.keyCode==13) newSearch();"/>
+
+                                    <input type="button" name="go" value="{$texts.SEARCH_SUBMIT}" class="submit" onclick="javascript:newSearch()" />
+                                    <!--
+                                    &#160;
+                                    <a href="#"><?=$texts['SEARCH_ADVANCED']?></a>
+                                    -->
 				</div>
 
 			</form>
