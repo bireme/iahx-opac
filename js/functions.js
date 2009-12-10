@@ -247,9 +247,14 @@ function refineByIndex( query, index){
         }
 	// clear history filter
 	backfilter.value = "-1";
+        
         // set where (source) parameter to all
-        if (formWhere != null && formWhere.length > 0){
-            formWhere[0].selected = true;
+        if (formWhere != null ){
+            if ( isArray(formWhere) ){
+                formWhere[0].selected = true;
+            }else{
+                formWhere.value = "";
+            }
         }
 	form.submit();
 }
@@ -844,4 +849,8 @@ function showChart(obj, titulo, id){
 function clearDefault(id, newclass) {
 	identity=document.getElementById(id);
 	identity.className=newclass;
+}
+
+function isArray(o){
+        return(typeof(o.length)=="undefined")?false:true;
 }
