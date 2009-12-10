@@ -101,29 +101,13 @@
 	<div class="user-actions">
         {include file="doc-actions-bar.tpl"}
 
-		<div class="bookmark">
-			<!-- AddThis Button BEGIN -->
-			<script type="text/javascript">addthis_pub  = 'bvs.regional';</script>
-			<a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a>
-			<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
-			<!-- AddThis Button END -->
-		</div>
-
-        {if $doc->db|contains:"MEDLINE"}
-            <div class="pubmed">
-                <a href="{$doc->id}">
-                <img src="./image/common/icon_PubMed.gif"/>
-                <span>PubMed LinkOut</span>
-                </a>
-            </div>
-        {/if}
-
-		<div class="export">
-			<a href="index.php?output=ris&site={$site}&col={$col}&lang={$lang}&q={$q_escaped}">
-				<img src="./image/common/icon_page_go.gif"/>
-				&#160;<span>{$texts.EXPORT_CITATION}</span>
-			</a>
-		</div>
+        <div class="bookmark">
+                <!-- AddThis Button BEGIN -->
+                <script type="text/javascript">addthis_pub  = 'bvs.regional';</script>
+                <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a>
+                <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+                <!-- AddThis Button END -->
+        </div>
 
 	</div>
    </div>
