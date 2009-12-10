@@ -33,8 +33,7 @@
                                     <input type="hidden" name="filter" value="{$filter|replace:"\\\"":"&quot;"}"/>
                                     <input type="hidden" name="filterLabel" value="{$filterLabel}"/>
                                     <input type="hidden" name="media" value="{$media}"/>
-                                    <input type="hidden" name="media" value="{$smarty.request.where}"/>
-
+                                    <input type="hidden" name="where" value="{$smarty.request.where}"/>
 
                                     <!-- fields used by javascript functions -->
                                     <input type="hidden" name="pageFrom" value="{$from}"/>
