@@ -230,27 +230,27 @@ function refineByIndex( query, index){
 
 	var formQuery = form.q;
 	var formIndex = form.index;
-    var formWhere = form.where;
+        var formWhere = form.where;
 	var backfilter = form.backfilter;
 
 	// set the new query expression
 	formQuery.value = "\"" + query + "\"";
 
 	// set the new index
-    for ( i = 0; i < formIndex.length; i++ ) {
+        if (formIndex != null){
+            for ( i = 0; i < formIndex.length; i++ ) {
 		currentIndex = formIndex[i];
 		if (currentIndex.value == index){
 			currentIndex.selected = true;
 		}
-
-	}
+            }
+        }
 	// clear history filter
 	backfilter.value = "-1";
-    // set where (source) parameter to all
-    if (formWhere != null){
-        formWhere[0].selected = true;
-    }
-
+        // set where (source) parameter to all
+        if (formWhere != null){
+            formWhere[0].selected = true;
+        }
 	form.submit();
 }
 
