@@ -70,9 +70,10 @@
 	//=========================================================================================================
 
 	$lang = "";
-	
+    $tag = "1.2";
+	$rev = ".rev$Rev$";
 	// define constants
-	define("VERSION","1.2-beta");
+	define("VERSION", $tag . $rev);
 	define("USE_SERVER_PATH", true);
 
 	if (USE_SERVER_PATH == true){
