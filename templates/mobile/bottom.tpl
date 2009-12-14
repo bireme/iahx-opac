@@ -3,9 +3,7 @@
 						powered by <strong>iAHx-{$smarty.const.VERSION}</strong> {$texts.BVS_TITLE}
 					</div>
 					<div class="links">
-						<a href="{$config->bvs_url}">{$texts.BACK_HOME}</a>
-						|
-						<a href="{$config->about_bvs_url}">{$texts.ABOUT_BVS}</a>
+						<a href="{$config->mobile_home_url}">{$texts.BACK_HOME}</a>
 					</div>
 				</div>
 			</div>

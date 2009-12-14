@@ -1,9 +1,10 @@
 <?xml version="1.0"?>
 <dia_config>
 	<site>bvs</site>
-	<bvs_url>http://www.bvs.br/</bvs_url>
+	<bvs_url>http://www.bvs.br/</bvs_url>    
 	<about_bvs_url>http://www.bvs.br/</about_bvs_url>
 	<home_url>http://www.bvs.br/</home_url>
+    <mobile_home_url>http://mbvs.mobi/</mobile_home_url>
 	<!-- local dia_controller 
 		<search_server>localhost:8080</search_server>
 	-->
