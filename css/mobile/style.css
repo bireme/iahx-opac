@@ -1,5 +1,6 @@
 BODY {
     font-family: arial;
+    font-size: 13px;
 }
 .top IMG {
     margin-bottom: 8px;
@@ -174,4 +175,8 @@ OL.references {
     margin-top: 12px;
     font-size: .8em;
     color: #999;
+}
+
+.text_abstract span{
+    margin-right: 20px;
 }
