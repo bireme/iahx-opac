@@ -96,10 +96,7 @@
 				{/foreach}
 			{/if}
 		{/if}
-
-		{if $totalItems gt 0 AND $totalItems%$colectionData->cluster_items_limit eq 0}
-			<li><a href="#" onclick="javascript:showMoreClusterItems('{$key}','{$totalItems+$colectionData->cluster_items_limit}'); return false"><b>{$texts.SHOW_MORE_ITEMS}...</b></a></li>
-		{/if}
+        {* FIX: show more option for mobile template *}
 		</ul>
 	</div>
 
