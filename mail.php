@@ -71,7 +71,8 @@
         $output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
 
     	$where = $_REQUEST["where"];							//select where search
-        $whereFilter = getWhereFilter($colectionData,$where);	
+        $whereFilter = getWhereFilter($colectionData,$where);
+        $filter_chain = $_REQUEST["filter_chain"];          //user filter sequence (history)
         $VARS["count"] = $count;
 
         //DIA server connection object
