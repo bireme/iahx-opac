@@ -11,6 +11,8 @@
     $dia_path = "http://" . $config['SERVERNAME'] . $config['PATH_DATA'];
     $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
 
+    define('MAX_COUNT', '1000');  // numero maximo de referencias permitidas na exportação
+
     $q  = stripslashes($_POST["q"]);
 	// Formar consulta a partir dos favoritos marcados
     if( $option == 'from_to' ){
@@ -32,6 +34,8 @@
         }else{
             die("Error");
         }
+    }else if( $option == 'all_references' ){
+        $count = MAX_COUNT;
     }
     
     // Dados do endereço eletrônico
@@ -99,6 +103,8 @@
     }
 
 	// Envio do e-mail
+    $senderAccount = "bvs.contato@bireme.org";
+
 	$mail = new PHPMailer();
 	$mail->SetLanguage("br");
 	$mail->IsHTML(true);
@@ -109,14 +115,21 @@
 	$mail->SMTPAuth = true;
 	$mail->Username = "bvs.contato";
 	$mail->Password = "c0nt@t0"; // SMTP password
-	
-	$mail->From = $senderMail;
-	$mail->FromName = $senderName;
-    $recipientMailList = split(',', $recipientMail);
 
+    // set from e return path para conta bireme.org
+	$mail->From = $senderAccount;
+    $mail->Sender = $senderAccount;
+
+    // set from name e reply to para usuário que esta enviando mensagem pelo sistema
+	$mail->FromName = $senderName; 
+    $mail->AddReplyTo($senderMail, $name = $senderName);
+
+    // set lista de destinatários da mensagem
+    $recipientMailList = split(',', $recipientMail);
     foreach($recipientMailList as $recipient){
         $mail->AddAddress( $recipient, "$recipient");
-    }	
+    }
+    
 	$mail->Subject = $subject;
 	$mail->Body = $html_code;
 	
