@@ -35,6 +35,7 @@
             die("Error");
         }
     }else if( $option == 'all_references' ){
+        $from = 1;
         $count = MAX_COUNT;
     }
     
