@@ -11,7 +11,7 @@
     $dia_path = "http://" . $config['SERVERNAME'] . $config['PATH_DATA'];
     $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
 
-    define('MAX_COUNT', '1000');  // numero maximo de referencias permitidas na exportação
+    define('MAX_COUNT', '300');  // numero maximo de referencias permitidas na exportação
 
     $q  = stripslashes($_POST["q"]);
 	// Formar consulta a partir dos favoritos marcados
