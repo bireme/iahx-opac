@@ -71,7 +71,7 @@
 
 	$lang = "";
     $tag = "1.2";
-	$rev = "-rev$Rev.167";
+	$rev = "-rev$Rev.186";
 	// define constants
 	define("VERSION", $tag . $rev);
 	define("USE_SERVER_PATH", true);
