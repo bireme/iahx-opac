@@ -633,13 +633,19 @@ function sendMail(form){
             vars += '&'+form[i].name+'='+form[i].value;
         }
 	}
-    //alert(vars);
-    if(document.searchForm['filter_chain[]']){
-        for(i=0;document.searchForm['filter_chain[]'].length;i++){
-            vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'][i].value;
+    // add filter_chain to query 
+    if(document.searchForm['filter_chain[]'] != null){
+        if(document.searchForm['filter_chain[]'].length == undefined){
+            vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'].value;
+        }else{
+            for(i=0;document.searchForm['filter_chain[]'].length;i++){
+                vars += '&filter_chain[]=' + document.searchForm['filter_chain[]'][i].value;
+            }
         }
     }
-
+    
+    //alert(vars);
+    
 	if (!error) {
 		mailSent.style.display = 'none';
 		mailError.style.display = 'none';
