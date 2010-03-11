@@ -729,6 +729,7 @@ function printMode(printOption){
 	var form = document.searchForm;
 	var printMode = form.printMode;
 	var from = form.from;
+    var count = form.count;
 
 	printMode.value = "true";
 	from.value = form.pageFrom.value;
@@ -740,6 +741,9 @@ function printMode(printOption){
         }
         if (printValue == 'selection'){
             showBookmarks();
+        }else if( printValue == 'all_references'){
+            from.value = "1";
+            count.value = "300";
         }
     }
 
@@ -754,6 +758,7 @@ function exportMode(exportOption){
 	var form = document.searchForm;
 	var exportMode = form.output;
 	var from = form.from;
+    var count = form.count;
 
     exportMode.value = "ris";
 	from.value = form.pageFrom.value;
@@ -765,6 +770,9 @@ function exportMode(exportOption){
         }
         if (exportValue == 'selection'){
             showBookmarks();
+        }else if( exportValue == 'all_references'){
+            from.value = "1";
+            count.value = "300";
         }
     }
 
