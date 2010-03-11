@@ -1,5 +1,5 @@
 <?php
-	// funcao retirada da pagina http://www.php.net/utf8_encode
+	// funcao retirada da pagina http://www.php.net/utf8_encode 
 	function isUTF8($string){
     	if (is_array($string)) {
         	$enc = implode('', $string);
