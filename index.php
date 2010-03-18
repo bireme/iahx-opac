@@ -33,6 +33,7 @@
 		$sort = getDefaultSort($colectionData, $q);		//get default sort
 	}
 	$output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
+    $callback = $_REQUEST['callback'];          // append callback function to json output
 
     $media =  $_REQUEST["media"];               // media template: screen (default) or mobile
 		
@@ -103,6 +104,13 @@
 	}else if($output == "metasearch"){
 		header("Content-type: text/xml; charset=UTF-8");
 		$page->MetaSearch();
+    }else if($output == "js"){
+        header("Content-type: text/plain; charset=UTF-8");
+        if (isset($callback) && ereg("^[a-z_]{1,25}$", $callback)){
+            echo $callback . "(" . $diaResponse . ");";
+        }else{
+            echo $diaResponse;
+        }
 	}else{		
 		// html output
 		$page->show();
