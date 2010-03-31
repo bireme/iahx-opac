@@ -15,7 +15,7 @@ class Page
 	}
 	
 	public function show(){
-		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt, $media;
+		global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt, $media, $csa;
 
         if (!get_magic_quotes_gpc()) {
             $q = addslashes_array($q);
@@ -68,7 +68,8 @@ class Page
 		$this->template->assign('colectionData',$colectionData);
 		$this->template->assign('getParams',$getParams);
         $this->template->assign('media',$media);
-
+        $this->template->assign('csa',$csa);
+        
 		$total = $result->diaServerResponse[0]->response->numFound;
 		$pagination = $this->pagination($from, $count, $total);
 
