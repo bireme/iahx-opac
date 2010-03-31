@@ -50,6 +50,16 @@
     
     $fmt = $_REQUEST["fmt"];                                //display format
 
+    // create a array for CSA (custom search appearance) parameters
+    $csa['bvs_logo'] = $_REQUEST["bvs_logo"];
+    $csa['bvs_link'] = $_REQUEST["bvs_link"];
+    $csa['banner_image'] = $_REQUEST["banner_image"];
+    $csa['banner_text'] = $_REQUEST["banner_text"];
+    $csa['home_text'] = $_REQUEST["home_text"]; 
+    $csa['home_url'] = $_REQUEST["home_url"];
+    $csa['css'] = $_REQUEST["css"];
+    $csa['display_banner'] = $_REQUEST["display_banner"];
+
 	//cluster parameters
 	$fl = $colectionData->cluster_items_limit;
 	$fb = $_REQUEST["fb"];									// facet browse
