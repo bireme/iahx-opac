@@ -68,8 +68,8 @@ class Dia
 				$urlParam .= "&" . $key . "=" . urlencode($value);
 			}
 		}
-		$requestUrl = "http://" . $this->DIASERVER . "/dia-controller/?" . substr($urlParam,1);
-		//print $requestUrl;
+		$requestUrl = "http://" . $this->DIASERVER . "/iahx-controller/?" . substr($urlParam,1);
+    print $requestUrl;
 		return $requestUrl;
 	}
 	
