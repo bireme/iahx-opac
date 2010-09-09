@@ -69,7 +69,7 @@ class Dia
 			}
 		}
 		$requestUrl = "http://" . $this->DIASERVER . "/iahx-controller/?" . substr($urlParam,1);
-    print $requestUrl;
+
 		return $requestUrl;
 	}
 	
