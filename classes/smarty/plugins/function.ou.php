@@ -40,7 +40,7 @@ function smarty_function_ou($params, &$smarty)
   
   if ( isset($params['label']) )
   {
-    $output .= $params['label'] . ": ";
+    $labels = $params['label'];
   }
 
   if ( isset($params['span']) )
@@ -54,24 +54,24 @@ function smarty_function_ou($params, &$smarty)
     foreach($element as $i => $ou)
     {
 
-      $preOut  = '<ul>';
-      $preOut .= '<li>' . $ou->name . '</li>';
-      $preOut .= '<li>' . $ou->description . '</li>';
-      $preOut .= '<li>' . $ou->phone_number . '</li>';
-      $preOut .= '<li>' . $ou->fax_number . '</li>';
-      $preOut .= '<li>' . $ou->email_address . '</li>';
-      $preOut .= '<li>' . $ou->web_site . '</li>';
+      $preOut  = '<div class="inst_ou">';
+      $preOut .=   '<div class="inst_name">' . $ou->name . '</div>';
+      $preOut .=   '<div class="inst_description">' . $ou->description . '</div>';
+      $preOut .=   '<div class="inst_phone">'. $labels['LABEL_PHONE'] . ': ' . $ou->phone_number . '</div>';
+      $preOut .=   '<div class="inst_fax">'. $labels['LABEL_FAX'] . ': ' . $ou->fax_number . '</div>';
+      $preOut .=   '<div class="inst_email">'. $labels['LABEL_EMAIL'] . ': ' . $ou->email_address . '</div>';
+      $preOut .=   '<div class="inst_site">'. $labels['LABEL_WEBSITE'] . ': ' . $ou->web_site . '</div>';
       foreach($ou->contacts as $j => $contact)
       {
-        $preOut .= '<ul>';
-        $preOut .= '<li>' . $contact->name . '</li>';
-        $preOut .= '<li>' . $contact->function . '</li>';
-        $preOut .= '<li>' . $contact->phone_number . '</li>';
-        $preOut .= '<li>' . $contact->cel_number . '</li>';
-        $preOut .= '<li>' . $contact->email_address . '</li>';
-        $preOut .= '</ul>';
+        $preOut .= '<div class="inst_contact">';
+        $preOut .=   '<div class="inst_name">' . $contact->name . '</div>';
+        $preOut .=   '<div class="inst_function">'. $labels['LABEL_FUNCTION'] . ': ' . $contact->function . '</div>';
+        $preOut .=   '<div class="inst_phone">'. $labels['LABEL_PHONE'] . ': ' . $contact->phone_number . '</div>';
+        $preOut .=   '<div class="inst_mobile">'. $labels['LABEL_MOBILE'] . ': ' . $contact->cel_number . '</div>';
+        $preOut .=   '<div class="inst_email">'. $labels['LABEL_EMAIL'] . ': ' . $contact->email_address . '</div>';
+        $preOut .= '</div>';
       }
-      $preOut .= '</ul>';
+      $preOut .= '</div>';
       
       $output .= $preOut;
     }
