@@ -61,7 +61,7 @@ function smarty_function_ou($params, &$smarty)
     {
 
       $preOut  = '<div class="inst_ou">';
-      $preOut .=   '<div class="inst_name"><a href="#">';
+      $preOut .=   '<div class="inst_ou_name"><a href="#">';
       $preOut .= $ou->name;
       if($ou->description){
          $preOut .= ' - ' . $ou->description;
