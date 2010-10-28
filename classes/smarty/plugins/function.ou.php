@@ -32,22 +32,18 @@ function smarty_function_ou($params, &$smarty)
   }
 
   $element = json_decode($params['element']);
-  
+
   if ( isset($params['label']) )
   {
     $labels = $params['label'];
   }
-    
-  // $output .= '<fieldset>';
-  //   $output .= '<legend>' . $labels['LABEL_OU'] . '</legend>';
-  $output .= '<h4>' . $labels['LABEL_OU'] . '</h4>';
 
   if ( isset($params['class']) )
   {
     $output .= "<div class=\"". $params['class'] ."\">\n";
   }
-  
-  
+
+
 
   if ( isset($params['span']) )
   {
@@ -56,6 +52,7 @@ function smarty_function_ou($params, &$smarty)
 
   if (is_array($element))
   {
+    $output .= '<h4>' . $labels['LABEL_OU'] . '</h4>';
 
     foreach($element as $i => $ou)
     {
@@ -67,7 +64,7 @@ function smarty_function_ou($params, &$smarty)
          $preOut .= ' - ' . $ou->description;
       }
       $preOut .=   '</a></div>';
-      $preOut .=   '<div class="inst_ou_data">';        
+      $preOut .=   '<div class="inst_ou_data">';
         $preOut .=   '<div class="inst_phone">'. $labels['LABEL_PHONE'] . ': ' . $ou->phone_number . '</div>';
         $preOut .=   '<div class="inst_fax">'. $labels['LABEL_FAX'] . ': ' . $ou->fax_number . '</div>';
         $preOut .=   '<div class="inst_email">'. $labels['LABEL_EMAIL'] . ': ' . $ou->email_address . '</div>';
@@ -104,3 +101,4 @@ function smarty_function_ou($params, &$smarty)
 }
 
 ?>
+
