@@ -103,6 +103,9 @@
         // create a loop for export all citation
         header("Content-type: application/x-Research-Info-Systems; charset=UTF-8");
         header('Content-Disposition: attachment; filename="citation.ris"');
+        // add BOM code
+        print(pack("CCC",0xef,0xbb,0xbf));
+
         $export_count = '100';
         
         $dia->setParam('count',$export_count);        
@@ -116,7 +119,6 @@
             $diaResponse = $dia->search($q, $index, $filterSearch, $export_from);
             $result = json_decode($diaResponse);
             $page->RIS();
-            print("num found: " . $num_found . " export_from: " . $export_from);
         }
         die();
     }else{
