@@ -1,155 +1,78 @@
 <?xml version="1.0"?>
 <dia_config>
-	<site>bvs</site>
-	<bvs_url>http://www.bvs.br/</bvs_url>    
-	<about_bvs_url>http://www.bvs.br/</about_bvs_url>
-	<home_url>http://www.bvs.br/</home_url>
-    <mobile_home_url>http://mbvs.mobi/</mobile_home_url>
-	<!-- local dia_controller 
-		<search_server>localhost:8080</search_server>
-	-->
-	<!-- pr10dx dia_controller -->
-	<search_server>regional.bvsalud.org:8080</search_server>
+    <site>bvs</site>
+    <bvs_url>http://regional.bvsalud.org/</bvs_url>
+    <about_bvs_url>http://bvsmodelo.bvsalud.org/</about_bvs_url>
+    <home_url>http://regional.bvsalud.org/</home_url>
+    <search_server>localhost:8080</search_server>
+    <photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
+    <documents_per_page>10</documents_per_page>
+    <default_lang>pt</default_lang>
+    <log_dir>../../bases/logs/bvs/</log_dir>
+    <environment>test</environment>
 
-	<log_dir>../logs/</log_dir>
-	<documents_per_page>10</documents_per_page>
-	<default_lang>pt</default_lang>
-	<environment>dev</environment>
-	
-	<search_collection_list>
-		<collection>
-			<name>regional</name>
-			<cluster_items_limit>20</cluster_items_limit>
-			<set></set>
-			<filter></filter>
-			<index_list>
-				<index>
-					<name>ALL</name>
-					<prefix></prefix>					
-				</index>
-				<index>
-					<name>TI</name>
-					<prefix>ti</prefix>					
-				</index>				
-				<index>
-					<name>AU</name>
-					<prefix>au</prefix>					
-				</index>			
-				<index>
-					<name>MH</name>
-					<prefix>mh</prefix>					
-				</index>			
-			</index_list>
-			<where_list>
-				<where>
-					<name>ALL</name>
-					<filter></filter>
-				</where>
-				<where>
-					<name>ESP_NACIONAL</name>
-					<filter>bvs:brasil</filter>
-				</where>
-				<where level="2">
-					<name>BDENF</name>
-					<filter>db:BDENF</filter>
-				</where>
-				<where level="2">
-					<name>COLECIONA_SUS</name>
-					<filter>db:colecionaSUS</filter>
-				</where>
-				<where level="2">
-					<name>HOMEOINDEX</name>
-					<filter>db:HomeoIndex</filter>
-				</where>
-				<where level="2">
-					<name>PSI_TESE</name>
-					<filter>db:TESE</filter>
-				</where>
-				<where level="2">
-					<name>SIRPEP</name>
-					<filter>db:SIRPEP</filter>
-				</where>
-				<where level="2">
-					<name>PSI</name>
-					<filter>db:INDEXPSI</filter>
-				</where>				 
-				<where>
-					<name>ESP_INTERNACIONAL</name>
-					<filter>db:(ADOLEC OR DESASTRES OR MedCaribe OR REPISCA)</filter>
-				</where>
-				<where level="2">
-					<name>ADOLEC</name>
-					<filter>db:ADOLEC</filter>
-				</where>
-				<where level="2">
-					<name>DESASTRES</name>
-					<filter>db:DESASTRES</filter>
-				</where>
-				<where level="2">
-					<name>HISA</name>
-					<filter>db:HISA</filter>
-				</where>				 
-				<where level="2">
-					<name>MEDCARIB</name>
-					<filter>db:MedCarib</filter>
-				</where>
-				<where level="2">
-					<name>REPIDISCA</name>
-					<filter>db:REPIDISCA</filter>
-				</where>
-				<where>
-					<name>SAUDE_GERAL</name>
-					<filter>db:LILACS</filter>
-				</where>
-				<where level="2">
-					<name>LILACS</name>
-					<filter>db:LILACS</filter>
-				</where>
-				<where>
-					<name>ORG_INTERNACIONAL</name>
-					<filter>db:(PAHO OR WHOLIS)</filter>
-				</where>
-				<where level="2">
-					<name>PAHO</name>
-					<filter>db:PAHO</filter>
-				</where>				 
-				<where level="2">
-					<name>WHOLIS</name>
-					<filter>db:WHOLIS</filter>
-				</where>
-				<where>
-					<name>SITES</name>
-					<filter>db:LIS</filter>
-				</where>
-			 </where_list>
-			 <sort_list>
-				 <sort>
-					 <name>RELEVANCE</name>
-					 <value>score desc</value>
-				 </sort>
-				 <sort>
-				 	 <default_for_empty_query>1</default_for_empty_query>
-					 <name>YEAR_DESC</name>
-					 <value>da desc</value>
-				 </sort>
-				 <sort>
-					 <name>YEAR_ASC</name>
-					 <value>da asc</value>
-				 </sort>
-				 <sort>
-					 <name>SJR</name>
-					 <value>order_sjr desc</value>
-				 </sort>
-			 </sort_list>
+    <search_collection_list>
+        <collection>
+            <name>local</name>
+            <cluster_items_limit>20</cluster_items_limit>
+            <set></set>
+            <filter></filter>
+            <index_list>
+                <index>
+                    <name>ALL</name>
+                    <prefix></prefix>
+                </index>
+                <index>
+                    <name>TI</name>
+                    <prefix>ti</prefix>
+                </index>
+                <index>
+                    <name>AU</name>
+                    <prefix>au</prefix>
+                </index>
+                <index>
+                    <name>MH</name>
+                    <prefix>mh_words</prefix>
+                </index>
+                <index>
+                    <name>PT</name>
+                    <prefix>pt</prefix>
+                </index>
 
+            </index_list>
+            <where_list>
+                <where>
+                    <name>ALL</name>
+                    <filter></filter>
+                </where>
+                <where>
+                    <name>LILACS</name>
+                    <filter>db:"LILACS"</filter>
+                </where>
+             </where_list>
+             <sort_list>
+                 <sort>
+                     <name>RELEVANCE</name>
+                     <value>score desc</value>
+                 </sort>
+                 <sort>
+                     <default_for_empty_query>1</default_for_empty_query>
+                     <name>YEAR_DESC</name>
+                     <value>da desc</value>
+                 </sort>
+                 <sort>
+                     <name>YEAR_ASC</name>
+                     <value>da asc</value>
+                 </sort>
+             </sort_list>
              <format_list>
-                 <format>
-                     <name>summary</name>
-                 </format>
-                 <format>
-                     <name>simple</name>
-                 </format>
+               <format>
+                 <name>summary</name>
+               </format>
+               <format>
+                 <name>simple</name>
+               </format>
              </format_list>
-		</collection>
-	</search_collection_list>
+        </collection>
+    </search_collection_list>
 </dia_config>
