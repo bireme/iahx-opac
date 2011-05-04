@@ -9,7 +9,7 @@
     <documents_per_page>10</documents_per_page>
     <default_lang>pt</default_lang>
     <log_dir>../../bases/logs/bvs/</log_dir>
-    <environment>bvs</environment>
+    <environment>test</environment>
 
     <search_collection_list>
         <collection>

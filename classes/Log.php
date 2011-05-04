@@ -66,12 +66,12 @@ class Log
 	function openFileWriter()
 	{
 		if ( is_file($this->directory . $this->fileName) ){
-			$fp = fopen ($this->directory . $this->fileName, "a+b");
+			$fp = @fopen ($this->directory . $this->fileName, "a+b");
 		}else{
-			$fp = fopen ($this->directory . $this->fileName, "a+b");
+			$fp = @fopen ($this->directory . $this->fileName, "a+b");
 			$head = "date" . LOG_SEPARATOR . implode(LOG_SEPARATOR, array_keys($this->fields)) . "\r\n";
-			chmod($this->directory . $this->fileName,0764);
-			fwrite($fp, $head);
+			@chmod($this->directory . $this->fileName,0764);
+			@fwrite($fp, $head);
 		}
 		
 		if ($fp){
@@ -90,7 +90,7 @@ class Log
 		$logLine = implode(LOG_SEPARATOR, $this->fields);
 
 		$logInfo = date("Y-m-d H:i:s") . LOG_SEPARATOR . $logLine ."\r\n";
-		if (!fwrite($fp, $logInfo)){
+		if (!@fwrite($fp, $logInfo)){
 			$this->logError("Unable to write log file " . LOG_DIR . $this->fileName);
 		}else{
 			fclose($fp);
@@ -114,9 +114,9 @@ class Log
 	 */
 	function logError($message)
 	{
-		$fp = fopen ($this->directory . "logerror.txt", "a+b");
+		$fp = @fopen ($this->directory . "logerror.txt", "a+b");
 		if ( !$fp ){
-			print ("Unable to open log file for update " . $this->directory . "logerror.txt");
+			print ("Unable to open log file for update " . LOG_DIR . "logerror.txt");
 		}else{	
 			if ( !fwrite($fp, $message) ){	
 				print ("Unable to write in log file " . $this->directory . "logerror.txt");
@@ -138,7 +138,7 @@ class Log
 			 return false;
 		}	 
 		$old_umask = umask(0);
-		$mk = mkdir($strPath, $mode);
+		$mk = @mkdir($strPath, $mode);
 		umask($old_umask);
 		return $mk;
 	}
