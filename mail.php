@@ -1,20 +1,20 @@
 <?php
-	require_once("config.php");	
-	require_once("./classes/Dia.php");
-	require_once("./classes/Page.php");
-	require_once("./classes/Log.php");
-	require_once('./classes/smarty/Smarty.class.php');
-	require_once("./classes/Bookmark.php");
- 	require_once("./classes/class.phpmailer.php");
+    require_once("config.php");
+    require_once("./classes/Dia.php");
+    require_once("./classes/Page.php");
+    require_once("./classes/Log.php");
+    require_once('./classes/smarty/Smarty.class.php');
+    require_once("./classes/Bookmark.php");
+    require_once("./classes/class.phpmailer.php");
 
-	// Registrar caminho completo para os arquivos de imagem e CSS
+    // Registrar caminho completo para os arquivos de imagem e CSS
     $dia_path = "http://" . $config['SERVERNAME'] . $config['PATH_DATA'];
     $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
 
     define('MAX_COUNT', '300');  // numero maximo de referencias permitidas na exportação
 
     $q  = stripslashes($_POST["q"]);
-	// Formar consulta a partir dos favoritos marcados
+    // Formar consulta a partir dos favoritos marcados
     if( $option == 'from_to' ){
         $from = ( isset($_POST["from"]) ? abs( $_POST["from"] ) : 1 );
         $count = ( isset($_POST["count"]) ? abs( $_POST["count"] ) : sizeOf($bookmark->list) );
@@ -52,25 +52,25 @@
         $site = $_REQUEST["site"];
 
         if ( !isset($col) ){
-            $col = $defaultCollection; 				// valor default criada no script de configuracao do sistema
-            $VARS["col"] = $col;					// registra no array vars para uso na XSL
+            $col = $defaultCollection;              // valor default criada no script de configuracao do sistema
+            $VARS["col"] = $col;                    // registra no array vars para uso na XSL
         }
 
         if ( !isset($site) ){
-            $site= $defaultSite;					// valor default criada no script de configuracao do sistema
-            $VARS["site"] = $site;					// registra no array vars para uso na XSL
+            $site= $defaultSite;                    // valor default criada no script de configuracao do sistema
+            $VARS["site"] = $site;                  // registra no array vars para uso na XSL
         }
 
         $index= $_REQUEST["index"];
-        $sort = $_REQUEST["sort"]; 		      		//sort parameter
+        $sort = $_REQUEST["sort"];                  //sort parameter
         if (isset($_REQUEST['sort']) && $_REQUEST['sort'] != ""){
-            $sort = getSortValue($colectionData,$_REQUEST["sort"]);		//get sort field to apply
+            $sort = getSortValue($colectionData,$_REQUEST["sort"]);     //get sort field to apply
         }else{
-            $sort = getDefaultSort($colectionData, $q);		//get default sort
+            $sort = getDefaultSort($colectionData, $q);     //get default sort
         }
         $output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
 
-    	$where = $_REQUEST["where"];							//select where search
+        $where = $_REQUEST["where"];                            //select where search
         $whereFilter = getWhereFilter($colectionData,$where);
         $filter_chain = $_REQUEST["filter_chain"];          //user filter sequence (history)
         $VARS["count"] = $count;
@@ -104,26 +104,26 @@
         $html_code = $page_head . $page_top . $page_bottom;
     }
 
-	// Envio do e-mail
+    // Envio do e-mail
     $senderAccount = "bvs.contato@bireme.org";
 
-	$mail = new PHPMailer();
-	$mail->SetLanguage("br");
-	$mail->IsHTML(true);
-	$mail->CharSet = "utf-8";
-	
-	$mail->IsSMTP();
-	$mail->Host = "esmeralda.bireme.br";
-	$mail->SMTPAuth = true;
-	$mail->Username = "bvs.contato";
-	$mail->Password = "c0nt@t0"; // SMTP password
+    $mail = new PHPMailer();
+    $mail->SetLanguage("br");
+    $mail->IsHTML(true);
+    $mail->CharSet = "utf-8";
+    
+    $mail->IsSMTP();
+    $mail->Host = "esmeralda.bireme.br";
+    $mail->SMTPAuth = true;
+    $mail->Username = "bvs.contato";
+    $mail->Password = "c0nt@t0"; // SMTP password
 
     // set from e return path para conta bireme.org
-	$mail->From = $senderAccount;
+    $mail->From = $senderAccount;
     $mail->Sender = $senderAccount;
 
     // set from name e reply to para usuário que esta enviando mensagem pelo sistema
-	$mail->FromName = $senderName; 
+    $mail->FromName = $senderName; 
     $mail->AddReplyTo($senderMail, $name = $senderName);
 
     // set lista de destinatários da mensagem
@@ -132,13 +132,13 @@
         $mail->AddAddress( $recipient, "$recipient");
     }
     
-	$mail->Subject = $subject;
-	$mail->Body = $html_code;
-	
-	if(!$mail->Send()){
-	  print("Error: ");
-	  die($mail->ErrorInfo);
-	}else{
-	  print "e-mail enviado!";
-	}
+    $mail->Subject = $subject;
+    $mail->Body = $html_code;
+    
+    if(!$mail->Send()){
+      print("Error: ");
+      die($mail->ErrorInfo);
+    }else{
+      print "e-mail enviado!";
+    }
 ?>

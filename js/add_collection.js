@@ -36,13 +36,13 @@ $(document).ready(
 
               x.click( function(){
                 $.post('/regional/add_servplat.php',obj,
-			function(data){
-				if(data == true){
-					alert('Documento adicionado à coleção.');
-				}else{
-					alert('O documento não foi adicionado corretamente à coleção.');
-				}
-			});
+            function(data){
+                if(data == true){
+                    alert('Documento adicionado à coleção.');
+                }else{
+                    alert('O documento não foi adicionado corretamente à coleção.');
+                }
+            });
 
               });
            }

@@ -4,23 +4,23 @@ error_reporting(0);
 
 $lang = 'pt';
 if(isset($_REQUEST['lang'])){
-	if(preg_match("/en|pt|es/",$_REQUEST['lang'])){
-		$lang = $_REQUEST['lang'];
-	}
+    if(preg_match("/en|pt|es/",$_REQUEST['lang'])){
+        $lang = $_REQUEST['lang'];
+    }
 }else if(isset($_COOKIE['clientLanguage'])){
-	if(preg_match("/en|pt|es/",$_COOKIE['clientLanguage'])){
-		$lang = $_COOKIE['clientLanguage'];
-	}
+    if(preg_match("/en|pt|es/",$_COOKIE['clientLanguage'])){
+        $lang = $_COOKIE['clientLanguage'];
+    }
 }
 
 $trans = parse_ini_file("languages/$lang/texts.ini");
 
 if ($lang == 'pt'){
-	$langOneLetter = "p";
+    $langOneLetter = "p";
 }else if ($lang == 'es'){
-	$langOneLetter = "e";
+    $langOneLetter = "e";
 }else{
-	$langOneLetter = "i";
+    $langOneLetter = "i";
 }
 
 $pmid = $_REQUEST['pmid'];
@@ -46,8 +46,8 @@ header("Content-Type: text/html charset=UTF-8");
 <?php
 
 if(isset($_GET['debug'])){
-	print($query."\n");
-	print_r($decs);
+    print($query."\n");
+    print_r($decs);
 }else{
 
     if ($linkout_xml){

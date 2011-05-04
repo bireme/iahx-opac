@@ -1,14 +1,14 @@
 {foreach from=$result->response->docs item=doc}
 {if $doc->db|@contains:"MEDLINE"}
-	{assign var=refDB value=MEDLINE}
-	{assign var=refID value=$doc->id|substring_after:"-"}
+    {assign var=refDB value=MEDLINE}
+    {assign var=refID value=$doc->id|substring_after:"-"}
 {else}
-	{if $doc->db[0] eq 'GHL'}
-		{assign var=refDB value=$doc->db[1]}
-	{else}
-		{assign var=refDB value=$doc->db[0]}
-	{/if}		
-	{assign var=refID value=$doc->id}
+    {if $doc->db[0] eq 'GHL'}
+        {assign var=refDB value=$doc->db[1]}
+    {else}
+        {assign var=refDB value=$doc->db[0]}
+    {/if}       
+    {assign var=refID value=$doc->id}
 {/if}
 
 {if $doc->type eq 'article'}

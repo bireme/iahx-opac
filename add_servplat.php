@@ -17,7 +17,7 @@ $title = htmlspecialchars($_REQUEST['title']);
 $xmlDoc=<<<XML
 <?xml version='1.0'?>
 <docs>
-	<doc>
+    <doc>
         <field name="doc_id">{$_REQUEST['id']}</field>
         <field name="doc_url">{$url}</field>
         <field name="src_id">{$source}</field>

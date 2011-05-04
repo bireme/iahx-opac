@@ -4,30 +4,30 @@ error_reporting(0);
 
 $lang = 'pt';
 if(isset($_REQUEST['lang'])){
-	if(preg_match("/en|pt|es/",$_REQUEST['lang'])){
-		$lang = $_REQUEST['lang'];
-	}
+    if(preg_match("/en|pt|es/",$_REQUEST['lang'])){
+        $lang = $_REQUEST['lang'];
+    }
 }else if(isset($_COOKIE['clientLanguage'])){
-	if(preg_match("/en|pt|es/",$_COOKIE['clientLanguage'])){
-		$lang = $_COOKIE['clientLanguage'];
-	}
+    if(preg_match("/en|pt|es/",$_COOKIE['clientLanguage'])){
+        $lang = $_COOKIE['clientLanguage'];
+    }
 }
 
 $trans = parse_ini_file("languages/$lang/texts.ini");
 
 if ($lang == 'pt'){
-	$langOneLetter = "p";
+    $langOneLetter = "p";
 }else if ($lang == 'es'){
-	$langOneLetter = "e";
+    $langOneLetter = "e";
 }else{
-	$langOneLetter = "i";
+    $langOneLetter = "i";
 }
 
 
 $bool = array( "101", // Termo autorizado
-			  	"102", // Sinônimo
-			  	"104"  // Termo histórico
-			);
+                "102", // Sinônimo
+                "104"  // Termo histórico
+            );
 
 /*
  * Extrai conceito de um descritor
@@ -39,11 +39,11 @@ $term = urlencode($term);
 
 $concept = 0;
 for( $i = 0; !$concept && ($i < sizeof($bool)); $i = $i + 1 ){
-	$query = "http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?bool=".$bool[$i]."%20$term&lang=$lang";
-	$decs = @simplexml_load_file($query);
-	if ($decs){
-		$concept = (String) $decs->decsws_response->record_list->record->definition->occ['n'];
-	}
+    $query = "http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?bool=".$bool[$i]."%20$term&lang=$lang";
+    $decs = @simplexml_load_file($query);
+    if ($decs){
+        $concept = (String) $decs->decsws_response->record_list->record->definition->occ['n'];
+    }
 }
 $i = $i-1;
 
@@ -59,18 +59,18 @@ $href = "http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/".
 
 header("Content-Type: text/plain Charset=UTF-8");
 if(isset($_GET['debug'])){
-	print($query."\n");
-	print_r($decs);
+    print($query."\n");
+    print_r($decs);
 }else{
-	if(!$concept){
-		print "<em>".$trans['DescNF']."</em>";
-	}else{
-		print $concept;
-	}
+    if(!$concept){
+        print "<em>".$trans['DescNF']."</em>";
+    }else{
+        print $concept;
+    }
 }
 
 ?>
 <!-- <?=$bool[$i]?> -->
 <div id="logo-decs">
-	<?=$trans['source']?>: <a href="<?=$href?>" target="_blank">DeCS - <?=$trans['DeCS']?> <img src="./image/common/logodecs.gif" alt="DeCS"></img></a>
+    <?=$trans['source']?>: <a href="<?=$href?>" target="_blank">DeCS - <?=$trans['DeCS']?> <img src="./image/common/logodecs.gif" alt="DeCS"></img></a>
 </div>
