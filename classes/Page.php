@@ -47,7 +47,7 @@ class Page
         }
         foreach($csa  as $csa_key => $csa_value ){
               if ($csa_value != '')
-                $getParams .= "&" . $csa_key . "=" . $csa_value;
+                  $getParams .= "&" . $csa_key . "=" . $csa_value;
         }
 
         $q_escaped = str_replace("\\\"","&quot;",$q);
