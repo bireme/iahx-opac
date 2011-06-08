@@ -103,15 +103,18 @@ function smarty_function_iahlinks($params, &$smarty)
             // caso seja link para o scielo e já tenha sido adicionado na varivel output não duplica
         }else{
             $output.= '<li><a href="' . $link  . '" target="_blank">' . $link . '</a></li>';
-            if ( eregi('scielo',$url['host']) ){
-                $scieloLinkList[] = $link;
-            }elseif( preg_match( '/\.wma|\.mp3|\.mp4|\.wav/i', $link) ){
-                $mediaLinkList[] = $link;
-            }else{
-                $fulltextLinkList[] = $link;
-            }
-
         }
+
+        if ( eregi('scielo',$url['host']) ){
+            $scieloLinkList[] = $link;
+        }elseif( preg_match( '/\.wma|\.mp3/i', $link) ){
+            $audioLinkList[] = $link;
+        }elseif( preg_match( '/\.mov|\.mp4|\.wav|video|midias/i', $link) ){
+            $videoLinkList[] = $link;
+        }else{
+            $fulltextLinkList[] = $link;
+        }
+        
     }
 
     if ( count($scieloLinkList) > 0 && $la_text != '' && $la_text != '' ){
@@ -142,7 +145,8 @@ function smarty_function_iahlinks($params, &$smarty)
     $smarty->assign(scieloLinkList, $scieloLinkList);
     $smarty->assign(fulltextLinkList, $fulltextLinkList);
     $smarty->assign(abstractFulltextList, $abstractFulltextList);
-    $smarty->assign(mediaLinkList, $mediaLinkList);
+    $smarty->assign(audioLinkList, $audioLinkList);
+    $smarty->assign(videoLinkList, $videoLinkList);
 
     return $output;
 }
@@ -214,6 +218,5 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
 
         return $abstractFulltextList;
 }
-
 
 ?>

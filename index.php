@@ -3,7 +3,7 @@
     require_once("./classes/Dia.php");
     require_once("./classes/Page.php");
     require_once("./classes/Log.php");
-    require_once('./classes/smarty/Smarty.class.php');
+    require_once("./classes/smarty/Smarty.class.php");
 
     $col = $_REQUEST["col"];
     $site = $_REQUEST["site"];
