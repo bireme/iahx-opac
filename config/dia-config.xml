@@ -8,7 +8,7 @@
     <photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
     <documents_per_page>10</documents_per_page>
     <default_lang>pt</default_lang>
-    <log_dir>../../bases/logs/bvs/</log_dir>
+    <log_dir>logs/bvs/</log_dir>
     <environment>bvs</environment>
 
     <search_collection_list>
