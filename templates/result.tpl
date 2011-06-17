@@ -8,7 +8,15 @@
     </div>
 {elseif $numFound eq '0'}
     <div class="noResults">
-        {$texts.NO_RESULTS}
+        {if $result->spellcheck->suggestions }
+            {foreach from=$result->spellcheck->suggestions item=suggest name=s}
+                {if $smarty.foreach.s.last}
+                    {$texts.DID_YOU_MEAN} <a href="{$smarty.server.PHP_SELF}?lang={$lang}&q={$suggest[1]}">{$suggest[1]}</a> ?
+                {/if}
+            {/foreach}
+        {else}
+            {$texts.NO_RESULTS}
+        {/if}
     </div>
 {else}
 
@@ -80,7 +88,14 @@
 
 </div>
 {if $numFound > 0}
-    <div class="resultOptions">
+
+  {foreach from=$result->spellcheck->suggestions item=suggest name=s}
+      {if $smarty.foreach.s.last}
+          {$texts.DID_YOU_MEAN} <a href="{$smarty.server.PHP_SELF}?lang={$lang}&q={$suggest[1]}">{$suggest[1]}</a> ?
+      {/if}
+  {/foreach}
+
+  <div class="resultOptions">
                 <div class="resultNavigation">{include file="result-navigation.tpl"}</div>
                 <div class="resultsBar">
                         <div class="selectAll" id="selectAll">
