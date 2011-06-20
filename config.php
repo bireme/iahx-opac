@@ -107,7 +107,7 @@
     }
 
     //security check
-    if (!ereg("^[a-zA-Z\-]{2,5}",$lang))
+    if (preg_match('/^[a-zA-Z\-]{2,5}$/',$lang) == 0)
         die("invalid parameter lang" . $lang);
 
     $texts = parse_ini_file("./languages/" . $lang . "/texts.ini", true);                   // interface texts
