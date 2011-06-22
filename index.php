@@ -1,9 +1,10 @@
-<?PHP
-    require_once("config.php"); 
-    require_once("./classes/Dia.php");
-    require_once("./classes/Page.php");
-    require_once("./classes/Log.php");
-    require_once("./classes/smarty/Smarty.class.php");
+<?php
+    session_start();
+    require_once('./config.php');
+    require_once('./classes/Dia.php');
+    require_once('./classes/Page.php');
+    require_once('./classes/Log.php');
+    require_once('./classes/smarty/Smarty.class.php');
 
     $col = $_REQUEST["col"];
     $site = $_REQUEST["site"];
@@ -49,6 +50,7 @@
     $count = ( isset($_REQUEST["count"]) ? $_REQUEST["count"] : $config->documents_per_page );
     
     $fmt = $_REQUEST["fmt"];                                //display format
+    $history = $_REQUEST["history"];                        //search by history
 
     // create a array for CSA (custom search appearance) parameters
     $csa['bvs_logo'] = $_REQUEST["bvs_logo"];
@@ -124,6 +126,16 @@
     }else{
         $diaResponse = $dia->search($q, $index, $filterSearch, $from);
         $result = json_decode($diaResponse);
+
+        //add to search history session
+        if ( !isset($history) && ($q != '' || $where != '' || $filterSearch[0] != '')){
+            $solr_query = ($result->diaServerResponse[0]->responseHeader->params->q != '*:*' ? $result->diaServerResponse[0]->responseHeader->params->q : '');
+            $solr_filter=  $result->diaServerResponse[0]->responseHeader->params->fq;
+            $solr_total =  $result->diaServerResponse[0]->response->numFound;
+
+            $_SESSION["search_history"][] = $solr_query . "|" . $solr_filter . "|" . $solr_total;
+        }
+
     }
 
     if ($output == "xml" || $output == "sol"){
