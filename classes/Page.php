@@ -101,6 +101,50 @@ class Page
 
     }
 
+    public function form_advanced(){
+        global $texts, $col, $lang, $config, $colectionData, $count, $sort, $campos, $booleans;
+
+        $this->template->assign('lang',$lang);
+        $this->template->assign('config',$config);
+        $this->template->assign('colectionData',$colectionData);
+        $this->template->assign('booleans',$booleans);
+        $this->template->assign('search_history', unserialize($_SESSION["searchHistory"]));
+
+        $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
+        $this->template->assign('texts',$texts + $textsCol);
+        //processar queries
+        $q = "";
+        if (isset($_REQUEST["search"])){        // search = submit da pesquisa
+            for ($i = 0; $i < 3; $i++){
+                $query = $_REQUEST["q".$i];
+                if (isset($query) and $query){
+                    $campo = $_REQUEST["field".$i];
+                    if ($q){
+                        $boolean = $_REQUEST["boolean".$i];
+                        if ($campo){
+                            $q .= " " . $boolean . " " . $campo . ':(' . $query . ')';
+                        } else {
+                            $q .= " " . $boolean . " " . $query;
+                        }
+                    } else {
+                        if ($campo){
+                            $q = $campo . ':(' . $query . ')';
+                        } else {
+                            $q = $query;
+                        }
+                    }
+                }
+            }
+            header('Location: ./?lang=' . $lang . '&sort=' . $sort . '&count=' . $count . '&q=' . $q);
+        } else {
+            // display TOP (banner, searchbar)
+            $this->template->display('form-advanced.tpl');
+
+            // display BOTTOM
+            $this->template->display('bottom.tpl');
+        }
+    }
+
     public function RSS(){
         global $col, $texts, $result, $lang;
         
