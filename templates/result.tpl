@@ -1,3 +1,5 @@
+{include file="top-searchbar.tpl"}
+ 
 {if $result eq ''}
     <div class="noResults">
         {$texts.COLLECTION_UNAVAILABLE}

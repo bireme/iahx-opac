@@ -113,13 +113,9 @@ class Page
         $this->template->assign('texts',$texts + $textsCol);
         
         $q = "";
-
-        // display TOP (banner, searchbar)
+        $this->template->display('top.tpl');
         $this->template->display('form-advanced.tpl');
-
-        // display BOTTOM
         $this->template->display('bottom.tpl');
-
     }
 
     public function RSS(){

@@ -1,15 +1,4 @@
-﻿{include file="top-header.tpl"}
-<div class="container">
-    <div class="top">
-        {include file="top-banner.tpl"}
-    </div>
-    <div class="content">
-        <div class="resultsBar">
-            <div class="resultsFor">
-                <a href="{$config->home_url}?lang={$lang}">{$texts.BVS_HOME}</a> >
-                <a href="./?lang={$lang}">{$texts.SEARCH_HOME}</a> > {$texts.SEARCH_ADVANCED}
-            </div>
-        </div>
+﻿    <div class="content">
         
         <div class="box_search advanced">
             <h3>{$texts.MULTIPLE_INDEX_SEARCH}</h3>
@@ -119,7 +108,7 @@
                                 <td>{$texts.HISTORY_ID}</td>
                                 <td>{$texts.HISTORY_QUERY}</td>
                                 <td>{$texts.HISTORY_RESULT}</td>
-                             <tr>
+                             </tr>
                             {foreach from=$search_history item=search name=history}
                                 {assign var="search_parts" value="|"|explode:$search}
                                 {assign var="history_number"  value=$smarty.foreach.history.total-$smarty.foreach.history.index}
@@ -162,4 +151,4 @@
                         <input type="submit" value="{$texts.CLEAR_HISTORY}" name="clear_history" id="clear" onclick="if ( confirm('{$texts.CONFIRM_CLEAR_HISTORY}')) return true; else return false; "/>
                   {/if}
                 </form>
-</div>
+    </div>

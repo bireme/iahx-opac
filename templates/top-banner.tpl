@@ -1,3 +1,4 @@
+<div class="top">
     <div class="parent">
         <a href="{$config->bvs_url}">
             <img src="./image/{$lang}/logo_bvs.gif" alt="{$texts.vhl_alternate}" title="{$texts.vhl_alternate}" />
@@ -18,3 +19,4 @@
         {/foreach}
     </div>
     <div class="spacer">&#160;</div>
+</div>
