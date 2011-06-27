@@ -1,6 +1,10 @@
 <div class="resultsFor">
     <a href="{$config->home_url}?lang={$lang}">{$texts.BVS_HOME}</a> >
-    <a href="{$smarty.server.PHP_SELF}?lang={$lang}">{$texts.SEARCH_HOME}</a>
+    <a href="index.php?lang={$lang}">{$texts.SEARCH_HOME}</a>
+    
+    {if preg_match('/advanced.php/', $smarty.server.PHP_SELF)}
+        > {$texts.SEARCH_ADVANCED}
+    {/if}
 
     {php}
         global $q, $filter, $filter_chain, $filterLabel, $texts;
