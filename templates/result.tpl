@@ -184,19 +184,19 @@
                                             </div>
                                             <div class="formBox inputName" >
                                                 <label for='senderName'><span>{$texts.MAIL_FROM_NAME}</span><label>
-                                                <input name="senderName" id="senderName" class="formEmail" type="text">
+                                                <input name="senderName" id="senderName" class="formEmail" type="text" value="">
                                             </div>
                                             <div class="formBox inputEmail" >
                                                 <label for='senderEmail'><span>{$texts.MAIL_FROM_EMAIL}</span></label>
-                                                <input name="senderMail" id='senderEmail' class="formEmail" type="text">
+                                                <input name="senderMail" id='senderEmail' class="formEmail" type="text" value="">
                                             </div>
                                             <div class="formBox inputFor" >
                                                 <label for='recipientMail'><span>{$texts.MAIL_TO_EMAIL_LIST}</span></label>
-                                                <input name="recipientMail" id="recipientMail" class="formEmail" type="text">
+                                                <input name="recipientMail" id="recipientMail" class="formEmail" type="text" value="">
                                             </div>
                                             <div class="formBox inputFor" >
                                                 <label for='subject'><span>{$texts.MAIL_SUBJECT}</span></form>
-                                                <input name="subject" id="subject" class="formEmail" type="text">
+                                                <input name="subject" id="subject" class="formEmail" type="text" value="">
                                             </div>
         
                                             <div class="formBox inputMessage" >
