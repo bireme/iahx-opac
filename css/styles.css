@@ -17,6 +17,11 @@ HR{
 }
 DIV.top {
 }
+
+.hide {
+	display:none;
+}
+
 DIV.identification H2 {
     font-weight: normal;
     font-size: 100%;

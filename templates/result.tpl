@@ -107,8 +107,8 @@
                             <input type="button" value="{$texts.UNSELECT_PAGE}" onclick="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" />
                         </div>
                         <div class="orderBy">
-                            
-                            <select name="sortBy" class="inputText" onchange="javascript:changeOrderBy(this);">
+                            <label for='sortBy' class='hide'>Ordenar por</label>
+                            <select name="sortBy" id='sortBy' class="inputText" onchange="javascript:changeOrderBy(this);">
                                 <option value="">{$texts.SORT_OPTIONS}</option>
                                 {foreach from=$colectionData->sort_list->sort item=sortItem}
                                     {assign var=sortName value=$sortItem->name|upper}
@@ -128,7 +128,8 @@
                         {if $colectionData->format_list->format|@count > 0}
                             <div class="format">
                                 
-                                <select name="fmt" class="inputText" onchange="javascript:changeDisplayFormat(this);">
+                                <label for='fmt' class='hide'>Formato</label>
+                                <select name="fmt" id='fmt' class="inputText" onchange="javascript:changeDisplayFormat(this);">
                                     <option value="">{$texts.FORMAT_OPTIONS}</option>                               
                                     {foreach from=$colectionData->format_list->format item=formatItem}
                                         {assign var=formatName value=$formatItem->name|strip}
@@ -175,30 +176,32 @@
                                             <input type="hidden" name="index" value="{$smarty.request.index}"/>
                                             
                                             <div class="radioOptions">
-                                                <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
-                                                <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
+                                                <label for='option'>{$texts.THIS_PAGE}</label>
+                                                <input class="" type="radio" name="option" id="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
+                                                <label for='option'>{$texts.YOUR_SELECTION}</label>
+                                                <input class="" type="radio" name="option" id="option" value="selected"> {$texts.YOUR_SELECTION}
                                                 (<span id="sizeOfBookmarks_2">0</span>)
                                             </div>
                                             <div class="formBox inputName" >
-                                                <span>{$texts.MAIL_FROM_NAME}</span>
-                                                <input name="senderName" class="formEmail" type="text">
+                                                <label for='senderName'><span>{$texts.MAIL_FROM_NAME}</span><label>
+                                                <input name="senderName" id="senderName" class="formEmail" type="text">
                                             </div>
                                             <div class="formBox inputEmail" >
-                                                <span>{$texts.MAIL_FROM_EMAIL}</span>
-                                                <input name="senderMail" class="formEmail" type="text">
+                                                <label for='senderEmail'><span>{$texts.MAIL_FROM_EMAIL}</span></label>
+                                                <input name="senderMail" id='senderEmail' class="formEmail" type="text">
                                             </div>
                                             <div class="formBox inputFor" >
-                                                <span>{$texts.MAIL_TO_EMAIL_LIST}</span>
-                                                <input name="recipientMail" class="formEmail" type="text">
+                                                <label for='recipientMail'><span>{$texts.MAIL_TO_EMAIL_LIST}</span></label>
+                                                <input name="recipientMail" id="recipientMail" class="formEmail" type="text">
                                             </div>
                                             <div class="formBox inputFor" >
-                                                <span>{$texts.MAIL_SUBJECT}</span>
-                                                <input name="subject" class="formEmail" type="text">
+                                                <label for='subject'><span>{$texts.MAIL_SUBJECT}</span></form>
+                                                <input name="subject" id="subject" class="formEmail" type="text">
                                             </div>
         
                                             <div class="formBox inputMessage" >
-                                                <span>{$texts.MAIL_COMMENT}</span>
-                                                <textarea name="comments" class="formEmail" cols="48"></textarea>
+                                                <label for='comments'><span>{$texts.MAIL_COMMENT}</span></label>
+                                                <textarea name="comments" id="comments" class="formEmail" cols="48"></textarea>
                                             </div>
                                             <div class="actions">
                                                 <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
@@ -218,8 +221,10 @@
                                         <h3>{$texts.PRINT}</h3>
                                         <form name="printForm">
                                             <div class="radioOptions">
-                                                <input class="" type="radio" name="printOption" value="all" id="print_page" checked="true"> {$texts.THIS_PAGE}
-                                                <input class="" type="radio" name="printOption" value="selection" id="print_selection""> {$texts.YOUR_SELECTION}
+                                                <label for='printOption'>{$texts.THIS_PAGE}</label>
+                                                <input class="" type="radio" name="printOption" id="printOption" value="all" id="print_page" checked="true"> {$texts.THIS_PAGE}
+                                                <label for='printOption'>{$texts.YOUR_SELECTION}</label>
+                                                <input class="" type="radio" name="printOption" id="printOption" value="selection" id="print_selection""> {$texts.YOUR_SELECTION} />
                                             </div>
                                             <div class="actions">
                                                 <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
@@ -236,8 +241,11 @@
                                         <h3>{$texts.EXPORT_CITATIONS_RIS}</h3>
                                         <form name="exportForm">
                                             <div class="exportOptions">
-                                                <input class="" type="radio" name="exportOption" value="all" id="export_page" checked="true"> {$texts.THIS_PAGE}
-                                                <input class="" type="radio" name="exportOption" value="selection" id="export_selection""> {$texts.YOUR_SELECTION}
+                                                
+                                                <label for='exportOption'>{$texts.THIS_PAGE}</label>
+                                                <input class="" type="radio" name="exportOption" id="exportOption" value="all" id="export_page" checked="true"> {$texts.THIS_PAGE}
+                                                <label for='exportOption'>{$texts.YOUR_SELECTION}</label>
+                                                <input class="" type="radio" name="exportOption" id="exportOption" value="selection" id="export_selection""> {$texts.YOUR_SELECTION}
                                             </div>
 
                                             <div class="actions">

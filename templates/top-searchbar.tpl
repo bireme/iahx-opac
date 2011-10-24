@@ -55,9 +55,12 @@
                         {/foreach}
                         <!--span>{$texts.SEARCH_WORDS}</span-->
 
+                        <label for='textEntry1' class='hide'>Busca</label>
+
                         <input type="text" name="q" value="{if $q_escaped eq ''}{$texts.ENTER_WORDS}{else}{$q_escaped}{/if}" class="inputText defaultValue" onKeyDown="if(event.keyCode==13) newSearch();" onblur="clearDefault('textEntry1', 'inputText defaultValue'); this.value= (this.value=='')? 'Entre uma ou mais palavras' : this.value" onfocus="clearDefault('textEntry1', 'inputText'); this.value= (this.value=='Entre uma ou mais palavras')? '' : this.value"  id="textEntry1"/>
 
-                        <select name="index" class="inputText">
+                        <label for='selectIndex' class='hide'>Índice</label>
+                        <select name="index" class="inputText" id="selectIndex">
                             {foreach from=$colectionData->index_list->index item=availableIndex}
                                 {assign var=indexKey value=$availableIndex->name|upper}
                                 {assign var=indexPrefix value=$availableIndex->prefix}
@@ -74,7 +77,8 @@
 
                         {if $colectionData->where_list->where|@count > 0}
                             {$texts.WHERE_FILTER}:
-                            <select name="where" class="inputText">
+                            <label for='selectWhere' class='hide'>Onde</label>
+                            <select name="where" class="inputText" id='selectWhere'>
                                 {foreach from=$colectionData->where_list->where item=where}
                                     {strip}
                                     {assign var=whereName value=$where->name|upper}
