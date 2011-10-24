@@ -868,3 +868,9 @@ function clearDefault(id, newclass) {
 function isArray(o){
         return(typeof(o.length)=="undefined")?false:true;
 }
+
+function deleteStar(object) {
+  if (object.value == "*") {
+    object.value = "";
+  }
+}

@@ -184,24 +184,24 @@
                                             </div>
                                             <div class="formBox inputName" >
                                                 <label for='senderName'><span>{$texts.MAIL_FROM_NAME}</span><label>
-                                                <input name="senderName" id="senderName" class="formEmail" type="text" value="">
+                                                <input name="senderName" id="senderName" class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
                                             </div>
                                             <div class="formBox inputEmail" >
                                                 <label for='senderEmail'><span>{$texts.MAIL_FROM_EMAIL}</span></label>
-                                                <input name="senderMail" id='senderEmail' class="formEmail" type="text" value="">
+                                                <input name="senderMail" id='senderEmail' class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
                                             </div>
                                             <div class="formBox inputFor" >
                                                 <label for='recipientMail'><span>{$texts.MAIL_TO_EMAIL_LIST}</span></label>
-                                                <input name="recipientMail" id="recipientMail" class="formEmail" type="text" value="">
+                                                <input name="recipientMail" id="recipientMail" class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
                                             </div>
                                             <div class="formBox inputFor" >
                                                 <label for='subject'><span>{$texts.MAIL_SUBJECT}</span></form>
-                                                <input name="subject" id="subject" class="formEmail" type="text" value="">
+                                                <input name="subject" id="subject" class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
                                             </div>
         
                                             <div class="formBox inputMessage" >
                                                 <label for='comments'><span>{$texts.MAIL_COMMENT}</span></label>
-                                                <textarea name="comments" id="comments" class="formEmail" cols="48"></textarea>
+                                                <textarea name="comments" id="comments" class="formEmail" cols="48" onFocus="javascript:deleteStar(this)">*</textarea>
                                             </div>
                                             <div class="actions">
                                                 <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
