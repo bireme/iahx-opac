@@ -25,11 +25,11 @@ DIV.identification {
 }
 
 DIV.identification H1{
-    padding: 93px 0px 0px 190px;    
+    display:none;
 }
 
 DIV.identification H2{
-    display:none;
+    padding: 93px 0px 0px 190px;    
 }
 
 

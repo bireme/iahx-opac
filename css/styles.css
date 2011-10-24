@@ -23,13 +23,13 @@ DIV.top {
 }
 
 DIV.identification H2 {
-    font-weight: normal;
-    font-size: 100%;
-    text-transform: lowercase;
-}
-DIV.identification H1 {
     font-size: 140%;
     color: #22268E;
+}
+DIV.identification H1 {
+	font-weight: normal;
+    font-size: 100%;
+    text-transform: lowercase;
 }
 DIV.otherVersions A {
     color: #646356;

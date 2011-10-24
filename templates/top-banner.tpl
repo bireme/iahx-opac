@@ -5,8 +5,8 @@
         </a>
     </div>
     <div class="identification">
-        <h2>{$texts.BVS_TITLE}</h2>
-        <h1>{$texts.TITLE}</h1>
+        <h1>{$texts.BVS_TITLE}</h1>
+        <h2>{$texts.TITLE}</h2>
     </div>
     <div class="otherVersions">
         {foreach key=langcode item=language from=$texts.AVAILABLE_LANGUAGES}

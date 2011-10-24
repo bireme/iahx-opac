@@ -26,6 +26,9 @@
 
     <div class="resultServices">
         <div id="searchHistory" class="searchHistory closed">
+        <h1 class='hide'>Skip to h4</h1>
+        <h2 class='hide'>Skip to h4</h2>
+        <h3 class='hide'>Skip to h4</h3>
         <h4>
             <a onclick="showHideBox('searchHistory');" title="{$texts.SHOW_HIDE}">
                 <span>{$texts.HISTORY}</span>&#160;
@@ -40,6 +43,9 @@
             <script type="text/javascript">retrieveSearchTerms();</script>
         </div>
         <div id="searchHistoryOperators" class="popup" style="display:none">
+            <h1 class='hide'>Skip to h4</h1>
+            <h2 class='hide'>Skip to h4</h2>
+            <h3 class='hide'>Skip to h4</h3>
             <h4>
                 <span>{$texts.OPERATORS}</span><!-- TODO trans -->
                 <img src="image/common/close.gif" alt="Close" onclick="showhideLayers('searchHistoryOperators')"/>
@@ -53,6 +59,9 @@
     </div>
 
     <div id="yourSelection" class="yourSelection closed">
+        <h1 class='hide'>Skip to h4</h1>
+        <h2 class='hide'>Skip to h4</h2>
+        <h3 class='hide'>Skip to h4</h3>
         <h4>
             <a onclick="showHideBox('yourSelection')" title="{$texts.SHOW_HIDE}">
                 <span>{$texts.YOUR_SELECTION}</span>&#160;
