@@ -30,6 +30,9 @@
         <script language="JavaScript" type="text/javascript" src="./js/thickbox.js"></script>
         <script language="JavaScript" type="text/javascript" src="./local/functions.js"></script>
         <script language="JavaScript" type="text/javascript" src="./local/add_collection.js"></script>
+        <noscript>
+            Your browser doesn't support javascript.  
+        </noscript>
 
 
         <!-- Page icon -->

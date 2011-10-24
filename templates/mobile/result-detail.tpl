@@ -45,7 +45,7 @@
 		<!-- type -->
 		<div class="source">
 			<span class="type">
-				<img src="image/common/type_{$doc->type}.gif"/>
+				<img src="image/common/type_{$doc->type}.gif" alt="{$doc->type}" />
 				<span>{translate text=$doc->type suffix=TYPE_ translation=$texts}</span>
 			</span>
 			
@@ -59,7 +59,7 @@
 			]
             {if $doc->services|@contains:"LXP"}
                 <a onclick="LLXP(this,'{$lang}')" title="LILACS Express" class="thickbox">
-                    <span><img src="./image/common/icon_lilacs.gif"/></span>
+                    <span><img src="./image/common/icon_lilacs.gif" alt="LILACS Express" /></span>
                     &#160;LILACS Express
                 </a>
             {/if}
@@ -104,7 +104,7 @@
         <div class="bookmark">
                 <!-- AddThis Button BEGIN -->
                 <script type="text/javascript">addthis_pub  = 'bvs.regional';</script>
-                <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a>
+                <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="AddThis" /></a>
                 <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
                 <!-- AddThis Button END -->
         </div>

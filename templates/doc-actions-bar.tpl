@@ -1,7 +1,7 @@
 
 {if $doc->db eq 'DECS'}
     <div class="text_abstract">
-        <a href="#" onclick="javascript:refineByIndex('{$doc->ti_pt[0]}','mh')"><img src="./image/common/viewFullText.gif"/></a>
+        <a href="#" onclick="javascript:refineByIndex('{$doc->ti_pt[0]}','mh')"><img src="./image/common/viewFullText.gif" alt="Full Text" /></a><!-- TODO trans -->
         <a href="#" onclick="javascript:refineByIndex('{$doc->ti_pt[0]}','mh')">{$texts.SEARCH_USING_TERMINOLOGY}</a>
     </div>
 
@@ -23,11 +23,11 @@
         <div class="text_abstract">
             {if $scieloLinkList|@count > 1}
                 <a href="#" onclick="showhideLayers('linkBox_{$doc->id}'); return false;">
-                    <img src="./image/common/icon_scielo.gif"/>
+                    <img src="./image/common/icon_scielo.gif" alt="SciELO" />
                 </a>
             {else}
                 <a href="{$scieloLinkList[0]}" target="_blank">
-                    <img src="./image/common/icon_scielo.gif"/>
+                    <img src="./image/common/icon_scielo.gif" alt="SciELO" />
                 </a>
             {/if}
             {$abstractFulltextList}
@@ -37,7 +37,7 @@
     {* mostra linha com resumo e texto completo informadas no documento *}
     {if  $scieloLinkList|@count == 0 AND ($doc->ab|@count > 0 OR $fulltextLinkList|@count > 0)}
         <div class="text_abstract">
-            <a name="abs"><img src="./image/common/viewFullText.gif"/></a>
+            <a name="abs"><img src="./image/common/viewFullText.gif" alt="Full Text" /></a>
             {if  $doc->ab|@count > 0}
                 <span>
                     <a href="resources/{$doc->id}">{$texts.ABSTRACT_IN}
@@ -68,14 +68,14 @@
 
     <div class="print">
         <a href="index.php?q=%2Bid:(%22{$doc->id}%22)&amp;lang={$lang}&amp;printMode=true">
-            <img src="./image/common/icon_print.gif"/>
+            <img src="./image/common/icon_print.gif" alt="{$texts.PRINT}" />
             &#160;<span>{$texts.PRINT}</span>
         </a>
     </div>
     {if $doc->db|contains:"MEDLINE" or $doc->services|@contains:"SCAD"}
         <div class="scad">
             <a href="{$config->photocopy_url}&lang={$lang}&db={$doc->db}&ident={$refID}">
-                <img src="./image/common/icon_scad.gif"/>
+                <img src="./image/common/icon_scad.gif" alt="{$texts.PHOTOCOPY}"/>
                 &#160;<span>{$texts.PHOTOCOPY}</span>
             </a>
         </div>
@@ -84,7 +84,7 @@
     {if isset($smarty.cookies.userTK)}
         <div class="scielo">
                 <a href="#">
-                    <img src="./image/common/icon_addToFolder.gif"/>
+                    <img src="./image/common/icon_addToFolder.gif" alt="{$texts.ADD_TO_COLLECTION}" />
                     &#160;<span>{$texts.ADD_TO_COLLECTION}</span>
                 </a>
         </div>

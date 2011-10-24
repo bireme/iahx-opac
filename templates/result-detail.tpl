@@ -56,7 +56,7 @@
         <!-- type -->
         <div class="source">
             <span class="type">
-                <img src="image/common/type_{$doc->type}.gif"/>
+                <img src="image/common/type_{$doc->type}.gif" alt="{$doc->type}" />
                 <span>{translate text=$doc->type suffix=TYPE_ translation=$texts}</span>
             </span>
             
@@ -70,7 +70,7 @@
             ]
             {if $doc->services|@contains:"LXP"}
                 <a onclick="LLXP(this,'{$lang}')" title="LILACS Express" class="thickbox">
-                    <span><img src="./image/common/icon_lilacs.gif"/></span>
+                    <span><img src="./image/common/icon_lilacs.gif" alt="LILACS Express"/></span>
                     &#160;LILACS Express
                 </a>
             {/if}
@@ -123,7 +123,7 @@
         {if $doc->db|contains:"MEDLINE"}
             <div class="pubmed">
                 <a href="{$doc->id}">
-                <img src="./image/common/icon_PubMed.gif"/>
+                <img src="./image/common/icon_PubMed.gif" alt="PubMed" />
                 <span>PubMed LinkOut</span>
                 </a>
             </div>
@@ -131,7 +131,7 @@
 
         <div class="export">
             <a href="index.php?output=ris&site={$site}&col={$col}&lang={$lang}&q={$q_escaped}">
-                <img src="./image/common/icon_page_go.gif"/>
+                <img src="./image/common/icon_page_go.gif" alt="{$texts.EXPORT_CITATION}" />
                 &#160;<span>{$texts.EXPORT_CITATION}</span>
             </a>
         </div>

@@ -71,7 +71,7 @@
         <!-- type -->
         <div class="source">
             <span class="type">
-                <img src="image/common/type_{$doc->type}.gif"/>
+                <img src="image/common/type_{$doc->type}.gif" alt="{$doc->type}" />
                 <span>{translate text=$doc->type suffix=TYPE_ translation=$texts}</span>
             </span>
 
@@ -89,7 +89,7 @@
             
             {if $doc->services|@contains:"LXP"}
                 <a onclick="LLXP(this,'{$lang}')" title="LILACS Express" class="thickbox">
-                    <span><img src="./image/common/icon_lilacs.gif"/></span>
+                    <span><img src="./image/common/icon_lilacs.gif" alt="LILACS Express" /></span>
                     &#160;LILACS Express
                 </a>
             {/if}

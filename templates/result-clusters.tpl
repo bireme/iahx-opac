@@ -21,7 +21,7 @@
 
         {else}
             <strong onclick="showHideBox('{$key}')">{$texts.$label}</strong>
-            <a href="#" onclick="showChart(this,'{$texts.$label}','{$key}')" class="thickbox"><img src="image/common/chart.gif"></a>
+            <a href="#" onclick="showChart(this,'{$texts.$label}','{$key}')" class="thickbox"><img src="image/common/chart.gif" alt="Chart"></a> <!-- TODO trans -->
             <ul id="{$key}_set">
             {if $key == 'type'}
                 {foreach key=clusterKey item=clusterItem from=$item}

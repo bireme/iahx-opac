@@ -139,8 +139,8 @@
                         </table>
                         <div id="searchHistoryOperators" class="popup" style="display:none">
                             <h4>
-                                <span>{$texts.OPERATORS}</span>
-                                <img src="image/common/close.gif" onclick="showhideLayers('searchHistoryOperators')"/>
+                                <span>{$texts.OPERATORS}</span><!-- TODO trans -->
+                                <img src="image/common/close.gif" alt="Close" onclick="showhideLayers('searchHistoryOperators')"/>
                             </h4>
                             <ul>
                                 <li onclick="addTermToSearch(this.innerHTML);">OR</li>
