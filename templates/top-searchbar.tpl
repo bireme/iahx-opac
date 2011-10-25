@@ -108,7 +108,7 @@
                                 {/foreach}
                             </select>
                         {/if}
-                        <input type="button" name="go" value="{$texts.SEARCH_SUBMIT}" class="submit" onclick="javascript:newSearch()" />
+                        <input type="button" name="go" value="{$texts.SEARCH_SUBMIT}" class="submit" onclick="javascript:newSearch()" onkeypress="javascript:newSearch()" />
                         &#160;
                         <a href="advanced.php?lang={$lang}">{$texts.SEARCH_ADVANCED}</a>
                 </div>

@@ -30,7 +30,7 @@
         <h2 class='hide'>Skip to h4</h2>
         <h3 class='hide'>Skip to h4</h3>
         <h4>
-            <a onclick="showHideBox('searchHistory');" title="{$texts.SHOW_HIDE}">
+            <a href="javascript:showHideBox('searchHistory');" title="{$texts.SHOW_HIDE}">
                 <span>{$texts.HISTORY}</span>&#160;
                 (<span id="sizeOfHistorySearch"></span>)
             </a>
@@ -48,12 +48,20 @@
             <h3 class='hide'>Skip to h4</h3>
             <h4>
                 <span>{$texts.OPERATORS}</span><!-- TODO trans -->
-                <img src="image/common/close.gif" alt="Close" onclick="showhideLayers('searchHistoryOperators')"/>
+                <a href="javascript:showhideLayers('searchHistoryOperators')" title="Close">
+                    <img src="image/common/close.gif" alt="Close" />
+                </a>
             </h4>
             <ul>
-                <li onclick="addTermToSearch(this.innerHTML);">OR</li>
-                <li onclick="addTermToSearch(this.innerHTML);">AND</li>
-                <li onclick="addTermToSearch(this.innerHTML);">AND NOT</li>
+                <a href="javascript:addTermToSearch($('#add_or').text())" title="">
+                    <li id='add_or'>OR</li>
+                </a>
+                <a href="javascript:addTermToSearch($('#add_and').text());" title="">
+                    <li id='add_and'>AND</li>
+                </a>
+                <a href="javascript:addTermToSearch($('#add_and_not').text());" title="">
+                    <li id='add_and_not'>AND NOT</li>
+                </a>
             </ul>
         </div>
     </div>
@@ -63,7 +71,7 @@
         <h2 class='hide'>Skip to h4</h2>
         <h3 class='hide'>Skip to h4</h3>
         <h4>
-            <a onclick="showHideBox('yourSelection')" title="{$texts.SHOW_HIDE}">
+            <a href="javascript:showHideBox('yourSelection')" title="{$texts.SHOW_HIDE}">
                 <span>{$texts.YOUR_SELECTION}</span>&#160;
                 (<span id="sizeOfBookmarks_0"></span>)
             </a>
@@ -73,7 +81,7 @@
             <p>
                 {$texts.SELECTION.YOU_HAVE}&#160;<span id="sizeOfBookmarks_1">0</span>&#160;{$texts.SELECTION_REGISTERS}.
             </p>
-                <li><a onclick="showBookmarks()">{$texts.SELECTION_LIST_REGISTERS}</a></li>
+                <li><a href="javascript:showBookmarks()">{$texts.SELECTION_LIST_REGISTERS}</a></li>
                 <li><a onclick="clearBookmarks()" href="index.php?">{$texts.SELECTION_CLEAR_LIST}</a></li>
             </ul>
             <span class="arrowBox"></span>
@@ -81,15 +89,21 @@
     </div>
 
     <div class="refineSearch" id="refineSearch">
-        <!--h4><a href="#" onclick="showHideBox('refineSearch')" title="{$texts.SHOW_HIDE}"><span>{$texts.REFINE}</span></a></h4-->
-        <div class="collapseAll" onclick="expandRetractResults('retract')">
-            <img src="image/common/resultServices_minus_icon2.jpg" alt="Collapse All"/>
-            &#160;{$texts.RETRACT_ALL}
-        </div>
-        <div class="expandAll" onclick="expandRetractResults('expand')">
-            <img src="image/common/resultServices_plus_icon2.jpg" alt="Expand All"/>
-            &#160;{$texts.EXPAND_ALL}
-        </div>
+        <!--h4><a href="javascriptshowHideBox('refineSearch')" title="{$texts.SHOW_HIDE}"><span>{$texts.REFINE}</span></a></h4-->
+        <!-- TODO Style -->
+        <a href="javascript:expandRetractResults('retract')" class="collapseAll">
+            <div class="collapseAll">
+                <img src="image/common/resultServices_minus_icon2.jpg" alt="Collapse All"/>
+                &#160;{$texts.RETRACT_ALL}
+            </div>
+        </a>
+        <!-- TODO Style -->
+        <a href="javascript:expandRetractResults('expand')" class="collapseAll">
+            <div class="expandAll">
+                <img src="image/common/resultServices_plus_icon2.jpg" alt="Expand All"/>
+                &#160;{$texts.EXPAND_ALL}
+            </div>
+        </a>
 
         {include file="result-clusters.tpl"}
 
@@ -110,10 +124,10 @@
                 <div class="resultNavigation">{include file="result-navigation.tpl"}</div>
                 <div class="resultsBar">
                         <div class="selectAll" id="selectAll">
-                            <input type="button" value="{$texts.SELECT_PAGE}" onclick="markAll(); showhideLayers('selectAll');showhideLayers('clearAll')" />
+                            <input type="button" value="{$texts.SELECT_PAGE}" onclick="markAll(); showhideLayers('selectAll');showhideLayers('clearAll')" onkeypress="markAll(); showhideLayers('selectAll');showhideLayers('clearAll')" />
                         </div>
                         <div class="clearAll" id="clearAll" style="display: none">
-                            <input type="button" value="{$texts.UNSELECT_PAGE}" onclick="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" />
+                            <input type="button" value="{$texts.UNSELECT_PAGE}" onclick="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" onkeypress="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" />
                         </div>
                         <div class="orderBy">
                             <label for='sortBy' class='hide'>Ordenar por</label>
@@ -161,19 +175,19 @@
                             <a class="XML" href="index.php?output=xml&site={$site}&col={$col}&lang={$lang}{$getParams}"><span>XML</span></a>
                         </div>
                         <div class="export">
-                            <a href="#" onclick="showhideLayers('megaBox')">{$texts.SEND_RESULT}</a>
+                            <a href="javascript:showhideLayers('megaBox')" title="{$texts.SEND_RESULT}">{$texts.SEND_RESULT}</a>
                             <div id="megaBox" class="emailBox boxContent" style="display:none;">
                                 <div class="alphaBg"> </div>
                                 <div class="megaBox">
-                                    <div class="identificationBar">
-                                        {$texts.SEND_RESULT_TO}: <span onclick="showhideLayers('megaBox')">X</span>
+                                    <div class="identificationBar"><!-- TODO arrumar css do X-->
+                                        {$texts.SEND_RESULT_TO}: <span><a href="javascript:showhideLayers('megaBox')"title="X">X</a></span>
                                     </div>
                                     
                                     <div class="optionEmail" id="option1" style="display:block;">
                                     <ul class="menu">
-                                        <li class="active"><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
-                                        <li><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
-                                        <li><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
+                                        <li class="active"><a href="javascript:showLayer('option1');hideLayer('option2');hideLayer('option3');" title="{$texts.SEND_BY_EMAIL}">{$texts.SEND_BY_EMAIL}</a></li>
+                                        <li><a href="javascripthideLayer('option1');showLayer('option2');hideLayer('option3');" title="{$texts.PRINT}">{$texts.PRINT}</a></li>
+                                        <li><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');" title="Exportar">Exportar</a></li>
                                     </ul>
                                     <h3>{$texts.SEND_BY_EMAIL}</h3>
                                         <form method="post" class="mailForm" action="mail.php" name="mailSend" onsubmit="return sendMail(this);">
@@ -213,7 +227,7 @@
                                                 <textarea name="comments" id="comments" class="formEmail" cols="48" onFocus="javascript:deleteStar(this)">*</textarea>
                                             </div>
                                             <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" onkeypress="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
                                                 <input type="submit" class="submit" value="{$texts.SEND}" name="send"/>
                                             </div>
                                             <span id="sendingMail" class="transmission" style="display:none;">{$texts.MAIL_SENDING}</span>
@@ -223,9 +237,9 @@
                                     </div>
                                     <div class="optionPrint" id="option2" style="display:none;">
                                     <ul class="menu">
-                                        <li><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
-                                        <li class="active"><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
-                                        <li><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
+                                        <li><a href="javascriptshowLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
+                                        <li class="active"><a href="javascripthideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
+                                        <li><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
                                     </ul>
                                         <h3>{$texts.PRINT}</h3>
                                         <form name="printForm">
@@ -236,16 +250,16 @@
                                                 <input class="" type="radio" name="printOption" id="printOption" value="selection" id="print_selection""> {$texts.YOUR_SELECTION} />
                                             </div>
                                             <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                                <input type="button" class="submit" onclick="printMode(printForm.printOption)" value="{$texts.PRINT}" name="go"/>
+                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" onkeypress="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                                <input type="button" class="submit" onclick="printMode(printForm.printOption)" onkeypress="printMode(printForm.printOption)" value="{$texts.PRINT}" name="go"/>
                                             </div>
                                         </form>
                                     </div>
                                     <div class="optionExport" id="option3" style="display:none;">
                                     <ul class="menu">
-                                        <li><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
-                                        <li><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
-                                        <li class="active"><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
+                                        <li><a href="javascriptshowLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
+                                        <li><a href="javascripthideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
+                                        <li class="active"><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
                                     </ul>
                                         <h3>{$texts.EXPORT_CITATIONS_RIS}</h3>
                                         <form name="exportForm">
@@ -258,8 +272,8 @@
                                             </div>
 
                                             <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                                <input type="button" class="submit" onclick="exportMode(exportForm.exportOption)" value="Exportar"/>
+                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" onkeypress="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                                <input type="button" class="submit" onclick="exportMode(exportForm.exportOption)" onkeypress="exportMode(exportForm.exportOption)" value="Exportar"/>
                                             </div>
                                         </form>
                                     </div>
