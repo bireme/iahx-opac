@@ -1,7 +1,7 @@
 
 {if $doc->db eq 'DECS'}
     <div class="text_abstract">
-        <a href="#" onclick="javascript:refineByIndex('{$doc->ti_pt[0]}','mh')"><img src="./image/common/viewFullText.gif" alt="Full Text" /></a><!-- TODO trans -->
+        <a href="#" onclick="javascript:refineByIndex('{$doc->ti_pt[0]}','mh')"><img src="./image/common/viewFullText.gif" alt="{$texts.FULLTEXT}" /></a>
         <a href="#" onclick="javascript:refineByIndex('{$doc->ti_pt[0]}','mh')">{$texts.SEARCH_USING_TERMINOLOGY}</a>
     </div>
 

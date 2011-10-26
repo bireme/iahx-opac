@@ -22,7 +22,7 @@
     {* mostra linha com resumo e texto completo informadas no documento *}
     {if  $scieloLinkList|@count == 0 AND ($doc->ab|@count > 0 OR $fulltextLinkList|@count > 0)}
         <div class="text_abstract">
-            <a name="abs"><img src="./image/common/viewFullText.gif" alt="View Full Text" /></a><!-- TODO Trans -->
+            <a name="abs"><img src="./image/common/viewFullText.gif" alt="{$texts.FULLTEXT}" /></a>f
             {if  $doc->ab|@count > 0}
                 <span>
                     <a href="mobile/resources/{$doc->id}">{$texts.ABSTRACT_IN}

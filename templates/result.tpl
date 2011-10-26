@@ -47,9 +47,9 @@
             <h2 class='hide'>Skip to h4</h2>
             <h3 class='hide'>Skip to h4</h3>
             <h4>
-                <span>{$texts.OPERATORS}</span><!-- TODO trans -->
-                <a href="javascript:showhideLayers('searchHistoryOperators')" title="Close">
-                    <img src="image/common/close.gif" alt="Close" />
+                <span>{$texts.OPERATORS}</span>
+                <a href="javascript:showhideLayers('searchHistoryOperators')" title="{$texts.CLOSE}">
+                    <img src="image/common/close.gif" alt="{$texts.CLOSE}" />
                 </a>
             </h4>
             <ul>

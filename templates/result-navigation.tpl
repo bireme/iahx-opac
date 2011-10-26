@@ -11,8 +11,8 @@
 
                 {math assign="previous" equation="(((current - 1) * count) - count) + 1" current=$pagination.page count=$pagination.count}
 
-                <span>&lt;&lt; <a href="javascript:changeFormParameter('from','1')">{$texts.FIRST_PAGE}</a></span>
-                <span>&lt; <a href="javascript:changeFormParameter('from','{$previous}')">{$texts.PREVIOUS_PAGE}</a></span>
+                <span>&lt;&lt; <a href="javascript:changeFormParameter('from','1')" title='{$texts.GO_TO} {$texts.FIRST_PAGE}'>{$texts.FIRST_PAGE}</a></span>
+                <span>&lt; <a href="javascript:changeFormParameter('from','{$previous}')" title="{$texts.GO_TO} {$texts.PREVIOUS_PAGE}">{$texts.PREVIOUS_PAGE}</a></span>
             {else}
                 <span>&lt;&lt; {$texts.FIRST_PAGE}</span>
                 <span>&lt; {$texts.PREVIOUS_PAGE}</span>
@@ -25,7 +25,7 @@
                 {if $iPage eq $pagination.page} 
                     <span>{$iPage}</span>   
                 {else}
-                    <span><a href="javascript:changeFormParameter('from','{$nextFrom}')" >{$iPage}</a></span>   
+                    <span><a href="javascript:changeFormParameter('from','{$nextFrom}')" title="{$texts.GO_TO} {$iPage}" >{$iPage}</a></span>
                 {/if}
                 
             {/foreach}
@@ -35,7 +35,7 @@
             {else}
                 {math assign="nextFrom" equation="( ((current - 1) * count) + count) + 1" current=$pagination.page count=$pagination.count}
     
-                <span><a href="javascript:changeFormParameter('from','{$nextFrom}')">{$texts.NEXT_PAGE}</a> &gt;</span>
+                <span><a href="javascript:changeFormParameter('from','{$nextFrom}')" title='{$texts.GO_TO} {$texts.NEXT_PAGE}'>{$texts.NEXT_PAGE}</a> &gt;</span>
             {/if}
     
         </div>
