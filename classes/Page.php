@@ -8,7 +8,7 @@ class Page
         global $config;
 
         $this->template = new Smarty();
-	$this->template->plugins_dir[] = 'local/smarty_plugins';
+    	$this->template->plugins_dir[] = 'local/smarty_plugins';
 
         if ($config->environment == 'production'){
             $this->template->compile_check=false;
