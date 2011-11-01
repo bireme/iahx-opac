@@ -197,6 +197,11 @@
                                             <input type="hidden" name="q" value="{$q_escaped}"/>
                                             <input type="hidden" name="where" value="{$smarty.request.where}"/>
                                             <input type="hidden" name="index" value="{$smarty.request.index}"/>
+                                            {foreach from=$filter_chain item=filterValue}
+                                                {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
+                                                <input type="hidden" name="filter_chain[]" value="{$fvalue}">
+                                            {/foreach}
+                                            
                                             
                                             <div class="radioOptions">
                                                 <label for='option'>{$texts.THIS_PAGE}</label>
@@ -262,18 +267,29 @@
                                         <li class="active"><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
                                     </ul>
                                         <h3>{$texts.EXPORT_CITATIONS_RIS}</h3>
-                                        <form name="exportForm">
-                                            <div class="exportOptions">
-                                                
-                                                <label for='exportOption'>{$texts.THIS_PAGE}</label>
-                                                <input class="" type="radio" name="exportOption" id="exportOption" value="all" id="export_page" checked="true"> {$texts.THIS_PAGE}
-                                                <label for='exportOption'>{$texts.YOUR_SELECTION}</label>
-                                                <input class="" type="radio" name="exportOption" id="exportOption" value="selection" id="export_selection""> {$texts.YOUR_SELECTION}
+
+                                        <form method="post" action="export.php" name="export">
+                                            <input type="hidden" name="lang" value="{$lang}"/>
+                                            <input type="hidden" name="from" value="{$from}"/>
+                                            <input type="hidden" name="count" value="{$config->documents_per_page}"/>
+                                            <input type="hidden" name="q" value="{$q_escaped}"/>
+                                            <input type="hidden" name="where" value="{$smarty.request.where}"/>
+                                            <input type="hidden" name="index" value="{$smarty.request.index}"/>
+                                            {foreach from=$filter_chain item=filterValue}
+                                                {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
+                                                <input type="hidden" name="filter_chain[]" value="{$fvalue}">
+                                            {/foreach}
+                                            
+                                            <div class="radioOptions">
+                                                <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
+                                                <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
+                                                (<span id="sizeOfBookmarks_2">0</span>)
+                                                <input class="" type="radio" name="option" value="all_references"> {$texts.ALL_REFERENCES}
                                             </div>
 
                                             <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" onkeypress="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                                <input type="button" class="submit" onclick="exportMode(exportForm.exportOption)" onkeypress="exportMode(exportForm.exportOption)" value="Exportar"/>
+                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                                <input type="submit" class="submit" value="{$texts.SEND}" name="export"/>                                                
                                             </div>
                                         </form>
                                     </div>
