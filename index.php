@@ -1,5 +1,5 @@
 <?php
-    session_start();
+    //session_start();
     require_once('./config.php');
     require_once('./classes/Dia.php');
     require_once('./classes/Page.php');
@@ -100,43 +100,8 @@
     $dia->setParam('qt',$qt);
     $dia->setParam('sort',$sort);
 
-    if($output == "ris"){
-
-        // create a loop for export all citation
-        header("Content-type: application/x-Research-Info-Systems; charset=UTF-8");
-        header('Content-Disposition: attachment; filename="citation.ris"');
-        // add BOM code
-        print(pack("CCC",0xef,0xbb,0xbf));
-
-        $export_count = '100';
-        
-        $dia->setParam('count',$export_count);        
-
-        $diaResponse = $dia->search($q, $index, $filterSearch, 0);
-        $result = json_decode($diaResponse);
-        $num_found = intval($result->diaServerResponse[0]->response->numFound);
-        $page->RIS();
-        
-        for ($export_from = $export_count+1; $export_from <= $num_found; $export_from += $export_count){
-            $diaResponse = $dia->search($q, $index, $filterSearch, $export_from);
-            $result = json_decode($diaResponse);
-            $page->RIS();
-        }
-        die();
-    }else{
-        $diaResponse = $dia->search($q, $index, $filterSearch, $from);
-        $result = json_decode($diaResponse);
-
-        //add to search history session
-        if ( !isset($history) && ($q != '' || $where != '' || $filterSearch[0] != '')){
-            $solr_query = ($result->diaServerResponse[0]->responseHeader->params->q != '*:*' ? $result->diaServerResponse[0]->responseHeader->params->q : '');
-            $solr_filter=  $result->diaServerResponse[0]->responseHeader->params->fq;
-            $solr_total =  $result->diaServerResponse[0]->response->numFound;
-
-            $_SESSION["search_history"][] = $solr_query . "|" . $solr_filter . "|" . $solr_total;
-        }
-
-    }
+    $diaResponse = $dia->search($q, $index, $filterSearch, $from);
+    $result = json_decode($diaResponse);
 
     if ($output == "xml" || $output == "sol"){
         header("Content-type: text/xml; charset=UTF-8");
@@ -160,7 +125,17 @@
     }
 
     flush();
-    // log de pesquisas realizadas
+
+    //add to search history session
+    if ( !isset($history) && ($q != '' || $where != '' || $filterSearch[0] != '')){
+        $solr_query = ($result->diaServerResponse[0]->responseHeader->params->q != '*:*' ? $result->diaServerResponse[0]->responseHeader->params->q : '');
+        $solr_filter=  $result->diaServerResponse[0]->responseHeader->params->fq;
+        $solr_total =  $result->diaServerResponse[0]->response->numFound;
+
+        $_SESSION["search_history"][] = $solr_query . "|" . $solr_filter . "|" . $solr_total;
+    }
+
+    // add to search log file
     $log = new Log();
     $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
     $log->fields['lang'] = $lang;

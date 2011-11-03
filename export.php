@@ -6,9 +6,9 @@
     require_once("./classes/smarty/Smarty.class.php");
     require_once("./classes/Bookmark.php");
 
-    $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
+    $option = $_REQUEST["option"];
 
-    $q  = stripslashes($_POST["q"]);
+    $q  = stripslashes($_REQUEST["q"]);
     
     if( $option == 'from_to' ){
         $from = ( isset($_POST["from"]) ? abs( $_POST["from"] ) : 0 );
@@ -31,9 +31,12 @@
         }
     }else if( $option == 'all_references' ){
         $from = 0;
-        $count = 100; // total to be exported at time (loop)
+        $count = 100; // total to be exported at each time (loop)
+
+    }else{            // when option is not set assume export of a single reference
+        $count = 1;  
     }
-    
+  
     $col = $_REQUEST["col"];
     $site = $_REQUEST["site"];
 
