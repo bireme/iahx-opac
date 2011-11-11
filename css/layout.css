@@ -504,7 +504,7 @@ FORM SPAN.transmission {
     margin-left: 8px;
     float: left;
 }
-#refine_facet div strong {
+#refine_facet div strong a {
     padding-left: 15px;
 }
 #refine_facet div{

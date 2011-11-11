@@ -16,11 +16,11 @@
             <div id="{$key}" class="closed">
         {/if}
         {if $key == 'fulltext'}
-            <strong><a href="javascript:showHideBox('{$key}')" title="{$texts.$label}">{$texts.$label}</a></strong>
+            <strong><a href="javascript:showHideBox('{$key}');void(0);" title="{$texts.$label}">{$texts.$label}</a></strong>
             (<a href="javascript:applyFilter('{$item[0][0]}','fulltext')">{$item[0][1]}</a>)
 
         {else}
-            <strong><a href="javascript:showHideBox('{$key}')" title="{$texts.$label}">{$texts.$label}</a></strong>
+            <strong><a href="javascript:showHideBox('{$key}');void(0);" title="{$texts.$label}">{$texts.$label}</a></strong>
             <a href="showChart(this,'{$texts.$label}','{$key}')" class="thickbox"><img src="image/common/chart.gif" alt="{$texts.CHART}"></a>
             <ul id="{$key}_set">
             {if $key == 'type'}

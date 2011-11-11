@@ -319,7 +319,7 @@ FORM SPAN.transmission {
 #refine_facet div.closed {
     border: 0px;
 }
-#refine_facet div.closed strong {
+#refine_facet div.closed strong a {
     background: transparent url(../image/common/resultServices_plus_icon2.jpg) no-repeat scroll left center;
 }
 DIV.resultServices DIV.searchHistory DIV.popup {

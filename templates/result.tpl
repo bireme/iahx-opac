@@ -30,7 +30,7 @@
         <h2 class='hide'>Skip to h4</h2>
         <h3 class='hide'>Skip to h4</h3>
         <h4>
-            <a href="javascript:showHideBox('searchHistory');" title="{$texts.SHOW_HIDE}">
+            <a href="javascript:showHideBox('searchHistory');void(0);" title="{$texts.SHOW_HIDE}">
                 <span>{$texts.HISTORY}</span>&#160;
                 (<span id="sizeOfHistorySearch"></span>)
             </a>
@@ -71,7 +71,7 @@
         <h2 class='hide'>Skip to h4</h2>
         <h3 class='hide'>Skip to h4</h3>
         <h4>
-            <a href="javascript:showHideBox('yourSelection')" title="{$texts.SHOW_HIDE}">
+            <a href="javascript:showHideBox('yourSelection');void(0);" title="{$texts.SHOW_HIDE}">
                 <span>{$texts.YOUR_SELECTION}</span>&#160;
                 (<span id="sizeOfBookmarks_0"></span>)
             </a>
@@ -89,7 +89,7 @@
     </div>
 
     <div class="refineSearch" id="refineSearch">
-        <!--h4><a href="javascriptshowHideBox('refineSearch')" title="{$texts.SHOW_HIDE}"><span>{$texts.REFINE}</span></a></h4-->
+        <!--h4><a href="javascriptshowHideBox('refineSearch');void(0);" title="{$texts.SHOW_HIDE}"><span>{$texts.REFINE}</span></a></h4-->
         <!-- TODO Style -->
         <a href="javascript:expandRetractResults('retract')" class="collapseAll">
             <div class="collapseAll">
