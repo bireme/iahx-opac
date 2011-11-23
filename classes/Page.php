@@ -120,13 +120,14 @@ class Page
     }
 
     public function RSS(){
-        global $col, $texts, $result, $lang;
+        global $col, $texts, $result, $lang, $config;
         
         $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
         $url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
 
         $this->template->assign('url',$url);
         $this->template->assign('lang',$lang);
+        $this->template->assign('config',$config);
         $this->template->assign('texts',$texts + $textsCol);
         $this->template->assign('result',$result->diaServerResponse[0]);
 
@@ -165,7 +166,7 @@ class Page
     }
 
     public function email(){
-        global $col, $texts, $result, $lang, $from, $count;
+        global $col, $texts, $result, $lang, $from, $count, $config;
         
         $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
         $url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
@@ -177,6 +178,7 @@ class Page
         $this->template->assign('pagination',$pagination);
         $this->template->assign('url',$url);
         $this->template->assign('texts',$texts + $textsCol);
+        $this->template->assign('config',$config);
         $this->template->assign('result',$result->diaServerResponse[0]);
 
         return $this->template->fetch('email-body.tpl');

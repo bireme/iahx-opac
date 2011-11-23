@@ -6,7 +6,9 @@
     require_once('./classes/smarty/Smarty.class.php');
     require_once("./classes/Bookmark.php");
     require_once("./classes/class.phpmailer.php");
-
+    
+    require_once("./config/mail-config.php");
+    
     // Registrar caminho completo para os arquivos de imagem e CSS
     $dia_path = "http://" . $config['SERVERNAME'] . $config['PATH_DATA'];
     $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
@@ -105,7 +107,7 @@
     }
 
     // Envio do e-mail
-    $senderAccount = "bvs.contato@bireme.org";
+    $senderAccount = FROM_MAIL;
 
     $mail = new PHPMailer();
     $mail->SetLanguage("br");
@@ -113,10 +115,10 @@
     $mail->CharSet = "utf-8";
     
     $mail->IsSMTP();
-    $mail->Host = "esmeralda.bireme.br";
+    $mail->Host = SMTP_SERVER;
     $mail->SMTPAuth = true;
-    $mail->Username = "bvs.contato";
-    $mail->Password = "c0nt@t0"; // SMTP password
+    $mail->Username = SMTP_USERNAME;
+    $mail->Password = SMTP_USERPASSWORD; // SMTP password
 
     // set from e return path para conta bireme.org
     $mail->From = $senderAccount;
