@@ -281,14 +281,19 @@
                                             {/foreach}
                                             
                                             <div class="radioOptions">
-                                                <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
-                                                <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
-                                                (<span id="sizeOfBookmarks_2">0</span>)
-                                                <input class="" type="radio" name="option" value="all_references"> {$texts.ALL_REFERENCES}
+						<label for="option_1" class="hide">Option</label>
+                                                <input class="" type="radio" id='option_1' name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
+						<label for="option_2" class="hide">Option</label>
+						<input class="" type="radio" id='option_2' name="option" value="selected"> {$texts.YOUR_SELECTION}
+                                                (span id="sizeOfBookmarks_2">0</span>)
+						<label for="option_3" class="hide">Option</label>
+						<input class="" type="radio" name="option" id="option_3" value="all_references"> {$texts.ALL_REFERENCES}
                                             </div>
 
                                             <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+												<a href="javascript:showhideLayers('megaBox')">
+													<input type="button" class="submit" value="{$texts.CANCEL}" name="cancel"/>
+												</a>
                                                 <input type="submit" class="submit" value="{$texts.SEND}" name="export"/>                                                
                                             </div>
                                         </form>
