@@ -13,9 +13,11 @@
                         </tr>
                         <tr>
                             <td colspan="2">
-                                <input type="text" value="" name="q0" size="50"/>
+                                <label for="q0" class="hide">Termo</label>
+                                <input type="text" id="q0" value="*" onfocus="javascript:deleteStar(this)" name="q0" size="50"/>
                             </td>
                             <td>
+                                <label for="field0" class="hide">Pesquisar em:</label>
                                 <select name="field0" id="field0">
                                     {foreach from=$colectionData->index_list->index item=availableIndex name=idx}
                                         {assign var=indexKey value=$availableIndex->name|upper}
@@ -34,6 +36,7 @@
                         </tr>
                         <tr>
                             <td>
+                                <label for="boolean1" class="hide">Tipo de operador:</label>
                                 <select name="boolean1" id="boolean1">
                                     <option value="AND" selected="1">AND</option>
                                     <option value="OR">OR</option>
@@ -41,9 +44,11 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" value="" name="q1" size="41"/>
+                                <label for="q1" class="hide">Termo</label>
+                                <input type="text" value="*" onfocus="javascript:deleteStar(this)" name="q1" id="q1" size="41"/>
                             </td>
                             <td>
+                                <label for="field1" class="hide">Pesquisar em:</label>
                                 <select name="field1" id="field1">
                                     {foreach from=$colectionData->index_list->index item=availableIndex name="idx"}
                                         {assign var=indexKey value=$availableIndex->name|upper}
@@ -62,6 +67,7 @@
                         </tr>
                         <tr>
                             <td>
+                                <label for="boolean2" class="hide">Tipo de operador:</label>
                                 <select name="boolean2" id="boolean2">
                                     <option value="AND" selected="1">AND</option>
                                     <option value="OR">OR</option>
@@ -69,9 +75,11 @@
                                 </select>
                             </td>
                             <td>
-                                <input type="text" value="" name="q2" size="41"/>
+                                <label for="q2" class="hide">Termo</label>
+                                <input type="text" value="*" onfocus="javascript:deleteStar(this)" id="q2" name="q2" size="41"/>
                             </td>
                             <td>
+                                <label for="field2" class="hide">Pesquisar em:</label>
                                 <select name="field2" id="field2">
                                     {foreach from=$colectionData->index_list->index item=availableIndex name="idx"}
                                         {assign var=indexKey value=$availableIndex->name|upper}
@@ -91,10 +99,9 @@
                     </table>
                     <br/>
                     <input type="submit" value="{$texts.SEARCH_SUBMIT}" name="search" id="buscar"/>
-            
-                    <h3>{$texts.DETAILED_SEARCH}</h3>
                     
-                    <textarea cols="90" rows="6" name="q"></textarea>
+                    <label for="q"><h3>{$texts.DETAILED_SEARCH}</h3></label>
+                    <textarea cols="90" rows="6" onfocus="javascript:deleteStar(this)" name="q" id="q">*</textarea>
                         
                     <br/>
                     <input type="submit" value="{$texts.SEARCH_SUBMIT}" name="search" id="buscar"/>
