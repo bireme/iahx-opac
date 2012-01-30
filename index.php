@@ -135,19 +135,22 @@
         $_SESSION["search_history"][] = $solr_query . "|" . $solr_filter . "|" . $solr_total;
     }
 
-    // add to search log file
-    $log = new Log();
-    $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
-    $log->fields['lang'] = $lang;
-    $log->fields['col']  = $col;
-    $log->fields['site'] = $site;
-    $log->fields['query']= ($q != ''? $q : "*");
-    $log->fields['index']= ($index != ''? $index : "*");
-    $log->fields['where']= ($_REQUEST['where'] != ''? $_REQUEST['where'] : "*");
-    $log->fields['filter'] = $dia->getFilterParam();
-    $page = (($from-1)/$count) + 1;
-    $log->fields['from'] = (strval($page) < 1? "1": $page);
 
-    $log->writeLog();
+    if ($config->log_dir != '' ){
+        // add to search log file
+        $log = new Log();
+        $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
+        $log->fields['lang'] = $lang;
+        $log->fields['col']  = $col;
+        $log->fields['site'] = $site;
+        $log->fields['query']= ($q != ''? $q : "*");
+        $log->fields['index']= ($index != ''? $index : "*");
+        $log->fields['where']= ($_REQUEST['where'] != ''? $_REQUEST['where'] : "*");
+        $log->fields['filter'] = $dia->getFilterParam();
+        $page = (($from-1)/$count) + 1;
+        $log->fields['from'] = (strval($page) < 1? "1": $page);
+
+        $log->writeLog();
+    }    
 
 ?>

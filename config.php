@@ -70,11 +70,11 @@
 //=========================================================================================================
 
     $lang = "";
-    $tag = "1.3.1";
+    $tag = "1.3.2";
     
     // define constants
     define("VERSION", $tag);
-    define("USE_SERVER_PATH", true);
+    define("USE_SERVER_PATH", false);
 
     if (USE_SERVER_PATH == true){
         $PATH = dirname($_SERVER["PATH_TRANSLATED"]);

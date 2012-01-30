@@ -1,40 +1,36 @@
 {foreach from=$result->response->docs item=doc}
 {if $doc->db|@contains:"MEDLINE"}
-    {assign var=refDB value=MEDLINE}
-    {assign var=refID value=$doc->id|substring_after:"-"}
+	{assign var=refDB value=MEDLINE}
+	{assign var=refID value=$doc->id|substring_after:"-"}
 {else}
-    {if $doc->db[0] eq 'GHL'}
-        {assign var=refDB value=$doc->db[1]}
-    {else}
-        {assign var=refDB value=$doc->db[0]}
-    {/if}       
-    {assign var=refID value=$doc->id}
+    {assign var=refDB value=$doc->db}	
+	{assign var=refID value=$doc->id}
 {/if}
 
-{if $doc->type eq 'article'}
+{if $doc->type[0] eq 'article'}
 TY  - JOUR
 {/if}
-{if $doc->type eq 'non-conventional'}
+{if $doc->type[0] eq 'non-conventional'}
 TY  - GEN
 {/if}
-{if $doc->type eq 'book'}
+{if $doc->type[0] eq 'book'}
 TY  - BOOK
-{/if}
-{foreach item=ti from=$doc->ti}
-T1  - {$ti}
-{/foreach}
-{if $doc->type eq 'article' AND $doc->ta > 0}
-JO  - {$doc->ta[0]}
-{/if}
-{if $doc->vi neq ''}
-VL  - {$doc->vi}
-{/if}
-{if $doc->ip neq ''}
-IS  - {$doc->ip}
 {/if}
 {foreach item=au from=$doc->au}
 AU  - {$au}
 {/foreach}
+{foreach item=ti from=$doc->ti}
+T1  - {$ti}
+{/foreach}
+{if $doc->ta}
+JO  - {$doc->ta[0]}
+{/if}
+{if $doc->vi neq ''}
+VL  - {$doc->vi[0]}
+{/if}
+{if $doc->ip neq ''}
+IS  - {$doc->ip[0]}
+{/if}
 DB  - {$refDB}
 DP  - http://www.bvsalud.org
 ID  - {$refID}
@@ -46,6 +42,9 @@ EP  - {$doc->pg[0]|substring_after:"-"}
 {else}
 SP  - {$doc->pg[0]}
 EP  - {$doc->pg[0]}
+{/if}
+{if $doc->da > 0}
+DA  - {$doc->da[0]|substr:0:4}/{$doc->da[0]|substr:4:2}/{$doc->da[0]|substr:6:2}
 {/if}
 {/if}
 {if $doc->da > 0}

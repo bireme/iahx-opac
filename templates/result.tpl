@@ -120,183 +120,184 @@
       {/if}
   {/foreach}
 
-  <div class="resultOptions">
-                <div class="resultNavigation">{include file="result-navigation.tpl"}</div>
-                <div class="resultsBar">
-                        <div class="selectAll" id="selectAll">
-                            <input type="button" value="{$texts.SELECT_PAGE}" onclick="markAll(); showhideLayers('selectAll');showhideLayers('clearAll')" onkeypress="markAll(); showhideLayers('selectAll');showhideLayers('clearAll')" />
-                        </div>
-                        <div class="clearAll" id="clearAll" style="display: none">
-                            <input type="button" value="{$texts.UNSELECT_PAGE}" onclick="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" onkeypress="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" />
-                        </div>
-                        <div class="orderBy">
-                            <label for='sortBy' class='hide'>Ordenar por</label>
-                            <select name="sortBy" id='sortBy' class="inputText" onchange="javascript:changeOrderBy(this);">
-                                <option value="">{$texts.SORT_OPTIONS}</option>
-                                {foreach from=$colectionData->sort_list->sort item=sortItem}
-                                    {assign var=sortName value=$sortItem->name|upper}
-                                    {assign var=sortValue value=$sortItem->value}
-    
-                                    {if $sortName neq ''}
-                                        {if $sortName == $smarty.request.sort}
-                                            <option value="{$sortName}" selected="1">{$texts.SORT.$sortName}</option>
-                                        {else}
-                                            <option value="{$sortName}">{$texts.SORT.$sortName}</option>
-                                        {/if}
-                                    {/if}
-                                {/foreach}
-                            </select>
-                        </div>
-    
-                        {if $colectionData->format_list->format|@count > 0}
-                            <div class="format">
-                                
-                                <label for='fmt' class='hide'>Formato</label>
-                                <select name="fmt" id='fmt' class="inputText" onchange="javascript:changeDisplayFormat(this);">
-                                    <option value="">{$texts.FORMAT_OPTIONS}</option>                               
-                                    {foreach from=$colectionData->format_list->format item=formatItem}
-                                        {assign var=formatName value=$formatItem->name|strip}
-                                        {assign var=textsDisplay value=$texts.DISPLAY}
-    
-                                        {if $formatName neq ''}
-                                            {if $formatName == $smarty.request.fmt}
-                                                <option value="{$formatName}" selected="1">{$texts.DISPLAY.$formatName}</option>
-                                            {else}
-                                                <option value="{$formatName}">{$texts.DISPLAY.$formatName}</option>
-                                            {/if}
-                                        {/if}
-                                    {/foreach}
-                                </select>
-                            </div>
-                        {/if}
-    
-                        <div class="feed">
-                            <a class="RSS" href="index.php?output=rss&site={$site}&col={$col}&lang={$lang}{$getParams}"><span>RSS</span></a>
-                            <a class="XML" href="index.php?output=xml&site={$site}&col={$col}&lang={$lang}{$getParams}"><span>XML</span></a>
-                        </div>
-                        <div class="export">
-                            <a href="javascript:showhideLayers('megaBox')" title="{$texts.SEND_RESULT}">{$texts.SEND_RESULT}</a>
-                            <div id="megaBox" class="emailBox boxContent" style="display:none;">
-                                <div class="alphaBg"> </div>
-                                <div class="megaBox">
-                                    <div class="identificationBar"><!-- TODO arrumar css do X-->
-                                        {$texts.SEND_RESULT_TO}: <span><a href="javascript:showhideLayers('megaBox')"title="X">X</a></span>
-                                    </div>
-                                    
-                                    <div class="optionEmail" id="option1" style="display:block;">
-                                    <ul class="menu">
-                                        <li class="active"><a href="javascript:showLayer('option1');hideLayer('option2');hideLayer('option3');" title="{$texts.SEND_BY_EMAIL}">{$texts.SEND_BY_EMAIL}</a></li>
-                                        <li><a href="javascripthideLayer('option1');showLayer('option2');hideLayer('option3');" title="{$texts.PRINT}">{$texts.PRINT}</a></li>
-                                        <li><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');" title="Exportar">Exportar</a></li>
-                                    </ul>
-                                    <h3>{$texts.SEND_BY_EMAIL}</h3>
-                                        <form method="post" class="mailForm" action="mail.php" name="mailSend" onsubmit="return sendMail(this);">
-                                            <input type="hidden" name="lang" value="{$lang}"/>
-                                            <input type="hidden" name="from" value="{$from}"/>
-                                            <input type="hidden" name="count" value="{$config->documents_per_page}"/>
-                                            <input type="hidden" name="q" value="{$q_escaped}"/>
-                                            <input type="hidden" name="where" value="{$smarty.request.where}"/>
-                                            <input type="hidden" name="index" value="{$smarty.request.index}"/>
-                                            {foreach from=$filter_chain item=filterValue}
-                                                {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
-                                                <input type="hidden" name="filter_chain[]" value="{$fvalue}">
-                                            {/foreach}
-                                            
-                                            
-                                            <div class="radioOptions">
-                                                <label for='option'>{$texts.THIS_PAGE}</label>
-                                                <input class="" type="radio" name="option" id="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
-                                                <label for='option'>{$texts.YOUR_SELECTION}</label>
-                                                <input class="" type="radio" name="option" id="option" value="selected"> {$texts.YOUR_SELECTION}
-                                                (<span id="sizeOfBookmarks_2">0</span>)
-                                            </div>
-                                            <div class="formBox inputName" >
-                                                <label for='senderName'><span>{$texts.MAIL_FROM_NAME}</span><label>
-                                                <input name="senderName" id="senderName" class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
-                                            </div>
-                                            <div class="formBox inputEmail" >
-                                                <label for='senderEmail'><span>{$texts.MAIL_FROM_EMAIL}</span></label>
-                                                <input name="senderMail" id='senderEmail' class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
-                                            </div>
-                                            <div class="formBox inputFor" >
-                                                <label for='recipientMail'><span>{$texts.MAIL_TO_EMAIL_LIST}</span></label>
-                                                <input name="recipientMail" id="recipientMail" class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
-                                            </div>
-                                            <div class="formBox inputFor" >
-                                                <label for='subject'><span>{$texts.MAIL_SUBJECT}</span></form>
-                                                <input name="subject" id="subject" class="formEmail" type="text" value="*" onFocus="javascript:deleteStar(this)">
-                                            </div>
-        
-                                            <div class="formBox inputMessage" >
-                                                <label for='comments'><span>{$texts.MAIL_COMMENT}</span></label>
-                                                <textarea name="comments" id="comments" class="formEmail" cols="48" onFocus="javascript:deleteStar(this)">*</textarea>
-                                            </div>
-                                            <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" onkeypress="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                                <input type="submit" class="submit" value="{$texts.SEND}" name="send"/>
-                                            </div>
-                                            <span id="sendingMail" class="transmission" style="display:none;">{$texts.MAIL_SENDING}</span>
-                                            <span id="mailSent" class="transmission" style="display:none;">{$texts.MAIL_SENT}</span>
-                                            <span id="mailError" class="transmission" style="display:none;">{$texts.MAIL_ERROR}</span>
-                                        </form>
-                                    </div>
-                                    <div class="optionPrint" id="option2" style="display:none;">
-                                    <ul class="menu">
-                                        <li><a href="javascriptshowLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
-                                        <li class="active"><a href="javascripthideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
-                                        <li><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
-                                    </ul>
-                                        <h3>{$texts.PRINT}</h3>
-                                        <form name="printForm">
-                                            <div class="radioOptions">
-                                                <label for='printOption'>{$texts.THIS_PAGE}</label>
-                                                <input class="" type="radio" name="printOption" id="printOption" value="all" id="print_page" checked="true"> {$texts.THIS_PAGE}
-                                                <label for='printOption'>{$texts.YOUR_SELECTION}</label>
-                                                <input class="" type="radio" name="printOption" id="printOption" value="selection" id="print_selection""> {$texts.YOUR_SELECTION} />
-                                            </div>
-                                            <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" onkeypress="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                                <input type="button" class="submit" onclick="printMode(printForm.printOption)" onkeypress="printMode(printForm.printOption)" value="{$texts.PRINT}" name="go"/>
-                                            </div>
-                                        </form>
-                                    </div>
-                                    <div class="optionExport" id="option3" style="display:none;">
-                                    <ul class="menu">
-                                        <li><a href="javascriptshowLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
-                                        <li><a href="javascripthideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
-                                        <li class="active"><a href="javascripthideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
-                                    </ul>
-                                        <h3>{$texts.EXPORT_CITATIONS_RIS}</h3>
-
-                                        <form method="post" action="export.php" name="export">
-                                            <input type="hidden" name="lang" value="{$lang}"/>
-                                            <input type="hidden" name="from" value="{$from}"/>
-                                            <input type="hidden" name="count" value="{$config->documents_per_page}"/>
-                                            <input type="hidden" name="q" value="{$q_escaped}"/>
-                                            <input type="hidden" name="where" value="{$smarty.request.where}"/>
-                                            <input type="hidden" name="index" value="{$smarty.request.index}"/>
-                                            {foreach from=$filter_chain item=filterValue}
-                                                {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
-                                                <input type="hidden" name="filter_chain[]" value="{$fvalue}">
-                                            {/foreach}
-                                            
-                                            <div class="radioOptions">
-                                                <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
-                                                <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
-                                                (<span id="sizeOfBookmarks_2">0</span>)
-                                                <input class="" type="radio" name="option" value="all_references"> {$texts.ALL_REFERENCES}
-                                            </div>
-
-                                            <div class="actions">
-                                                <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                                <input type="submit" class="submit" value="{$texts.SEND}" name="export"/>                                                
-                                            </div>
-                                        </form>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+    <div class="resultOptions">
+        <div class="resultNavigation">{include file="result-navigation.tpl"}</div>
+        <div class="resultsBar">
+                <div class="selectAll" id="selectAll">
+                    <input type="button" value="{$texts.SELECT_PAGE}" onclick="markAll(); showhideLayers('selectAll');showhideLayers('clearAll')" />
                 </div>
+                <div class="clearAll" id="clearAll" style="display: none">
+                    <input type="button" value="{$texts.UNSELECT_PAGE}" onclick="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" />
+                </div>
+                <div class="orderBy">
+                    
+                    <select name="sortBy" class="inputText" onchange="javascript:changeOrderBy(this);">
+                        <option value="">{$texts.SORT_OPTIONS}</option>
+                        {foreach from=$colectionData->sort_list->sort item=sortItem}
+                            {assign var=sortName value=$sortItem->name|upper}
+                            {assign var=sortValue value=$sortItem->value}
+
+                            {if $sortName neq ''}
+                                {if $sortName == $smarty.request.sort}
+                                    <option value="{$sortName}" selected="1">{$texts.SORT.$sortName}</option>
+                                {else}
+                                    <option value="{$sortName}">{$texts.SORT.$sortName}</option>
+                                {/if}
+                            {/if}
+                        {/foreach}
+                    </select>
+                </div>
+
+                {if $colectionData->format_list->format|@count > 0}
+                    <div class="format">
+                        
+                        <select name="fmt" class="inputText" onchange="javascript:changeDisplayFormat(this);">
+                            <option value="">{$texts.FORMAT_OPTIONS}</option>                               
+                            {foreach from=$colectionData->format_list->format item=formatItem}
+                                {assign var=formatName value=$formatItem->name|strip}
+                                {assign var=textsDisplay value=$texts.DISPLAY}
+
+                                {if $formatName neq ''}
+                                    {if $formatName == $smarty.request.fmt}
+                                        <option value="{$formatName}" selected="1">{$texts.DISPLAY.$formatName}</option>
+                                    {else}
+                                        <option value="{$formatName}">{$texts.DISPLAY.$formatName}</option>
+                                    {/if}
+                                {/if}
+                            {/foreach}
+                        </select>
+                    </div>
+                {/if}
+
+                <div class="feed">
+                    <a class="RSS" href="index.php?output=rss&site={$site}&col={$col}&lang={$lang}{$getParams}"><span>RSS</span></a>
+                    <a class="XML" href="index.php?output=xml&site={$site}&col={$col}&lang={$lang}{$getParams}"><span>XML</span></a>
+                </div>
+                <div class="export">
+                    <a href="#" onclick="showhideLayers('megaBox')">{$texts.SEND_RESULT}</a>
+                    <div id="megaBox" class="emailBox boxContent" style="display:none;">
+                        <div class="alphaBg"> </div>
+                        <div class="megaBox">
+                            <div class="identificationBar">
+                                {$texts.SEND_RESULT_TO}: <span onclick="showhideLayers('megaBox')">X</span>
+                            </div>
+                            
+                            <div class="optionEmail" id="option1" style="display:block;">
+                                <ul class="menu">
+                                    <li class="active"><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
+                                    <li><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
+                                    <li><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
+                                </ul>
+                                <h3>{$texts.SEND_BY_EMAIL}</h3>
+                                <form method="post" class="mailForm" action="mail.php" name="mailSend" onsubmit="return sendMail(this);">
+                                    <input type="hidden" name="lang" value="{$lang}"/>
+                                    <input type="hidden" name="from" value="{$from}"/>
+                                    <input type="hidden" name="count" value="{$config->documents_per_page}"/>
+                                    <input type="hidden" name="q" value="{$q_escaped}"/>
+                                    <input type="hidden" name="where" value="{$smarty.request.where}"/>
+                                    <input type="hidden" name="index" value="{$smarty.request.index}"/>
+                                    {foreach from=$filter_chain item=filterValue}
+                                        {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
+                                        <input type="hidden" name="filter_chain[]" value="{$fvalue}">
+                                    {/foreach}
+                                    
+                                    <div class="radioOptions">
+                                        <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
+                                        <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
+                                        (<span id="sizeOfBookmarks_2">0</span>)
+                                        <input class="" type="radio" name="option" value="all_references"> {$texts.ALL_REFERENCES_LIMIT}
+                                    </div>
+                                    <div class="formBox inputName" >
+                                        <span>{$texts.MAIL_FROM_NAME}</span>
+                                        <input name="senderName" class="formEmail" type="text">
+                                    </div>
+                                    <div class="formBox inputEmail" >
+                                        <span>{$texts.MAIL_FROM_EMAIL}</span>
+                                        <input name="senderMail" class="formEmail" type="text">
+                                    </div>
+                                    <div class="formBox inputFor" >
+                                        <span>{$texts.MAIL_TO_EMAIL_LIST}</span>
+                                        <input name="recipientMail" class="formEmail" type="text">
+                                    </div>
+                                    <div class="formBox inputFor" >
+                                        <span>{$texts.MAIL_SUBJECT}</span>
+                                        <input name="subject" class="formEmail" type="text">
+                                    </div>
+
+                                    <div class="formBox inputMessage" >
+                                        <span>{$texts.MAIL_COMMENT}</span>
+                                        <textarea name="comments" class="formEmail" cols="48"></textarea>
+                                    </div>
+                                    <div class="actions">
+                                        <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                        <input type="submit" class="submit" value="{$texts.SEND}" name="send"/>
+                                    </div>
+                                    <span id="sendingMail" class="transmission" style="display:none;">{$texts.MAIL_SENDING}</span>
+                                    <span id="mailSent" class="transmission" style="display:none;">{$texts.MAIL_SENT}</span>
+                                    <span id="mailError" class="transmission" style="display:none;">{$texts.MAIL_ERROR}</span>
+                                </form>
+                            </div>
+                            <div class="optionPrint" id="option2" style="display:none;">
+                                <ul class="menu">
+                                    <li><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
+                                    <li class="active"><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
+                                    <li><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">Exportar</a></li>
+                                </ul>
+                                <h3>{$texts.PRINT}</h3>
+                                <form name="printForm">
+                                    <div class="radioOptions">
+                                        <input class="" type="radio" name="printOption" value="all" id="print_page" checked="true"> {$texts.THIS_PAGE}
+                                        <input class="" type="radio" name="printOption" value="selection" id="print_selection""> {$texts.YOUR_SELECTION}
+                                        <input class="" type="radio" name="printOption" value="all_references"> {$texts.ALL_REFERENCES_LIMIT}
+                                    </div>
+                                    <div class="actions">
+                                        <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                        <input type="button" class="submit" onclick="printMode(printForm.printOption)" value="{$texts.PRINT}" name="go"/>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="optionExport" id="option3" style="display:none;">
+                                <ul class="menu">
+                                    <li><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
+                                    <li><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
+                                    <li class="active"><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">{$texts.EXPORT}</a></li>
+                                </ul>
+                                
+                                <form method="post" action="export.php" name="export">
+                                    <input type="hidden" name="lang" value="{$lang}"/>
+                                    <input type="hidden" name="from" value="{$from}"/>
+                                    <input type="hidden" name="count" value="{$config->documents_per_page}"/>
+                                    <input type="hidden" name="q" value="{$q_escaped}"/>
+                                    <input type="hidden" name="where" value="{$smarty.request.where}"/>
+                                    <input type="hidden" name="index" value="{$smarty.request.index}"/>
+                                    {foreach from=$filter_chain item=filterValue}
+                                        {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
+                                        <input type="hidden" name="filter_chain[]" value="{$fvalue}">
+                                    {/foreach}
+                                    <h3>{$texts.EXPORT}</h3>
+                                    <div class="radioOptions">
+                                        <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
+                                        <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
+                                        (<span id="sizeOfBookmarks_2">0</span>)
+                                        <input class="" type="radio" name="option" value="all_references"> {$texts.ALL_REFERENCES}
+                                    </div>
+                                    <h3>{$texts.EXPORT_FORMAT}</h3>
+                                    <div class="radioOptions">
+                                        <input class="" type="radio" name="format" value="ris" checked="true">
+                                        {$texts.EXPORT_FORMAT_RIS}<br/>
+                                        <input class="" type="radio" name="format" value="citation"> {$texts.EXPORT_FORMAT_CITATION}
+                                    </div>
+
+                                    <div class="actions">
+                                        <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
+                                        <input type="submit" class="submit" value="{$texts.SEND}" name="export"/>                                                
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+        </div>
     </div>
 {/if}
 

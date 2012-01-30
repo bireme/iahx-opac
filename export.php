@@ -58,6 +58,7 @@
         $sort = getDefaultSort($colectionData, $q);     //get default sort
     }
     $output = ( isset($_REQUEST["output"]) && $_REQUEST["output"] != '' ? $_REQUEST["output"] : "json" );
+    $format = $_REQUEST["format"];
 
     $where = $_REQUEST["where"];                            //select where search
     $whereFilter = getWhereFilter($colectionData,$where);
@@ -79,7 +80,7 @@
 
     // create a loop for export all citation
     header("Content-type: application/x-Research-Info-Systems; charset=UTF-8");
-    header('Content-Disposition: attachment; filename="citation.ris"');
+    header('Content-Disposition: attachment; filename="export.txt"');
     // add BOM code
     print(pack("CCC",0xef,0xbb,0xbf));
 
@@ -87,14 +88,14 @@
     $diaResponse = $dia->search($q, $index, $filterSearch, $from);
     $result = json_decode($diaResponse);
     $num_found = intval($result->diaServerResponse[0]->response->numFound);
-    $page->RIS();
+    $page->export($format);
 
     if( $option == 'all_references' ) {
         
         for ($export_from = $count+1; $export_from <= $num_found; $export_from += $count){            
             $diaResponse = $dia->search($q, $index, $filterSearch, $export_from);
             $result = json_decode($diaResponse);
-            $page->RIS();
+            $page->export($format);
         }
     }
 ?>

@@ -1,3 +1,4 @@
-templates_c/*
 logs/*
-
+templates_c/*.php
+config/dia-config.xml
+config/mail-config.php

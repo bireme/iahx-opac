@@ -134,6 +134,20 @@ class Page
         $this->template->display('export-rss.tpl');
     }
 
+    public function export($format='ris'){
+        global $col, $texts, $result, $lang;
+
+        $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
+        $url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
+
+        $this->template->assign('url',$url);
+        $this->template->assign('lang',$lang);
+        $this->template->assign('texts',$texts + $textsCol);
+        $this->template->assign('result',$result->diaServerResponse[0]);
+
+        $this->template->display('export-' . $format .'.tpl');
+    }
+
     public function RIS(){
         global $col, $texts, $result, $lang;
 

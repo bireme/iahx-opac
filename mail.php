@@ -1,14 +1,13 @@
 <?php
     require_once("config.php");
+    require_once("./config/mail-config.php");
     require_once("./classes/Dia.php");
     require_once("./classes/Page.php");
     require_once("./classes/Log.php");
     require_once('./classes/smarty/Smarty.class.php');
     require_once("./classes/Bookmark.php");
-    require_once("./classes/class.phpmailer.php");
-    
-    require_once("./config/mail-config.php");
-    
+    require_once("./classes/class.phpmailer.php");    
+        
     // Registrar caminho completo para os arquivos de imagem e CSS
     $dia_path = "http://" . $config['SERVERNAME'] . $config['PATH_DATA'];
     $option = (isset($_POST["option"]) ? $_POST["option"] : 'selected');
