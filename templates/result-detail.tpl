@@ -113,10 +113,20 @@
         {include file="doc-actions-bar.tpl"}
 
         <div class="bookmark">
-            <!-- AddThis Button BEGIN -->
+            <!-- AddThis Button BEGIN 
             <script type="text/javascript">addthis_pub  = 'bvs.regional';</script>
-            <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a>
+            <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="AddThis" /></a>
             <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+            <!-- AddThis Button END -->
+
+            <!-- AddThis Button BEGIN -->
+            <div class="addthis_toolbox addthis_default_style ">
+            <a class="addthis_button_facebook_like" fb:like:layout="button_count"></a>
+            <a class="addthis_button_tweet"></a>
+            <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+            <a class="addthis_counter addthis_pill_style"></a>
+            </div>
+            <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=xa-4ed9008453745b10"></script>
             <!-- AddThis Button END -->
         </div>
 
