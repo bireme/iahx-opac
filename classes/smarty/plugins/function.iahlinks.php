@@ -158,30 +158,39 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
         $translate['pt'] = array( 'pt' => 'português',
                                   'es' => 'espanhol',
                                   'en' => 'inglês',
+                                  'fulltext' => 'Texto completo',
                                   'text' => 'Texto em',
-                                  'abstract' => 'Resumo em'
+                                  'abstract' => 'Resumo'
                                 );
 
         $translate['es'] = array( 'pt' => 'portugués',
                                   'es' => 'español',
                                   'en' => 'inglés',
+                                  'fullttext' => 'Texto completo',
                                   'text' => 'Texto en',
-                                  'abstract' => 'Resumen en'
+                                  'abstract' => 'Resumen'
                                 );
 
         $translate['en'] = array( 'pt' => 'portuguese',
                                   'es' => 'spanish',
                                   'en' => 'english',
+                                  'fulltext' => 'Fulltext',
                                   'text' => 'Text in',
-                                  'abstract' => 'Abstract in'
+                                  'abstract' => 'Abstract'
                                 );
 
 
         // monta lista em html contendo as opções de idioma disponíveis para o resumo e texto do artigo
          $abstractFulltextList = '';
         if ( isset($la_abstract) ){
+            $scielo_href = str_replace('sci_arttext','sci_abstract',$firsScieloOfList);
+            if ( preg_match('/\?/', $scielo_href) ){
+                $scielo_href .= '&tlng='. $la;
+            }
+            
             $abstractFulltextList = '<span>';
-            $abstractFulltextList .= '' .  $translate[$lang]['abstract'] . ' ';
+            $abstractFulltextList .= '<a href="' . $scielo_href . '" target="_blank">' .  $translate[$lang]['abstract'] . '</a>';
+            /*
             $c = 0;
             foreach($la_abstract as $la){
                 if ($c > 0) {
@@ -195,11 +204,17 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
                 $abstractFulltextList .= '<a href="' . $scielo_href .  '" target="_blank">' . $translate[$lang][$la] . '</a>';
                 $c++;
             }
+            */
             $abstractFulltextList .= '</span>';
         }
         if ( isset($la_text) ){
-            $abstractFulltextList .= '<span>';
-            $abstractFulltextList .= '' . $translate[$lang]['text'] . ' ';
+            $scielo_href = $firsScieloOfList;
+            if ( preg_match('/\?/', $scielo_href) ){
+                $scielo_href .= '&tlng='. $la;
+            }            
+            $abstractFulltextList .= '<a name="abs"><img src="./image/common/viewFullText.gif"/></a>';
+            $abstractFulltextList .= '<span><a href="' . $scielo_href . '" target="_blank"> ' . $translate[$lang]['fulltext'] . '</a>';
+            /*
             $c = 0;
             foreach($la_text as $la){
                 if ($c > 0) {
@@ -212,6 +227,7 @@ function makeAbstractFulltextList($scieloLinkList, $la_abstract, $la_text, $lang
                 $abstractFulltextList .= '<a href="' . $scielo_href . '" target="_blank">' . $translate[$lang][$la] . '</a>';
                 $c++;
             }
+            */
             $abstractFulltextList .= '</span>';
         }
 
