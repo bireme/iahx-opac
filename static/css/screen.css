@@ -1,0 +1,60 @@
+@import url(./layout.css);
+@import url(./styles.css);
+
+.container {
+    background: #FFF url(http://bvsms.teste.bvs.br/wp-content/themes/bvs-ms/images/fundo_top.jpg) top right no-repeat;
+    width: 990px;
+    margin: 0 auto;
+}
+
+DIV.spacer {
+	width: 100%;
+	margin: 0px;
+	padding: 0px;
+	float: none;
+	font-size: 1px;
+	height: 1px;
+}
+
+
+DIV.top {
+	
+	height:95px;
+}
+
+
+DIV.identification {
+	display: none;
+}
+
+DIV.identification H1{
+	padding: 50px 0px 0px 190px;	
+}
+
+DIV.identification H2{
+	display:none;
+}
+
+
+DIV.search DIV.informationTypes A.selected, DIV.search DIV.searchForm {
+}
+
+DIV.results DIV.resultServices DIV H4, 
+DIV.resultSet DIV.infoBar {
+}
+
+DIV.results DIV.resultServices DIV {
+}
+
+.record:hover {
+	background: #f9fcfe;
+}
+
+
+#fulltext strong {
+	background: none !important;
+}
+
+#fulltext.closed strong {
+	background: none !important;
+}

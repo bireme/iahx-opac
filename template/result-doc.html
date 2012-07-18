@@ -1,0 +1,41 @@
+{% for doc in docs %}
+
+    <div id="{{ doc.id }}" class="record">
+        <div class="position">{{ loop.index }}.</div>
+        <div class="data">
+            <!-- title -->
+            <h3>{{ doc.ti.0 }}</h3>
+            
+            <!-- author -->
+            <div class="author">
+                Autor(es): 
+                {% for author in doc.au %}
+                    {{ author }}{% if not loop.last %};{% else %}.{% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- source -->
+            <div class="source">
+                {% for source in doc.db %}
+                    {{ source }}{% if not loop.last %};{% else %}.{% endif %}
+                {% endfor %}
+            </div>
+
+            <!-- subject -->
+            {% if doc.mh|length > 0 %}
+                <div class="tags">
+                    Assunto(s):
+                    {% for subject in doc.mh %}
+                        <a href="#" onclick="javascript:refineByIndex('{{ subject }}','mh')">{{ subject }}</a>
+                    {% endfor %}
+                </div>
+            {% endif %}            
+        </div>
+        <div class="spacer"></div>
+
+        <div class="user-actions">
+            {% include "doc-action-bar.html" %}
+        </div>
+         
+    </div>
+{% endfor %}

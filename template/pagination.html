@@ -1,0 +1,5 @@
+<div class="pagination">
+    {% for i in pagination %}
+        <a href="{{ url }}&page={{ i }}" title="Page {{ i }}">{{ i }}</a> |
+    {% endfor %}
+</div>

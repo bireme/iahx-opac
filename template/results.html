@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Results | {{ parent() }}{% endblock %}
+
+{% block content %}
+
+    <div class="results">
+        {% if params.q is defined %}<h2>q: {{ params.q }} ({{ total }})</h2>{% endif %}
+        <div class="resultServices">
+            <div class="filters" id="filters">
+                <ul>
+                    {% for item in app.request.get("filter") %}
+                        {% if item != "" %}
+                            <li>{{ item }} <a href="javascript:remove_filter('{{ item }}')" title="Remover cluster: {{ item }}">(remover)</a></li>
+                        {% endif %}
+                    {% endfor %}
+                </ul>
+            </div>
+
+            <div class="refineSearch" id="refineSearch">
+                
+                <!-- collapse -->
+                <a href="#" class="collapseAll">
+                    <div class="collapseAll">
+                        <img src="./static/image/common/resultServices_minus_icon2.jpg" alt="Collapse All">
+                        &nbsp;Ocultar
+                    </div>
+                </a>
+
+                <!-- expand -->
+                <a href="#" class="expandAll">
+                    <div class="expandAll">
+                        <img src="./static/image/common/resultServices_plus_icon2.jpg" alt="Expand All">
+                        &nbsp;Mostrar
+                    </div>
+                </a>
+
+                {% include "result-clusters.html" %}
+            </div>
+        </div>
+        <div class="resultSet">{% include "result-doc.html" %}</div>
+    </div>
+
+{% endblock %}
