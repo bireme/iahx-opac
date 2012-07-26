@@ -4,6 +4,6 @@
     <a href="{{ general_config.search_url }}">{{ texts.SEARCH_HOME }}</a>
 
     {% if params.q is defined and params.q != "" %}
-        > {{ params.q }} ({{ pag.total }})
+        > {{ params.q }} ({{ pag.total_formatted }})
     {% endif %}
 </div>

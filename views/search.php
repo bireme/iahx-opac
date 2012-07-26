@@ -12,6 +12,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $app['request']->query->all()
     );
 
+    $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
+
     $site = $DEFAULT_PARAMS['defaultSite'];
     if(isset($params['site']) and $params['site'] != "") {
         $site = $params['site'];
@@ -103,6 +105,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // pagination
     $pag = array();
     $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];
+    $pag['total_formatted'] = number_format($pag['total'], 0, ',', '.');
     $pag['start'] = $result['diaServerResponse'][0]['response']['start'];    
     $pag['total_pages'] = (($pag['total']/$count) % 10 == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
     $pag['count'] = $count;
@@ -110,18 +113,22 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $range_max = (($range_min+10) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+10;
     $pag['pages'] = range($range_min, $range_max);
 
+    // output vars
     $output_array = array();
     $output_array['filters'] = $filters;
     $output_array['lang'] = $lang;
     $output_array['col'] = $col;
     $output_array['site'] = $site;
+    $output_array['sort'] = $sort;
+    $output_array['from'] = $from;
+    $output_array['output'] = $output;
+    $output_array['collectionData'] = $collectionData;
     $output_array['params'] = $params;
-    $output_array['total'] = $result['diaServerResponse'][0]['response']['numFound'];
+    $output_array['pag'] = $pag;
     $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
     $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
-    $output_array['texts'] = parse_ini_file(__DIR__ . "/../languages/" . $lang . "/texts.ini", true);
     $output_array['config'] = $config;
-    $output_array['pag'] = $pag;
+    $output_array['texts'] = parse_ini_file(__DIR__ . "/../languages/" . $lang . "/texts.ini", true);
 
     $output_array['general_config'] = array(
         "search_url" => $_SERVER['PHP_SELF'],
