@@ -1,0 +1,76 @@
+<?xml version="1.0"?>
+<dia_config>
+	<site>bvs</site>
+	<bvs_url>http://regional.bvsalud.org/</bvs_url>
+	<about_bvs_url>http://regional.bvsalud.org/</about_bvs_url>
+	<home_url>http://regional.bvsalud.org/</home_url>
+	<search_server>srv.bvsalud.org</search_server>
+	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
+	<documents_per_page>10</documents_per_page>
+	<default_lang>pt</default_lang>
+	<log_dir>./logs/</log_dir>
+	<environment>teste</environment>
+
+	<search_collection_list>
+		<collection>
+			<name>regional</name>
+			<cluster_items_limit>20</cluster_items_limit>
+			<set></set>
+			<filter></filter>
+			<index_list>
+				<index>
+					<name>ALL</name>
+					<prefix></prefix>
+				</index>
+				<index>
+					<name>TI</name>
+					<prefix>ti</prefix>
+				</index>
+				<index>
+					<name>AU</name>
+					<prefix>au</prefix>
+				</index>
+				<index>
+					<name>MH</name>
+					<prefix>mh</prefix>
+				</index>
+				<index>
+					<name>PT</name>
+					<prefix>pt</prefix>
+				</index>
+
+			</index_list>
+			<where_list>
+				<where>
+					<name>ALL</name>
+					<filter></filter>
+				</where>
+				<where>
+					<name>LILACS</name>
+					<filter>db:("LILACS")</filter>
+				</where>
+			</where_list>
+			<sort_list>
+				 <sort>
+					 <name>RELEVANCE</name>
+					 <value>weight desc,score desc</value>
+				 </sort>
+				 <sort>
+				 	 <default_for_empty_query>1</default_for_empty_query>
+					 <name>YEAR_DESC</name>
+					 <value>da desc</value>
+				 </sort>
+				 <sort>
+					 <name>YEAR_ASC</name>
+					 <value>da asc</value>
+				 </sort>
+				 <sort>
+					 <name>SJR</name>
+					 <value>order_sjr desc</value>
+				 </sort>
+			</sort_list>
+            <format_list>
+            </format_list>
+		</collection>
+	</search_collection_list>
+</dia_config>

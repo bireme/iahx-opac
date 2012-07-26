@@ -1,17 +1,3 @@
-<script>
-    $(function(){
-        $("#searchForm").submit(function(){
-            var msg = "Entre uma ou mais palavras";
-            var q = $("#searchForm input[name=q]");
-            if(q.val() == msg) {
-                q.val("");
-            }
-
-            $(this).submit();
-        });
-    });
-</script>
-
 <div class="search">
     <form name="searchForm" id="searchForm" action="" method="GET">
         
@@ -29,11 +15,11 @@
                     {% endfor %}
                 {% endif %}
 
-                <label for="textEntry1" class="hide">Busca</label>
+                <label for="search-input" class="hide"></label>
 
-                <input type="text" name="q" value="{% if params.q is defined %}{{ params.q }}{% else %}Entre uma ou mais palavras{% endif %}" class="inputText defaultValue" onkeydown="if(event.keyCode==13) newSearch();" onblur="clearDefault('textEntry1', 'inputText defaultValue'); this.value= (this.value=='')? 'Entre uma ou mais palavras' : this.value" onfocus="clearDefault('textEntry1', 'inputText'); this.value= (this.value=='Entre uma ou mais palavras')? '' : this.value" id="textEntry1">
+                <input type="text" id="search-input" class="inputText" name="q" onfocus="if(this.value=='{{ texts.SEARCH_WORDS }}') this.value = '';" onblur="if(this.value=='') this.value = '{{ texts.SEARCH_WORDS }}';" placeholder="{{ texts.SEARCH_WORDS }}" value="{{ texts.SEARCH_WORDS }}">                
 
-                <input type="submit" value="pesquisar" class="submit">
+                <input type="submit" value="{{ texts.SEARCH_SUBMIT }}" class="submit">
         </div>
     </form>
 </div>

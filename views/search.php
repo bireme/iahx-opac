@@ -104,7 +104,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['total'] = $response['diaServerResponse'][0]['response']['numFound'];
     $output_array['docs'] = $response['diaServerResponse'][0]['response']['docs'];
     $output_array['clusters'] = $response['diaServerResponse'][0]['facet_counts']['facet_fields'];
-    
+    $output_array['texts'] = parse_ini_file(__DIR__ . "/../languages/" . $lang . "/texts.ini", true);
+    $output_array['config'] = $config;
     
     // output
     switch($output) {

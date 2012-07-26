@@ -3,7 +3,6 @@
 {% block title %}Results | {{ parent() }}{% endblock %}
 
 {% block content %}
-
     <div class="results">
         {% if params.q is defined %}<h2>q: {{ params.q }} ({{ total }})</h2>{% endif %}
         <div class="resultServices">
@@ -40,5 +39,4 @@
         </div>
         <div class="resultSet">{% include "result-doc.html" %}</div>
     </div>
-
 {% endblock %}

@@ -1,12 +1,6 @@
 @import url(./layout.css);
 @import url(./styles.css);
 
-.container {
-    background: #FFF url(http://bvsms.teste.bvs.br/wp-content/themes/bvs-ms/images/fundo_top.jpg) top right no-repeat;
-    width: 990px;
-    margin: 0 auto;
-}
-
 DIV.spacer {
 	width: 100%;
 	margin: 0px;
@@ -18,17 +12,19 @@ DIV.spacer {
 
 
 DIV.top {
-	
-	height:95px;
+	background:#344b66;
+	height:9px;
 }
 
 
 DIV.identification {
-	display: none;
+    height: 155px;
+    margin-left: 80px;
 }
 
 DIV.identification H1{
-	padding: 50px 0px 0px 190px;	
+	padding: 93px 0px 0px 190px;	
+	display:none;
 }
 
 DIV.identification H2{

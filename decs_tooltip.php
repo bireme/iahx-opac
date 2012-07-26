@@ -72,5 +72,5 @@ if(isset($_GET['debug'])){
 ?>
 <!-- <?=$bool[$i]?> -->
 <div id="logo-decs">
-    <?=$trans['source']?>: <a href="<?=$href?>" target="_blank">DeCS - <?=$trans['DeCS']?> <img src="./image/common/logodecs.gif" alt="DeCS"></img></a>
+    <?=$trans['source']?>: <a href="<?=$href?>" target="_blank">DeCS - <?=$trans['DeCS']?> <img src="./static/image/common/logodecs.gif" alt="DeCS"></img></a>
 </div>

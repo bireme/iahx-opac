@@ -13,7 +13,7 @@ $(document).ready(
                     hoverClass:'highlight',
                     sticky:true,
                     closePosition:'title',
-                    closeText:'<img src="image/common/gtk-close.png" alt="close" />',
+                    closeText:'<img src="./static/image/common/gtk-close.png" alt="close" />',
                     fx: { 
                         open: 'fadeIn',
                         openSpeed: 'slow'

@@ -1,14 +1,17 @@
 <div class="top">
     <div class="parent">
-        <a href="http://bvsms.teste.bvs.br/">
-            <img src="./static/image/pt/logo_bvs.gif" alt="" title="">
+        <a href="{{ config.bvs_url }}">
+            <img src="../static/image/{{ lang }}/logo_bvs.gif" alt="{{ texts.LOGO_ALTERNATE }}" title="{{ texts.LOGO_ALTERNATE }}" />
         </a>
     </div>
     <div class="identification">
-        <h1>Biblioteca Virtual em Saúde</h1>
-        <h2>BVS - Literatura Científico-Técnica</h2>
+        <h1>{{ texts.BVS_TITLE }}</h1>
+        <h2>{{ texts.TITLE }}</h2>
     </div>
     <div class="otherVersions">
-            </div>
+        {% for langcode, item in texts.AVAILABLE_LANGUAGES %}
+            <a href="?lang={{ langcode|lower }}" {% if langcode|lower == lang %} class="selected" {% endif %}>{{ item }}</a>
+        {% endfor %}    
+    </div>
     <div class="spacer">&nbsp;</div>
 </div>

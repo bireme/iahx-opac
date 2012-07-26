@@ -3,11 +3,8 @@
 require_once "lib/functions.php";
 require_once 'lib/silex/vendor/autoload.php';
 
-$lang = "pt";
-$tag = "1.3.2";
-
 // define constants
-define("VERSION", $tag);
+define("VERSION", "2.0");
 define("USE_SERVER_PATH", false);
 
 if (USE_SERVER_PATH == true){
@@ -19,7 +16,9 @@ if (USE_SERVER_PATH == true){
 $PATH_DATA = substr($PATH,strlen($_SERVER["DOCUMENT_ROOT"]));
 $PATH_DATA = str_replace('\\','/',$PATH_DATA);
 
-$config = simplexml_load_file('config/dia-config.xml');
+$config = simplexml_load_file('config/config.xml');
+
+$lang = $config->default_lang;
 
 $DEFAULT_PARAMS = array();
 $DEFAULT_PARAMS['lang'] = $lang;
@@ -40,7 +39,6 @@ if ($DEFAULT_PARAMS['defaultSite'] == ""){
 if (preg_match('/^[a-zA-Z\-]{2,5}$/',$lang) == 0)
     die("invalid parameter lang" . $lang);
 
-$texts = parse_ini_file("./languages/" . $lang . "/texts.ini", true);                   // interface texts
 $logDir = ( isset( $config->log_dir ) ? $config->log_dir : "logs/");
 
 //environment variables
@@ -59,42 +57,16 @@ define("VIEWS_PATH", DOCUMENT_ROOT . "/views/");
 define('LOG_DIR', $logDir);
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");
 
-// verifica se exitem acentos codificados em ISO nos parâmetros de entrada (q, filter e filterLabel)
-// if (!isUTF8($_REQUEST["q"])){
-//     $_REQUEST["q"] = utf8_encode($_REQUEST["q"]);
-// }
-// if (!isUTF8($_REQUEST["filter"])){
-//     $_REQUEST["filter"] = utf8_encode($_REQUEST["filter"]);
-// }
-// if (!isUTF8($_REQUEST["filterLabel"])){
-//     $_REQUEST["filterLabel"] = utf8_encode($_REQUEST["filterLabel"]);
-// }
-
-// seta variavel colectionData com a configuracao da colecao atual
-// if ($_REQUEST['col'] != ''){
-//     for ($c = 0; $c < count($config->search_collection_list->collection); $c++){
-//         $colName = $config->search_collection_list->collection[$c]->name;
-//         $colSite = $config->search_collection_list->collection[$c]->site;
-//         if (!isset($colSite) || $colSite == ''){
-//             $colSite = $DEFAULT_PARAMS['defaultSite'];
-//         }
-//         if ($_REQUEST['col'] == $colName ){
-//             if ( isset($_REQUEST['site']) ) {
-//                 if ($_REQUEST['site'] == $colSite ){
-//                     $colectionData = $config->search_collection_list->collection[$c];
-//                     break;
-//                 }
-//             }else if ($colSite == $DEFAULT_PARAMS['defaultSite']){
-//                 $colectionData = $config->search_collection_list->collection[$c];
-//                 break;
-//             }
-//         }
-//     }
-// }
-
 $app = new Silex\Application();
 // iniciando o twig, buscando templates em /template
 $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => TEMPLATE_PATH,
 ));
+
+if ($config->environment != "production"){
+	$app['debug'] = "true";
+}
+
+$app['twig.options'] = array('strict_variables' => false, 'cache' => __DIR__ . '/cache/');
+
 ?>

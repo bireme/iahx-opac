@@ -9,8 +9,10 @@
         {% endfor %}
 
         {% for name, cluster in clusters if cluster|length > 0 %}
+            {% set cluster_label = 'REFINE_' ~ name %}
+
             <div id="{{ name }}">
-                <strong><a href="javascript:showHideBox('{{ name }}');void(0);" title="{{ name }}">{{ name }}</a></strong>
+                <strong><a href="javascript:showHideBox('{{ name }}');void(0);" title="{{ name }}">{{ attribute(texts.RESULT, cluster_label) }}</a></strong>
                 <ul>
                     {% for item in cluster %}
                         <li>

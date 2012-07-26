@@ -8,11 +8,14 @@
 
     <body>{% block body %}
         <div class="container">{% block container %}
+
             {% include "top.html" %}
 
-            {% include "search.html" %}
+            <div class="content">
+                {% include "search.html" %}
 
-            {% block content %}{% endblock %}
+                {% block content %}{% endblock %}
+            </div>
         {% endblock %}</div>
     {% endblock %}</body>
 </html>
