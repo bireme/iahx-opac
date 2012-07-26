@@ -1,7 +1,7 @@
 {% for doc in docs %}
 
     <div id="{{ doc.id }}" class="record">
-        <div class="position">{{ loop.index }}.</div>
+        <div class="position">{{ loop.index + pag.start }}.</div>
         <div class="data">
             <!-- title -->
             <h3>{{ doc.ti.0 }}</h3>
