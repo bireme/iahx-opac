@@ -1,32 +1,100 @@
-<div class="bContent" id="refine_facet">
+<!-- <div class="resultServices">
+    <div class="filters" id="filters">
+        <ul>
+            {% for item in app.request.get("filter") %}
+                {% if item != "" %}
+                    <li>{{ item }} <a href="javascript:remove_filter('{{ item }}')" title="Remover cluster: {{ item }}">(remover)</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
 
-    <form action="" id="form_clusters" method="GET">
+    <div class="refineSearch" id="refineSearch">
+        
+        <div class="bContent" id="refine_facet">
+            <form action="" id="form_clusters" method="GET">
 
-        {% for key, value in params %}
-            {% if key != "filter"  %}
-                <input type="hidden" name="{{ key }}" value="{{ value }}">
-            {% endif %}
-        {% endfor %}
+                {% for key, value in params %}
+                    {% if key != "filter"  %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endif %}
+                {% endfor %}
 
-        {% for name, cluster in clusters if cluster|length > 0 %}
-            {% set cluster_label = 'REFINE_' ~ name %}
+                {% for name, cluster in clusters if cluster|length > 0 %}
+                    {% set cluster_label = 'REFINE_' ~ name %}
 
-            <div id="{{ name }}">
-                <strong><a href="javascript:showHideBox('{{ name }}');void(0);" title="{{ name }}">{{ attribute(texts.RESULT, cluster_label) }}</a></strong>
-                <ul>
-                    {% for item in cluster %}
-                        <li>
-                            <input type="checkbox" name="filter[]" value='{{ name }}:"{{ item.0 }}"' id="{{ name }}_{{ item.0 }}"
-                            {% for filter_name, filter in filters if filter_name == name %}
-                                {% if item.0 in filter %}checked="true"{% endif %}
+                    <div id="{{ name }}">
+                        <strong><a href="javascript:showHideBox('{{ name }}');void(0);" title="{{ name }}">{{ attribute(texts.RESULT, cluster_label) }}</a></strong>
+                        <ul>
+                            {% for item in cluster %}
+                                <li>
+                                    <input type="checkbox" name="filter[]" value='{{ name }}:"{{ item.0 }}"' id="{{ name }}_{{ item.0 }}"
+                                    {% for filter_name, filter in filters if filter_name == name %}
+                                        {% if item.0 in filter %}checked="true"{% endif %}
+                                    {% endfor %}
+                                    >
+                                    <a href="javascript: add_filter('{{ name }}_{{ item.0 }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
+                                </li>
                             {% endfor %}
-                            >
-                            <a href="javascript: add_filter('{{ name }}_{{ item.0 }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
-                        </li>
-                    {% endfor %}
-                    <input type="submit" value="filtrar">
-                </ul>
-            </div>
-        {% endfor %}
-    </form>
+                            <input type="submit" value="filtrar">
+                        </ul>
+                    </div>
+                {% endfor %}
+            </form>
+        </div>
+    </div>
+</div> -->
+
+<div class="resultServices">
+    <div class="filters" id="filters">
+        <ul>
+            {% for item in app.request.get("filter") %}
+                {% if item != "" %}
+                    <li>{{ item }} <a href="javascript:remove_filter('{{ item }}')" title="Remover cluster: {{ item }}">(remover)</a></li>
+                {% endif %}
+            {% endfor %}
+        </ul>
+    </div>
+
+
+    <div class="refineSearch" id="refineSearch">
+
+        <div class="bContent" id="refine_facet">
+
+            <form action="" id="form_clusters" method="GET">
+
+                {% for key, value in params %}
+                    {% if key != "filter"  %}
+                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                    {% endif %}
+                {% endfor %}
+
+                {% for name, cluster in clusters if cluster|length > 0 %}
+
+                    {% set cluster_label = 'REFINE_' ~ name %}
+                    
+                    <div id="{{ name }}">
+                        <a href="javascript:toggle_cluster('{{ name }}');" title="{{ name }}">
+                            <strong>
+                                {{ attribute(texts.RESULT, cluster_label) }}
+                            </strong>
+                        </a>
+                        <ul id="ul_{{ name }}">
+                            {% for item in cluster %}
+                                <li>
+                                    <input type="checkbox" name="filter[]" value='{{ name }}:"{{ item.0 }}"' id="{{ name }}_{{ item.0 }}"
+                                    {% for filter_name, filter in filters if filter_name == name %}
+                                        {% if item.0 in filter %}checked="true"{% endif %}
+                                    {% endfor %}
+                                    >
+                                    <a href="javascript: add_filter('{{ name }}_{{ item.0 }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                {% endfor %}
+                <input type="submit" value="filtrar">
+            </form>
+        </div>
+    </div>
 </div>

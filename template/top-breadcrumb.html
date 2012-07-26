@@ -1,0 +1,9 @@
+<div class="resultsFor">
+    <a href="{{ config.home_url }}">{{ texts.BVS_HOME }}</a> >
+    
+    <a href="{{ general_config.search_url }}">{{ texts.SEARCH_HOME }}</a>
+
+    {% if params.q is defined and params.q != "" %}
+        > {{ params.q }} ({{ pag.total }})
+    {% endif %}
+</div>

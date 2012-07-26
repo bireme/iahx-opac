@@ -1,3 +1,5 @@
+{% include "top-breadcrumb.html" %}
+
 <div class="search">
     <form name="searchForm" id="searchForm" action="" method="GET">
         
@@ -5,6 +7,9 @@
                 <input type="hidden" name="lang" value="{{ lang }}">
                 <input type="hidden" name="col" value="{{ col }}">
                 <input type="hidden" name="site" value="{{ site }}">
+                <input type="hidden" name="from" id="from" value="{{ from }}">
+                <input type="hidden" name="count" id="count" value="{{ pag.count }}">
+                <input type="hidden" name="page" id="page" value="{% if params.page is defined %}{{ params.page }}{% else %}1{% endif %}">
                 <input type="hidden" name="fb" value="">
 
                 <input type="hidden" name="open_cluster" value="">
@@ -17,7 +22,7 @@
 
                 <label for="search-input" class="hide"></label>
 
-                <input type="text" id="search-input" class="inputText" name="q" onfocus="if(this.value=='{{ texts.SEARCH_WORDS }}') this.value = '';" onblur="if(this.value=='') this.value = '{{ texts.SEARCH_WORDS }}';" placeholder="{{ texts.SEARCH_WORDS }}" value="{{ texts.SEARCH_WORDS }}">                
+                <input type="text" name="q" id="q" value="{% if params.q is defined %}{{ params.q }}{% else %}{% endif %}" class="inputText defaultValue" onkeydown="if(event.keyCode==13) newSearch();">                
 
                 <input type="submit" value="{{ texts.SEARCH_SUBMIT }}" class="submit">
         </div>

@@ -1,3 +1,10 @@
+// onload
+$(function(){
+    // watermark do input q
+    $("#q").watermark("Entre uma ou mais palavras");
+    
+})
+
 function remove_filter(item) {
 
     filters = $("#form_clusters input[type=checkbox]");
@@ -32,30 +39,20 @@ function add_filter(id) {
     $("#form_clusters").submit();
 }
 
-$(function(){
 
-    // fecha todos
-    $(".collapseAll").click(function(){
-        $(".cluster ul").hide();
-    });
+function show_all_clusters() {
+    $(".bContent ul").slideDown(200);
+}
 
-    // mostra todos
-    $(".expandAll").click(function(){
-        $(".cluster ul").show();
-    });
+function hide_all_clusters() {
+    $(".bContent ul").slideUp(200);
+}
 
-    // abre/fecha os clusters
-    $(".cluster strong").click(function(){
-        var ul = $(this).next('ul')
-        ul.toggle();
-    });
+function toggle_cluster(name) {
+    $("#ul_" + name).slideToggle(100);
+}
 
-    $(".cluster strong").each(function(){
-        $(this).find('ul').hide();
-    });
 
-    
-})
 
 function showMoreClusterItems(field){
     
@@ -69,3 +66,53 @@ function showMoreClusterItems(field){
     document.searchForm.submit();
 
 }
+
+//  outras funcoesssss
+function go_to_page(page) {
+    var form = document.searchForm;
+    var count = document.searchForm.count.value;
+    var from = (page*count)-count+1;
+    
+    form.from.value = from;
+    form.page.value = page;
+    form.submit();
+}
+
+function change_output(output) {
+    var form = document.searchForm;
+    form.output.value = output;
+
+    form.submit();
+}
+
+function change_count(elem) {
+    var form = document.searchForm;
+    form.count.value = elem.value;
+
+    form.submit();   
+}
+
+// validate form
+function validate_form() {
+    var txt = "Entre uma ou mais palavras";
+    var form = document.searchForm;
+
+    if(form.q.value == txt) {
+        form.q.value = "";
+    }
+    
+    return true;
+
+}
+
+// minha selecao
+function select_all(element) {
+    var checkboxes = $('.my_selection');
+    
+    if(element.checked) {
+        checkboxes.attr('checked', true);
+    } else {
+        checkboxes.attr("checked", false);
+    }
+}
+

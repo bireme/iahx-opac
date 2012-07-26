@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+
+{% block content %}
+    <div class="results">
+        
+        {% include "result-clusters.html" %}            
+
+        <div class="resultOptions">
+                <div class="resultNavigation">{% include "result-navigation.html" %}</div>
+                
+            </div>
+
+        <div class="resultSet">
+            {% include "result-doc.html" %}
+            {% include "result-navigation.html" %}
+        </div>
+    </div>
+{% endblock %}

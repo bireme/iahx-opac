@@ -1,4 +1,4 @@
 logs/*
 cache/*
 config/config.xml
-config/config-mail.php
+config/config-mail.xml
