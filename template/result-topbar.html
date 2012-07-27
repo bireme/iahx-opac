@@ -1,0 +1,37 @@
+<div class="orderBy">
+    <label for="sortBy" class="hide">{{ texts.SORT_OPTIONS }}</label>
+    <select name="sortBy" id="sortBy" class="inputText" onchange="javascript:changeOrderBy(this);">
+        <option value="">{{ texts.SORT_OPTIONS }}</option>
+        {% for sort in collectionData.sort_list.sort %}
+            {% set sort_label = 'SORT_' ~ sort.name %}
+            
+            {% if params.sort is defined %}
+
+                {* ajusta a variavel de traducao *}
+
+                {% if sort.value == params.sort %}
+                    <option value="{{ sort.value }}" selected="true">{{ attribute(texts, sort_label) }}</option>
+                {% else %}
+                    <option value="{{ sort.value }}" >{{ attribute(texts, sort_label) }}</option>
+                {% endif %}
+            {% else %}
+                <option value="{{ sort.value }}" >{{ attribute(texts, sort_label) }}</option>
+            {% endif %}
+
+        {% endfor %}
+    </select>
+
+    <label for="countSelect" class="hide">Quantidade de resultados</label>
+    <select name="countSelect" id="countSelect" onchange="change_count(this);">
+        <option value="10" {% if params.count is defined and params.count == 10 %}selected="true"{% endif %}>10</option>
+        <option value="20" {% if params.count is defined and params.count == 20 %}selected="true"{% endif %}>20</option>
+        <option value="30" {% if params.count is defined and params.count == 30 %}selected="true"{% endif %}>30</option>
+        <option value="50" {% if params.count is defined and params.count == 50 %}selected="true"{% endif %}>50</option>
+        <option value="100" {% if params.count is defined and params.count == 100 %}selected="true"{% endif %}>100</option>
+    </select>
+</div>
+
+<div class="feed">
+    <a class="RSS" href="javascript:change_output('rss');" title="Exibir resultado em RSS"><span>RSS</span></a>
+    <a class="XML" href="javascript:change_output('xml');" title="Exibir resultado em XML"><span>XML</span></a>
+</div>
