@@ -26,14 +26,15 @@
                 <select name="index" class="inputText" id="selectIndex">
                     
                     {% for index in collectionData.index_list.index %}
+
                         {% if params.index is defined %}
                             {% if index.prefix == params.index %}
-                                <option value="{{ index.prefix }}" selected="true">{{ index.name }}</option>
+                                <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
                             {% else %}
-                                <option value="{{ index.prefix }}" >{{ index.name }}</option>
+                                <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
                             {% endif %}
                         {% else %}
-                            <option value="{{ index.prefix }}" >{{ index.name }}</option>
+                            <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
                         {% endif %}
                     {% endfor %}
                     
@@ -42,14 +43,15 @@
                 onde:
                 <select name="where" class="inputText" id="selectWhere">
                     {% for where in collectionData.where_list.where %}
+
                         {% if params.where is defined %}
                             {% if where.filter == params.where %}
-                                <option value="{{ where.filter }}" selected="true">{{ where.name }}</option>
+                                <option value="{{ where.filter }}" selected="true">{{ attribute(texts.WHERE, where.name) }}</option>
                             {% else %}
-                                <option value="{{ where.filter }}" >{{ where.name }}</option>
+                                <option value="{{ where.filter }}" >{{ attribute(texts.WHERE, where.name) }}</option>
                             {% endif %}
                         {% else %}
-                            <option value="{{ where.filter }}" >{{ where.name }}</option>
+                            <option value="{{ where.filter }}" >{{ attribute(texts.WHERE, where.name) }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>  
