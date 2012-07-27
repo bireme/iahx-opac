@@ -21,7 +21,7 @@
         {% endfor %}
     </select>
 
-    <label for="countSelect" class="hide">Quantidade de resultados</label>
+    <label for="countSelect" class="hide">{{ texts.RESULT_QUANTITY }}</label>
     <select name="countSelect" id="countSelect" onchange="change_count(this);">
         <option value="10" {% if params.count is defined and params.count == 10 %}selected="true"{% endif %}>10</option>
         <option value="20" {% if params.count is defined and params.count == 20 %}selected="true"{% endif %}>20</option>
