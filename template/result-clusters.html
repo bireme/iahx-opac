@@ -1,13 +1,25 @@
 <div class="resultServices">
-    <div class="filters" id="filters">
-        <ul>
-            {% for item in app.request.get("filter") %}
-                {% if item != "" %}
-                    <li>{{ item }} <a href="javascript:remove_filter('{{ item }}')" title="Remover cluster: {{ item }}">(remover)</a></li>
-                {% endif %}
-            {% endfor %}
-        </ul>
-    </div>
+    {% if filters_formatted|length > 0 %}
+        <div class="filters" id="filters">
+            <h3>{{ texts.SELECTED_FILTERS }}</h3>
+            <ul>
+                {% for cluster, items in filters_formatted %}
+                    {% set cluster_label = 'REFINE_' ~ cluster %}
+
+                    <li class="filter">{{ attribute(texts.RESULT, cluster_label) }} 
+                        <ul>
+                            {% for item in items %}
+                                {% set item_value = cluster ~ ':"' ~ item ~ '"' %}
+
+                                <li>
+                                    {{ item }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
 
 
     <div class="refineSearch" id="refineSearch">
@@ -43,10 +55,10 @@
                                     <a href="javascript: add_filter('{{ name }}_{{ item.0 }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
                                 </li>
                             {% endfor %}
+                            <input type="submit" value="filtrar">
                         </ul>
                     </div>
                 {% endfor %}
-                <input type="submit" value="filtrar">
             </form>
         </div>
     </div>

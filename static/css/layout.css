@@ -260,6 +260,15 @@ DIV.results DIV.resultServices {
     xmargin-right: 6px;
     width: 230px;
 }
+DIV.results DIV.resultServices DIV.filters {
+    margin: 10px 0 10px 10px;
+}
+DIV.results DIV.resultServices DIV.filters UL LI.filter {
+    margin: 5px 0;
+}
+DIV.results DIV.resultServices DIV.filters UL LI UL {
+    margin: 0 0 0 20px;
+}
 
 DIV.results DIV.resultServices DIV {
     margin-bottom: 2px;

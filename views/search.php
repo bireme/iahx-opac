@@ -92,6 +92,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filters[$item[0]][] = str_replace('"', '', $item[1]);
     }
 
+    $filters_formatted = array();
+    foreach($filter as $f) {
+        $f = explode(":", $f);
+        $filters_formatted[$f[0]][] = str_replace('"', "", $f[1]);
+    }
+
     $filter_search = $filter;
 
     $debug = true;
@@ -116,6 +122,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // output vars
     $output_array = array();
     $output_array['filters'] = $filters;
+    $output_array['filters_formatted'] = $filters_formatted;
     $output_array['lang'] = $lang;
     $output_array['col'] = $col;
     $output_array['site'] = $site;
