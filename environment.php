@@ -51,8 +51,9 @@ define("PATH_DATA" , $config["PATH_DATA"]);
 define("DOCUMENT_ROOT", $config["DOCUMENT_ROOT"]);
 define("APP_PATH", $config["DOCUMENT_ROOT"] . $config["PATH_DATA"]);
 
-define("TEMPLATE_PATH", DOCUMENT_ROOT . "/template/");
-define("VIEWS_PATH", DOCUMENT_ROOT . "/views/");
+define("TEMPLATE_PATH", APP_PATH . "/template/");
+define("VIEWS_PATH", APP_PATH . "/views/");
+define("CACHE_PATH", APP_PATH . "/cache/");
 
 define('LOG_DIR', $logDir);
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");
@@ -67,6 +68,13 @@ if ($config->environment != "production"){
 	$app['debug'] = "true";
 }
 
-$app['twig.options'] = array('strict_variables' => false, 'cache' => __DIR__ . '/cache/');
+// create all directories that needs
+if(!is_dir(CACHE_PATH)) {
+    if(!mkdir(CACHE_PATH)) {
+        die("ERROR: can't create cache's directory.");
+    }
+}
+
+$app['twig.options'] = array('strict_variables' => false, 'cache' => CACHE_PATH);
 
 ?>

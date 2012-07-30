@@ -6,11 +6,30 @@ use Symfony\Component\HttpFoundation\Request;
 
 $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
 
-    
+    global $lang, $texts;
+
     $params = array_merge(
         $app['request']->request->all(),
         $app['request']->query->all()
     );
+
+    // if magic quotes gpc is on, this function clean all parameters and
+    // results that was modified by the directive
+    if (get_magic_quotes_gpc()) {
+        $process = array(&$params);
+        while (list($key, $val) = each($process)) {
+            foreach ($val as $k => $v) {
+                unset($process[$key][$k]);
+                if (is_array($v)) {
+                    $process[$key][stripslashes($k)] = $v;
+                    $process[] = &$process[$key][stripslashes($k)];
+                } else {
+                    $process[$key][stripslashes($k)] = stripslashes($v);
+                }
+            }
+        }
+        unset($process);
+    }
 
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
 
@@ -95,7 +114,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $filters_formatted = array();
     foreach($filter as $f) {
         $f = explode(":", $f);
-        $filters_formatted[$f[0]][] = str_replace('"', "", $f[1]);
+        $f[1] = str_replace('"', "", $f[1]);
+        $filters_formatted[$f[0]][] = $f[1];
     }
 
     $filter_search = $filter;
@@ -107,6 +127,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     $dia_response = $dia->search($q, $index, $filter_search, $from);
     $result = json_decode($dia_response, true);
+
+    // translate
+    $texts = parse_ini_file(__DIR__ . "/../languages/" . $lang . "/texts.ini", true);
 
     // pagination
     $pag = array();
@@ -135,7 +158,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
     $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
     $output_array['config'] = $config;
-    $output_array['texts'] = parse_ini_file(__DIR__ . "/../languages/" . $lang . "/texts.ini", true);
+    $output_array['texts'] = $texts;
 
     $output_array['general_config'] = array(
         "search_url" => $_SERVER['PHP_SELF'],

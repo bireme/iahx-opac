@@ -1,5 +1,23 @@
 <?php
 
+// translation
+function translate($label, $group=NULL) {
+
+    global $texts, $lang;
+
+    if($group == NULL) {
+        if(isset($texts[$label]) and $texts[$label] != "") {
+            return $texts[$label];
+        }
+    } else {
+        if(isset($texts[$group][$label]) and $texts[$group][$label] != "") {
+            return $texts[$group][$label];
+        }
+    }
+
+    return ucwords(str_replace("_", "", $label));
+}
+
 // funcao retirada da pagina http://www.php.net/utf8_encode 
 function isUTF8($string){
     if (is_array($string)) {
