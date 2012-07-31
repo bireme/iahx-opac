@@ -47,12 +47,12 @@
                         <ul id="ul_{{ name }}">
                             {% for item in cluster %}
                                 <li>
-                                    <input type="checkbox" name="filter[]" value='{{ name }}:"{{ item.0 }}"' id="{{ name }}_{{ item.0 }}"
+                                    <input type="checkbox" name="filter[]" value='{{ name }}:"{{ item.0 }}"' id="{{ name }}_{{ item.0|replace({' ': '_'}) }}"
                                     {% for filter_name, filter in filters if filter_name == name %}
                                         {% if item.0 in filter %}checked="true"{% endif %}
                                     {% endfor %}
                                     >
-                                    <a href="javascript: add_filter('{{ name }}_{{ item.0 }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
+                                    <a href="javascript: add_filter('{{ name }}_{{ item.0|replace({' ': '_'}) }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
                                 </li>
                             {% endfor %}
                             <input type="submit" value="filtrar">
