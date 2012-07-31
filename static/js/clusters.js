@@ -137,7 +137,7 @@ function open_chart(obj, titulo, id){
     if (id == 'year_cluster'){
         params += "&sort=true";
     }
-    url = "chart.php?title=" + titulo + params + "&KeepThis=true&TB_iframe=true&height=480&width=650";
+    url = "chart/?title=" + titulo + params + "&KeepThis=true&TB_iframe=true&height=480&width=650";
     obj.href = url;
 }
 
