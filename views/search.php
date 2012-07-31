@@ -160,9 +160,33 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
 
-    $output_array['general_config'] = array(
-        "search_url" => $_SERVER['PHP_SELF'],
-    );
+
+    // HISTORY APP
+    $SESSION = $app['session'];
+    $SESSION->start();
+    if(!$SESSION->has("history")) {
+        $SESSION->set('history', array());   
+    }
+    
+    $history = $SESSION->get('history');
+
+    // if doesn't exists a search history with this query, was created
+    if($q != "" and !isset($history[$q])) {
+        $history[$q]['url'] = $_SERVER['REQUEST_URI'];
+        $history[$q]['id'] = md5($q . $_SERVER['REQUEST_URI']);
+        $history[$q]['time'] = time();
+    } 
+
+    // if exists a search history with this query, but the paramaters are different,
+    // update this parameters
+    else if(isset($history[$q]) and $history[$q] != $q) {
+        $history[$q]['url'] = $_SERVER['REQUEST_URI'];
+        $history[$q]['id'] = md5($q . $_SERVER['REQUEST_URI']);
+        $history[$q]['time'] = time();    
+    }
+    
+    $SESSION->set('history', $history);   
+    $SESSION->save();
 
     // output
     switch($output) {
@@ -171,12 +195,13 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             header("Content-type: text/xml");
             print $dia_response;
             break;
+        case "print":
+            return $app['twig']->render('print.html', $output_array);
         default: 
             return $app['twig']->render('index.html', $output_array);
             break;
     }
     
 });
-
 
 ?>

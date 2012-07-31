@@ -1,4 +1,5 @@
 <div class="resultServices">
+
     {% if filters_formatted|length > 0 %}
         <div class="filters" id="filters">
             <h3>{{ texts.SELECTED_FILTERS }}</h3>
@@ -45,18 +46,7 @@
                             </strong>
                         </a>
 
-                        <script>$(function(){
-                            $('.fancybox').fancybox({
-                                'width': 650,
-                                'height': 490,
-                                'autoScale': 'true',
-                                'centerOnScroll': true,
-                                'type' : 'iframe',
-                            });
-                        })
-                        </script>
-
-                        <a href="#" onclick="javascript:open_chart(this,'{{ attribute(texts.RESULT, cluster_label) }}','{{ name }}')" class="fancybox">
+                        <a href="#" onclick="javascript:open_chart(this,'{{ attribute(texts.RESULT, cluster_label) }}','{{ name }}')" class="fancybox_inline">
                             <img src="{{ constant("STATIC_URL") }}image/common/chart.gif" alt="{{ texts.CHART }}">
                         </a>
 

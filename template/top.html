@@ -1,3 +1,11 @@
+<style>
+    .topMenu {
+        position: absolute;
+        top: 6px;
+        left: 10px;
+    }
+</style>
+
 <div class="top">
     <div class="parent">
         <a href="{{ config.bvs_url }}">
@@ -7,6 +15,11 @@
     <div class="identification">
         <h1>{{ texts.BVS_TITLE }}</h1>
         <h2>{{ texts.TITLE }}</h2>
+    </div>
+    <div class="topMenu">
+        <a href="{{ constant("SEARCH_URL") }}history" title="History">
+            History
+        </a>
     </div>
     <div class="otherVersions">
         {% for langcode, item in texts.AVAILABLE_LANGUAGES %}

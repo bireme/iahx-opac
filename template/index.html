@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+    {{ parent() }}
 
     {% if docs|length > 0 %}
         <div class="results">
