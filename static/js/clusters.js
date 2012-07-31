@@ -110,6 +110,37 @@ function validate_form() {
 
 }
 
+/**
+ * Mostra janela com grafico do cluster selecionado
+ * @param {Node} obj
+ * @param {String} titulo
+ * @param {String} id
+ */
+function open_chart(obj, titulo, id){
+    var regex = /\(\d+\)/;
+    var params= "";
+
+    var grupo = document.getElementById("ul_" + id);
+    var lista = grupo.getElementsByTagName('li');
+
+    for (i = 0; i < lista.length; i++){
+        cluster = lista[i].innerHTML;
+        clusterLabel = lista[i].getElementsByTagName('a')[0].innerHTML;
+
+        ma = regex.exec(cluster);
+        if (ma != null) {
+            clusterTotal = ma[0].replace(/[()]/g,'');
+            params += "&l[]=" + clusterLabel + "&d[]=" + clusterTotal;
+        }
+    }
+    // caso seja o cluster de ano passa parametro para realizar sort
+    if (id == 'year_cluster'){
+        params += "&sort=true";
+    }
+    url = "chart.php?title=" + titulo + params + "&KeepThis=true&TB_iframe=true&height=480&width=650";
+    obj.href = url;
+}
+
 // minha selecao
 function select_all(element) {
     var checkboxes = $('.my_selection');

@@ -44,6 +44,22 @@
                                 {{ attribute(texts.RESULT, cluster_label) }}
                             </strong>
                         </a>
+
+                        <script>$(function(){
+                            $('.fancybox').fancybox({
+                                'width': 650,
+                                'height': 490,
+                                'autoScale': 'true',
+                                'centerOnScroll': true,
+                                'type' : 'iframe',
+                            });
+                        })
+                        </script>
+
+                        <a href="#" onclick="javascript:open_chart(this,'{{ attribute(texts.RESULT, cluster_label) }}','{{ name }}')" class="fancybox">
+                            <img src="static/image/common/chart.gif" alt="{{ texts.CHART }}">
+                        </a>
+
                         <ul id="ul_{{ name }}">
                             {% for item in cluster %}
                                 <li>
