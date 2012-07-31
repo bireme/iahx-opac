@@ -49,7 +49,8 @@ define("TEMPLATE_PATH", APP_PATH . "/template/");
 define("VIEWS_PATH", APP_PATH . "/views/");
 define("CACHE_PATH", APP_PATH . "/cache/");
 
-define("STATIC_URL",  "http://" . $_SERVER['HTTP_HOST'] . $PATH . "static/");
+define("SEARCH_URL",  "http://" . $_SERVER['HTTP_HOST'] . $PATH);
+define("STATIC_URL",  SEARCH_URL . "static/");
 
 define('LOG_DIR', $logDir);
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");
