@@ -10,7 +10,7 @@
     </div>
     <div class="otherVersions">
         {% for langcode, item in texts.AVAILABLE_LANGUAGES %}
-            <a href="?lang={{ langcode|lower }}" {% if langcode|lower == lang %} class="selected" {% endif %}>{{ item }}</a>
+            <a href="javascript:change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="selected" {% endif %}>{{ item }}</a>
         {% endfor %}    
     </div>
     <div class="spacer">&nbsp;</div>

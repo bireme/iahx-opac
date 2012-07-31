@@ -92,6 +92,11 @@ function change_count(elem) {
     form.submit();   
 }
 
+function change_language(lang) {
+    document.searchForm.lang.value = lang;
+    document.searchForm.submit();
+}
+
 // validate form
 function validate_form() {
     var txt = "Entre uma ou mais palavras";
