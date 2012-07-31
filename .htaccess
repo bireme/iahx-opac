@@ -1,12 +1,7 @@
-RewriteEngine on
-RewriteRule ^old\.html$ new.html
-
-#Detail page
-RewriteRule ^resources/([a-zA-Z0-9-]+)$ index.php?detail=1&q=id:$1
-RewriteRule ^mobile/resources/([a-zA-Z0-9-]+)$ index.php?detail=1&media=mobile&q=id:$1
-
-#Other resources (css, js, image) 
-RewriteRule ^resources/(.*)$ $1
-RewriteRule ^mobile/resources/(.*)$ $1
-
-# teste de commit lala
+<IfModule mod_rewrite.c>
+   RewriteEngine On
+   #RewriteBase /path/to/app
+   RewriteCond %{REQUEST_FILENAME} !-f
+   RewriteCond %{REQUEST_FILENAME} !-d
+   RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>

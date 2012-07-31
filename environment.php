@@ -5,18 +5,12 @@ require_once 'lib/silex/vendor/autoload.php';
 
 // define constants
 define("VERSION", "2.0");
-define("USE_SERVER_PATH", false);
+define("USE_SERVER_PATH", true);
 
-if (USE_SERVER_PATH == true){
-    $PATH = dirname($_SERVER["PATH_TRANSLATED"]);
-} else {
-    $PATH = dirname(__FILE__).'/';
-}
+$PATH = str_replace("index.php", "", $_SERVER['PHP_SELF']);
+$PATH_DATA = __DIR__ . "/";
 
-$PATH_DATA = substr($PATH,strlen($_SERVER["DOCUMENT_ROOT"]));
-$PATH_DATA = str_replace('\\','/',$PATH_DATA);
-
-$config = simplexml_load_file('config/config.xml');
+$config = simplexml_load_file($PATH_DATA . 'config/config.xml');
 
 $lang = $config->default_lang;
 
@@ -49,11 +43,13 @@ $config["SERVERNAME"] = $_SERVER["HTTP_HOST"];
 define("SERVERNAME", $config["SERVERNAME"]);
 define("PATH_DATA" , $config["PATH_DATA"]);
 define("DOCUMENT_ROOT", $config["DOCUMENT_ROOT"]);
-define("APP_PATH", $config["DOCUMENT_ROOT"] . $config["PATH_DATA"]);
+define("APP_PATH", $PATH_DATA);
 
 define("TEMPLATE_PATH", APP_PATH . "/template/");
 define("VIEWS_PATH", APP_PATH . "/views/");
 define("CACHE_PATH", APP_PATH . "/cache/");
+
+define("STATIC_URL",  "http://" . $_SERVER['HTTP_HOST'] . $PATH . "static/");
 
 define('LOG_DIR', $logDir);
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");
