@@ -1,9 +1,13 @@
 <div class="resultsFor">
     <a href="{{ config.home_url }}">{{ texts.BVS_HOME }}</a> >
     
-    <a href="{{ constant("SEARCH_URL") }}">{{ texts.SEARCH_HOME }}</a>
+    {% block bc_second_lvl %}
+        <a href="{{ constant("SEARCH_URL") }}">{{ texts.SEARCH_HOME }}</a>
+    {% endblock %}
 
-    {% if params.q is defined and params.q != "" %}
-        > {{ params.q }} ({{ pag.total_formatted }})
-    {% endif %}
+    {% block bc_third_lvl %}
+        {% if params.q is defined and params.q != "" %}
+            > {{ params.q }} ({{ pag.total_formatted }})
+        {% endif %}
+    {% endblock %}
 </div>
