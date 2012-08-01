@@ -86,4 +86,12 @@ function addslashes_array($a){
     }
 }
 
+function custom_template($filename) {
+    if(count(glob(CUSTOM_TEMPLATE_PATH . $filename)) > 0) {
+        return str_replace(TEMPLATE_PATH, "", CUSTOM_TEMPLATE_PATH) . $filename;
+    } 
+    
+    return $filename;
+}
+
 ?>

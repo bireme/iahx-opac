@@ -10,12 +10,12 @@
     {% if docs|length > 0 %}
         <div class="results">
             <div class="resultSet">
-                {% include "result-doc.html" %}
+                {% include custom_template("result-doc.html") %}
             </div>
         </div>
     {% else %}
         <div class="noResults">Não foram encontrados documentos para sua consulta</div>
     {% endif %}
 
-    {% include "footer.html" %}
+    {% include custom_template("footer.html") %}
 {% endblock %}

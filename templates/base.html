@@ -49,11 +49,11 @@
     <body>{% block body %}
         <div class="container">{% block container %}
 
-            {% include "top.html" %}
+            {% include custom_template("top.html") %}
 
             <div class="content">
                 {% block content %}
-                    {% include "top-searchbar.html" %}
+                    {% include custom_template("top-searchbar.html") %}
                 {% endblock %}
             </div>
         {% endblock %}</div>
