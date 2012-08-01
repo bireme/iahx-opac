@@ -19,7 +19,7 @@ $app['twig']->addFunction('custom_template', new Twig_Function_Function('custom_
 
 // incluindo as views
 foreach(glob(VIEWS_PATH . "*.php") as $file) {
-    require $file;
+    require_once $file;
 }
 
 $app->run();
