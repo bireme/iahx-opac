@@ -18,9 +18,9 @@ $app->register(new SessionServiceProvider, array(
 $app['twig']->addFunction('custom_template', new Twig_Function_Function('custom_template'));
 
 // incluindo as views
-require VIEWS_PATH . 'chart.php';
-require VIEWS_PATH . 'search.php';
-require VIEWS_PATH . 'history.php';
+foreach(glob(VIEWS_PATH . "*.php") as $file) {
+    require $file;
+}
 
 $app->run();
 ?>
