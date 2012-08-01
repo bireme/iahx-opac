@@ -52,9 +52,8 @@
 
             <div class="content">
                 {% block content %}
-                        {% block searchbar %}
-                            {% include custom_template("top-searchbar.html") %}
-                        {% endblock %}
+                        {% block breadcrumb %}{% include custom_template("top-breadcrumb.html") %}{% endblock %}
+                        {% block searchbar %}{% include custom_template("top-searchbar.html") %}{% endblock %}
                 {% endblock %}
             </div>
         {% endblock %}</div>

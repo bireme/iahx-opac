@@ -17,13 +17,21 @@
                 <div class="resultOptions">
 
                         {% block results_bar %}
-                            <div class="resultsBar">{% include custom_template("result-topbar.html") %}</div>
+                            <div class="resultsBar">
+                                {% block results_topbar %}
+                                    {% include custom_template("result-topbar.html") %}
+                                {% endblock %}
+                                {% block results_actions %}
+                                    {% include custom_template("result-actions.html") %}
+                                {% endblock %}
+                            </div>
                         {% endblock %}
 
                         {% block resultNavigation %}
                             <div class="resultNavigation">{% include custom_template("result-navigation.html") %}</div>
                         {% endblock %}
-                        
+
+
                     </div>
                 {% endblock %}
 
