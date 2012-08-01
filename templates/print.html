@@ -1,21 +1,13 @@
-{% extends "base.html" %}
+{% extends "index.html" %}
 
 {% block extrahead %}
     <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">  
     <script>window.print();</script> 
 {% endblock %}
 
-{% block content %}
-    
-    {% if docs|length > 0 %}
-        <div class="results">
-            <div class="resultSet">
-                {% include custom_template("result-doc.html") %}
-            </div>
-        </div>
-    {% else %}
-        <div class="noResults">Não foram encontrados documentos para sua consulta</div>
-    {% endif %}
+{# zerando os blocos que nao quero que apareça #}
 
-    {% include custom_template("footer.html") %}
-{% endblock %}
+{% block searchbar %}{% endblock %}
+{% block result_options %}{% endblock %}
+{% block result_navigation %}{% endblock %}
+{% block clusters %}{% endblock %}

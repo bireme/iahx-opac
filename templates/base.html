@@ -22,7 +22,6 @@
         <script language="JavaScript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/pubmed_linkout.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/thickbox.js"></script>
         <script language="JavaScript" type="text/javascript" src="./local/functions.js"></script>
-        <script language="JavaScript" type="text/javascript" src="./local/add_collection.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/clusters.js"></script>
         <script language="JavaScript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/jquery.watermark.min.js"></script> 
         <script type="text/javascript" src="{{ constant("STATIC_URL") }}js/jquery.fancybox-1.3.4.js"></script>
@@ -53,7 +52,9 @@
 
             <div class="content">
                 {% block content %}
-                    {% include custom_template("top-searchbar.html") %}
+                        {% block searchbar %}
+                            {% include custom_template("top-searchbar.html") %}
+                        {% endblock %}
                 {% endblock %}
             </div>
         {% endblock %}</div>

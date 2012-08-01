@@ -1,24 +1,42 @@
 {% extends custom_template("base.html") %}
 
 {% block content %}
+    
     {{ parent() }}
 
     {% if docs|length > 0 %}
-        <div class="results">
-            
-            {% include custom_template("result-clusters.html") %}            
 
-            <div class="resultOptions">
-                    <div class="resultsBar">{% include custom_template("result-topbar.html") %}</div>
-                    <div class="resultNavigation">{% include custom_template("result-navigation.html") %}</div>
-                    
-                </div>
+        {% block results %}
+            <div class="results">
+                
+                {% block clusters %}
+                    {% include custom_template("result-clusters.html") %}
+                {% endblock %}
 
-            <div class="resultSet">
-                {% include custom_template("result-doc.html") %}
-                {% include custom_template("result-navigation.html") %}
+                {% block result_options %}
+                <div class="resultOptions">
+
+                        {% block results_bar %}
+                            <div class="resultsBar">{% include custom_template("result-topbar.html") %}</div>
+                        {% endblock %}
+
+                        {% block resultNavigation %}
+                            <div class="resultNavigation">{% include custom_template("result-navigation.html") %}</div>
+                        {% endblock %}
+                        
+                    </div>
+                {% endblock %}
+
+                {% block result_set %}
+                    <div class="resultSet">
+                        {% block result_doc %}{% include custom_template("result-doc.html") %}{% endblock %}
+                        {% block result_navigation %}{% include custom_template("result-navigation.html") %}{% endblock %}
+                    </div>
+                {% endblock %}
+
             </div>
-        </div>
+        {% endblock %}
+
     {% else %}
         <div class="noResults">Não foram encontrados documentos para sua consulta</div>
     {% endif %}

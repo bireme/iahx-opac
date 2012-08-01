@@ -1,3 +1,4 @@
+{% block order %}
 <div class="orderBy">
     <label for="sortBy" class="hide">{{ texts.SORT_OPTIONS }}</label>
     <select name="sortBy" id="sortBy" class="inputText" onchange="javascript:changeOrderBy(this);">
@@ -20,7 +21,11 @@
 
         {% endfor %}
     </select>
+</div>
+{% endblock %}
 
+{% block count %}
+<div class="orderBy">
     <label for="countSelect" class="hide">{{ texts.RESULT_QUANTITY }}</label>
     <select name="countSelect" id="countSelect" onchange="change_count(this);">
         <option value="10" {% if params.count is defined and params.count == 10 %}selected="true"{% endif %}>10</option>
@@ -30,7 +35,9 @@
         <option value="100" {% if params.count is defined and params.count == 100 %}selected="true"{% endif %}>100</option>
     </select>
 </div>
+{% endblock %}
 
+{% block actions %}
 <div class="feed">
     <a class="RSS" href="javascript:change_output('rss');" title="Exibir resultado em RSS"><span>RSS</span></a>
     <a class="XML" href="javascript:change_output('xml');" title="Exibir resultado em XML"><span>XML</span></a>
@@ -74,3 +81,4 @@
         <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">
     </a>
 </div>
+{% endblock %}
