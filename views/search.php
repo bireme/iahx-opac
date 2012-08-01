@@ -32,16 +32,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
-
     $site = $DEFAULT_PARAMS['defaultSite'];
-    if(isset($params['site']) and $params['site'] != "") {
-        $site = $params['site'];
-    } 
-
     $col = $DEFAULT_PARAMS['defaultCollection'];
-    if(isset($params['col']) and $params['col'] != "") {
-        $col = $params['col'];
-    }
 
     $fb = "";
     if(isset($params['fb']) and $params['fb'] != "") {
@@ -49,7 +41,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $count = $config->documents_per_page;
-    if(isset($params['count'])and $params['col'] != "") {
+    if(isset($params['count'])and $params['count'] != "") {
         $count = $params['count'];
     }
 
@@ -64,19 +56,10 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $q = "";
-    if(isset($params['q']) and $params['lang'] != "") {
+    if(isset($params['q']) and $params['q'] != "") {
         $q = $params['q'];
     }
     
-    //get sort field to apply
-    if(isset($params['sort']) and $params['sort'] != "") {
-        $sort = getSortValue($col, $params['sort']);     
-    
-    //get default sort
-    } else {
-        $sort = getDefaultSort($col, $q);
-    }
-
     $index = "";
     if(isset($params['index']) and $params['index'] != "") {
         $index = $params['index'];
@@ -91,6 +74,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     if(isset($params['page'])and $params['col'] != "") {
         $page = $params['page'];
     }
+
+    // TODO
+    $sort = "";
 
     $filter = array();
     if(isset($params['filter']) and $params['filter'] != "Array") {
@@ -119,9 +105,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $filter_search = $filter;
-
-    $debug = true;
     
+    // Dia response
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);
 
@@ -141,25 +126,6 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $range_min = (($page-5) > 0) ? $page-5 : 1;
     $range_max = (($range_min+10) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+10;
     $pag['pages'] = range($range_min, $range_max);
-
-    // output vars
-    $output_array = array();
-    $output_array['filters'] = $filters;
-    $output_array['filters_formatted'] = $filters_formatted;
-    $output_array['lang'] = $lang;
-    $output_array['col'] = $col;
-    $output_array['site'] = $site;
-    $output_array['sort'] = $sort;
-    $output_array['from'] = $from;
-    $output_array['output'] = $output;
-    $output_array['collectionData'] = $collectionData;
-    $output_array['params'] = $params;
-    $output_array['pag'] = $pag;
-    $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
-    $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
-    $output_array['config'] = $config;
-    $output_array['texts'] = $texts;
-
 
     // HISTORY APP
     $SESSION = $app['session'];
@@ -187,6 +153,25 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     
     $SESSION->set('history', $history);   
     $SESSION->save();
+    
+
+    // output vars
+    $output_array = array();
+    $output_array['filters'] = $filters;
+    $output_array['filters_formatted'] = $filters_formatted;
+    $output_array['lang'] = $lang;
+    $output_array['col'] = $col;
+    $output_array['site'] = $site;
+    $output_array['sort'] = $sort;
+    $output_array['from'] = $from;
+    $output_array['output'] = $output;
+    $output_array['collectionData'] = $collectionData;
+    $output_array['params'] = $params;
+    $output_array['pag'] = $pag;
+    $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+    $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
+    $output_array['config'] = $config;
+    $output_array['texts'] = $texts;
 
     // output
     switch($output) {
