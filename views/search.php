@@ -71,7 +71,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $page = 1;
-    if(isset($params['page'])and $params['col'] != "") {
+    if(isset($params['page'])and $params['page'] != "") {
         $page = $params['page'];
     }
 
