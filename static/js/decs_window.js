@@ -1,13 +1,14 @@
 $(document).ready(
     function(){
-        var lang = document.documentElement.lang;
+        var lang = document.searchForm.lang.value;
         
         $("div.tags > a").each(
         function(){
             var descriptor=$(this).html();
             descriptor=descriptor.replace(/\/.*/,'');
             this.title=descriptor;
-            this.rel="decs_tooltip.php?term="+escape(descriptor)+"&lang="+lang;
+            // this.rel="decs_tooltip.php?term="+escape(descriptor)+"&lang="+lang;
+            this.rel="decs/"+lang+"/"+escape(descriptor);
             $(this).cluetip(
                 {
                     hoverClass:'highlight',
