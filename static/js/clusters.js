@@ -1,7 +1,7 @@
 // onload
 $(function(){
     // watermark do input q
-    $("#q").watermark("Entre umcount ou mais palavras");
+    $("#q").watermark("Entre uma ou mais palavras");
 
     $('.fancybox_iframe').fancybox({
         'width': 650,
@@ -22,7 +22,7 @@ function remove_filter(item) {
     // se os checkboxs existirem
     if(filters.length > 0) {
 
-        // varre todos os itens e dcount check no de valor "item"
+        // varre todos os itens e da check no de valor "item"
         filters.each(function(){
             if($(this).val() == item) {
                 $(this).attr('checked', false);
@@ -121,7 +121,7 @@ function print(count) {
 
 // validate form
 function validate_form() {
-    var txt = "Entre umcount ou mais palavras";
+    var txt = "Entre uma ou mais palavras";
     var form = document.searchForm;
 
     if(form.q.value == txt) {
@@ -133,7 +133,7 @@ function validate_form() {
 }
 
 /**
- * Mostrcount janelcount com grafico do cluster selecionado
+ * Mostra janela com grafico do cluster selecionado
  * @param {Node} obj
  * @param {String} titulo
  * @param {String} id
@@ -143,19 +143,19 @@ function open_chart(obj, titulo, id){
     var params= "";
 
     var grupo = document.getElementById("ul_" + id);
-    var listcount = grupo.getElementsByTagName('li');
+    var lista = grupo.getElementsByTagName('li');
 
     for (i = 0; i < lista.length; i++){
         cluster = lista[i].innerHTML;
         clusterLabel = lista[i].getElementsByTagName('a')[0].innerHTML;
 
-        mcount = regex.exec(cluster);
-        if (mcount != null) {
+        ma = regex.exec(cluster);
+        if (ma != null) {
             clusterTotal = ma[0].replace(/[()]/g,'');
             params += "&l[]=" + clusterLabel + "&d[]=" + clusterTotal;
         }
     }
-    // caso sejcount o cluster de ano passcount parametro parcount realizar sort
+    // caso seja o cluster de ano passa parametro para realizar sort
     if (id == 'year_cluster'){
         params += "&sort=true";
     }
@@ -163,7 +163,7 @@ function open_chart(obj, titulo, id){
     obj.href = url;
 }
 
-// minhcount selecao
+// minha selecao
 function select_all(element) {
     var checkboxes = $('.my_selection');
     
