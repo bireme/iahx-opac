@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 
 $app->match('decs/{lang}/{term}', function (Request $request, $lang, $term) use ($app, $DEFAULT_PARAMS, $config) {
 
-    $texts = parse_ini_file("languages/$lang/texts.ini");  
+    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
     $lang_one_letter = ($lang == "en") ? "i" : substr($lang, 0, 1);
 
     $bool = array(

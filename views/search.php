@@ -114,7 +114,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $result = json_decode($dia_response, true);
 
     // translate
-    $texts = parse_ini_file(__DIR__ . "/../languages/" . $lang . "/texts.ini", true);
+    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
     // pagination
     $pag = array();

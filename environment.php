@@ -16,10 +16,11 @@ $config["SERVERNAME"] = $_SERVER["HTTP_HOST"];
 define("SERVERNAME", $config["SERVERNAME"]);
 define("PATH_DATA" , $config["PATH_DATA"]);
 define("DOCUMENT_ROOT", $config["DOCUMENT_ROOT"]);
-define("APP_PATH", $PATH_DATA . "/");
+define("APP_PATH", $PATH_DATA);
 
 define("TEMPLATE_PATH", APP_PATH . "templates/");
 define("VIEWS_PATH", APP_PATH . "views/");
+define("TRANSLATE_PATH", APP_PATH . "locale/");
 define("CACHE_PATH", APP_PATH . "cache/");
 
 // custom applications/interface
@@ -57,16 +58,6 @@ define('LOG_DIR', $logDir);
 
 
 
-// DIRECTORIES
-// create all directories that needs
-if(!is_dir(CACHE_PATH)) {
-    if(!mkdir(CACHE_PATH)) {
-        die("ERROR: can't create cache's directory.");
-    }
-}
-
-
-
 // FRAMEWORK
 // Initiating Silex framework
 require_once 'lib/silex/vendor/autoload.php';
@@ -77,12 +68,45 @@ $app->register(new Silex\Provider\TwigServiceProvider(), array(
     'twig.path' => TEMPLATE_PATH,
 ));
 
-if($config->environment != "production")
+if($config->environment != "production") {
     $app['debug'] = "true";
+    define('DEBUG', true);
+} else {
+    define('DEBUG', false);
+}
 
-$app['twig.options'] = array('strict_variables' => false, 'cache' => CACHE_PATH);
+// if isn't in debug ambient, create de cache dir and set to be cacheable
+if (!DEBUG) {
+    if(!is_dir(CACHE_PATH)) {
+        if(!mkdir(CACHE_PATH)) {
+            die("ERROR: can't create cache's directory.");
+        }
+    }
+
+    $app['twig.options'] = array('strict_variables' => false, 'cache' => CACHE_PATH);
+    
+} else {
+    $app['twig.options'] = array('strict_variables' => false);
+}
 
 
 
+// PREPARING THE ENVIRONMENT
+// requiring custsom functions
 require_once "lib/functions.php";
+
+// default translation
+$texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+
+// registering sessions
+use Silex\Provider\SessionServiceProvider;
+$app->register(new SessionServiceProvider, array(
+    'session.storage.save_path' => '/tmp/sessions/iahx',
+    'session.storage.options' => array(
+        'name' => 'iahx',
+    ),
+));
+
+$app['twig']->addFunction('custom_template', new Twig_Function_Function('custom_template'));
+
 ?>
