@@ -160,8 +160,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['filters'] = $filters;
     $output_array['filters_formatted'] = $filters_formatted;
     $output_array['lang'] = $lang;
-    $output_array['col'] = $col;
-    $output_array['site'] = $site;
+    $output_array['q'] = $q;
     $output_array['sort'] = $sort;
     $output_array['from'] = $from;
     $output_array['output'] = $output;
@@ -181,7 +180,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             print $dia_response;
             break;
         case "print":
-            return $app['twig']->render('print.html', $output_array);
+            return $app['twig']->render('print.html', $output_array); 
+            break;
+        case "rss":
+            header("Content-type: text/xml");
+            return $app['twig']->render('export-rss.html', $output_array); 
+            break;
         default: 
             return $app['twig']->render('index.html', $output_array);
             break;
