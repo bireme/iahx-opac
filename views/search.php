@@ -173,12 +173,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
 
+
     // output
     switch($output) {
         
         case "xml": case "sol":
-            header("Content-type: text/xml");
-            print_r($dia_response);
+            return new Response($dia_response, 200, array("Content-type" => "text/xml"));
             break;
             
         case "print":
@@ -186,14 +186,15 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "rss":
-            header("Content-type: text/xml");                       
-            return $app['twig']->render('export-rss.html', $output_array); 
+            $response = new Response($app['twig']->render('export-rss.html', $output_array));
+            $response->headers->set('Content-type', 'text/xml');
+            return $response->sendHeaders();
             break;
 
         case "ris":
             return $app['twig']->render('export-ris.html', $output_array); 
             break;
-            
+
         default: 
             return $app['twig']->render('index.html', $output_array);
             break;

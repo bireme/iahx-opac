@@ -9,32 +9,13 @@
         {% for doc in docs %}
             {% block item %}
                 <item>
-                    <title><![CDATA[
-                        {% for title in doc.ti if doc.ti is defined %}
-                            {{ title }}
-                            {% if not loop.index == doc.ti|length %}/{% endif %}
-                        {% endfor %}
-                    ]]></title>
+                    <title><![CDATA[{% for title in doc.ti if doc.ti is defined %}{{ title }}{% if not loop.index == doc.ti|length %}/{% endif %}{% endfor %}]]></title>
 
-                    <author><![CDATA[
-                        {% for author in doc.au if doc.au is defined %}
-                            {{ author }}{% if not loop.index == doc.au|length %};{% endif %}
-                        {% endfor %}
-                    ]]></author>
+                    <author><![CDATA[{% for author in doc.au if doc.au is defined %}{{ author }}{% if not loop.index == doc.au|length %};{% endif %}{% endfor %}]]></author>
 
-                    <source><![CDATA[
-                        {% for source in doc.fo if doc.fo is defined %}
-                            {{ source }}{% if not loop.index == doc.source|length %};{% endif %}
-                        {% endfor %}
-                    ]]></source>
+                    <source><![CDATA[{% for source in doc.fo if doc.fo is defined %}{{ source }}{% if not loop.index == doc.source|length %};{% endif %}{% endfor %}]]></source>
                     
-                    <link><![CDATA[
-                        {% if doc.ur %}
-                            {{ doc.url }}
-                        {% else %}
-                            {{ constant("SEARCH_URL") }}{{ lang }}/{{ doc.id }}
-                        {% endif %}
-                    ]]></link>
+                    <link><![CDATA[{% if doc.ur %}{{ doc.url }}{% else %}{{ constant("SEARCH_URL") }}{{ lang }}/{{ doc.id }}{% endif %}]]></link>
 
                     <description><![CDATA[
                         {% if doc.au is defined and doc.au|length > 0 %}
@@ -66,7 +47,6 @@
                                 {% endfor %}
                             </p>
                         {% endif %}
-
                     ]]></description>
 
 
