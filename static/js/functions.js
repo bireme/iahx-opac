@@ -49,8 +49,6 @@ function export_result(count) {
     var form = document.searchForm;
     var output = getCheckedValue(document.exportForm.format);
 
-    alert(output);
-
     if(count)
         form.count.value = count;
     else 
