@@ -197,6 +197,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             return $response->sendHeaders();
             break;
 
+        case "citation":
+            $response = new Response($app['twig']->render('export-citation.html', $output_array));
+            $response->headers->set('Content-type', 'application/force-download');
+            return $response->sendHeaders();
+            break;
+
         default: 
             return $app['twig']->render('index.html', $output_array);
             break;
