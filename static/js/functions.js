@@ -43,6 +43,22 @@ function print(count) {
     change_output("print");
 }
 
+// leva para output "ris/citation", passando o count
+function export_result(count) {
+
+    var form = document.searchForm;
+    var output = getCheckedValue(document.exportForm.format);
+
+    alert(output);
+
+    if(count)
+        form.count.value = count;
+    else 
+        form.count.value = 300;
+
+    change_output(output);
+}
+
 /**
  * Mostra janela com grafico do cluster selecionado
  * @param {Node} obj
@@ -72,4 +88,24 @@ function open_chart(obj, titulo, id){
     }
     url = "chart/?title=" + titulo + params + "&KeepThis=true&TB_iframe=true&height=480&width=650";
     obj.href = url;
+}
+
+// return the value of the radio button that is checked
+// return an empty string if none are checked, or
+// there are no radio buttons
+function getCheckedValue(radioObj) {
+    if(!radioObj)
+        return "";
+    var radioLength = radioObj.length;
+    if(radioLength == undefined)
+        if(radioObj.checked)
+            return radioObj.value;
+        else
+            return "";
+    for(var i = 0; i < radioLength; i++) {
+        if(radioObj[i].checked) {
+            return radioObj[i].value;
+        }
+    }
+    return "";
 }

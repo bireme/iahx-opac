@@ -40,4 +40,38 @@
         <!-- <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}"> -->
         <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">
     </a>
+    <div style="display:none">
+        <div id="export">
+            
+            <h3>{{ texts.EXPORT_FORMAT }}:</h3>
+            <form name="exportForm">
+                <input type="radio" name="format" id="format" value="ris" checked> {{ texts.EXPORT_FORMAT_RIS }}<br>
+                <input type="radio" name="format" id="format" value="citation"> {{ texts.EXPORT_FORMAT_CITATION }}
+            </form>
+            
+            <h3>{{ texts.RESULTS }}:</h3>
+            <ul>
+                <li>
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}">            
+                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.PRINT }}">
+                        Exportar esta página
+                    </a>
+                </li>
+
+                <li>
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}">            
+                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.PRINT }}">
+                        Exportar minha Seleção
+                    </a>
+                </li>
+
+                <li>
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}">            
+                    <a href="javascript:export_result();" alt="{{ texts.PRINT }}">
+                        Exportar todas referências (max: 300)
+                    </a>
+                </li>
+            </ul>
+        </div>
+    </div>
 </div>
