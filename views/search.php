@@ -3,6 +3,7 @@
 require_once 'lib/class/dia.class.php';
 
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
 
@@ -174,18 +175,25 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     // output
     switch($output) {
-        case "xml": 
-        case "sol":
+        
+        case "xml": case "sol":
             header("Content-type: text/xml");
-            print $dia_response;
+            print_r($dia_response);
             break;
+            
         case "print":
             return $app['twig']->render('print.html', $output_array); 
             break;
+
         case "rss":
-            header("Content-type: text/xml");
+            header("Content-type: text/xml");                       
             return $app['twig']->render('export-rss.html', $output_array); 
             break;
+
+        case "ris":
+            return $app['twig']->render('export-ris.html', $output_array); 
+            break;
+            
         default: 
             return $app['twig']->render('index.html', $output_array);
             break;

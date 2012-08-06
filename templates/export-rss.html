@@ -1,76 +1,77 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <rss version="2.0">
-    <channel>
-        <title>{{ texts.TITLE }} {{ q }}</title>
-        <link>{{ constant("SEARCH_URL") }}</link>
-        <description>{{ texts.DESCRIPTION }}</description>
+    <channel>{% block channel %}
+        <title>{% block title %}{{ texts.TITLE }} {{ q }}{% endblock %}</title>
+        <link>{% block link %}{{ constant("SEARCH_URL") }}{% endblock %}</link>
+        <description>{% block description %}{{ texts.DESCRIPTION }}{% endblock %}</description>
 
         {% for doc in docs %}
+            {% block item %}
+                <item>
+                    <title><![CDATA[
+                        {% for title in doc.ti if doc.ti is defined %}
+                            {{ title }}
+                            {% if not loop.index == doc.ti|length %}/{% endif %}
+                        {% endfor %}
+                    ]]></title>
 
-            <item>
-                <title><![CDATA[
-                    {% for title in doc.ti if doc.ti is defined %}
-                        {{ title }}
-                        {% if not loop.index == doc.ti|length %}/{% endif %}
-                    {% endfor %}
-                ]]></title>
-
-                <author><![CDATA[
-                    {% for author in doc.au if doc.au is defined %}
-                        {{ author }}{% if not loop.index == doc.au|length %};{% endif %}
-                    {% endfor %}
-                ]]></author>
-
-                <source><![CDATA[
-                    {% for source in doc.db if doc.db is defined %}
-                        {{ source }}{% if not loop.index == doc.source|length %};{% endif %}
-                    {% endfor %}
-                ]]></source>
-                
-                <link><![CDATA[
-                    {% if doc.ur %}
-                        {{ doc.url }}
-                    {% else %}
-                        {{ constant("SEARCH_URL") }}{{ lang }}/{{ doc.id }}
-                    {% endif %}
-                ]]></link>
-
-                <description><![CDATA[
-                    {% if doc.au is defined and doc.au|length > 0 %}
-                        {{ texts.RESULT.LABEL_AUTHOR }}:
+                    <author><![CDATA[
                         {% for author in doc.au if doc.au is defined %}
                             {{ author }}{% if not loop.index == doc.au|length %};{% endif %}
                         {% endfor %}
-                    {% endif %}
+                    ]]></author>
 
-                    {% if doc.db is defined and doc.db|length > 0 %}
-                        {{ texts.RESULT.LABEL_SOURCE }}:{{ doc.db|length }}
-                        {% for source in doc.db %}
-                            {{ source }}{% if not loop.index == doc.db|length %};{% endif %}
+                    <source><![CDATA[
+                        {% for source in doc.fo if doc.fo is defined %}
+                            {{ source }}{% if not loop.index == doc.source|length %};{% endif %}
                         {% endfor %}
-                    {% endif %}
+                    ]]></source>
+                    
+                    <link><![CDATA[
+                        {% if doc.ur %}
+                            {{ doc.url }}
+                        {% else %}
+                            {{ constant("SEARCH_URL") }}{{ lang }}/{{ doc.id }}
+                        {% endif %}
+                    ]]></link>
 
-                    {% if doc.ab is defined %}
-                        <span class="abstract"><p>
-                            {% for abstract in doc.ab if doc.ab is defined %}
-                                {{ abstract }}{% if not loop.index == doc.ab|length %}/{% endif %}
+                    <description><![CDATA[
+                        {% if doc.au is defined and doc.au|length > 0 %}
+                            {{ texts.RESULT.LABEL_AUTHOR }}:
+                            {% for author in doc.au if doc.au is defined %}
+                                {{ author }}{% if not loop.index == doc.au|length %};{% endif %}
                             {% endfor %}
-                        </p></span>
-                    {% endif %}
+                        {% endif %}
 
-                    {% if doc.mh is defined %}
-                        <p> {{ texts.RESULT.LABEL_SUBJECT }}:
-                            {% for mesh in doc.mh if doc.mh is defined %}
-                                {{ mesh }}{% if not loop.index == doc.mh|length %};{% endif %}
+                        {% if doc.fo is defined and doc.fo|length > 0 %}
+                            {{ texts.RESULT.LABEL_SOURCE }}:{{ doc.fo|length }}
+                            {% for source in doc.fo %}
+                                {{ source }}{% if not loop.index == doc.fo|length %};{% endif %}
                             {% endfor %}
-                        </p>
-                    {% endif %}
+                        {% endif %}
 
-                ]]></description>
+                        {% if doc.ab is defined %}
+                            <span class="abstract"><p>
+                                {% for abstract in doc.ab if doc.ab is defined %}
+                                    {{ abstract }}{% if not loop.index == doc.ab|length %}/{% endif %}
+                                {% endfor %}
+                            </p></span>
+                        {% endif %}
+
+                        {% if doc.mh is defined %}
+                            <p> {{ texts.RESULT.LABEL_SUBJECT }}:
+                                {% for mesh in doc.mh if doc.mh is defined %}
+                                    {{ mesh }}{% if not loop.index == doc.mh|length %};{% endif %}
+                                {% endfor %}
+                            </p>
+                        {% endif %}
+
+                    ]]></description>
 
 
-            </item>
+                </item>
+                {% endblock %}
         {% endfor %}
-    </channel>
+    {% endblock %}</channel>
 </rss>
