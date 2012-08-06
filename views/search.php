@@ -192,7 +192,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "ris":
-            return $app['twig']->render('export-ris.html', $output_array); 
+            $response = new Response($app['twig']->render('export-ris.html', $output_array));
+            $response->headers->set('Content-type', 'application/force-download');
+            return $response->sendHeaders();
             break;
 
         default: 

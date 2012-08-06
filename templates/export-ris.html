@@ -1,0 +1,53 @@
+{% for doc in docs %}
+{#
+{foreach from=$result->response->docs item=doc}
+{if $doc->db|@contains:"MEDLINE"}
+    {assign var=refDB value=MEDLINE}
+    {assign var=refID value=$doc->id|substring_after:"-"}
+{else}
+    {if $doc->db[0] eq 'GHL'}
+        {assign var=refDB value=$doc->db[1]}
+    {else}
+        {assign var=refDB value=$doc->db[0]}
+    {/if}
+    {assign var=refID value=$doc->id}
+{/if}
+#}
+{% if doc.type == "article" %}TY  - JOUR{% endif %}
+{% if doc.type == "non-conventional" %}TY  - GEN{% endif %}
+{% if doc.type == "book" %}TY  - BOOK{% endif %}
+{% for author in doc.au %}
+A1 - {{ author }}
+{% endfor %}
+{% for title in doc.ti %}
+TI - {{ title }}
+{% endfor %}
+{# DB - {{ refDB }} #}
+DP  - http://www.globalhealthlibrary.net
+{# ID  - {{ refID }} #}
+LA - {{ doc.la.0 }}
+{% if doc.type == "article" and doc.ta > 0 %}JO - {{ doc.ta.0 }} {% endif %}
+{% if doc.pg > 0 %}
+{% if "-" in doc.pg.0 %}
+SP - {{ doc.pg.0 }} {# slice before #}
+EP - {{ doc.pg.0 }} {# slice after #}
+{% else %}
+SP - {{ doc.pg.0 }}
+EP - {{ doc.pg.0 }}
+{% endif %}
+{% endif %}
+{% if doc.da > 0 %}PY - {{ doc.da.0|slice(0, 4) }}{% endif %}
+{% for mesh in doc.mh %}
+KW - {{ mesh }}
+{% endfor %}
+{% for abstract in doc.ab %}
+N2 - {{ abstract }}
+{% endfor %}
+{% for url in doc.ur %}
+UR - {{ url }}
+{% endfor %}
+ER - {{ url }}
+
+
+
+{% endfor %}
