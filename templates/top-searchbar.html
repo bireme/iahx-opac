@@ -41,13 +41,13 @@
                     {% for where in collectionData.where_list.where %}
 
                         {% if params.where is defined %}
-                            {% if where.filter == params.where %}
-                                <option value="{{ where.filter }}" selected="true">{{ attribute(texts.WHERE, where.name) }}</option>
+                            {% if where.name == params.where %}
+                                <option value="{{ where.name }}" selected="true">{{ attribute(texts.WHERE, where.name) }}</option>
                             {% else %}
-                                <option value="{{ where.filter }}" >{{ attribute(texts.WHERE, where.name) }}</option>
+                                <option value="{{ where.name }}" >{{ attribute(texts.WHERE, where.name) }}</option>
                             {% endif %}
                         {% else %}
-                            <option value="{{ where.filter }}" >{{ attribute(texts.WHERE, where.name) }}</option>
+                            <option value="{{ where.name }}" >{{ attribute(texts.WHERE, where.name) }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>  
