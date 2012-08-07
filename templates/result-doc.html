@@ -2,6 +2,9 @@
 
     <div id="{{ doc.id }}" class="record">
 
+        <div><input type="checkbox" class="my_selection" value="{{ doc.id }}" 
+            {% if doc.id in bookmark|keys %}checked{% endif %}></div>
+
         <div class="position">{{ loop.index + pag.start }}.</div>
         <div class="data">
             {% block data %}

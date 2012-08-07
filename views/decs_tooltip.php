@@ -1,6 +1,5 @@
 <?php
 
-include_once 'lib/class/chart.class.php';
 use Symfony\Component\HttpFoundation\Request;
 
 $app->match('decs/{lang}/{term}', function (Request $request, $lang, $term) use ($app, $DEFAULT_PARAMS, $config) {

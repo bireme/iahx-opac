@@ -154,10 +154,15 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     
     $SESSION->set('history', $history);   
     $SESSION->save();
+
+    // bookmark
+    $SESSION->start();
+    $bookmark = $SESSION->get('bookmark');    
     
 
     // output vars
     $output_array = array();
+    $output_array['bookmark'] = $bookmark;
     $output_array['filters'] = $filters;
     $output_array['filters_formatted'] = $filters_formatted;
     $output_array['lang'] = $lang;

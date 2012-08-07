@@ -1,3 +1,7 @@
+* {
+	margin: 0;
+	padding: 0;
+}
 BODY {
 	font-size: 72%;
 	_font-size: 70%;
