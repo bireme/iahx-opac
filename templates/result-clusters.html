@@ -39,7 +39,7 @@
 
                 {% for key, value in params %}
                     {% if key != "filter"  %}
-                        {% if key == "from" %}
+                        {% if key == "from" or key == "page" %}
                             <input type="hidden" name="{{ key }}" value="1">
                         {% else %}
                             <input type="hidden" name="{{ key }}" value="{{ value }}">

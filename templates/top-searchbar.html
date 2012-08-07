@@ -9,11 +9,13 @@
                 <input type="hidden" name="count" id="count" value="{{ pag.count }}">
                 <input type="hidden" name="page" id="page" value="{% if params.page is defined %}{{ params.page }}{% else %}1{% endif %}">
 
-                {% if params.filter is defined %}
-                    {% for name, item in params.filter if params.filter is defined %}
-                        <input type="hidden" name="filter[{{ name }}]" value="{{ item }}">
+                
+                {% for name, items in filters if filters is defined %}
+                    {% for item in items %}
+                        <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
                     {% endfor %}
-                {% endif %}
+                {% endfor %}
+                
 
                 <label for="textEntry1" class="hide">Busca</label>
 

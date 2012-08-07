@@ -1,7 +1,7 @@
 {% block order %}
 <div class="orderBy">
     <label for="sortBy" class="hide">{{ texts.SORT_OPTIONS }}</label>
-    <select name="sortBy" id="sortBy" class="inputText" onchange="javascript:changeOrderBy(this);">
+    <select name="sortBy" id="sortBy" class="inputText" onchange="javascript:change_sort(this);">
         <option value="">{{ texts.SORT_OPTIONS }}</option>
         {% for sort in collectionData.sort_list.sort %}
             {% set sort_label = 'SORT_' ~ sort.name %}
@@ -10,13 +10,13 @@
 
                 {* ajusta a variavel de traducao *}
 
-                {% if sort.value == params.sort %}
-                    <option value="{{ sort.value }}" selected="true">{{ attribute(texts, sort_label) }}</option>
+                {% if sort.name == params.sort %}
+                    <option value="{{ sort.name }}" selected="true">{{ attribute(texts, sort_label) }}</option>
                 {% else %}
-                    <option value="{{ sort.value }}" >{{ attribute(texts, sort_label) }}</option>
+                    <option value="{{ sort.name }}" >{{ attribute(texts, sort_label) }}</option>
                 {% endif %}
             {% else %}
-                <option value="{{ sort.value }}" >{{ attribute(texts, sort_label) }}</option>
+                <option value="{{ sort.name }}" >{{ attribute(texts, sort_label) }}</option>
             {% endif %}
 
         {% endfor %}

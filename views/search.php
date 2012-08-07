@@ -82,7 +82,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $where = $params['where'];
         foreach($collectionData->where_list->where as $item) {
             if($item->name == $where) {
-                $where = $item->filter;
+                $where = (string) $item->filter;
                 break;
             }
         }
@@ -90,6 +90,23 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     // TODO
     $sort = "";
+    if(isset($params['sort']) and $params['sort'] != "Array") {
+        
+        $sort = $params['sort'];
+        
+        $exists = false;
+        foreach($collectionData->sort_list->sort as $item) {
+            if($sort == $item->name) {
+                $exists = true;
+                $sort = (string) urlencode($item->value);
+                break;
+            }
+        }
+
+        if(!$exists)            
+            $sort = "";
+        
+    }
 
     $filter = array();
     if(isset($params['filter']) and $params['filter'] != "Array") {
@@ -104,27 +121,13 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filter[$key] = str_replace("#", "", $value);
     }
 
-    // $filters = array();
-    // foreach($filter as $item) {
-    //     $item = explode(":", $item);
-    //     $filters[$item[0]][] = str_replace('"', '', $item[1]);
-    // }
-
-    // $filters_formatted = array();
-    // foreach($filter as $f) {
-    //     $f = explode(":", $f);
-    //     $f[1] = str_replace('"', "", $f[1]);
-    //     $filters_formatted[$f[0]][] = $f[1];
-    // }
-    
-    $filters_formatted = $filter;
-
     $where = array($where);
     $filter_search = array_merge($filter, $where);
     
     // Dia response
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);
+    $dia->setParam('sort', $sort);
 
     $dia_response = $dia->search($q, $index, $filter_search, $from);
     $result = json_decode($dia_response, true);
@@ -179,7 +182,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array = array();
     $output_array['bookmark'] = $bookmark;
     $output_array['filters'] = $filter;
-    $output_array['filters_formatted'] = $filters_formatted;
+    $output_array['filters_formatted'] = $filter;
     $output_array['lang'] = $lang;
     $output_array['q'] = $q;
     $output_array['sort'] = $sort;

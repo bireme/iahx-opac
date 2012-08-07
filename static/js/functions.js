@@ -107,3 +107,11 @@ function getCheckedValue(radioObj) {
     }
     return "";
 }
+
+function change_sort(obj){
+    var sort = obj.options[obj.selectedIndex].value;
+    var form = document.searchForm;
+
+    form.sort.value = sort;
+    form.submit();
+}
