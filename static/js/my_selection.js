@@ -19,9 +19,8 @@ function manipulate_bookmark(func, id) {
 
     var href = "bookmark/"+ func;
     
-    if(id != "") {
+    if(id != "")
         href = href + "/" + id; 
-    }
 
     $.get(href, function(data) {
         $(".my_selection_count").html(data);
@@ -37,6 +36,7 @@ function list_bookmark() {
     $.get('bookmark/list', function(q) {
         var form = document.searchForm;
         form.q.value = q;
+        form.from.value = 1;
         form.submit();
     })
 }

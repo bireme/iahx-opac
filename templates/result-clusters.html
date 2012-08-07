@@ -39,7 +39,11 @@
 
                 {% for key, value in params %}
                     {% if key != "filter"  %}
-                        <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% if key == "from" %}
+                            <input type="hidden" name="{{ key }}" value="1">
+                        {% else %}
+                            <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% endif %}
                     {% endif %}
                 {% endfor %}
 

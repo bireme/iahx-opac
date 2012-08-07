@@ -47,7 +47,7 @@
         {% block extrahead %}{% endblock %}
     {% endblock %}</head>
 
-    <body>{% block body %}
+    <body onload="document.searchForm.reset()">{% block body %}
         <div class="container">{% block container %}
 
             {% include custom_template("top.html") %}
