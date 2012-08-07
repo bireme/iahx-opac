@@ -104,19 +104,21 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filter[$key] = str_replace("#", "", $value);
     }
 
-    $filters = array();
-    foreach($filter as $item) {
-        $item = explode(":", $item);
-        $filters[$item[0]][] = str_replace('"', '', $item[1]);
-    }
+    // $filters = array();
+    // foreach($filter as $item) {
+    //     $item = explode(":", $item);
+    //     $filters[$item[0]][] = str_replace('"', '', $item[1]);
+    // }
 
-    $filters_formatted = array();
-    foreach($filter as $f) {
-        $f = explode(":", $f);
-        $f[1] = str_replace('"', "", $f[1]);
-        $filters_formatted[$f[0]][] = $f[1];
-    }
+    // $filters_formatted = array();
+    // foreach($filter as $f) {
+    //     $f = explode(":", $f);
+    //     $f[1] = str_replace('"', "", $f[1]);
+    //     $filters_formatted[$f[0]][] = $f[1];
+    // }
     
+    $filters_formatted = $filter;
+
     $where = array($where);
     $filter_search = array_merge($filter, $where);
     
@@ -176,7 +178,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // output vars
     $output_array = array();
     $output_array['bookmark'] = $bookmark;
-    $output_array['filters'] = $filters;
+    $output_array['filters'] = $filter;
     $output_array['filters_formatted'] = $filters_formatted;
     $output_array['lang'] = $lang;
     $output_array['q'] = $q;

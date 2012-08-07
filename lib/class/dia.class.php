@@ -52,7 +52,13 @@ class Dia
 
     function mountFilterParam($filter){     
         $filter = $this->cleanArray($filter);       //remove valores vazios do array
-        $fq = join(" AND ",$filter);
+
+        $new_filter = array();
+        foreach(array_keys($filter) as $name) {
+            $new_filter[] = $name . ':("' . join('" OR "', $filter[$name]) . '")';
+        }
+        
+        print $fq = join(" AND ",$new_filter);
                 
         $this->param["fq"] = stripslashes($fq);
         

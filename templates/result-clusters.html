@@ -18,7 +18,7 @@
                     <li class="filter">{{ attribute(texts.RESULT, cluster_label) }} 
                         <ul>
                             {% for item in items %}
-                                {% set item_value = cluster ~ ':"' ~ item ~ '"' %}
+                                {% set item_value = cluster ~ '_' ~ item|replace(" ", "_") ~ '' %}
 
                                 <li>
                                     {{ item }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
@@ -65,7 +65,7 @@
                         <ul id="ul_{{ name }}">
                             {% for item in cluster %}
                                 <li>
-                                    <input type="checkbox" name="filter[]" value='{{ name }}:"{{ item.0 }}"' id="{{ name }}_{{ item.0|replace({' ': '_'}) }}"
+                                    <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ name }}_{{ item.0|replace({' ': '_'}) }}"
                                     {% for filter_name, filter in filters if filter_name == name %}
                                         {% if item.0 in filter %}checked="true"{% endif %}
                                     {% endfor %}

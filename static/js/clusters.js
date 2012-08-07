@@ -1,19 +1,20 @@
-function remove_filter(item) {
+function remove_filter(id) {
 
-    filters = $("#form_clusters input[type=checkbox]");
+    // filters = $("#form_clusters input[type=checkbox]");
     
-    // se os checkboxs existirem
-    if(filters.length > 0) {
+    // // se os checkboxs existirem
+    // if(filters.length > 0) {
 
-        // varre todos os itens e da check no de valor "item"
-        filters.each(function(){
-            if($(this).val() == item) {
-                $(this).attr('checked', false);
-            }
-        });
+    //     // varre todos os itens e da check no de valor "item"
+    //     filters.each(function(){
+    //         if($(this).val() == item) {
+    //             $(this).attr('checked', false);
+    //         }
+    //     });
     
-    }
-    
+    // }
+
+    $("#"+id).attr("checked", false);
     $("#form_clusters").submit();
 }
 
