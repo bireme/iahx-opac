@@ -76,19 +76,24 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $page = $params['page'];
     }
 
-    $where = "";
+    $where = array();
     if(isset($params['where'])and $params['where'] != "") {
 
         $where = $params['where'];
         foreach($collectionData->where_list->where as $item) {
             if($item->name == $where) {
                 $where = (string) $item->filter;
+                
+                $where = explode(":", $where);
+                $where[1] = str_replace('("', "", $where[1]);
+                $where[1] = str_replace('")', "", $where[1]);
+                $where = array($where[0] => array($where[1]));
+
                 break;
             }
         }
     }
 
-    // TODO
     $sort = "";
     if(isset($params['sort']) and $params['sort'] != "Array") {
         
@@ -121,7 +126,6 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filter[$key] = str_replace("#", "", $value);
     }
 
-    $where = array($where);
     $filter_search = array_merge($filter, $where);
     
     // Dia response
