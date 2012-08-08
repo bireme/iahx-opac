@@ -44,3 +44,13 @@ function hide_all_clusters() {
 function toggle_cluster(name) {
     $("#ul_" + name).slideToggle(100);
 }
+
+function show_more_clusters (cluster, limit) {
+
+    var form = document.searchForm;
+    form.fb.value = cluster + ":" + limit;
+
+    form.submit();
+
+    form.fb.value == "";
+}
