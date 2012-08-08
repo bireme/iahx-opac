@@ -84,11 +84,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             if($item->name == $where) {
                 $where = (string) $item->filter;
                 
-                $where = explode(":", $where);
-                $where[1] = str_replace('("', "", $where[1]);
-                $where[1] = str_replace('")', "", $where[1]);
-                $where = array($where[0] => array($where[1]));
+                if(!empty($where)) {
 
+                    $where = explode(":", $where);
+                    $where[1] = str_replace('("', "", $where[1]);
+                    $where[1] = str_replace('")', "", $where[1]);
+                    $where = array($where[0] => array($where[1]));
+                }
+
+                if(!is_array($where)) {
+                    $where = array($where);
+                }
                 break;
             }
         }
