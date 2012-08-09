@@ -132,7 +132,35 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filter[$key] = str_replace("#", "", $value);
     }
 
+    // bookmark
+    $SESSION = $app['session'];
+    $SESSION->start();
+    $bookmark = $SESSION->get('bookmark');  
+
     $filter_search = array_merge($filter, $where);
+
+    // if is send email, needs to change the from parameter, or my selection
+    if(isset($params['is_email'])) {
+
+        $email = array();
+        foreach(array('name', 'your_email', 'email', 'subject', 'comment', 'selection') as $field) {
+            if((is_array($params[$field]) and !empty($params[$field])) or ($params[$field] != "")) {
+                $email[$field] = $params[$field];
+            }
+        }
+
+        if(isset($email['selection'])) {
+            if($email['selection'] == "my_selection") {
+                
+                $from = 1;
+                $q = '+id:("' . join(array_keys($bookmark), '" OR "') . '")';
+            } 
+            elseif($email['selection'] == "all_results") {
+                $from = 1;
+                $count = 300;
+            }
+        }
+    }
     
     // Dia response
     $dia = new Dia($site, $col, $count, $output, $lang);
@@ -157,7 +185,6 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $pag['pages'] = range($range_min, $range_max);
 
     // HISTORY APP
-    $SESSION = $app['session'];
     $SESSION->start();
     if(!$SESSION->has("history")) {
         $SESSION->set('history', array());   
@@ -182,10 +209,6 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     
     $SESSION->set('history', $history);   
     $SESSION->save();
-
-    // bookmark
-    $SESSION->start();
-    $bookmark = $SESSION->get('bookmark');    
     
 
     // output vars
@@ -205,7 +228,22 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
+    $output_array['current_url'] = $_SERVER['REQUEST_URI'];
 
+    // if is send email
+    if(isset($params['is_email'])) {
+
+        $output_array['email'] = $email;
+        $render = $app['twig']->render('export-email.html', $output_array);
+
+        $message = \Swift_Message::newInstance()
+            ->setSubject($email['subject'])
+            ->setFrom(array('iahx@bireme.org' => $email['name'] . " (via iAHx)"))
+            ->setTo($email['email'])
+            ->setBody($render, 'text/html');
+
+        $app['mailer']->send($message);
+    }  
 
     // output
     switch($output) {

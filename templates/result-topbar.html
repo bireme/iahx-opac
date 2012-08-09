@@ -9,7 +9,6 @@
             {% if params.sort is defined %}
 
                 {* ajusta a variavel de traducao *}
-
                 {% if sort.name == params.sort %}
                     <option value="{{ sort.name }}" selected="true">{{ attribute(texts, sort_label) }}</option>
                 {% else %}

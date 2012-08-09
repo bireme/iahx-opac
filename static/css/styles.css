@@ -150,6 +150,21 @@ DIV#print p, DIV#export p {
 DIV#print li img, DIV#export li img {
 	margin: 4px 5px -4px 5px;
 }
+DIV#email {
+	width: 450px;
+}
+DIV#email input[type=text], DIV#email textarea  {
+	width: 100%;
+	padding: 6px;
+	margin: 0px 0 10px 0;
+}
+DIV#email textarea {
+	height: 100px;
+}
+DIV#email input[type=submit], DIV#email input[type=reset] {
+	padding: 7px;
+	margin: 30px 4px 15px 4px;
+}
 DIV.resultsBar DIV.orderBy {
 	color: #7f7f7f;
 }

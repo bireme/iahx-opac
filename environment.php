@@ -75,6 +75,16 @@ if($config->environment != "production") {
     define('DEBUG', false);
 }
 
+// registering email
+require_once "config/config-mail.php";
+
+$app->register(new Silex\Provider\SwiftmailerServiceProvider());
+$app['swiftmailer.options'] = array(
+    'host' => SMTP_SERVER,
+    'username' => SMTP_USERNAME,
+    'password' => SMTP_USERPASSWORD,
+);
+
 // if isn't in debug ambient, create de cache dir and set to be cacheable
 if (!DEBUG) {
     if(!is_dir(CACHE_PATH)) {

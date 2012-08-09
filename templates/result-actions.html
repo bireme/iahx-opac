@@ -74,4 +74,48 @@
             </ul>
         </div>
     </div>
+
+    <!-- email -->
+    <a id="inline" href="#email" alt="{{ texts.EXPORT }}" class="fancybox">
+        <img src="{{ constant("STATIC_URL") }}image/email.png" title="{{ texts.EXPORT }}">
+    </a>
+    <div style="display:none">
+        <div id="email" class="optionEmail">
+            
+            <form name="emailForm" method="POST" action="{{ current_url }}" onsubmit="return send_email();">
+
+                <input type="hidden" name="is_email" value="true" />
+
+                <formset>
+                    <label for="yourName">Seu nome</label>
+                    <input type="text" id="yourName" name="name" value="">    
+
+                    <label for="yourEmail">Seu email</label>
+                    <input type="text" id="yourEmail" name="your_email" value="">    
+
+                    <label for="email">Destinatário*</label> <a href="javascript:add_more_email();">Adicionar mais destinatários</a>
+                    <div id="destinatarios"><input type="text" id="email" name="email[]" value=""></div>
+                    <div id="more-destinatarios"></div>
+
+                    <label for="subject">Assunto</label>
+                    <input type="text" id="subject" name="subject" value="">    
+
+                    <label for="comment">Comentários</label>
+                    <textarea id="comment" name="comment"></textarea>
+                    
+                    <label for="selection">Enviar resultados:</label><br>
+                    <input type="radio" name="selection" id="selection" value="page" checked>Esta página
+                    <input type="radio" name="selection" id="selection" value="my_selection">Minha Seleção
+                    <input type="radio" name="selection" id="selection" value="all_results">Todos resultados (max: 300)
+                    <br>
+                    <center>
+                        <input type="reset" value="Apagar">
+                        <input type="submit" value="Enviar">
+                    </center>
+                </formset>
+            </form>
+            
+            
+        </div>
+    </div>
 </div>
