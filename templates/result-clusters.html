@@ -13,15 +13,16 @@
             <h3>{{ texts.SELECTED_FILTERS }}</h3>
             <ul>
                 {% for cluster, items in filters_formatted %}
-                    {% set cluster_label = 'REFINE_' ~ cluster %}
+                    {% set cluster_labels = 'REFINE_' ~ cluster %}
 
-                    <li class="filter">{{ attribute(texts.RESULT, cluster_label) }} 
+                    <li class="filter">{{ attribute(texts.REFINE, cluster) }} 
                         <ul>
                             {% for item in items %}
+                                {% set item_label = attribute(texts[cluster_labels], item)|default(item) %}
                                 {% set item_value = cluster ~ '_' ~ item|replace(" ", "_") ~ '' %}
 
                                 <li>
-                                    {{ item }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
+                                    {{ item_label }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -49,12 +50,12 @@
 
                 {% for name, cluster in clusters if cluster|length > 0 %}
 
-                    {% set cluster_label = 'REFINE_' ~ name %}
+                    {% set cluster_labels = 'REFINE_' ~ name %}
                     
                     <div id="{{ name }}">
                         <a href="javascript:toggle_cluster('{{ name }}');" title="{{ name }}">
                             <strong>
-                                {{ attribute(texts.RESULT, cluster_label) }}
+                                {{ attribute(texts.REFINE, name) }}
                             </strong>
                         </a>
 
@@ -64,13 +65,15 @@
 
                         <ul id="ul_{{ name }}">
                             {% for item in cluster %}
+                                {% set item_label = attribute(texts[cluster_labels], item.0)|default(item.0) %}
+
                                 <li>
                                     <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ name }}_{{ item.0|replace({' ': '_'}) }}"
                                     {% for filter_name, filter in filters if filter_name == name %}
                                         {% if item.0 in filter %}checked="true"{% endif %}
                                     {% endfor %}
                                     >
-                                    <a href="javascript: add_filter('{{ name }}_{{ item.0|replace({' ': '_'}) }}');" title="">{{ item.0 }}</a> ({{ item.1 }})
+                                    <a href="javascript: add_filter('{{ name }}_{{ item.0|replace({' ': '_'}) }}');" title="">{{ item_label }}</a> ({{ item.1 }})
                                 </li>
                             {% endfor %}
 

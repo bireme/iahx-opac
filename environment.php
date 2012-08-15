@@ -100,13 +100,9 @@ if (!DEBUG) {
 }
 
 
-
 // PREPARING THE ENVIRONMENT
 // requiring custsom functions
 require_once "lib/functions.php";
-
-// default translation
-$texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
 // registering sessions
 use Silex\Provider\SessionServiceProvider;
