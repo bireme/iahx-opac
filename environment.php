@@ -51,6 +51,9 @@ if ($DEFAULT_PARAMS['defaultSite'] == ""){
     $DEFAULT_PARAMS['defaultSite'] = $config->site;
 }
 
+$DEFAULT_PARAMS['defaultDisplayFormat'] = (string) $DEFAULT_PARAMS['defaultCollectionData']->format_list[0]->format[0]->name;
+
+
 // log's configuration
 $logDir = ( isset( $config->log_dir ) ? $config->log_dir : "logs/");
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");

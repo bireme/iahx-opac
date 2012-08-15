@@ -1,0 +1,25 @@
+{% extends custom_template("result-doc.html") %}
+
+{% block data %}
+    {{ parent () }}
+    <!-- author -->
+    {% if doc.au is defined %}
+        <div class="author">
+            {% for author in doc.au %}
+                {{ author }}{% if loop.last %}.{% else %};{% endif %}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+    <!-- db -->
+    {% if doc.db is defined %}                   
+        
+        {% for db in doc.db %}
+            {{ db }}{% if loop.last %}.{% else %};{% endif %}
+        {% endfor %}
+
+    {% endif %}
+
+{% endblock %}            
+ 

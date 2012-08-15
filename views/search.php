@@ -119,6 +119,11 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         
     }
 
+    $format = $DEFAULT_PARAMS['defaultDisplayFormat'];
+    if(isset($params['format'])and $params['format'] != "") {
+        $format = $params['format'];
+    }
+
     $filter = array();
     if(isset($params['filter']) and $params['filter'] != "Array") {
         $filter = $params['filter'];
@@ -219,6 +224,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['lang'] = $lang;
     $output_array['q'] = $q;
     $output_array['sort'] = $sort;
+    $output_array['format'] = $format;
     $output_array['from'] = $from;
     $output_array['output'] = $output;
     $output_array['collectionData'] = $collectionData;
@@ -229,6 +235,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
     $output_array['current_url'] = $_SERVER['REQUEST_URI'];
+    $output_array['display_file'] = "result-format-" . $format . ".html";
 
     // if is send email
     if(isset($params['is_email'])) {

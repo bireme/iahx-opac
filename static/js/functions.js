@@ -31,6 +31,14 @@ function change_language(lang) {
     document.searchForm.submit();
 }
 
+// muda a quantidade de resultados exibidos
+function change_format(elem) {
+    var form = document.searchForm;
+    form.format.value = elem.value;
+
+    form.submit();   
+}
+
 // leva para output "print", passando o count
 function print(count) {
 

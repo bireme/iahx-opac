@@ -70,6 +70,12 @@
 				 </sort>
 			</sort_list>
             <format_list>
+            	<format>
+            		<name>summary</name>
+            	</format>
+            	<format>
+            		<name>abstract</name>
+            	</format>	
             </format_list>
 		</collection>
 	</search_collection_list>

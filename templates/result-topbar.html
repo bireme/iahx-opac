@@ -1,3 +1,28 @@
+{% block format %}
+<div class="format">
+    <label for="displayFormat" class="hide">{{ texts.FORMAT_OPTIONS }}</label>
+    <select name="format" id="format" class="inputText" onchange="javascript:change_format(this);">
+        <option value="">{{ texts.FORMAT_OPTIONS }}</option>
+        {% for format in collectionData.format_list.format %}
+            {% set format_label = 'FORMAT_' ~ format.name %}
+            
+            {% if params.format is defined %}
+
+                {* ajusta a variavel de traducao *}
+                {% if format.name == params.format %}
+                    <option value="{{ format.name }}" selected="true">{{ attribute(texts, format_label) }}</option>
+                {% else %}
+                    <option value="{{ format.name }}" >{{ attribute(texts, format_label) }}</option>
+                {% endif %}
+            {% else %}
+                <option value="{{ format.name }}" >{{ attribute(texts, format_label) }}</option>
+            {% endif %}
+
+        {% endfor %}
+    </select>
+</div>
+{% endblock %}
+
 {% block order %}
 <div class="orderBy">
     <label for="sortBy" class="hide">{{ texts.SORT_OPTIONS }}</label>

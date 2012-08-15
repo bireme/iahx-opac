@@ -1,0 +1,17 @@
+{% extends "result-format-summary.html" %}
+
+{% block data %}
+    {{ parent () }}
+    
+    {% if doc.ab is defined %}
+        <div>
+            <h4>{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
+            {% for abstract in doc.ab %}
+                {{ abstract }}{% if loop.last %}{% else %}<br/>{% endif %}
+            {% endfor %}
+        </div>
+
+    {% endif %}
+
+{% endblock %}            
+ 

@@ -37,7 +37,7 @@
 
                 {% block result_set %}
                     <div class="resultSet">
-                        {% block result_doc %}{% include custom_template("result-doc.html") %}{% endblock %}
+                        {% block result_doc %}{% include custom_template( display_file ) %}{% endblock %}
                         {% block result_navigation %}{% include custom_template("result-navigation.html") %}{% endblock %}
                     </div>
                 {% endblock %}

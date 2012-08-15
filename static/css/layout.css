@@ -470,6 +470,7 @@ DIV.record DIV.data H3 {
 }
 DIV.record DIV.data DIV {
     margin-left: 0px;
+    margin-bottom: 10px;
 }
 DIV.record DIV.data DIV.tags A {
     padding: 2px;
@@ -498,6 +499,14 @@ DIV.record DIV.services DIV {
     padding: 4px;
     padding-right: 20px;
 }
+DIV.detail {
+    width: 90%;
+    clear: both;
+}
+DIV.detail DIV.data{
+    margin: 0px 20px 0px 8px;
+}
+
 DIV.footer {
     clear: both;
     padding: 10px 12px;

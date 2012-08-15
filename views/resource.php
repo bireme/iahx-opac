@@ -15,16 +15,21 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     $dia_response = $dia->search("id:" . $id, "", array(), 0);
     $result = json_decode($dia_response, true);
 
+    // translate
+    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+
     // output vars
     $output_array = array();
     $output_array['lang'] = $lang;
     $output_array['col'] = $col;
     $output_array['site'] = $site;
     $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+    $output_array['doc'] = $result['diaServerResponse'][0]['response']['docs'][0];
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
+    $output_array['display_file'] = "result-format-abstract.html";
     
-    return $app['twig']->render('result-detail.html', $output_array);     
+    return $app['twig']->render( custom_template('result-detail.html'), $output_array );     
 
 });
 
