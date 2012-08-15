@@ -300,7 +300,7 @@ DIV.record DIV.data H3 {
 	font-family: Arial;
 }
 DIV.record DIV.data A {
-	color: #07449f;
+	color: #333;
 	text-decoration: none;
 }
 DIV.record DIV.data A:hover {
@@ -618,4 +618,5 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	width: 520px !important;
 	padding: 2px;
 }
-.collapseAll, .expandAll {display: none;}
+.collapseAll, .expandAll, .hide {display: none;}
+
