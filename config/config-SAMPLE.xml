@@ -10,6 +10,7 @@
 	<default_lang>pt</default_lang>
 	<log_dir>./logs/</log_dir>
 	<environment>teste</environment>
+	<addthis_pub></addthis_pub>
 
 	<search_collection_list>
 		<collection>

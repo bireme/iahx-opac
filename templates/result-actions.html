@@ -8,27 +8,28 @@
     <a id="inline" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
         <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">
     </a>
-    <div style="display:none">
+    <div style="display:none">        
         <div id="print">
+            {{ texts.PRINT }}
             <ul>
                 <li>
                     <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">            
                     <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
-                        Imprimir esta página
+                        {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
                     <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">            
                     <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
-                        Imprimir minha Seleção
+                        {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
                     <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">            
                     <a href="javascript:print();" alt="{{ texts.PRINT }}">
-                        Imprimir todas referências (max: 300)
+                        {{ texts.ALL_REFERENCES_LIMIT }}
                     </a>
                 </li>
             </ul>
@@ -37,7 +38,6 @@
 
     <!-- export -->
     <a id="inline" href="#export" alt="{{ texts.EXPORT }}" class="fancybox">
-        <!-- <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}"> -->
         <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">
     </a>
     <div style="display:none">
@@ -49,26 +49,26 @@
                 <input type="radio" name="format" id="format" value="citation"> {{ texts.EXPORT_FORMAT_CITATION }}
             </form>
             
-            <h3>{{ texts.RESULTS }}:</h3>
+            <h3>{{ texts.EXPORT }}:</h3>
             <ul>
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}">            
-                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.PRINT }}">
-                        Exportar esta página
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="">            
+                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.EXPORT }}">
+                        {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}">            
-                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.PRINT }}">
-                        Exportar minha Seleção
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">            
+                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.EXPORT }}">
+                        {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">            
                     <a href="javascript:export_result();" alt="{{ texts.PRINT }}">
-                        Exportar todas referências (max: 300)
+                        {{ texts.ALL_REFERENCES }}
                     </a>
                 </li>
             </ul>
@@ -87,26 +87,26 @@
                 <input type="hidden" name="is_email" value="true" />
 
                 <formset>
-                    <label for="yourName">Seu nome</label>
+                    <label for="yourName">{{ texts.MAIL_FROM_NAME }}</label>
                     <input type="text" id="yourName" name="name" value="">    
 
-                    <label for="yourEmail">Seu email</label>
+                    <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }}</label>
                     <input type="text" id="yourEmail" name="your_email" value="">    
 
-                    <label for="email">Destinatário*</label> <a href="javascript:add_more_email();">Adicionar mais destinatários</a>
+                    <label for="email">{{ texts.MAIL_TO_EMAIL }}*</label> <a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a>
                     <div id="destinatarios"><input type="text" id="email" name="email[]" value=""></div>
                     <div id="more-destinatarios"></div>
 
-                    <label for="subject">Assunto</label>
+                    <label for="subject">{{ texts.MAIL_SUBJECT }}</label>
                     <input type="text" id="subject" name="subject" value="">    
 
-                    <label for="comment">Comentários</label>
+                    <label for="comment">{{ texts.MAIL_COMMENT }}</label>
                     <textarea id="comment" name="comment"></textarea>
                     
-                    <label for="selection">Enviar resultados:</label><br>
-                    <input type="radio" name="selection" id="selection" value="page" checked>Esta página
-                    <input type="radio" name="selection" id="selection" value="my_selection">Minha Seleção
-                    <input type="radio" name="selection" id="selection" value="all_results">Todos resultados (max: 300)
+                    <label for="selection">{{ texts.SEND_RESULT }}</label><br>
+                    <input type="radio" name="selection" id="selection" value="page" checked>{{ texts.THIS_PAGE }}
+                    <input type="radio" name="selection" id="selection" value="my_selection">{{ texts.YOUR_SELECTION }}
+                    <input type="radio" name="selection" id="selection" value="all_results">{{ texts.ALL_REFERENCES_LIMIT }}
                     <br>
                     <center>
                         <input type="reset" value="Apagar">
@@ -114,8 +114,13 @@
                     </center>
                 </formset>
             </form>
-            
-            
         </div>
     </div>
+
+    <!-- AddThis Button BEGIN -->
+    <script type="text/javascript">addthis_pub  = '{{ config.addthis_pub }}';</script>
+    <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a>
+    <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
+    <!-- AddThis Button END -->
+
 </div>
