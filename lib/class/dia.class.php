@@ -50,6 +50,17 @@ class Dia
         return trim($result);
     }   
 
+    function related($id){
+        $this->param["op"] = "related";
+        $this->param["id"] = $id;
+        
+        $searchUrl = $this->requestUrl();
+
+        $result = $this->documentPost( $searchUrl );
+        return trim($result);
+    }   
+
+
     function mountFilterParam($filter){     
 
         //remove valores vazios do array

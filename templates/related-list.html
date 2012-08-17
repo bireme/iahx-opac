@@ -1,0 +1,24 @@
+<html>
+    <head>
+        <title>{{ texts.RELATED_DOCUMENTS }}</title>
+        <link rel="stylesheet" rel="stylesheet" href="{{ constant("STATIC_URL") }}css/related.css" type="text/css" media="screen">
+    </head>
+    <body>
+        <!-- max score: {{ maxScore }} / config min. score: {{ config.related_min_score }} -->
+        {% if maxScore > config.related_min_score %}
+            <h1>{{ texts.RELATED_DOCUMENTS }}</h1>
+            <ol>
+                {% for doc in docs if doc.score > config.related_min_score %}
+                    <li>
+                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" target="_parent" title="{{ doc.ti.0 }}">{{ doc.ti.0 }}</a></h3>
+                        <!-- {{ doc.score }} -->
+                    </li>
+                {% endfor %}
+            </ol>
+        {% else %}
+            <div class="center">
+                <h1>{{ texts.NO_RELATED_DOCUMENTS }}</h1>
+            </div>    
+        {% endif %}        
+    </body>
+</html>

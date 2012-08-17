@@ -1,0 +1,26 @@
+BODY {
+	font-size: 92%;
+}
+HTML/**/>BODY {
+	font-size: 90%;
+}
+BODY, INPUT, SELECT, TEXTAREA {
+	font-family: Arial, Verdana, Helvetica;
+}
+
+H1{
+	font-size: 160%;
+}
+
+ol li{
+	margin: 0 0 10px 5px;
+}
+ol li a {
+	color: #14376C;
+	text-decoration: none;
+}
+
+.center{
+	margin-top: 35%;
+	text-align: center;
+}

@@ -11,6 +11,8 @@
 	<log_dir>./logs/</log_dir>
 	<environment>teste</environment>
 	<addthis_pub></addthis_pub>
+	<show_related_link>true</show_related_link>
+	<related_min_score>40</related_min_score>
 
 	<search_collection_list>
 		<collection>
