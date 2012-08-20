@@ -105,7 +105,7 @@ class Dia
         $contentLength = strlen($query);
 
         if (isset($_REQUEST['debug'])){
-            print "<b>dia-server request:</b> " . $url . "<br/>";   
+            print "<b>request:</b> " . $url . "<br/>";   
         }
         // Generate the request header 
         $ReqHeader =  

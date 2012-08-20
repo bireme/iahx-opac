@@ -27,6 +27,7 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
     $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
+    $output_array['debug'] = $app['request']->get('debug');
     
     return $app['twig']->render('related-list.html', $output_array);     
 

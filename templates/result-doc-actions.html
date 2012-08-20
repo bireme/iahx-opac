@@ -15,7 +15,8 @@
 
 {% if config.show_related_link == 'true' %} 
 	<div class="related">
-	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}" onclick="javascript:$.fancybox.showActivity();" class="fancybox_iframe">
+		{{ app.request.debug  }}
+	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe">
 	    	<img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="Imprimir" />
 	        {{ texts.RELATED_DOCUMENTS }}
 	    </a>

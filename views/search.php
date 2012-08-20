@@ -236,6 +236,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['texts'] = $texts;
     $output_array['current_url'] = $_SERVER['REQUEST_URI'];
     $output_array['display_file'] = "result-format-" . $format . ".html";
+    $output_array['debug'] = $params['debug'];
 
     // if is send email
     if(isset($params['is_email'])) {
