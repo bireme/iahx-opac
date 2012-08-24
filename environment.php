@@ -1,9 +1,7 @@
 <?php
 
 // OPAC's current version
-define("VERSION", "2.0");
-
-
+define("VERSION", "2.0-beta");
 
 // ENVIRONMENT CONSTANTS
 $PATH = str_replace("index.php", "", $_SERVER['PHP_SELF']);

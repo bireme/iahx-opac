@@ -1,33 +1,27 @@
-<html>
-    <head>
-        <title>{{ texts.RELATED_DOCUMENTS }}</title>
-        <link rel="stylesheet" rel="stylesheet" href="{{ constant("STATIC_URL") }}css/related.css" type="text/css" media="screen">
-    </head>
-    <body>        
-        {% if debug == "true" %}
-            <strong>max score: {{ maxScore }} / config min. score: {{ config.related_min_score }}</strong>
-        {% else %}
-            <!-- max score: {{ maxScore }} / config min. score: {{ config.related_min_score }} -->
-        {% endif %}
+{% if debug == "true" %}
+    <strong>max score: {{ maxScore }} / config min. score: {{ config.related_min_score }}</strong>
+{% else %}
+    <!-- max score: {{ maxScore }} / config min. score: {{ config.related_min_score }} -->
+{% endif %}
 
-        {% if maxScore > config.related_min_score %}
-            <h1>{{ texts.RELATED_DOCUMENTS }}</h1>
-            <ol>
-                {% for doc in docs if doc.score > config.related_min_score %}
-                    <li>
-                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" target="_parent" title="{{ doc.ti.0 }}">{{ doc.ti.0 }}</a></h3>
-                        {% if debug == "true" %}
-                            ({{ doc.score }})
-                        {% else %}
-                            <!-- {{ doc.score }} -->
-                        {% endif %}                        
-                    </li>
-                {% endfor %}
-            </ol>
-        {% else %}
-            <div class="center">
-                <h1>{{ texts.NO_RELATED_DOCUMENTS }}</h1>
-            </div>    
-        {% endif %}        
-    </body>
-</html>
+{% if maxScore > config.related_min_score %}
+    <div class="related">
+        <h1>{{ texts.RELATED_DOCUMENTS }}</h1>
+        <ol>
+            {% for doc in docs if doc.score > config.related_min_score %}
+                <li>
+                    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" target="_parent" title="{{ doc.ti.0 }}">{{ doc.ti.0 }}</a>
+                    {% if debug == "true" %}
+                        ({{ doc.score }})
+                    {% else %}
+                        <!-- {{ doc.score }} -->
+                    {% endif %}                        
+                </li>
+            {% endfor %}
+        </ol>
+    </div>
+{% else %}
+    <div class="center">
+        <h1>{{ texts.NO_RELATED_DOCUMENTS }}</h1>
+    </div>    
+{% endif %}

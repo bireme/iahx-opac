@@ -13,7 +13,7 @@
     </a>
 </div>
 
-{% if config.show_related_link == 'true' %} 
+{% if config.show_related_docs == 'true' %} 
 	<div class="related">
 		{{ app.request.debug  }}
 	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe">

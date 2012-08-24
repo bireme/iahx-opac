@@ -44,10 +44,14 @@
                             <a href="#" onclick="javascript:refineByIndex('{{ subject }}','mh')">{{ subject }}</a>
                         {% endfor %}
                     </div>
-                {% endif %}   			    
+                {% endif %}
+
+				{% if maxScore > config.related_min_score %}
+			    	{% include "related-list.html" %}
+			    {% endif %}	                
 
 	        {% endblock %}            
 	    </div>
 	</div>
-
 {% endblock %}
+

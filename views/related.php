@@ -11,7 +11,7 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
     $col = $DEFAULT_PARAMS['defaultCollection'];
 
     // Dia response
-    $dia = new Dia($site, $col, 1, "json", $lang);
+    $dia = new Dia($site, $col, 1, "site", $lang);
     $dia_response = $dia->related($id);
     $result = json_decode($dia_response, true);
 
@@ -29,7 +29,7 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
     $output_array['texts'] = $texts;
     $output_array['debug'] = $app['request']->get('debug');
     
-    return $app['twig']->render('related-list.html', $output_array);     
+    return $app['twig']->render('related-docs.html', $output_array);     
 
 });
 

@@ -620,3 +620,21 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 }
 .collapseAll, .expandAll, .hide {display: none;}
 
+.related{
+	margin: 15px 0 50px 30px;
+	padding-bottom: 20px;
+}
+.related h1{	
+	font-size: 110%;
+	margin-bottom: 10px;
+}	
+
+.related ol li{
+	margin: 0 0 9px 20px;
+}
+
+.related ol li a {
+	color: #14376C !important;
+	text-decoration: none;
+}
+
