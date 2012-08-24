@@ -638,3 +638,6 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	text-decoration: none;
 }
 
+.addthis_toolbox {
+	margin: 3px 0 0 5px;
+}

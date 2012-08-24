@@ -117,10 +117,26 @@
         </div>
     </div>
 
-    <!-- AddThis Button BEGIN -->
-    <script type="text/javascript">addthis_pub  = '{{ config.addthis_pub }}';</script>
-    <a href="http://www.addthis.com/bookmark.php" onmouseover="return addthis_open(this, '', '[URL]', '[TITLE]')" onmouseout="addthis_close()" onclick="return addthis_sendto()"><img src="http://s9.addthis.com/button1-bm.gif" width="125" height="16" border="0" alt="" /></a>
-    <script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
-    <!-- AddThis Button END -->
+</div>
+
+<!-- AddThis Button BEGIN -->
+<div class="addthis_toolbox addthis_default_style">        
+    <span class="addthis_separator">|</span>
+    {% if doc is defined %}
+        <a class="addthis_button_facebook_like" fb:like:layout="button_count" title="Facebook_like"></a>
+        <a class="addthis_button_tweet" title="Tweet"></a>            
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>            
+        <a class="addthis_counter addthis_pill_style"></a> 
+        <span class="addthis_separator">|</span>
+    {% else %}
+        <a class="addthis_button_compact"></a> 
+    {% endif %}
+
+    {% for service in config.addthis_buttons.button %}
+        <a class="addthis_button_{{ service }}"></a>
+    {% endfor %}    
 
 </div>
+<script type="text/javascript">addthis_pub  = '{{ config.addthis_pub }}';</script>
+<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>    
+<!-- AddThis Button END -->

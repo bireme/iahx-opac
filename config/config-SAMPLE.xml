@@ -6,12 +6,17 @@
 	<home_url>http://regional.bvsalud.org/</home_url>
 	<search_server>srv.bvsalud.org</search_server>
 	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
-	<documents_per_page>10</documents_per_page>
+	<documents_per_page>20</documents_per_page>
 	<default_lang>pt</default_lang>
 	<log_dir>./logs/</log_dir>
 	<environment>teste</environment>
 	<addthis_pub></addthis_pub>
-	<show_related_link>true</show_related_link>
+	<addthis_buttons>
+		<button>facebook</button>
+		<button>twitter</button>
+		<button>delicious</button>
+	</addthis_buttons>	
+	<show_related_docs>true</show_related_docs>
 	<related_min_score>40</related_min_score>
 
 	<search_collection_list>
