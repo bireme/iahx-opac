@@ -22,3 +22,12 @@
 	    </a>
 	</div>
 {% endif %}
+
+{% if doc.db == 'MEDLINE' %} 
+    <div class="pubmed">
+        <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="fancybox_iframe">
+            <img src="{{ constant("STATIC_URL") }}image/common/icon_PubMed.gif"/>
+            <span>PubMed LinkOut</span>
+        </a>
+    </div>
+{% endif %}

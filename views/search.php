@@ -177,14 +177,16 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-
+    
     // pagination
     $pag = array();
-    $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];
-    $pag['total_formatted'] = number_format($pag['total'], 0, ',', '.');
-    $pag['start'] = $result['diaServerResponse'][0]['response']['start'];    
-    $pag['total_pages'] = (($pag['total']/$count) % 10 == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
-    $pag['count'] = $count;
+    if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
+        $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];
+        $pag['total_formatted'] = number_format($pag['total'], 0, ',', '.');
+        $pag['start'] = $result['diaServerResponse'][0]['response']['start'];    
+        $pag['total_pages'] = (($pag['total']/$count) % 10 == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
+        $pag['count'] = $count;
+    }
     $range_min = (($page-5) > 0) ? $page-5 : 1;
     $range_max = (($range_min+10) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+10;
     $pag['pages'] = range($range_min, $range_max);
@@ -230,13 +232,15 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['collectionData'] = $collectionData;
     $output_array['params'] = $params;
     $output_array['pag'] = $pag;
-    $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
-    $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
     $output_array['current_url'] = $_SERVER['REQUEST_URI'];
     $output_array['display_file'] = "result-format-" . $format . ".html";
     $output_array['debug'] = $params['debug'];
+    if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
+        $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+        $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
+    }
 
     // if is send email
     if(isset($params['is_email'])) {

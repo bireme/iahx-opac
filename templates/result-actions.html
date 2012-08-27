@@ -128,13 +128,14 @@
         <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>            
         <a class="addthis_counter addthis_pill_style"></a> 
         <span class="addthis_separator">|</span>
-    {% else %}
-        <a class="addthis_button_compact"></a> 
     {% endif %}
 
     {% for service in config.addthis_buttons.button %}
         <a class="addthis_button_{{ service }}"></a>
     {% endfor %}    
+    {% if doc is not defined %}
+        <a class="addthis_button_compact"></a> 
+    {% endif %}
 
 </div>
 <script type="text/javascript">addthis_pub  = '{{ config.addthis_pub }}';</script>
