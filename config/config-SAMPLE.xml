@@ -18,6 +18,7 @@
 	</addthis_buttons>	
 	<show_related_docs>true</show_related_docs>
 	<related_min_score>40</related_min_score>
+	<google_analytics_tracking_id></google_analytics_tracking_id>
 
 	<search_collection_list>
 		<collection>
