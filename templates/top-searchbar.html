@@ -1,5 +1,5 @@
 <div class="search">
-    <form name="searchForm" id="searchForm" action="" method="GET">
+    <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
         
         <div class="searchForm">
                 <input type="hidden" name="output" id="output" value="{{ output }}">
@@ -40,18 +40,20 @@
                     
                 </select>
 
-                onde:
+                {{ texts.WHERE_FILTER }}:
                 <select name="where" class="inputText" id="selectWhere">
                     {% for where in collectionData.where_list.where %}
+                        {% set tab = '' %}
+                        {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
 
                         {% if params.where is defined %}
                             {% if where.name == params.where %}
-                                <option value="{{ where.name }}" selected="true">{{ attribute(texts.WHERE, where.name) }}</option>
+                                <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
                             {% else %}
-                                <option value="{{ where.name }}" >{{ attribute(texts.WHERE, where.name) }}</option>
+                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
                             {% endif %}
                         {% else %}
-                            <option value="{{ where.name }}" >{{ attribute(texts.WHERE, where.name) }}</option>
+                            <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>  

@@ -46,7 +46,7 @@
         {% endblock %}
 
     {% else %}
-        <div class="noResults">Não foram encontrados documentos para sua consulta</div>
+        <div class="noResults">{{ texts.NO_RESULTS }}</div>
     {% endif %}
 
     {% include custom_template("footer.html") %}

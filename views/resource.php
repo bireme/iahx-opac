@@ -29,6 +29,7 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     $output_array['col'] = $col;
     $output_array['site'] = $site;
     $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+    $output_array['collectionData'] = $collectionData;
 
     if ( $config->show_related_docs == "true"){        
         $output_array['doc'] = $result['diaServerResponse'][0]['match']['docs'][0];
