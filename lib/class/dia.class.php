@@ -67,8 +67,14 @@ class Dia
         $filter = $this->cleanArray($filter);       
         
         $new_filter = array();
-        foreach(array_keys($filter) as $name) {
-            $new_filter[] = $name . ':("' . join('" OR "', $filter[$name]) . '")';
+        foreach(array_keys($filter) as $name) {            
+            ## FIX: actually mh_cluster and pt_cluster facets are DeCS codified that are decodified by the controller
+            ## its necessary use the normal prefix mh or pt when do a search
+            $search_prefix  = $name;
+            if ( $name == 'pt_cluster' || $name == 'mh_cluster' ){ 
+                $search_prefix = str_replace('_cluster', '', $name);
+            }            
+            $new_filter[] = $search_prefix . ':("' . join('" OR "', $filter[$name]) . '")';
         }
         
         $fq = join(" AND ",$new_filter);                
