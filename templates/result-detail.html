@@ -5,7 +5,7 @@
     <script>window.print();</script> 
 {% endblock %}
 
-{# zerando os blocos que nao quero que apareça #}
+{# hide unused blocks #}
 
 {% block result_navigation %}{% endblock %}
 {% block clusters %}{% endblock %}
@@ -45,6 +45,14 @@
                         {% endfor %}
                     </div>
                 {% endif %}
+
+		        <div class="user-actions" %>
+		            {% embed custom_template("result-doc-actions.html") %}
+		            	{# hide unused options #}
+		            	{% block btn_detail %}{% endblock %}
+		            	{% block btn_related %}{% endblock %}
+		            {% endembed %}
+		        </div>
 
 				{% if maxScore > config.related_min_score %}
 			    	{% include "related-list.html" %}

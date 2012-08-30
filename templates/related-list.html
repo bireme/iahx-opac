@@ -5,7 +5,7 @@
 {% endif %}
 
 {% if maxScore > config.related_min_score %}
-    <div class="related">
+    <div class="related_docs_list">
         <h1>{{ texts.RELATED_DOCUMENTS }}</h1>
         <ol>
             {% for doc in docs if doc.score > config.related_min_score %}

@@ -102,7 +102,7 @@ if (!DEBUG) {
 
 
 // PREPARING THE ENVIRONMENT
-// requiring custsom functions
+// requiring custom functions
 require_once "lib/functions.php";
 
 // registering sessions
@@ -115,5 +115,7 @@ $app->register(new SessionServiceProvider, array(
 ));
 
 $app['twig']->addFunction('custom_template', new Twig_Function_Function('custom_template'));
+$app['twig']->addFilter('substring_before', new Twig_Filter_Function('filter_substring_before'));
+$app['twig']->addFilter('substring_after', new Twig_Filter_Function('filter_substring_after'));
 
 ?>

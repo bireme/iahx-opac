@@ -446,7 +446,7 @@ DIV.resultSet DIV.record {
 }
 DIV.resultSet DIV.record DIV.user-actions {
     height: 22px;
-    margin: 0px 0px 0px 44px;
+    margin: 5px 0px 0px;
 }
 DIV.user-actions DIV{
     margin: 0px 10px 0px 0px;

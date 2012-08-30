@@ -2,8 +2,10 @@
 
     <div id="{{ doc.id }}" class="record">
 
-        <div><input type="checkbox" class="my_selection" value="{{ doc.id }}" 
-            {% if doc.id in bookmark|keys %}checked{% endif %}></div>
+        <div class="yourSelectionCheck">
+            <input type="checkbox" class="my_selection" value="{{ doc.id }}" 
+            {% if doc.id in bookmark|keys %}checked{% endif %}>
+        </div>
 
         <div class="position">{{ loop.index + pag.start }}.</div>
         <div class="data">
@@ -13,12 +15,10 @@
                     <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}">{{ doc.ti.0 }}</a></h3>
                
             {% endblock %}            
-        </div>
-        <div class="spacer"></div>
+            <div class="user-actions">
+                {% include custom_template("result-doc-actions.html") %}
+            </div>
+        </div>       
 
-        <div class="user-actions">
-            {% include custom_template("result-doc-actions.html") %}
-        </div>
-         
     </div>
 {% endfor %}

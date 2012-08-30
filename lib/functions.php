@@ -86,12 +86,29 @@ function addslashes_array($a){
     }
 }
 
+/* Twig Extensions */
 function custom_template($filename) {
     if(count(glob(CUSTOM_TEMPLATE_PATH . $filename)) > 0) {
         return str_replace(TEMPLATE_PATH, "", CUSTOM_TEMPLATE_PATH) . $filename;
     } 
     
     return $filename;
+}
+
+function filter_substring_after($text, $needle = '-'){
+    if (strpos($text, $needle) !== false){
+        return substr($text, strpos($text, $needle)+strlen($needle));
+    }else{
+        return "";
+    }
+}
+
+function filter_substring_before($text, $needle = '-'){
+    if (strpos($text, $needle) !== false){
+        return substr($text, 0,strpos($text, $needle));
+    }else{
+        return "";
+    }
 }
 
 ?>

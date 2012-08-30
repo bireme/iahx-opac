@@ -1,33 +1,48 @@
+{% block btn_detail %}
 <div class="text_abstract">
-    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}"><img src="{{ constant("STATIC_URL") }}image/common/icon_page_go.gif" alt="Detalhes" border="0" />{{ texts.SHOW_DETAILS }}</a>
+    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}"><img src="{{ constant("STATIC_URL") }}image/common/icon_page_go.gif" alt="{{ texts.SHOW_DETAILS }}" border="0" />{{ texts.SHOW_DETAILS }}</a>
+</div>
+{% endblock %}
 
+{% block btn_fulltext %}
     {% if doc.ur is defined %} 
-    	<a href="{{ doc.ur }}"><img src="{{ constant("STATIC_URL") 	}}image/common/viewFullText.gif" alt="Detalhes" border="0" />{{ texts.FULLTEXT }}</a>
-	{% endif %}
-</div>
+        <div>    
+            {% if doc.ur|length > 1 %} 
+                <a href="javascript: $('#fulltext_urls_{{ doc.id }}').show()"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="Detalhes" border="0" />{{ texts.FULLTEXT }}</a>    
 
-<div class="print">
-    <a href="#">
-        <img src="{{ constant("STATIC_URL") }}image/common/icon_print.gif" alt="Imprimir" />
-        &#160;<span>{{ texts.PRINT }}</span>
-    </a>
-</div>
+                <div style="display: none" id="fulltext_urls_{{ doc.id }}" class="fulltext_box">
+                    <ul>
+                    {% for url in doc.ur %}
+                        <li><a href="{{ url }}" target="_blank" alt="{{ texts.FULLTEXT }} Link">{{ url }}</a></li>
+                    {% endfor %}
+                    </ul>
+                </div>
+            {% else %}
+                <a href="{{ doc.ur.0 }}" target="_blank" alt="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="Detalhes" border="0" />{{ texts.FULLTEXT }}</a>             
+            {% endif %}
+        </div>
+    {% endif %}    
+{% endblock %}
 
-{% if config.show_related_docs == 'true' %} 
-	<div class="related">
-		{{ app.request.debug  }}
-	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe">
-	    	<img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="Imprimir" />
-	        {{ texts.RELATED_DOCUMENTS }}
-	    </a>
-	</div>
-{% endif %}
+{% block btn_related %}
+    {% if config.show_related_docs == 'true' %} 
+    	<div class="related">
+    		{{ app.request.debug  }}
+    	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe">
+    	    	<img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="Imprimir" />
+    	        {{ texts.RELATED_DOCUMENTS }}
+    	    </a>
+    	</div>
+    {% endif %}
+{% endblock %}
 
-{% if doc.db == 'MEDLINE' %} 
-    <div class="pubmed">
-        <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="fancybox_iframe">
-            <img src="{{ constant("STATIC_URL") }}image/common/icon_PubMed.gif"/>
-            <span>PubMed LinkOut</span>
-        </a>
-    </div>
-{% endif %}
+{% block btn_pubmed_linkout %}
+    {% if doc.db == 'MEDLINE' %} 
+        <div class="pubmed">
+            <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="fancybox_iframe">
+                <img src="{{ constant("STATIC_URL") }}image/common/icon_PubMed.gif"/>
+                <span>PubMed More Resources</span>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

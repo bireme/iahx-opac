@@ -276,8 +276,7 @@ DIV.resultSet DIV.infoBar DIV.pagination A {
 DIV.resultSet DIV.record {
 	border-bottom: 1px solid #e5e5e5;
 }
-DIV.resultSet DIV.record DIV.user-actions {
-}
+
 DIV.resultSet DIV.record DIV.user-actions A,
 DIV.resultSet DIV.record DIV.user-actions A:visited {
 	text-decoration: none;
@@ -620,24 +619,30 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 }
 .collapseAll, .expandAll, .hide {display: none;}
 
-.related{
-	margin: 15px 0 50px 30px;
+.related_docs_list{
+	margin: 5px 0 0px 30px;
 	padding-bottom: 20px;
+	clear: both;
 }
-.related h1{	
+.related_docs_list h1{	
 	font-size: 110%;
 	margin-bottom: 10px;
 }	
 
-.related ol li{
+.related_docs_list ol li{
 	margin: 0 0 9px 20px;
 }
 
-.related ol li a {
+.related_docs_list ol li a {
 	color: #14376C !important;
 	text-decoration: none;
 }
 
 .addthis_toolbox {
 	margin: 3px 0 0 5px;
+}
+
+.fulltext_box {
+	clear: both;	
+	margin: 3px 0 0 7px;
 }
