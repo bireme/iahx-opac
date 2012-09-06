@@ -65,7 +65,9 @@ DIV.search DIV.informationTypes A {
 }
 DIV.search DIV.searchForm {
     padding: 4px 10px;
-    text-align: center;
+}
+DIV.search DIV.searchForm DIV.actions {
+    margin-top: 7px;
 }
 DIV.search DIV.searchForm *.inputText, DIV.search DIV.searchForm *.submit {
     vertical-align: middle;
@@ -562,8 +564,7 @@ DIV.resultServices DIV.searchHistory DIV.altpopup{
 }
 .resultOptions {
     float: left;
-   xmargin-left: 240px;
-    width: 747px;
+    width: 750px;
 }
 .yourSelectionCheck {
     float: left;

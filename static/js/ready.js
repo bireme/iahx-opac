@@ -11,6 +11,14 @@ $(function(){
         'type' : 'iframe',
     });
 
+    $('.fancybox_iframe75').fancybox({
+        'width': '75%',
+        'height': '75%',
+        'autoScale': 'false',
+        'centerOnScroll': true,
+        'type' : 'iframe',
+    });
+
     $('.fancybox').fancybox();
     
 })

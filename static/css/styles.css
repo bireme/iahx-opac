@@ -73,7 +73,6 @@ DIV.search DIV.informationTypes SPAN {
 }
 DIV.search DIV.searchForm {
 	background: #d9e2e8;
-	  height: 30px;
 }
 DIV.search DIV.searchForm SELECT.inputText {
 	font-size: 100%;
