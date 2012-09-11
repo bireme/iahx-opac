@@ -9,6 +9,7 @@ $(function(){
         'autoScale': 'true',
         'centerOnScroll': true,
         'type' : 'iframe',
+        'titlePosition' : 'inside',
     });
 
     $('.fancybox_iframe75').fancybox({

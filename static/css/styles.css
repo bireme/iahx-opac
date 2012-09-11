@@ -290,8 +290,9 @@ DIV.user-actions DIV A {
 DIV.data DIV.source {
 	font-size: 110%;
 }
-DIV.record DIV.data DIV.author {
-	font-size: 120%;
+DIV.record DIV.data  {
+	font-size: 112%;
+	line-height: 20px;
 }
 DIV.record DIV.data H3 {
 	font-size: 130%;
@@ -309,8 +310,6 @@ DIV.record DIV.data A:hover {
 .tags{font-weight:bold; color:#626465; margin-bottom: 10px;}
 DIV.record DIV.data DIV.source,DIV.record DIV.data DIV.language, DIV.record DIV.data DIV.description, DIV.record DIV.data DIV.tags {
 	color: #121212;
-    font-size: 12px;
-    width: 90%
 }
 DIV.record DIV.data DIV.source {
 	color: #6d6d6d;

@@ -1,0 +1,13 @@
+<!-- localization -->
+{% if doc.cc is defined %}
+	<div>
+		{{ texts.RESULT.LABEL_RESPONSIBLE }}: 
+		<a href="http://bases.bireme.br/cgi-bin/wxislind.exe/iah/online/?IsisScript=iah/iah.xis&nextAction=lnk&base=MAILLIL&lang=p&exprSearch={{ doc.cc.0 }}#1" class="fancybox_iframe">{{ doc.cc.0 }}</a>
+	</div>
+{% endif %}		
+
+{% if doc.lo is defined %}
+    <div>
+    	{{ texts.RESULT.LABEL_LOCALIZATION }}: {{ occ( {'element': doc.lo} ) }}
+    </div>
+{% endif %}

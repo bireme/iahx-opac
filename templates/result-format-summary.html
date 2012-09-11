@@ -11,21 +11,7 @@
         </div>
     {% endif %}
 
-    <!-- source -->
-    {% if doc.type.0 == 'article' and doc.fo.0 != '' %}
-        {% set journal = doc.fo.0|substring_before(';') %}
-        {{ journal }}
-    {% endif %}
-
-
-    <!-- db -->
-    {% if doc.db is defined %}                   
-        
-        {% for db in doc.db %}
-            {{ db }}{% if loop.last %}.{% else %};{% endif %}
-        {% endfor %}
-
-    {% endif %}
+    {% include "result-inc-source.html" %}
 
 {% endblock %}            
  

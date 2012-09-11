@@ -26,7 +26,9 @@
 			        {% endfor %}
 
 			    {% endif %}	            
-	            
+
+				{% include "result-inc-source.html" %}
+
 			    {% if doc.ab is defined %}
 			        <div>
 			            <h4>{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
@@ -39,12 +41,14 @@
 				<!-- subject -->
                 {% if doc.mh is defined  %}
                     <div class="tags">
-                        Assunto(s):
+                        <h4>{{ texts.RESULT.LABEL_SUBJECT }}</h4>
                         {% for subject in doc.mh %}
                             <a href="#" onclick="javascript:refineByIndex('{{ subject }}','mh')">{{ subject }}</a>
                         {% endfor %}
                     </div>
                 {% endif %}
+
+				{% include "result-inc-location.html" %}                
 
 		        <div class="user-actions" %>
 		            {% embed custom_template("result-doc-actions.html") %}

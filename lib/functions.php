@@ -95,6 +95,30 @@ function custom_template($filename) {
     return $filename;
 }
 
+function occ($params) {
+
+    extract($params); 
+    
+    if ( is_array($element) ){
+        for ($occ = 0; $occ <  count($element); $occ++) {
+            if ($occ > 0){
+                $output .= $separator . " ";
+            }
+            if ( $translate == true ){
+                $text = translate($element[$occ], $group);
+            }else{
+                $text = $element[$occ];
+            }
+            $output .= $text;
+        }
+    }else{
+        $output .= $element;
+    }    
+
+    return $output;
+    
+}
+
 function filter_substring_after($text, $needle = '-'){
     if (strpos($text, $needle) !== false){
         return substr($text, strpos($text, $needle)+strlen($needle));
