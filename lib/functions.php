@@ -88,7 +88,7 @@ function addslashes_array($a){
 
 /* Twig Extensions */
 function custom_template($filename) {
-    if(count(glob(CUSTOM_TEMPLATE_PATH . $filename)) > 0) {
+    if( file_exists(CUSTOM_TEMPLATE_PATH . $filename) ) {
         return str_replace(TEMPLATE_PATH, "", CUSTOM_TEMPLATE_PATH) . $filename;
     } 
     
