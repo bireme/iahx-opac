@@ -24,12 +24,23 @@
     {% endif %}    
 {% endblock %}
 
+{% block btn_photocopy %}
+    {% if 'MEDLINE' in doc.db or 'SCAD' in doc.services %}
+        <div class="scad">
+            <a href="{{ config.photocopy_url }}&lang={{lang}}&db={{doc.db}}&ident={{ doc.id|substring_after('-') }}">
+                <img src="{{ constant("STATIC_URL") }}image/common/icon_scad.gif" alt="{{ texts.PHOTOCOPY }}"/>
+                &#160;<span>{{ texts.PHOTOCOPY }}</span>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}
+
 {% block btn_related %}
     {% if config.show_related_docs == 'true' %} 
     	<div class="related">
     		{{ app.request.debug  }}
-    	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe">
-    	    	<img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="Imprimir" />
+    	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe" title="{{doc.ti.0}}">
+    	    	<img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="{{ texts.RELATED_DOCUMENTS }}" />
     	        {{ texts.RELATED_DOCUMENTS }}
     	    </a>
     	</div>
@@ -39,7 +50,7 @@
 {% block btn_pubmed_linkout %}
     {% if doc.db == 'MEDLINE' %} 
         <div class="pubmed">
-            <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="fancybox_iframe">
+            <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}"  class="fancybox_iframe">
                 <img src="{{ constant("STATIC_URL") }}image/common/icon_PubMed.gif"/>
                 <span>PubMed More Resources</span>
             </a>
