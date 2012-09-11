@@ -29,6 +29,6 @@
     {% else %}
 		| {{ translate(doc.db, 'REFINE_db') }}
     {% endif %}
-	| ID: {{ doc.id|substring_after('-') }}
+	| ID: {% if '-' in doc.id %} {{ doc.id|substring_after('-') }} {% else %} {{ doc.id }} {% endif %}
     | {{ occ( {'element': doc.la,  'translate': true, 'group': 'REFINE_la'} ) }}
 </div>

@@ -121,7 +121,7 @@
         </div>        
         <div id="details">            
             {% if decs.record_list.record is defined %}                
-                <form action="{{ constant("SEARCH_URL") }}" target="parent" onsubmit="make_search_query()" name="search">                    
+                <form action="{{ constant("SEARCH_URL") }}" target="_parent" onsubmit="make_search_query()" name="search">                    
                     <input type="hidden" name="q" value='"{{ decs.tree.self.term_list.term }}"'/>
                     <input type="hidden" name="index" value="mh"/>
 
