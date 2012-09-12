@@ -236,7 +236,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['texts'] = $texts;
     $output_array['current_url'] = $_SERVER['REQUEST_URI'];
     $output_array['display_file'] = "result-format-" . $format . ".html";
-    $output_array['debug'] = $params['debug'];
+    $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
         $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];

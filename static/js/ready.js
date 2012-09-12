@@ -22,4 +22,10 @@ $(function(){
 
     $('.fancybox').fancybox();
     
+    $('#affix').affix({
+      offset: {
+        top:  200,
+        bottom: 270
+      }
+    })
 })

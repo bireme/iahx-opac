@@ -31,12 +31,16 @@
         </div>
     {% endif %}
 
-
     <div class="refineSearch" id="refineSearch">
 
         <div class="bContent" id="refine_facet">
 
             <form action="" id="form_clusters" method="GET">
+                <div class="buttons" data-spy="affix" id="affix" data-offset-top="300">
+                    <button type="submit">filtrar</button>
+                    <a href="javascript:show_all_clusters();" title="Abrir todos"><i class="icon-plus-sign"></i></a>
+                    <a href="javascript:hide_all_clusters();" title="Fechar todos"><i class="icon-minus-sign"></i></a>
+                </div>
 
                 {% for key, value in params %}
                     {% if key != "filter"  %}
@@ -82,7 +86,7 @@
                             {% endif %}
 
 
-                            <input type="submit" value="filtrar">
+                            <!-- <input type="submit" value="filtrar"> -->
                         </ul>
                     </div>
                 {% endfor %}
