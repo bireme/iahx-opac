@@ -5,6 +5,9 @@ function translate($label, $group=NULL) {
 
     global $texts, $lang;
 
+    // labels on texts.ini must be array key without spaces
+    $label = str_replace(' ','_', $label);
+
     if($group == NULL) {
         if(isset($texts[$label]) and $texts[$label] != "") {
             return $texts[$label];
@@ -15,7 +18,7 @@ function translate($label, $group=NULL) {
         }
     }
 
-    return ucwords(str_replace("_", "", $label));
+    return ucfirst(str_replace("_", " ", $label));
 }
 
 // funcao retirada da pagina http://www.php.net/utf8_encode 
