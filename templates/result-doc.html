@@ -12,7 +12,14 @@
             {% block data %}                
                 <!-- title -->
                 <h3>
-                    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}">{{ doc.ti.0 }}</a></h3>
+                    {% if doc.db == 'DECS' %}
+                        {% set descriptor = 'ti_' ~ lang %}
+
+                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}">{{ attribute(doc, descriptor ).0 }}</a>
+                    {% else %}                    
+                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}">{{ doc.ti.0 }}</a>
+                    {% endif %}
+                </h3>
                
             {% endblock %}            
             <div class="user-actions">

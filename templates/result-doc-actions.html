@@ -39,9 +39,9 @@
     {% if config.show_related_docs == 'true' %} 
     	<div class="related">
             {% if doc.db == 'DECS' %}
-                <a href="{{ constant("SEARCH_URL") }}?q=%22{{doc.ti.0}}%22&index=mh" title="{{doc.ti.0}}">
+                <a href="{{ constant("SEARCH_URL") }}?q=%22{{doc.ti.0}}%22&index=mh&lang={{lang}}" title="{{doc.ti.0}}">
                     <img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="{{ texts.RELATED_DOCUMENTS }}" />
-                    {{ texts.RELATED_DOCUMENTS }}
+                    {{ texts.SEARCH_MH_DOCS }}
                 </a>
             {% else %}
            	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe" title="{{doc.ti.0}}">
