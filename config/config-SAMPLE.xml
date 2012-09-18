@@ -23,7 +23,7 @@
 	<search_collection_list>
 		<collection>
 			<name>regional</name>
-			<cluster_items_limit>20</cluster_items_limit>
+			<cluster_items_limit>10</cluster_items_limit>
 			<set></set>
 			<filter></filter>
 			<index_list>

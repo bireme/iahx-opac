@@ -54,14 +54,14 @@
                 {% for name, cluster in clusters if cluster|length > 0 %}
 
                     {% set cluster_labels = 'REFINE_' ~ name %}
-                    
+                    <a name="{{ name }}"></a>
+
                     <div id="{{ name }}">
                         <a href="javascript:toggle_cluster('{{ name }}');" title="{{ name }}">
                             <strong>
                                 {{ attribute(texts.REFINE, name) }}
                             </strong>
                         </a>
-
                         <a href="#" onclick="javascript:open_chart(this,'{{ attribute(texts.RESULT, cluster_label) }}','{{ name }}')" class="fancybox_iframe">
                             <img src="{{ constant("STATIC_URL") }}image/common/chart.gif" alt="{{ texts.CHART }}">
                         </a>
@@ -78,11 +78,9 @@
                                 </li>
                             {% endfor %}
 
-                            {% if cluster|length % collectionData.cluster_items_limit == 0 %}
-                                <li><b><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }}); return false;">{{ texts.SHOW_MORE_ITEMS }}...</a></b></li>
+                            {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
+                                <li><b><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></b></li>
                             {% endif %}
-
-
                             <!-- <input type="submit" value="filtrar"> -->
                         </ul>
                     </div>
