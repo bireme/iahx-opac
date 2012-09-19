@@ -174,6 +174,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     $dia_response = $dia->search($q, $index, $filter_search, $from);
     $result = json_decode($dia_response, true);
+   
+    // detailed query
+    $solr_param_q = $result['diaServerResponse'][0]['responseHeader']['params']['q'];
+    $solr_param_fq = $result['diaServerResponse'][0]['responseHeader']['params']['fq'];
+    if ($solr_param_q != '*:*' && $solr_param_fq != ''){
+        $detailed_query = $solr_param_q . " AND " . $solr_param_fq ;
+    }elseif ($solr_param_q != '*:*'){
+        $detailed_query = $solr_param_q;
+    }elseif ($solr_param_fq != ''){
+        $detailed_query = $solr_param_fq;    
+    }
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
@@ -238,6 +249,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['display_file'] = "result-format-" . $format . ".html";
     $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
+        $output_array['detailed_query'] = $detailed_query;
         $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
         $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
     }

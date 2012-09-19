@@ -6,28 +6,28 @@
 <div class="actions">
     <!-- print -->
     <a id="inline" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
-        <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">
+        <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
     </a>
     <div style="display:none">        
         <div id="print">
             {{ texts.PRINT }}
             <ul>
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">            
                     <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
                         {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">            
                     <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
                         {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" title="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">            
                     <a href="javascript:print();" alt="{{ texts.PRINT }}">
                         {{ texts.ALL_REFERENCES_LIMIT }}
                     </a>
@@ -38,7 +38,7 @@
 
     <!-- export -->
     <a id="inline" href="#export" alt="{{ texts.EXPORT }}" class="fancybox">
-        <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">
+        <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
     </a>
     <div style="display:none">
         <div id="export">
@@ -52,22 +52,22 @@
             <h3>{{ texts.EXPORT }}:</h3>
             <ul>
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="">            
-                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.EXPORT }}">
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
+                    <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.EXPORT }}">
                         {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">            
-                    <a href="javascript:export_result('{{ pag.count }}');" alt="{{ texts.EXPORT }}">
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
+                    <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.EXPORT }}">
                         {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" title="{{ texts.EXPORT }}">            
-                    <a href="javascript:export_result();" alt="{{ texts.PRINT }}">
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
+                    <a href="javascript:export_result();" title="{{ texts.PRINT }}">
                         {{ texts.ALL_REFERENCES }}
                     </a>
                 </li>
@@ -77,7 +77,7 @@
 
     <!-- email -->
     <a id="inline" href="#email" alt="{{ texts.EXPORT }}" class="fancybox">
-        <img src="{{ constant("STATIC_URL") }}image/email.png" title="{{ texts.EXPORT }}">
+        <img src="{{ constant("STATIC_URL") }}image/email.png" alt="{{ texts.SEND_BY_EMAIL }}">
     </a>
     <div style="display:none">
         <div id="email" class="optionEmail">

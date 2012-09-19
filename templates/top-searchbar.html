@@ -19,10 +19,10 @@
                 {% endfor %}
                 
 
-                <label for="textEntry1" class="hide">Busca</label>
-
+                <label for="q" class="hide">Busca</label>
                 <input type="text" name="q" id="q" value="{% if params.q is defined %}{{ params.q }}{% else %}{% endif %}" class="inputText defaultValue" onkeydown="if(event.keyCode==13) newSearch();">
 
+                <label for="selectIndex" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
                 <select name="index" class="inputText" id="selectIndex">
                     
                     {% for index in collectionData.index_list.index %}
@@ -40,6 +40,7 @@
                     
                 </select>
 
+                <label for="selectWhere" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
                 {{ texts.WHERE_FILTER }}:
                 <select name="where" class="inputText" id="selectWhere">
                     {% for where in collectionData.where_list.where %}

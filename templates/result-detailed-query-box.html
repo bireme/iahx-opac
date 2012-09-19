@@ -1,0 +1,19 @@
+<div class="refineSearch">
+	<div class="spacer"></div>
+	<strong>{{ texts.SEARCH_DETAIL_BOX }}</strong>
+	<form action="" id="form_custom_search" method="GET">
+	    {% for key, value in params %}
+	        {% if key != "filter" and key != "q" %}
+	            {% if key == "from" or key == "page" %}
+	                <input type="hidden" name="{{ key }}" value="1">
+	            {% else %}
+	                <input type="hidden" name="{{ key }}" value="{{ value }}">
+	            {% endif %}
+	        {% endif %}
+	    {% endfor %}
+
+		<textarea name="q" sid="1" class="detailed_query_box" cols="26" rows="5">{{ detailed_query }}</textarea>	
+		<div class="spacer"></div>
+		<input type="submit" value=" {{ texts.SEARCH_SUBMIT }} " class="submit"/>		
+	</form>
+</div>
