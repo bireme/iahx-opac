@@ -35,8 +35,6 @@
         <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/bootstrap-affix.js"></script>
         <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/ready.js"></script>
 
-        <noscript>Your browser doesn't support javascript.</noscript>
-
         <!-- Page icon -->
         <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}image/favicon.ico">
                         
@@ -46,6 +44,11 @@
         {% if email is defined %}
                 <script>alert("Email enviado com sucesso")</script>
         {% endif %}
+
+        <script language="javascript" type="text/javascript">
+            var SEARCH_URL = '{{ constant("SEARCH_URL") }}';
+            var STATIC_URL = '{{ constant("STATIC_URL") }}';
+        </script>
 
         {% if config.google_analytics_tracking_id != '' %}
             <script type="text/javascript">
@@ -62,6 +65,8 @@
         {% endif %}
 
         {% block extrahead %}{% endblock %}
+
+        <noscript>Your browser doesn't support javascript.</noscript>
     {% endblock %}</head>
 
     <body onload="document.searchForm.reset()">{% block body %}
