@@ -69,7 +69,7 @@
                         <ul id="ul_{{ name }}">
                             {% for item in cluster %}
                                 <li>
-                                    <label for="{{ name }}"></label>
+                                    <label for="{{ name }}_{{ item.0|replace({' ': '_'}) }}"></label>
                                     <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ name }}_{{ item.0|replace({' ': '_'}) }}"
                                     {% for filter_name, filter in filters if filter_name == name %}
                                         {% if item.0 in filter %}checked="true"{% endif %}
