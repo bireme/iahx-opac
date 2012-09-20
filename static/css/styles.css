@@ -410,12 +410,7 @@ DIV.resultServices DIV.searchHistory DIV.popup UL LI:hover {
 	border: none;
 	background: #FFF url(../image/common/box_unselected.gif) 7px 4px no-repeat ;
 }
-.searchForm .defaultValue {
-	color:#999999;
-	font-weight: normal !important;
-	font-style:italic;
-	font-size: 100% !important;
-}
+
 .searchForm .inputText {
 	font-weight: normal !important;
 	font-size: 100% !important;
@@ -648,6 +643,11 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	text-align: center;
 	margin: 0 auto;
 }
+
+.defaultValue.active{
+	color: #666;
+	font-style: italic;
+}	
 
 /* affix que fixa o sidebar */
 .affix, .affix-top {

@@ -89,20 +89,20 @@
 
                 <formset>
                     <label for="yourName">{{ texts.MAIL_FROM_NAME }}</label>
-                    <input type="text" id="yourName" name="name" value="">    
+                    <input type="text" id="yourName" name="name" value="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue">    
 
                     <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }}</label>
-                    <input type="text" id="yourEmail" name="your_email" value="">    
+                    <input type="text" id="yourEmail" name="your_email" value="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue">    
 
                     <label for="email">{{ texts.MAIL_TO_EMAIL }}*</label> <a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a>
-                    <div id="destinatarios"><input type="text" id="email" name="email[]" value=""></div>
+                    <div id="destinatarios"><input type="text" id="email" name="email[]" value="{{ texts.MAIL_TO_EMAIL }}" title="{{ texts.MAIL_TO_EMAIL }}" class="defaultValue"></div>
                     <div id="more-destinatarios"></div>
 
                     <label for="subject">{{ texts.MAIL_SUBJECT }}</label>
-                    <input type="text" id="subject" name="subject" value="">    
+                    <input type="text" id="subject" name="subject" value="{{ texts.MAIL_SUBJECT }}" title="{{ texts.MAIL_SUBJECT }}" class="defaultValue">    
 
                     <label for="comment">{{ texts.MAIL_COMMENT }}</label>
-                    <textarea id="comment" name="comment"></textarea>
+                    <textarea id="comment" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue">{{ texts.MAIL_COMMENT }}</textarea>
                     
                     <label for="selection">{{ texts.SEND_RESULT }}</label><br>
                     <input type="radio" name="selection" id="selection" value="page" checked>{{ texts.THIS_PAGE }}
