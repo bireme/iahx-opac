@@ -45,6 +45,7 @@
             
             <h3>{{ texts.EXPORT_FORMAT }}:</h3>
             <form name="exportForm">
+                <label for="format" class="hide">{{ texts.EXPORT }}</label>
                 <input type="radio" name="format" id="format" value="ris" checked> {{ texts.EXPORT_FORMAT_RIS }}<br>
                 <input type="radio" name="format" id="format" value="citation"> {{ texts.EXPORT_FORMAT_CITATION }}
             </form>
@@ -108,10 +109,10 @@
                     <input type="radio" name="selection" id="selection" value="my_selection">{{ texts.YOUR_SELECTION }}
                     <input type="radio" name="selection" id="selection" value="all_results">{{ texts.ALL_REFERENCES_LIMIT }}
                     <br>
-                    <center>
+                    <div class="center">
                         <input type="reset" value="Apagar">
                         <input type="submit" value="Enviar">
-                    </center>
+                    </div>
                 </formset>
             </form>
         </div>

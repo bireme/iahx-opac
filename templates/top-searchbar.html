@@ -20,7 +20,7 @@
                 
 
                 <label for="q" class="hide">Busca</label>
-                <input type="text" name="q" id="q" value="{% if params.q is defined %}{{ params.q }}{% else %}{% endif %}" class="inputText defaultValue" onkeydown="if(event.keyCode==13) newSearch();">
+                <input type="text" name="q" id="q" value="{% if params.q is defined %}{{ params.q }}{% else %}{{ texts.SEARCH_WORDS }}{% endif %}" class="inputText defaultValue" onkeydown="if(event.keyCode==13) newSearch();" title="{{ texts.SEARCH_WORDS }}">
 
                 <label for="selectIndex" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
                 <select name="index" class="inputText" id="selectIndex">

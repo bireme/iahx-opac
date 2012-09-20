@@ -3,8 +3,9 @@
     <div id="{{ doc.id }}" class="record">
 
         <div class="yourSelectionCheck">
+            <label for="select_{{ doc.id }}" class="hide">{{ texts.SELECT }}</label>
             <input type="checkbox" class="my_selection" value="{{ doc.id }}" 
-            {% if doc.id in bookmark|keys %}checked{% endif %}>
+            {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
         </div>
 
         <div class="position">{{ loop.index + pag.start }}.</div>

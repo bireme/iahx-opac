@@ -644,6 +644,11 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	clear: both;	
 	margin: 3px 0 0 7px;
 }
+.center{
+	text-align: center;
+	margin: 0 auto;
+}
+
 /* affix que fixa o sidebar */
 .affix, .affix-top {
 	width: 230px;
@@ -674,7 +679,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	*margin-right: .3em;
 	line-height: 14px;
 	vertical-align: text-top;
-	background-image: url("http://twitter.github.com/bootstrap/assets/css/../img/glyphicons-halflings.png");
+	background-image: url("../image/common/glyphicons-halflings.png");
 	background-position: 14px 14px;
 	background-repeat: no-repeat;
 }

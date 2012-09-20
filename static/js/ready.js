@@ -1,8 +1,5 @@
 $(function(){
     
-    // watermark do input q
-    $("#q").watermark("Entre uma ou mais palavras");
-
     $('.fancybox_iframe').fancybox({
         'width': 650,
         'height': 490,
@@ -28,4 +25,29 @@ $(function(){
         bottom: 270
       }
     })
+
+    $('.defaultValue').each(function(){
+        var defaultVal = $(this).attr('title');
+        $(this).focus(function(){
+            if ($(this).val() == defaultVal){
+                $(this).removeClass('active').val('');
+            }
+        })
+        .blur(function(){
+            if ($(this).val() == ''){
+                $(this).addClass('active').val(defaultVal);
+            }
+        })
+        .blur().addClass('active');
+    });
+
+    $('form').submit(function(){
+        $('.defaultValue').each(function(){
+            var defaultVal = $(this).attr('title');
+            if ($(this).val() == defaultVal){
+                $(this).val('');
+            }
+        });
+    });
+
 })
