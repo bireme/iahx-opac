@@ -4,9 +4,10 @@ function go_to_page(page) {
     var count = document.searchForm.count.value;
     var from = (page*count)-count+1;
     
-    form.from.value = from;
+    form.from.value = from;    
     form.page.value = page;
-    form.submit();
+
+    $("#searchForm").submit();
 }
 
 // usado para mudar a forma de exibição do dado (xml/rss/print/site)
@@ -14,7 +15,7 @@ function change_output(output) {
     var form = document.searchForm;
     form.output.value = output;
 
-    form.submit();
+    $("#searchForm").submit();
 }
 
 // muda a quantidade de resultados exibidos
@@ -22,13 +23,13 @@ function change_count(elem) {
     var form = document.searchForm;
     form.count.value = elem.value;
 
-    form.submit();   
+    $("#searchForm").submit();   
 }
 
 // muda o parâmetro lang
 function change_language(lang) {
     document.searchForm.lang.value = lang;
-    document.searchForm.submit();
+    $("#searchForm").submit();
 }
 
 // muda a quantidade de resultados exibidos
@@ -36,7 +37,7 @@ function change_format(elem) {
     var form = document.searchForm;
     form.format.value = elem.value;
 
-    form.submit();   
+    $("#searchForm").submit();
 }
 
 // leva para output "print", passando o count
@@ -121,5 +122,5 @@ function change_sort(obj){
     var form = document.searchForm;
 
     form.sort.value = sort;
-    form.submit();
+    $("#searchForm").submit();
 }

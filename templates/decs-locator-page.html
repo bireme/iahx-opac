@@ -39,18 +39,28 @@
                 // if user select qualifiers make combination query 
                 if (qlf_selected.length > 0){
                     $.each(qlf_selected, function(index, qlf){                    
-                        query += '"{{ decs.tree.self.term_list.term }}/' + qlf + '"'; 
-                        if (index < qlf_selected.length-1){
-                            query += ' OR ';
-                        }
+                        $('<input>').attr({
+                            type: 'hidden',
+                            id: 'decslocator_{{qlf}}',
+                            name: 'filter[mh][]',
+                            value: '{{ decs.tree.self.term_list.term }}/' + qlf 
+                        }).appendTo( parent.$('#searchForm') );
                     });
 
-                    query = '(' + query + ')';
+                }else{
+                    
+                    $('<input>').attr({
+                        type: 'hidden',
+                        id: 'decslocator',
+                        name: 'filter[mh][]',
+                        value: '{{ decs.tree.self.term_list.term }}'
+                    }).appendTo( parent.$('#searchForm') );
 
-                    document.search.q.value = query;
                 }
 
-                document.search.submit();
+                parent.$('#searchForm').submit();
+
+                window.close();
             }
         </script>        
     </head>
@@ -121,10 +131,7 @@
         </div>        
         <div id="details">            
             {% if decs.record_list.record is defined %}                
-                <form action="{{ constant("SEARCH_URL") }}" target="_parent" onsubmit="make_search_query()" name="search">                    
-                    <input type="hidden" name="q" value='"{{ decs.tree.self.term_list.term }}"'/>
-                    <input type="hidden" name="index" value="mh"/>
-
+                <form action="" onsubmit="make_search_query()" id="searchDocsTrigger">                    
                     <h2>{{ decs.tree.self.term_list.term }}</h2>
                     <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn-custom btn-large" />
                     <div class="spacer"/>

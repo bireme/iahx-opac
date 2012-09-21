@@ -52,7 +52,7 @@ function show_more_clusters (cluster, limit) {
     form.action = form.action + "#" + cluster;
     form.fb.value = cluster + ":" + limit;
 
-    form.submit();
+    $("#searchForm").submit();
 
     form.fb.value == "";
     return false;
