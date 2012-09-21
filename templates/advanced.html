@@ -1,0 +1,118 @@
+{% extends custom_template("base.html") %}
+
+{% block script %}{% endblock %}
+{% block onload %}{% endblock %}
+
+{% block extrahead %}
+    <script>
+
+        function add_new_line(obj) {
+            var html = $(".block-q").html();
+            var more = $(".more");
+
+            more.append(html);
+        }
+
+        function new_line(obj) {
+            if(obj.value.length < 1) {
+                add_new_line();        
+            }
+        }
+
+        function add_query(current, q, bool, index) {
+            current = current + " " + bool + " (";
+            if(index === "") {
+                current = current + q;
+            } else {
+                current = current + index + ':"' + q + '"';
+            }
+
+            current = current + ")";
+            return current;
+        }
+
+        function search() {
+            var search_form = document.search_form;
+            var form = document.advanced;
+            var q = form["q[]"];
+            var index = form['index[]'];
+            var bool = form['bool[]'];
+            var query = "";
+
+            if(q[1].value != "") {
+                query = add_query("", q[1].value, "", index[1].value);
+                for(i=1; i<=bool.length; i++) {
+                    if(q[i+1] && q[i+1].value != "") {
+                        query = add_query(query, q[i+1].value, bool[i].value, index[i+1].value);
+                    }
+                }
+            }
+
+
+            search_form.q.value = query;
+            search_form.submit();
+
+            return false;
+        }
+
+    </script>
+{% endblock %}
+
+{% block content %}
+    <h2>Busca Avançada</h2>
+
+    <div class="advanced-form">
+        <form name="advanced" id="advanced" onsubmit="return search();">    
+            <div class="block-q" style="display: none">
+                <div>
+                    <select name="bool[]">
+                        <option value="AND">AND</option>
+                        <option value="OR">OR</option>
+                        <option value="ANDNOT">ANDNOT</option>
+                    </select>
+
+                    <input type="text" name="q[]" class="q" onkeypress="new_line(this)"> 
+                    
+                    <select name="index[]" class="inputText index" id="selectIndex">
+                        {% for index in collectionData.index_list.index %}
+                            {% if params.index is defined %}
+                                {% if index.prefix == params.index %}
+                                    <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
+                                {% else %}
+                                    <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                {% endif %}
+                            {% else %}
+                                <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                            {% endif %}
+                        {% endfor %}
+                    </select>
+                </div>
+            </div>
+
+            <div class="q-first">
+                <input type="text" name="q[]" class="q" value="" onkeypress="new_line(this)">
+                <select name="index[]" class="inputText index" id="selectIndex">
+                    {% for index in collectionData.index_list.index %}
+                        {% if params.index is defined %}
+                            {% if index.prefix == params.index %}
+                                <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
+                            {% else %}
+                                <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                            {% endif %}
+                        {% else %}
+                            <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                        {% endif %}
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="more"></div>
+            
+            <button type="submit">Buscar</button>
+        </form>
+
+        <form name="search_form" action="{{ constant("SEARCH_URL") }}">
+            <input name="q" type="hidden" value="" />
+        </form>
+    </div>
+    
+{% endblock %}

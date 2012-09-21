@@ -410,7 +410,12 @@ DIV.resultServices DIV.searchHistory DIV.popup UL LI:hover {
 	border: none;
 	background: #FFF url(../image/common/box_unselected.gif) 7px 4px no-repeat ;
 }
-
+.searchForm .defaultValue {
+	color:#999999;
+	font-weight: normal !important;
+	font-style:italic;
+	font-size: 100% !important;
+}
 .searchForm .inputText {
 	font-weight: normal !important;
 	font-size: 100% !important;
@@ -639,16 +644,6 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	clear: both;	
 	margin: 3px 0 0 7px;
 }
-.center{
-	text-align: center;
-	margin: 0 auto;
-}
-
-.defaultValue.active{
-	color: #666;
-	font-style: italic;
-}	
-
 /* affix que fixa o sidebar */
 .affix, .affix-top {
 	width: 230px;
@@ -679,10 +674,28 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	*margin-right: .3em;
 	line-height: 14px;
 	vertical-align: text-top;
-	background-image: url("../image/common/glyphicons-halflings.png");
+	background-image: url("http://twitter.github.com/bootstrap/assets/css/../img/glyphicons-halflings.png");
 	background-position: 14px 14px;
 	background-repeat: no-repeat;
 }
 
 .icon-plus-sign { background-position: 0 -96px; }
 .icon-minus-sign {  background-position: -24px -96px; }
+
+.advanced-form .q-first input {
+	width: 80%;
+}
+.advanced-form select {
+	width: 17%;
+	margin: 0 5px;
+}
+.advanced-form select.index {
+	float: right;
+}
+.advanced-form input, .advanced-form select {
+	padding: 5px;
+	margin: 5px 0;
+}
+.advanced-form input {
+	width: 63%;
+}
