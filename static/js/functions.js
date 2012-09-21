@@ -28,8 +28,8 @@ function change_count(elem) {
 
 // muda o parâmetro lang
 function change_language(lang) {
-    document.searchForm.lang.value = lang;
-    $("#searchForm").submit();
+    document.language.lang.value = lang;
+    document.language.submit();
 }
 
 // muda a quantidade de resultados exibidos
