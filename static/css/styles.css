@@ -682,6 +682,12 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .icon-plus-sign { background-position: 0 -96px; }
 .icon-minus-sign {  background-position: -24px -96px; }
 
+.advanced-form {
+	padding-bottom: 100px;
+}
+.advanced-form .buttons {
+	margin: 20px 0;
+}
 .advanced-form .q-first input {
 	width: 80%;
 }
@@ -692,7 +698,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .advanced-form select.index {
 	float: right;
 }
-.advanced-form input, .advanced-form select {
+.advanced-form input, .advanced-form select, .advanced-form button{
 	padding: 5px;
 	margin: 5px 0;
 }
