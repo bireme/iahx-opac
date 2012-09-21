@@ -8,6 +8,7 @@
 {% endblock %}
 
 {% block content %}
+    {% block breadcrumb %}{% include custom_template("top-breadcrumb.html") %}{% endblock %}
     <h2>{{ texts.ADVANCED_SEARCH }}</h2>
 
     <div class="advanced-form">
@@ -57,7 +58,7 @@
             <div class="more"></div>
             
             <div class="buttons">
-                <button type="submit">Buscar</button>
+                <button type="submit">{{ texts.SEARCH_SUBMIT }}</button>
             </div>
         </form>
 
