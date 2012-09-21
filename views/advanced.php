@@ -9,15 +9,20 @@ $app->match('/advanced', function (Request $request) use ($app, $DEFAULT_PARAMS,
 
     global $lang, $texts;
 
-    // translate
-    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+    $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
 
     $params = array_merge(
         $app['request']->request->all(),
         $app['request']->query->all()
     );
 
-    $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
+    $lang = $DEFAULT_PARAMS['lang'];
+    if(isset($params['lang']) and $params['lang'] != "") {
+        $lang = $params['lang'];
+    }
+
+    // translate
+    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
     // output vars
     $output_array = array();
