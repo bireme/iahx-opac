@@ -1,6 +1,7 @@
 <?php
 
 require_once 'lib/class/dia.class.php';
+include 'lib/class/log.class.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -269,6 +270,25 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $app['mailer']->send($message);
     }  
 
+    // log user searchs
+    if ($config->log_user_search == 'true' ){        
+        $log = new Log();
+        $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
+        $log->fields['lang'] = $lang;
+        $log->fields['col']  = $col;
+        $log->fields['site'] = $site;
+        $log->fields['query']= ($q != ''? $q : "*");
+        $log->fields['index']= ($index != ''? $index : "*");
+        $log->fields['where']= ($params['where'] != ''? $params['where'] : "*");
+        $log->fields['filter'] = $solr_param_fq;
+        $log->fields['page'] = (isset($params['page']) ? $params['page'] : "1");
+        $log->fields['output'] = $output;
+        $log->fields['referer'] = $_SERVER['HTTP_REFERER'];
+        $log->fields['session'] = $SESSION->getId();
+
+        $log->writeLog();
+    }    
+
     // output
     switch($output) {
         
@@ -302,7 +322,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             return $app['twig']->render('index.html', $output_array);
             break;
     }
-    
+
 });
 
 ?>

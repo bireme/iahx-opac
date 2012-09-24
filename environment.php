@@ -1,8 +1,5 @@
 <?php
 
-// OPAC's current version
-define("VERSION", "2.0-beta");
-
 // ENVIRONMENT CONSTANTS
 $PATH = str_replace("index.php", "", $_SERVER['PHP_SELF']);
 $PATH_DATA = __DIR__ . "/";
@@ -56,8 +53,6 @@ $DEFAULT_PARAMS['defaultDisplayFormat'] = (string) $DEFAULT_PARAMS['defaultColle
 $logDir = ( isset( $config->log_dir ) ? $config->log_dir : "logs/");
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");
 define('LOG_DIR', $logDir);
-
-
 
 // FRAMEWORK
 // Initiating Silex framework
