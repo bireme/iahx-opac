@@ -28,7 +28,7 @@
               <?php $currentPackage = $package; ?>
               <div id="sweety-package-<?php echo $package; ?>"
                 class="sweety-package-header sweety-pkg-idle">
-                <img id="sweety-pkg-img-<?php echo $package; ?>" src="templates/sweet./static/images/darr.gif"
+                <img id="sweety-pkg-img-<?php echo $package; ?>" src="templates/sweety/images/darr.gif"
                   alt="Not available" title="Not available" />
                 <?php echo preg_replace('/^.*_/', '', $package); ?> Tests
                 <span class="sweety-test-package">
@@ -46,11 +46,11 @@
               <div class="sweety-testcase">
                 
                 <a href="?test=<?php echo $testCase; ?>&amp;format=xml"><img
-                  src="templates/sweet./static/images/xmlicon.gif" alt="As XML" title="As XML" /></a>
+                  src="templates/sweety/images/xmlicon.gif" alt="As XML" title="As XML" /></a>
                 <a href="?test=<?php echo $testCase; ?>&amp;format=html"><img
-                  src="templates/sweet./static/images/htmlicon.gif" alt="As HTML" title="As HTML" /></a>
+                  src="templates/sweety/images/htmlicon.gif" alt="As HTML" title="As HTML" /></a>
                 <a href="?runtests=<?php echo $testCase; ?>&amp;noajax=1"><img
-                  src="templates/sweet./static/images/runicon.gif" alt="Run" title="Run this test" /></a>
+                  src="templates/sweety/images/runicon.gif" alt="Run" title="Run this test" /></a>
                 
                 <input id="sweety-field-<?php echo $testCase; ?>" class="sweety-check"
                   type="checkbox" name="runtests[]" value="<?php echo $testCase; ?>"

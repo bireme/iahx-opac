@@ -25,19 +25,23 @@ class SwiftmailerServiceProvider implements ServiceProviderInterface
     {
         $app['swiftmailer.options'] = array();
 
-        $app['mailer'] = $app->share(function () use ($app) {
+        $app['mailer.initialized'] = false;
+
+        $app['mailer'] = $app->share(function ($app) {
+            $app['mailer.initialized'] = true;
+
             return new \Swift_Mailer($app['swiftmailer.spooltransport']);
         });
 
-        $app['swiftmailer.spooltransport'] = $app->share(function () use ($app) {
+        $app['swiftmailer.spooltransport'] = $app->share(function ($app) {
             return new \Swift_SpoolTransport($app['swiftmailer.spool']);
         });
 
-        $app['swiftmailer.spool'] = $app->share(function () use ($app) {
+        $app['swiftmailer.spool'] = $app->share(function ($app) {
             return new \Swift_MemorySpool();
         });
 
-        $app['swiftmailer.transport'] = $app->share(function () use ($app) {
+        $app['swiftmailer.transport'] = $app->share(function ($app) {
             $transport = new \Swift_Transport_EsmtpTransport(
                 $app['swiftmailer.transport.buffer'],
                 array($app['swiftmailer.transport.authhandler']),
@@ -88,7 +92,11 @@ class SwiftmailerServiceProvider implements ServiceProviderInterface
         }
 
         $app->finish(function () use ($app) {
-            $app['swiftmailer.spooltransport']->getSpool()->flushQueue($app['swiftmailer.transport']);
+            // To speed things up (by avoiding Swift Mailer initialization), flush
+            // messages only if our mailer has been created (potentially used)
+            if ($app['mailer.initialized']) {
+                $app['swiftmailer.spooltransport']->getSpool()->flushQueue($app['swiftmailer.transport']);
+            }
         });
     }
 }

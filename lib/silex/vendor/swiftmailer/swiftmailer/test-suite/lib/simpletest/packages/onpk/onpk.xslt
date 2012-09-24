@@ -15,7 +15,7 @@
 		<head>
 			<xsl:call-template name="meta"/>
 			<link rel="stylesheet" type="text/css" href="../../onpk_article.css" title="Style pour les articles :: onpk ::" />
-			<link rel="shortcut icon" href="../static/images/php.ico" />
+			<link rel="shortcut icon" href="../images/php.ico" />
 			<title><xsl:value-of select="//long_title"/></title>
 		</head>
 	</xsl:template>
