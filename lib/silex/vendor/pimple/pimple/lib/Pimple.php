@@ -90,7 +90,7 @@ class Pimple implements ArrayAccess
      */
     function offsetExists($id)
     {
-        return array_key_exists($id, $this->values);
+        return isset($this->values[$id]);
     }
 
     /**
@@ -186,15 +186,5 @@ class Pimple implements ArrayAccess
         return $this->values[$id] = function ($c) use ($callable, $factory) {
             return $callable($factory($c), $c);
         };
-    }
-
-    /**
-     * Returns all defined value names.
-     *
-     * @return array An array of value names
-     */
-    function keys()
-    {
-        return array_keys($this->values);
     }
 }

@@ -44,7 +44,7 @@
                 onclick="sweetyUI.initialize(); sweetyRunner.runAll('<?php echo $package; ?>');"
                 class="sweety-package-header sweety-pkg-idle">
                 <span class="sweety-pkg-count" id="sweety-pkg-count-<?php echo $package; ?>"></span>
-                <img id="sweety-pkg-img-<?php echo $package; ?>" src="templates/sweet./static/images/darr.gif"
+                <img id="sweety-pkg-img-<?php echo $package; ?>" src="templates/sweety/images/darr.gif"
                   alt="Toggle Display" title="Toggle Display"
                   onmouseover="this.style.cursor='default';"
                   onclick="sweetyUI.togglePackage('<?php echo $package; ?>'); event.cancelBubble=true;" />
@@ -62,11 +62,11 @@
               <div class="sweety-testcase">
                 
                 <a href="?test=<?php echo $testCase; ?>&amp;format=xml" onclick="event.cancelBubble=true;"><img
-                  src="templates/sweet./static/images/xmlicon.gif" alt="As XML" title="As XML" /></a>
+                  src="templates/sweety/images/xmlicon.gif" alt="As XML" title="As XML" /></a>
                 <a href="?test=<?php echo $testCase; ?>&amp;format=html" onclick="event.cancelBubble=true;"><img
-                  src="templates/sweet./static/images/htmlicon.gif" alt="As HTML" title="As HTML" /></a>
+                  src="templates/sweety/images/htmlicon.gif" alt="As HTML" title="As HTML" /></a>
                 <a href="?runtests=<?php echo $testCase; ?>&amp;noajax=1" onclick="return false;"><img
-                  src="templates/sweet./static/images/runicon.gif" alt="Run" title="Run this test" /></a>
+                  src="templates/sweety/images/runicon.gif" alt="Run" title="Run this test" /></a>
                 
                 <input id="sweety-field-<?php echo $testCase; ?>" class="sweety-check"
                   type="checkbox" name="runtests[]" value="<?php echo $testCase; ?>"
@@ -102,7 +102,7 @@
         <div class="sweety-pad">
           
           <div id="sweety-communication">
-            <img src="templates/sweet./static/images/network.gif" alt="Communicating" />
+            <img src="templates/sweety/images/network.gif" alt="Communicating" />
           </div>
           
           <h1><?php echo $suiteName; ?></h1>

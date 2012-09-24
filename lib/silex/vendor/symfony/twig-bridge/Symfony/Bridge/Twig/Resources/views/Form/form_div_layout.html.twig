@@ -20,6 +20,9 @@
 {% block form_widget_compound %}
 {% spaceless %}
     <div {{ block('widget_container_attributes') }}>
+        {% if form.parent is empty %}
+            {{ form_errors(form) }}
+        {% endif %}
         {{ block('form_rows') }}
         {{ form_rest(form) }}
     </div>
@@ -83,15 +86,14 @@
 
 {% block choice_widget_options %}
 {% spaceless %}
-    {% for index, choice in options %}
-        {% if _form_is_choice_group(choice) %}
-            <optgroup label="{{ index|trans({}, translation_domain) }}">
-                {% for nested_choice in choice %}
-                    <option value="{{ nested_choice.value }}"{% if _form_is_choice_selected(form, nested_choice) %} selected="selected"{% endif %}>{{ nested_choice.label|trans({}, translation_domain) }}</option>
-                {% endfor %}
+    {% for group_label, choice in options %}
+        {% if choice is iterable %}
+            <optgroup label="{{ group_label|trans({}, translation_domain) }}">
+                {% set options = choice %}
+                {{ block('choice_widget_options') }}
             </optgroup>
         {% else %}
-            <option value="{{ choice.value }}"{% if _form_is_choice_selected(form, choice) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
+            <option value="{{ choice.value }}"{% if choice is selectedchoice(value) %} selected="selected"{% endif %}>{{ choice.label|trans({}, translation_domain) }}</option>
         {% endif %}
     {% endfor %}
 {% endspaceless %}
@@ -225,6 +227,9 @@
     {% if required %}
         {% set label_attr = label_attr|merge({'class': (label_attr.class|default('') ~ ' required')|trim}) %}
     {% endif %}
+    {% if label is empty %}
+        {% set label = name|humanize %}
+    {% endif %}
     <label{% for attrname, attrvalue in label_attr %} {{ attrname }}="{{ attrvalue }}"{% endfor %}>{{ label|trans({}, translation_domain) }}</label>
 {% endspaceless %}
 {% endblock form_label %}
@@ -233,6 +238,10 @@
 
 {% block repeated_row %}
 {% spaceless %}
+    {#
+    No need to render the errors here, as all errors are mapped
+    to the first child (see RepeatedTypeValidatorExtension).
+    #}
     {{ block('form_rows') }}
 {% endspaceless %}
 {% endblock repeated_row %}
@@ -240,14 +249,8 @@
 {% block form_row %}
 {% spaceless %}
     <div>
-        {{ form_label(form, label|default(null)) }}
-        {#
-        If the child is a compound form, the errors are rendered inside
-        the container. See also block form_rows.
-        #}
-        {% if not compound %}
-            {{ form_errors(form) }}
-        {% endif %}
+        {{ form_label(form) }}
+        {{ form_errors(form) }}
         {{ form_widget(form) }}
     </div>
 {% endspaceless %}
@@ -295,7 +298,6 @@
 
 {% block form_rows %}
 {% spaceless %}
-    {{ form_errors(form) }}
     {% for child in form %}
         {{ form_row(child) }}
     {% endfor %}

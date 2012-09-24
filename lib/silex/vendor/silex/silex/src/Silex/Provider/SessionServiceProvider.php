@@ -14,7 +14,7 @@ namespace Silex\Provider;
 use Silex\Application;
 use Silex\ServiceProviderInterface;
 
-use Symfony\Component\HttpFoundation\Session\Storage\Handler\FileSessionHandler;
+use Symfony\Component\HttpFoundation\Session\Storage\Handler\NativeFileSessionHandler;
 use Symfony\Component\HttpFoundation\Session\Storage\NativeSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Storage\MockFileSessionStorage;
 use Symfony\Component\HttpFoundation\Session\Session;
@@ -39,7 +39,7 @@ class SessionServiceProvider implements ServiceProviderInterface
 
         $app['session.test'] = false;
 
-        $app['session'] = $app->share(function () use ($app) {
+        $app['session'] = $app->share(function ($app) {
             if (!isset($app['session.storage'])) {
                 if ($app['session.test']) {
                     $app['session.storage'] = $app['session.storage.test'];
@@ -51,11 +51,11 @@ class SessionServiceProvider implements ServiceProviderInterface
             return new Session($app['session.storage']);
         });
 
-        $app['session.storage.handler'] = $app->share(function () use ($app) {
-            return new FileSessionHandler($app['session.storage.save_path']);
+        $app['session.storage.handler'] = $app->share(function ($app) {
+            return new NativeFileSessionHandler($app['session.storage.save_path']);
         });
 
-        $app['session.storage.native'] = $app->share(function () use ($app) {
+        $app['session.storage.native'] = $app->share(function ($app) {
             return new NativeSessionStorage(
                 $app['session.storage.options'],
                 $app['session.storage.handler']
@@ -73,13 +73,7 @@ class SessionServiceProvider implements ServiceProviderInterface
 
     public function onEarlyKernelRequest(GetResponseEvent $event)
     {
-        $request = $event->getRequest();
-        $request->setSession($this->app['session']);
-
-        // starts the session if a session cookie already exists in the request...
-        if ($request->hasPreviousSession()) {
-            $request->getSession()->start();
-        }
+        $event->getRequest()->setSession($this->app['session']);
     }
 
     public function onKernelRequest(GetResponseEvent $event)
