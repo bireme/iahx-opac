@@ -43,7 +43,7 @@
                     <div class="tags">
                         <h4>{{ texts.RESULT.LABEL_SUBJECT }}</h4>
                         {% for subject in doc.mh %}
-                            <a href="#" onclick="javascript:refineByIndex('{{ subject }}','mh')">{{ subject }}</a>
+                            <a href="#" onclick="javascript:refineByIndex('{{ subject|raw }}','mh')">{{ subject|raw }}</a>
                         {% endfor %}
                     </div>
                 {% endif %}

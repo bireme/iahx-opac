@@ -13,12 +13,12 @@
                 <div style="display: none" id="fulltext_urls_{{ doc.id }}" class="fulltext_box">
                     <ul>
                     {% for url in doc.ur %}
-                        <li><a href="{{ url }}" target="_blank" alt="{{ texts.FULLTEXT }} Link">{{ url }}</a></li>
+                        <li><a href="{{ url|raw }}" target="_blank" alt="{{ texts.FULLTEXT }} Link">{{ url }}</a></li>
                     {% endfor %}
                     </ul>
                 </div>
             {% else %}
-                <a href="{{ doc.ur.0 }}" target="_blank" title="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="{{ texts.FULLTEXT }}" border="0" />{{ texts.FULLTEXT }}</a>             
+                <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="{{ texts.FULLTEXT }}" border="0" />{{ texts.FULLTEXT }}</a>             
             {% endif %}
         </div>
     {% endif %}    
