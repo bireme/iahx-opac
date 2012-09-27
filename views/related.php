@@ -17,7 +17,7 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-    
+
     // start session
     $SESSION = $app['session'];
     $SESSION->start();    
@@ -31,7 +31,8 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
     $output_array['col'] = $col;
     $output_array['site'] = $site;
     $output_array['maxScore'] = $result['diaServerResponse'][0]['response']['maxScore'];
-    $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+    $output_array['doc'] = $result['diaServerResponse'][0]['match']['docs'][0];
+    $output_array['related_docs'] = $result['diaServerResponse'][0]['response']['docs'];
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
     $output_array['debug'] = $app['request']->get('debug');
