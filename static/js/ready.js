@@ -50,4 +50,16 @@ $(function(){
         });
     });
 
+    $('.nav-toggle').click(function(){
+            //get collapse content selector
+            var collapse_content_selector = $(this).attr('href');                   
+ 
+            //make the collapse content to be shown or hide
+            var toggle_switch = $(this);
+            $(collapse_content_selector).toggle(function(){
+                //animation complete
+            });
+            return false;
+          });
+
 })

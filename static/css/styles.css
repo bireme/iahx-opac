@@ -641,9 +641,16 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 }
 
 .fulltext_box {
-	clear: both;	
-	margin: 3px 0 0 7px;
+	background: white;
+	border: 1px solid #666;
+	position: absolute;
+	margin-top: 6px;
+	width: 500px;
+	padding: 7px;
+	
 }
+
+
 /* affix que fixa o sidebar */
 .affix, .affix-top {
 	width: 230px;

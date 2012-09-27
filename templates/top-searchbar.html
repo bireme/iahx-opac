@@ -49,12 +49,12 @@
 
                         {% if params.where is defined %}
                             {% if where.name == params.where %}
-                                <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
                             {% else %}
-                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
                             {% endif %}
                         {% else %}
-                            <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                            <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
                         {% endif %}
                     {% endfor %}
                 </select>  
