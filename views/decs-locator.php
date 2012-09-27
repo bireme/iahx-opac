@@ -15,7 +15,12 @@ $app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
 
-    //print_r($decs_xml);
+    // start session
+    $SESSION = $app['session'];
+    $SESSION->start();    
+
+    // log user action
+    log_user_action($lang, '', '', $tree_id, '', '', '', '', 'decs_lookup', $SESSION->getId());
 
     // output vars
     $output_array = array();

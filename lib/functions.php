@@ -89,6 +89,44 @@ function addslashes_array($a){
     }
 }
 
+/* Log User Actions */
+
+function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $page, $output, $session_id){
+    global $config, $DEFAULT_PARAMS; 
+
+    // set default values
+    $col = ($col != '' ? $col : $DEFAULT_PARAMS['defaultCollection']);
+    $site = ($site != '' ? $site : $DEFAULT_PARAMS['defaultSite']);
+    $query = ($query != ''? $query : "*");
+    $index = ($index != ''? $index : "*");
+    $where = ($where != ''? $where : "*");
+    $filter = ($filter != ''? $filter : "*");
+    $page = ($page != ''? $page : "1");
+    $output = ($output != ''? $output : "site");
+
+    // log user action
+    if ($config->log_user_search == 'true' ){        
+        $log = new Log();
+        $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
+        $log->fields['lang'] = $lang;
+        $log->fields['col']  = $col;
+        $log->fields['site'] = $site;
+        $log->fields['query']= $query;
+        $log->fields['index']= $index;
+        $log->fields['where']= $where;
+        $log->fields['filter'] = $filter;
+        $log->fields['page'] = $page;
+        $log->fields['output'] = $output;
+        $log->fields['referer'] = $_SERVER['HTTP_REFERER'];
+        $log->fields['session'] = $session_id;
+
+        $log->writeLog();
+    }    
+
+
+}
+
+
 /* Twig Extensions */
 function custom_template($filename) {
     if( file_exists(CUSTOM_TEMPLATE_PATH . $filename) ) {

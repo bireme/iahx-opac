@@ -17,6 +17,13 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+    
+    // start session
+    $SESSION = $app['session'];
+    $SESSION->start();    
+
+    // log user action
+    log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'related', $SESSION->getId());
 
     // output vars
     $output_array = array();

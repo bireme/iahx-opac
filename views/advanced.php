@@ -24,6 +24,13 @@ $app->match('/advanced', function (Request $request) use ($app, $DEFAULT_PARAMS,
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
+    // start session
+    $SESSION = $app['session'];
+    $SESSION->start();    
+
+    // log user action
+    log_user_action($lang, '', '', '', '', '', '', '', 'advanced_form', $SESSION->getId());
+
     // output vars
     $output_array = array();
     $output_array['lang'] = $lang;

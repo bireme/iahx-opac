@@ -40,7 +40,14 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     }
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;    
-    
+
+    // start session
+    $SESSION = $app['session'];
+    $SESSION->start();    
+
+    // log user action
+    log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'detail', $SESSION->getId());
+   
     return $app['twig']->render( custom_template('result-detail.html'), $output_array );     
 
 });

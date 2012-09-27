@@ -270,24 +270,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $app['mailer']->send($message);
     }  
 
-    // log user searchs
-    if ($config->log_user_search == 'true' ){        
-        $log = new Log();
-        $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
-        $log->fields['lang'] = $lang;
-        $log->fields['col']  = $col;
-        $log->fields['site'] = $site;
-        $log->fields['query']= ($q != ''? $q : "*");
-        $log->fields['index']= ($index != ''? $index : "*");
-        $log->fields['where']= ($params['where'] != ''? $params['where'] : "*");
-        $log->fields['filter'] = $solr_param_fq;
-        $log->fields['page'] = (isset($params['page']) ? $params['page'] : "1");
-        $log->fields['output'] = $output;
-        $log->fields['referer'] = $_SERVER['HTTP_REFERER'];
-        $log->fields['session'] = $SESSION->getId();
-
-        $log->writeLog();
-    }    
+    log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq, $page, $output, $SESSION->getId());
 
     // output
     switch($output) {

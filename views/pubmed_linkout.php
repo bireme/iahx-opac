@@ -18,6 +18,13 @@ $app->match('pubmed_linkout/{lang}/{pmid}', function (Request $request, $lang, $
         $output_array['lang'] = $lang;
         $output_array['set'] = $set;
 
+        // start session
+        $SESSION = $app['session'];
+        $SESSION->start();    
+
+        // log user action
+        log_user_action($lang, '', '', 'PMID:' . $pmid, '', '', '', '', 'pubmed_linkout', $SESSION->getId());
+
         return $app['twig']->render( 'pubmed_linkout.html', $output_array );     
 
     }
