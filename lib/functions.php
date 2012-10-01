@@ -91,7 +91,7 @@ function addslashes_array($a){
 
 /* Log User Actions */
 
-function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $page, $output, $session_id){
+function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $page, $output, $session_id, $format ='', $sort = ''){
     global $config, $DEFAULT_PARAMS; 
 
     // set default values
@@ -119,6 +119,8 @@ function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $p
         $log->fields['output'] = $output;
         $log->fields['referer'] = $_SERVER['HTTP_REFERER'];
         $log->fields['session'] = $session_id;
+        $log->fields['format'] = $format;
+        $log->fields['sort'] = $sort;
 
         $log->writeLog();
     }    

@@ -270,7 +270,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $app['mailer']->send($message);
     }  
 
-    log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq, $page, $output, $SESSION->getId());
+    log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq, 
+                    $page, $output, $SESSION->getId(), $format, $params['sort']);
 
     // output
     switch($output) {
