@@ -13,7 +13,7 @@
 {% endif %}
 
 <div>
-    {{ occ( {'element': doc.type,  'translate': true, 'group': 'REFINE_type'} ) }}
+    {{ occ( {'element': doc.type[0],  'translate': true, 'group': 'REFINE_type' } ) }}
     <!-- database -->
     {% if 'LXP' in doc.services %}
     	{% if lang == 'pt' %}    	

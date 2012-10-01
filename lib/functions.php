@@ -139,6 +139,7 @@ function custom_template($filename) {
 }
 
 function occ($params) {
+    $separator = ', ';
 
     extract($params); 
     
@@ -148,14 +149,17 @@ function occ($params) {
                 $output .= $separator . " ";
             }
             if ( $translate == true ){
-                $text = translate($element[$occ], $group);
+               $output .= translate($element[$occ], $group);
             }else{
-                $text = $element[$occ];
+                $output .= $element[$occ];
             }
-            $output .= $text;
         }
     }else{
-        $output .= $element;
+        if ( $translate == true ){
+            $output = translate($element, $group);
+        }else{
+            $output = $element[$occ];
+        }
     }    
 
     return $output;
