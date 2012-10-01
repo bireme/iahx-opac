@@ -712,3 +712,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .advanced-form input {
 	width: 63%;
 }
+
+.division{
+	border-top: 2px solid #CECECE !important;
+}
