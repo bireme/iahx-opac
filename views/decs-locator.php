@@ -12,12 +12,15 @@ $app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app
     $decs_response = file_get_contents($decs_service_url);
 
     $decs_xml = simplexml_load_string($decs_response);
+
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
 
     // start session
     $SESSION = $app['session'];
     $SESSION->start();    
+
+    //print_r($decs_xml);
 
     // log user action
     log_user_action($lang, '', '', $tree_id, '', '', '', '', 'decs_lookup', $SESSION->getId());
@@ -27,6 +30,7 @@ $app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app
     $output_array['lang'] = $lang;
     $output_array['decs'] = $decs_xml->decsws_response;
     $output_array['texts'] = $texts;
+    $output_array['tree_id_category'] = substr($tree_id,0,1);
 
     return $app['twig']->render( 'decs-locator-page.html', $output_array );     
 
