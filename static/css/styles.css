@@ -716,3 +716,11 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .division{
 	border-top: 2px solid #CECECE !important;
 }
+#flash{
+	padding: 7px;
+	border: solid 1px #ccc;
+	margin: 5px;
+	background-color: #F2F2F2 ;
+	font-weight: bold;
+	font-size: 130%;
+}

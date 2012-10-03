@@ -258,16 +258,20 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // if is send email
     if(isset($params['is_email'])) {
 
-        $output_array['email'] = $email;
         $render = $app['twig']->render('export-email.html', $output_array);
 
         $message = \Swift_Message::newInstance()
             ->setSubject($email['subject'])
-            ->setFrom(array( FROM_MAIL => $email['name'] . " (via iAHx)"))
+            ->setFrom(array(FROM_MAIL => $email['name'] . " (via iAHx)"))
             ->setTo($email['email'])
             ->setBody($render, 'text/html');
 
-        $app['mailer']->send($message);
+        if ( $app['mailer']->send($message) ){
+            $output_array['flash_message'] = 'MAIL_SUCCESS';
+        }else{
+            $output_array['flash_message'] = 'MAIL_FAIL';
+        }
+
     }  
 
     log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq, 

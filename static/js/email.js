@@ -1,12 +1,12 @@
 function send_email() {
     var form = document.emailForm;
 
-    if(form.name.value === "" || form.your_email.value === "" || form["email[]"].value === "") {
+    if( form["email[]"].value === "") {
         alert("Todos os campos com asterisco (*) devem ser preenchidos.");
         return false;
     }
 
-    if(form.your_email.value.search("@") < 0 || form["email[]"].value.search("@") < 0) {
+    if( form["email[]"].value.search("@") < 0) {
         alert("Por favor, preencha com emails válidos.");
         return false;   
     }

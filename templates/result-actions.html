@@ -88,13 +88,13 @@
                 <input type="hidden" name="is_email" value="true" />
 
                 <formset>
-                    <label for="yourName">{{ texts.MAIL_FROM_NAME }}</label>
+                    <label for="yourName">{{ texts.MAIL_FROM_NAME }} </label>
                     <input type="text" id="yourName" name="name" value="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue">    
 
-                    <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }}</label>
+                    <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }} </label>
                     <input type="text" id="yourEmail" name="your_email" value="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue">    
 
-                    <label for="email">{{ texts.MAIL_TO_EMAIL }}*</label> <a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a>
+                    <label for="email">{{ texts.MAIL_TO_EMAIL }} (*)</label> <a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a>
                     <div id="destinatarios"><input type="text" id="email" name="email[]" value="{{ texts.MAIL_TO_EMAIL }}" title="{{ texts.MAIL_TO_EMAIL }}" class="defaultValue"></div>
                     <div id="more-destinatarios"></div>
 

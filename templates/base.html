@@ -3,7 +3,7 @@
     <head>{% block head %}
         
         <meta charset="utf-8">
-        <title>{% block title %}{{ texts.SEARCH_HOME }}{% endblock %}</title>
+        <title>{% block title %}{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }}{% endblock %}</title>
         
         <!-- meta-tags -->
         <meta http-equiv="Expires" content="-1">
@@ -40,10 +40,6 @@
                         
         <!-- RSS -->
         <link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?output=rss&amp;site=bvsms&amp;col=main&amp;lang=pt&amp;sort=da+desc">
-
-        {% if email is defined %}
-                <script>alert("Email enviado com sucesso")</script>
-        {% endif %}
 
         <script language="javascript" type="text/javascript">
             var SEARCH_URL = '{{ constant("SEARCH_URL") }}';

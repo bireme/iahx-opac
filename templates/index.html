@@ -4,6 +4,11 @@
     
     {{ parent() }}
 
+    {% if flash_message is defined %}
+        <div id="flash" style="display: none;">{{ attribute(texts, flash_message) }}</div>
+    {% endif %}
+    
+
     {% if docs|length > 0 %}
 
         {% block results %}

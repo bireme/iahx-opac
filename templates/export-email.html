@@ -1,4 +1,8 @@
-{{ email.name }} ({{ email.your_email }}) te enviou o resultado da pesquisa feita em {{ constant("SEARCH_URL") }}.
+{% if email.name is defined or email.your_email is defined %}
+    <p>{{ texts.SEND_BY }} {{ email.name }} {{ email.your_email }}.</p>
+{% endif %}
+    
+<a href="{{ constant("SEARCH_URL") }}">{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }}</a>
 
 {% if email.comment %}
     <hr>
