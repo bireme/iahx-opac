@@ -263,7 +263,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         $message = \Swift_Message::newInstance()
             ->setSubject($email['subject'])
-            ->setFrom(array('iahx@bireme.org' => $email['name'] . " (via iAHx)"))
+            ->setFrom(array( FROM_MAIL => $email['name'] . " (via iAHx)"))
             ->setTo($email['email'])
             ->setBody($render, 'text/html');
 

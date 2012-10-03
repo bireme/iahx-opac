@@ -76,6 +76,7 @@ require_once "config/config-mail.php";
 
 $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
+    'transport' => 'smtp',
     'host' => SMTP_SERVER,
     'username' => SMTP_USERNAME,
     'password' => SMTP_USERPASSWORD,
