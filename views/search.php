@@ -259,10 +259,11 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     if(isset($params['is_email'])) {
 
         $render = $app['twig']->render('export-email.html', $output_array);
+        $subject = ($email['subject'] != '' ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
         $message = \Swift_Message::newInstance()
-            ->setSubject($email['subject'])
-            ->setFrom(array(FROM_MAIL => $email['name'] . " (via iAHx)"))
+            ->setSubject($subject)
+            ->setFrom(array(FROM_MAIL => $email['name'] . " (" . $texts['BVS_TITLE'] . ")"))
             ->setTo($email['email'])
             ->setBody($render, 'text/html');
 
