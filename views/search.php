@@ -263,7 +263,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom(array(FROM_MAIL => $email['name'] . " (" . $texts['BVS_TITLE'] . ")"))
+            ->setFrom(array(FROM_MAIL => $email['name'] . ' (' . $texts['BVS_HOME'] . ')') )
             ->setTo($email['email'])
             ->setBody($render, 'text/html');
 
