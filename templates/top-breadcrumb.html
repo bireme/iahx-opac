@@ -7,7 +7,7 @@
 
     {% block bc_third_lvl %}
         {% if params.q is defined and params.q != "" %}
-            > {{ params.q }} ({{ pag.total_formatted }})
+            > {{ params.q|truncate(90) }} ({{ pag.total_formatted }})
         {% endif %}
     {% endblock %}
 </div>

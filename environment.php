@@ -117,5 +117,6 @@ $app['twig']->addFilter('substring_before', new Twig_Filter_Function('filter_sub
 $app['twig']->addFilter('substring_after', new Twig_Filter_Function('filter_substring_after'));
 $app['twig']->addFilter('contains', new Twig_Filter_Function('filter_contains'));
 $app['twig']->addFilter('starts_with', new Twig_Filter_Function('filter_starts_with'));
+$app['twig']->addFilter('truncate', new Twig_Filter_Function('filter_truncate'));
 
 ?>

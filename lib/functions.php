@@ -192,5 +192,17 @@ function filter_starts_with($text, $needle){
 }
 
 
+function filter_truncate($text, $length = 30, $preserve = false, $separator = '...') {
+    if (strlen($text) > $length) {
+        if ($preserve) {
+            if (false !== ($breakpoint = strpos($text, ' ', $length))) {
+                $length = $breakpoint;
+            }
+        }
+        return substr($text, 0, $length) . $separator;
+    }
+
+    return $text;
+}
 
 ?>
