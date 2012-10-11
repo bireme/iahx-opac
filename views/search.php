@@ -115,9 +115,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             }
         }
 
-        if(!$exists)            
+        if(!$exists)                    
             $sort = "";
         
+    }
+    if ($sort == ""){
+        $sort = getDefaultSort($collectionData, $q);
     }
 
     $format = $DEFAULT_PARAMS['defaultDisplayFormat'];
