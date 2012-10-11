@@ -37,13 +37,16 @@
 
             <form action="" id="form_clusters" method="GET">
                 <div class="buttons" data-spy="affix" id="affix" data-offset-top="300">
-                    <button type="submit">filtrar</button>
-                    <a href="javascript:show_all_clusters();" title="Abrir todos"><i class="icon-plus-sign"></i></a>
-                    <a href="javascript:hide_all_clusters();" title="Fechar todos"><i class="icon-minus-sign"></i></a>
+                    <button type="submit" class="submit">{{texts.FILTER}}</button>
                 </div>
+                    <div class="expand_retract">
+                        <a href="javascript:show_all_clusters();" title="{{texts.EXPAND_ALL}}"><i class="icon-plus-sign"></i>{{texts.EXPAND_ALL}}</a>
+                        <a href="javascript:hide_all_clusters();" title="{{texts.RETRACT_ALL}}"><i class="icon-minus-sign"></i>{{texts.RETRACT_ALL}}</a>
+                    </div>
+
 
                 {% for key, value in params %}
-                    {% if key != "filter"  %}
+                    {% if key != "filter" and key != "submit" %}
                         {% if key == "from" or key == "page" %}
                             <input type="hidden" name="{{ key }}" value="1">
                         {% else %}

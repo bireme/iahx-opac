@@ -71,7 +71,6 @@ DIV.search DIV.searchForm DIV.actions {
 }
 DIV.search DIV.searchForm *.inputText, DIV.search DIV.searchForm *.submit {
     vertical-align: middle;
-    padding: 2px;
 }
 DIV.search DIV.searchForm INPUT.inputText {
     height: 24px;
@@ -82,13 +81,8 @@ DIV.search DIV.searchForm INPUT.inputText {
 DIV.search DIV.searchForm SELECT.inputText {
     padding: 2px 2px 2px 4px;
     width: 180px;
-    _width: 170px;
 }
-DIV.search DIV.searchForm INPUT.submit {
-    padding: 2px 3px;
-    _padding: 2px 3px;
-    *padding: 2px 3px;
-}
+
 DIV.resultNavigation {
     float: right;
     margin: 5px 0px;

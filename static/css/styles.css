@@ -79,12 +79,15 @@ DIV.search DIV.searchForm SELECT.inputText {
 	background: #f7f9fa;
 	border: 1px solid #acaeaf;
 }
-INPUT.submit {
+
+.submit {
 	background: #d9e8f2;
 	border: 1px solid #c2d5e1;
 	border-bottom-color: #7899AF;
 	border-right-color: #7899AF;
 	color: #121212;
+	padding: 2px 8px 2px 8px;
+	font-weight: bold;
 }
 .resultsFor{
 	margin-bottom: 10px;
@@ -723,4 +726,12 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	background-color: #F2F2F2 ;
 	font-weight: bold;
 	font-size: 130%;
+}
+
+.expand_retract{
+	font-size: 100% !important;
+	margin-bottom: 10px !important;
+}
+.expand_retract A{
+	text-decoration: none;
 }

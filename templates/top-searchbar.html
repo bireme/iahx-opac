@@ -22,8 +22,9 @@
                 <label for="q" class="hide">Busca</label>
                 <input type="text" name="q" id="q" value="{% if params.q is defined %}{{ params.q }}{% else %}{{ texts.SEARCH_WORDS }}{% endif %}" class="inputText defaultValue" onkeydown="if(event.keyCode==13) newSearch();" title="{{ texts.SEARCH_WORDS }}">
 
-                <label for="selectIndex" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
-                <select name="index" class="inputText" id="selectIndex">
+                {% if collectionData.index_list.index is defined %}
+                    <label for="selectIndex" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
+                    <select name="index" class="inputText" id="selectIndex">
                     
                     {% for index in collectionData.index_list.index %}
 
@@ -38,26 +39,29 @@
                         {% endif %}
                     {% endfor %}
                     
-                </select>
+                    </select>
+                {% endif %}
 
-                <label for="selectWhere" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
-                {{ texts.WHERE_FILTER }}:
-                <select name="where" class="inputText" id="selectWhere">
-                    {% for where in collectionData.where_list.where %}
-                        {% set tab = '' %}
-                        {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
+                {% if collectionData.where_list.where is defined %}
+                    <label for="selectWhere" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
+                    {{ texts.WHERE_FILTER }}:
+                    <select name="where" class="inputText" id="selectWhere">
+                        {% for where in collectionData.where_list.where %}
+                            {% set tab = '' %}
+                            {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
 
-                        {% if params.where is defined %}
-                            {% if where.name == params.where %}
-                                <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
+                            {% if params.where is defined %}
+                                {% if where.name == params.where %}
+                                    <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
+                                {% else %}
+                                    <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
+                                {% endif %}
                             {% else %}
                                 <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
                             {% endif %}
-                        {% else %}
-                            <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
-                        {% endif %}
-                    {% endfor %}
-                </select>  
+                        {% endfor %}
+                    </select>  
+                {% endif %}
 
                 <input type="submit" value="{{ texts.SEARCH_SUBMIT }}" class="submit">
                 <div class="actions">
