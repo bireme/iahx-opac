@@ -12,8 +12,9 @@
     </div>
 {% endif %}
 
-<div>
+<div>    
     {{ occ( {'element': doc.type[0],  'translate': true, 'group': 'REFINE_type' } ) }}
+    {% if doc.type[0] is defined %}  | {% endif %}
     <!-- database -->
     {% if 'LXP' in doc.services %}
     	{% if lang == 'pt' %}    	
@@ -27,7 +28,7 @@
            	LILACS-Express
        	</a>
     {% else %}
-		| {{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}
+		{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}
     {% endif %}
 	| ID: {% if '-' in doc.id %} {{ doc.id|substring_after('-') }} {% else %} {{ doc.id }} {% endif %}
     {% if doc.la is defined %}

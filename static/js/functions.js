@@ -124,3 +124,27 @@ function change_sort(obj){
     form.sort.value = sort;
     $("#searchForm").submit();
 }
+
+function cochrane_lnk( lnk,refDB,refID ){
+    
+    form = document.searchForm;
+    lang = form.lang.value;
+    if (lang == "pt"){ oneLetterLang = "p"; }
+    if (lang == "es"){ oneLetterLang = "e"; }
+    if (lang == "en"){ oneLetterLang = "i"; }
+
+    db = refDB.substr(refDB.indexOf("-")+1);
+    db = db.toLowerCase();
+
+    if (db == 'bandolier' || db == 'agencias' || db == 'kovacs' || db == 'evidargent' || db == 'clibplusrefs' || db == 'gestion'){
+        lib = 'BCP';
+    }else{
+        lib = 'COC';
+    }
+    
+    refUrl = "http://cochrane.bvsalud.org/doc.php?db=" + db + "&id=" + refID + "&lib=" + lib;
+
+    lnk.href = refUrl;
+    
+    return true;
+}
