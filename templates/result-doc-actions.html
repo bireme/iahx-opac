@@ -60,9 +60,9 @@
         </div>
     {% endif %}    
 
-    {% if 'COCHRANE' in doc.db[0] %}
+    {% if 'COCHRANE' in doc.db %}
         <div>    
-             <a href="#" onclick="javascript:cochrane_lnk(this,'{{doc.db[0]}}','{{doc.id}}')" target="_blank" title="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="{{ texts.FULLTEXT }}" border="0" />{{ texts.TEXT }}</a> 
+             <a href="#" onclick="javascript:cochrane_lnk(this,'{{doc.db}}','{{doc.id}}')" target="_blank" title="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="{{ texts.FULLTEXT }}" border="0" />{{ texts.TEXT }}</a> 
         </div>
     {% endif %}    
 
