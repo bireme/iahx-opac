@@ -45,10 +45,10 @@
 					<prefix>mh</prefix>
 				</index>
 				<index>
+					<advanced/>
 					<name>PT</name>
 					<prefix>pt</prefix>
 				</index>
-
 			</index_list>
 			<where_list>
 				<where>

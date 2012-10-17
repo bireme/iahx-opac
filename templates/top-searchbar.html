@@ -26,7 +26,7 @@
                     <label for="selectIndex" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
                     <select name="index" class="inputText" id="selectIndex">
                     
-                    {% for index in collectionData.index_list.index %}
+                    {% for index in collectionData.index_list.index if not index.advanced %}
 
                         {% if params.index is defined %}
                             {% if index.prefix == params.index %}
