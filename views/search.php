@@ -243,6 +243,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['sort'] = $sort;
     $output_array['format'] = $format;
     $output_array['from'] = $from;
+    $output_array['count'] = $count;    
     $output_array['output'] = $output;
     $output_array['collectionData'] = $collectionData;
     $output_array['params'] = $params;
