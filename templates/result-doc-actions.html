@@ -91,7 +91,7 @@
                     {{ texts.SEARCH_MH_DOCS }}
                 </a>
             {% else %}
-           	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe" title=" ">
+           	    <a href="{{ constant("SEARCH_URL") }}related/{{ lang }}/{{ doc.id }}{% if debug == "true"  %}?debug=true{% endif %}" class="fancybox_iframe" title="{{ texts.RELATED_DOCUMENTS }}">
         	    	<img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="{{ texts.RELATED_DOCUMENTS }}" />
         	        {{ texts.RELATED_DOCUMENTS }}
         	    </a>
