@@ -13,13 +13,13 @@ function new_line(obj) {
 }
 
 function add_query(current, q, bool, index) {
-    q = '"'+q+'"';
+    
     current = current + " " + bool + " (";
 
     if(index === "") {
         current = current + q;
     } else {
-        current = current + index + ':' + q + '';
+        current = current + index + ':(' + q + ')';
     }
 
     current = current + ")";
