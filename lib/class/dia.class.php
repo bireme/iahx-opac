@@ -60,6 +60,13 @@ class Dia
         return trim($result);
     }   
 
+    function morelikethat($service_url){        
+        
+        $result = $this->documentPost( $service_url );
+        return trim($result);
+    }   
+
+
 
     function mountFilterParam($filter){     
 
