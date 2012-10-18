@@ -16,7 +16,7 @@ $app->get('morelikethat/{lang}/', function (Request $request, $lang) use ($app, 
 
     // Dia response
     $dia = new Dia($site, $col, 1, "site", $lang);
-    $dia_response = utf8_decode( $dia->morelikethat($service_url) );
+    $dia_response = $dia->morelikethat($service_url);
     $result = json_decode($dia_response, true);
 
      // translate
