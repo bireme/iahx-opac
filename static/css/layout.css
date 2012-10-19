@@ -403,7 +403,7 @@ DIV.results DIV.resultServices DIV.closed DIV {
 }
 DIV.results DIV.resultSet {
     float: left;
-    width: 740px;
+    width: 730px;
 }
 DIV.resultSet DIV.infoBar {
     padding: 6px 10px;
@@ -556,7 +556,7 @@ DIV.resultServices DIV.searchHistory DIV.altpopup{
 }
 .resultOptions {
     float: left;
-    width: 740px;
+    width: 730px;
 }
 .yourSelectionCheck {
     float: left;
