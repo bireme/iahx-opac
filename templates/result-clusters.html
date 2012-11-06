@@ -79,7 +79,7 @@
                         </a>
 
                         <ul id="ul_{{ name }}">
-                            {% for item in cluster %}
+                            {% for item in cluster if item.0 != '' %}
                                 {% set cluster_item_id = name ~ '_' ~ item.0|replace({' ': '_'}) %}
                                 <li>
                                     <label for="{{ cluster_item_id }}"></label>
