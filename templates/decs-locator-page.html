@@ -10,7 +10,7 @@
             var options, a;
             $(document).ready(function() {            
                 options = {
-                            'serviceUrl':'{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php',
+                            'serviceUrl':'{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php?lang={{ lang }}',
                             'minChars': 3,
                             'noCache': true,
                             //'onSelect': function(value, data){ alert('You selected:' + value + ',' + data) }
@@ -74,9 +74,12 @@
             <input type="text" name="q" id="query" class="text-input" autocomplete="off" />
         </form>
 
-        <div id="hierarchy">
-            <h2>{{ texts.HIERARCHY }}</h2>
-            {% if decs.tree.term_list.term is defined %}  
+        <div id="hierarchy">            
+            <h2><a href="?tree_id=">{{ texts.HIERARCHY }}</a></h2>
+
+            {# CASE 1:  LEVEL 0 OF DECS HIERARCY #}
+            {% if decs.tree.term_list.term is defined %}
+                
                 <ul class="tree">
                     {% for t_list in decs.tree.term_list %}
                         {% if t_list.attributes.lang == lang %}
@@ -86,47 +89,90 @@
                         {% endif %}    
                     {% endfor %}
                 </ul>
-            {% else %}
 
-                <ul class="tree"> <!-- root -->
-                    <li><a href="?tree_id=">{{ texts.LEVEL_0 }}</a></li>
-                    {% if decs.tree.ancestors.term_list.term is defined %}
-                        {% for term in decs.tree.ancestors.term_list.term %}                            
-                            <ul>                             
-                                <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
+            {% else %}
+                
+                {# CASE 2:  TERM WITH ANCESTORS #}
+                {% if decs.tree.ancestors.term_list.term is defined %}
+                    {% set tree_count = 1 %} 
+
+                    {% for i_tree in ancestors_i_tree %} 
+                        
+                        {% for current_term in i_tree %}
+                            <ul class="tree">
+                                <li>
+                                    {% if loop.first %}{{ tree_count }}.{% endif %} <a href="?tree_id={{ current_term|substring_before('|') }}">{{ current_term|substring_after('|') }} </a>
+                                </li>
+                                
+                                {% if loop.last and tree_count == 1 %}
+
+                                    <ul> <!-- preceding_sibling - self -->                        
+                                        {% if decs.tree.preceding_sibling.term_list.term is defined %}
+                                            <li><!-- preceding_sibling --></li>
+                                            {% for term in decs.tree.preceding_sibling.term_list.term %}
+                                                <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
+                                            
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        <li>{{ decs.tree.self.term_list.term }}</a></li>
+
+                                        <ul> <!-- descending -->
+                                            {% if decs.tree.descendants.term_list.term is defined %}
+                                                <li><!-- descendants --></li>
+                                                {% for term in decs.tree.descendants.term_list.term %}                                                   
+                                                    <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
+                                                {% endfor %}
+                                            {% endif %}
+                                        </ul> <!-- /descending -->
+
+                                        {% if decs.tree.following_sibling.term_list.term is defined %}
+                                            <li><!-- following_sibling --></li>
+                                            {% for term in decs.tree.following_sibling.term_list.term %}
+                                                <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
+                                            {% endfor %}
+                                        {% endif %}
+                                    </ul> <!-- /preceding_sibling - self -->     
+
+                                {% endif %}
+
+                            
                         {% endfor %}
-                    {% endif %}
-                    <ul> <!-- preceding_sibling - self -->                        
-                        {% if decs.tree.preceding_sibling.term_list.term is defined %}
-                            <li><!-- preceding_sibling --></li>
-                            {% for term in decs.tree.preceding_sibling.term_list.term %}
-                                <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
-                            {% endfor %}
+
+                        {# add at final term for the last tree #}
+                        {% if tree_count != 1 %}
+                            <ul>
+                                <li>{{ decs.tree.self.term_list.term }}</a></li>
+                            </ul>
                         {% endif %}
 
-                        <li>{{ decs.tree.self.term_list.term }}</a></li>
+                        {# close ancestors itens #}
+                        {% for current_term in i_tree %}
+                            </ul> <!-- /ancestor -->
+                        {% endfor %}
+                        <br/>
 
-                        <ul> <!-- descending -->
+                        {% set tree_count = tree_count + 1 %}
+                    
+                    {% endfor %}                    
+
+                {% else %}  {# else if dont have ancestors #}
+
+                    {# CASE 3:  TERM WITHOUT ANCESTORS #}                
+                    <ul class="tree"> <!-- descending -->
+                        <li>{{ decs.tree.self.term_list.term }}</a></li>
+                        <ul>
                             {% if decs.tree.descendants.term_list.term is defined %}
                                 <li><!-- descendants --></li>
                                 {% for term in decs.tree.descendants.term_list.term %}
-                                    <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
+                                    <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>                                
                                 {% endfor %}
                             {% endif %}
-                        </ul> <!-- /descending -->
-                        {% if decs.tree.following_sibling.term_list.term is defined %}
-                            <li><!-- following_sibling --></li>
-                            {% for term in decs.tree.following_sibling.term_list.term %}
-                                <li><a href="?tree_id={{ term.attributes.tree_id }}">{{ term }}</a></li>
-                            {% endfor %}
-                        {% endif %}
-                    </ul> <!-- /preceding_sibling - self -->     
+                        </ul>
+                    </ul> <!-- /descending -->
 
-                    <!-- close ancestors ul lists -->    
-                    {% for term in decs.tree.ancestors.term_list.term %}
-                        </ul> <!-- /ancestor -->
-                    {% endfor %}
-                </ul>
+                {% endif %} {# close if have ancestors #}
+
             {% endif %}
         </div>        
         <div id="details">            
@@ -153,7 +199,7 @@
                     {% endif %}
 
                     {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier is defined %}
-                        Restringir a pesquisa por estes aspectos:
+                        {{ texts.RESTRICT_BY_ASPECT }}:
                         <div class="qlf_box">
                             <ul>
                                 {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}

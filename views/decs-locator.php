@@ -25,10 +25,37 @@ $app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app
     // log user action
     log_user_action($lang, '', '', $tree_id, '', '', '', '', 'decs_lookup', $SESSION->getId());
 
+    if ($decs_xml->decsws_response->tree->ancestors->term_list->term) {
+        $ancestors_tree = array();
+        foreach ($decs_xml->decsws_response->tree->ancestors->term_list->term as $ancestor) {
+            //var_dump($ancestor);
+            $tree_id = (string) $ancestor['tree_id'];
+            $ancestors_tree[] = $tree_id . '|' . (string) $ancestor;
+        }
+
+        $total_ancestors = count($ancestors_tree);
+        $ancestors_i_tree = array(); // ancestors individual tree
+        $tree = 0;
+        for ($i = 0; $i < $total_ancestors; $i++){
+
+            $ancestors_i_tree[$tree][] = $ancestors_tree[$i] ;
+            if ($i < $total_ancestors ) {
+                $current_tree_id = preg_split('/\|/', $ancestors_tree[$i]);
+                $next_tree_id = preg_split('/\|/', $ancestors_tree[$i+1]);
+
+                if ( strlen($current_tree_id[0]) > strlen($next_tree_id[0]) ) {
+                    $tree++;            
+                }
+            }
+
+        }
+    }
+
     // output vars
     $output_array = array();
     $output_array['lang'] = $lang;
     $output_array['decs'] = $decs_xml->decsws_response;
+    $output_array['ancestors_i_tree'] = $ancestors_i_tree;
     $output_array['texts'] = $texts;
     $output_array['tree_id_category'] = substr($tree_id,0,1);
 

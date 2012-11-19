@@ -187,7 +187,11 @@ function filter_contains($text, $needle){
 }
 
 function filter_starts_with($text, $needle){
+    $text = trim($text);
+    $needle = trim($needle);
+
     $length = strlen($needle);
+   
     return (substr($text, 0, $length) === $needle);
 }
 

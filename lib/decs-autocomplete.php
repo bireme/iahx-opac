@@ -4,8 +4,9 @@ $query = trim($_REQUEST['query']);
 $query = str_replace(" ","+",$query);
 $query = $query . "*";
 
+$lang = trim($_REQUEST['lang']);
 
-$service_url = "http://srv.bvsalud.org/decsQuickTerm/search?query=" . $query . "&lang=pt";
+$service_url = "http://srv.bvsalud.org/decsQuickTerm/search?query=" . $query . "&lang=" . $lang;
 	
 $service_response = file_get_contents($service_url);
 $xml = simplexml_load_string($service_response);
