@@ -1,53 +1,55 @@
+{% spaceless %}
 {% for doc in docs %}
-{#
-{foreach from=$result->response->docs item=doc}
-{if $doc->db|@contains:"MEDLINE"}
-    {assign var=refDB value=MEDLINE}
-    {assign var=refID value=$doc->id|substring_after:"-"}
-{else}
-    {if $doc->db[0] eq 'GHL'}
-        {assign var=refDB value=$doc->db[1]}
-    {else}
-        {assign var=refDB value=$doc->db[0]}
-    {/if}
-    {assign var=refID value=$doc->id}
-{/if}
-#}
 {% if doc.type == "article" %}TY  - JOUR{% endif %}
 {% if doc.type == "non-conventional" %}TY  - GEN{% endif %}
 {% if doc.type == "book" %}TY  - BOOK{% endif %}
 {% for author in doc.au %}
-A1 - {{ author }}
+AU  - {{ author }}
 {% endfor %}
 {% for title in doc.ti %}
-TI - {{ title }}
+T1  - {{ title }}
 {% endfor %}
-{# DB - {{ refDB }} #}
-DP  - http://www.globalhealthlibrary.net
-{# ID  - {{ refID }} #}
-LA - {{ doc.la.0 }}
-{% if doc.type == "article" and doc.ta > 0 %}JO - {{ doc.ta.0 }} {% endif %}
-{% if doc.pg > 0 %}
+{% if doc.ta %}
+JO  - {{ doc.ta.0 }}
+{% endif %}
+{% if doc.vi %}
+VL  - {{ doc.vi.0 }} 
+{% endif %}
+{% if doc.ip %}
+IS  - {{ doc.ip.0 }}
+{% endif %}
+DB  - {{ doc.db.0|default(doc.db) }}
+DP  - {{ config.bvs_url }}
+ID  - {{ doc.id|substring_after('-') }}
+LA  - {{ doc.la[0] }}
+{% if doc.pg.0  %}
 {% if "-" in doc.pg.0 %}
-SP - {{ doc.pg.0 }} {# slice before #}
-EP - {{ doc.pg.0 }} {# slice after #}
+SP  - {{ doc.pg.0|substring_before('-')|trim }}
+EP  - {{ doc.pg.0|substring_after('-')|trim }}
 {% else %}
-SP - {{ doc.pg.0 }}
-EP - {{ doc.pg.0 }}
+SP  - {{ doc.pg.0 }}
+EP  - {{ doc.pg.0 }}
 {% endif %}
 {% endif %}
-{% if doc.da > 0 %}PY - {{ doc.da.0|slice(0, 4) }}{% endif %}
+{% if doc.da %}
+DA  - {{ doc.da|slice(0,4) }}/{{ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{ doc.da|slice(6,2) }}{% endif %}
+
+PY  - {{ doc.da|slice(0,4) }}
+{% endif %}
 {% for mesh in doc.mh %}
-KW - {{ mesh }}
+KW  - {{ mesh }}
 {% endfor %}
 {% for abstract in doc.ab %}
-N2 - {{ abstract }}
+N2  - {{ abstract }}
 {% endfor %}
+{% if doc.ur %}
 {% for url in doc.ur %}
-UR - {{ url }}
+UR  - {{ url }}
 {% endfor %}
-ER - {{ url }}
-
-
+{% else %}
+UR - {{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}
+{% endif %}
+ER  - 
 
 {% endfor %}
+{% endspaceless %}
