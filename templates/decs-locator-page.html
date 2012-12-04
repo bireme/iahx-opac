@@ -1,4 +1,5 @@
-<html>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="{{lang}}" xmlns="http://www.w3.org/1999/xhtml">
     <head>
         <title>DeCS Locator</title>
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/decs-locator.css" type="text/css" media="screen">  
@@ -13,7 +14,6 @@
                             'serviceUrl':'{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php?lang={{ lang }}',
                             'minChars': 3,
                             'noCache': true,
-                            //'onSelect': function(value, data){ alert('You selected:' + value + ',' + data) }
                             'onSelect': submit_tree_id
                           };
                 a = $('#query').autocomplete(options);
