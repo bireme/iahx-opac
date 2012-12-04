@@ -262,10 +262,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // if is send email
     if(isset($params['is_email'])) {
 
-        $output_array['request_uri'] = $_SERVER['REQUEST_URI'];
         $output_array['email'] = $email;
 
-        $render = $app['twig']->render('export-email.html', $output_array);
+        $render = $app['twig']->render('export-email.html', $output_array);        
         $subject = ($email['subject'] != '' ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
         $message = \Swift_Message::newInstance()
