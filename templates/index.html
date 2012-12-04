@@ -57,7 +57,11 @@
 
         {% else %}
             <div class="noResults">
-                {{ texts.NO_RESULTS }}
+                {% if not docs %}
+                    {{ texts.SYSTEM_FAIL }}
+                {% else %}
+                    {{ texts.NO_RESULTS }}
+                {% endif %}
             </div>
         {% endif %}
 
