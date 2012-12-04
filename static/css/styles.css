@@ -721,9 +721,9 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 }
 #flash{
 	padding: 7px;
-	border: solid 1px #ccc;
+	border: solid 1px #DEDEDE;
 	margin: 5px;
-	background-color: #F2F2F2 ;
+	background-color: #FFC;
 	font-weight: bold;
 	font-size: 130%;
 }

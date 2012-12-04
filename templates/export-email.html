@@ -2,7 +2,7 @@
     <p>{{ texts.SEND_BY }} {{ email.name }} {{ email.your_email }}.</p>
 {% endif %}
     
-<a href="{{ constant("SEARCH_URL") }}">{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }}</a>
+<a href="{{ request_uri }}">{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }} {% if params.q %}| {{ params.q|truncate(90) }} {% endif %}</a>
 
 {% if email.comment %}
     <hr>
