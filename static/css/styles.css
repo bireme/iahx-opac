@@ -156,7 +156,7 @@ DIV#email {
 	width: 450px;
 }
 DIV#email input[type=text], DIV#email textarea  {
-	width: 100%;
+	width: 96%;
 	padding: 6px;
 	margin: 0px 0 10px 0;
 }
