@@ -303,13 +303,15 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         case "ris":
             $response = new Response($app['twig']->render('export-ris.html', $output_array));
-            $response->headers->set('Content-type', 'application/force-download');
+            $response->headers->set('Content-Type', 'application/force-download');
+            header('Content-Disposition: attachment; filename=export.ris');             
             return $response->sendHeaders();
             break;
 
         case "citation":
             $response = new Response($app['twig']->render('export-citation.html', $output_array));
             $response->headers->set('Content-type', 'application/force-download');
+            header('Content-Disposition: attachment; filename=export.txt');             
             return $response->sendHeaders();
             break;
 
