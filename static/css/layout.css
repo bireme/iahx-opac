@@ -79,8 +79,9 @@ DIV.search DIV.searchForm INPUT.inputText {
     border: solid 1px #ccc;
 }
 DIV.search DIV.searchForm SELECT.inputText {
-    padding: 2px 2px 2px 4px;
+    padding: 4px 2px 4px 4px;
     width: 180px;
+    margin-top: 2px;
 }
 
 DIV.resultNavigation {
