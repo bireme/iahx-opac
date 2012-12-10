@@ -57,11 +57,7 @@
 
         {% else %}
             <div class="noResults">
-                {% if pag.total == '0' %}
-                    {{ texts.NO_RESULTS }}
-                {% else %}
-                    {{ texts.SYSTEM_FAIL }}                    
-                {% endif %}
+                {{ texts.NO_RESULTS }}
             </div>
         {% endif %}
 

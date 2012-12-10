@@ -4,8 +4,6 @@ use Symfony\Component\HttpFoundation\Request;
 
 $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($app, $DEFAULT_PARAMS, $config) {
 
-    global $lang, $texts;
-
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
     $site = $DEFAULT_PARAMS['defaultSite'];
     $col = $DEFAULT_PARAMS['defaultCollection'];

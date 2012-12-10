@@ -5,9 +5,7 @@ require_once 'lib/class/dia.class.php';
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app->match('/advanced', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
-
-    global $lang, $texts;
+$app->match('/advanced/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
 
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
 
