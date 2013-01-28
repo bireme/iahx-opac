@@ -72,9 +72,9 @@
 
 
 {% block btn_photocopy %}
-    {% if 'MEDLINE' in doc.db or 'SCAD' in doc.services %}
+    {% if not doc.ur is defined and ('MEDLINE' in doc.db or 'SCAD' in doc.services) %}
         <div class="scad">
-            <a href="{{ config.photocopy_url }}&lang={{lang}}&db={{doc.db}}&ident={{ doc.id|substring_after('-') }}">
+            <a href="{{ config.photocopy_url }}&lang={{lang}}&db={{doc.db[0]}}&ident={{ doc.id|substring_after('-') }}">
                 <img src="{{ constant("STATIC_URL") }}image/common/icon_scad.gif" alt="{{ texts.PHOTOCOPY }}"/>
                 &#160;<span>{{ texts.PHOTOCOPY }}</span>
             </a>
