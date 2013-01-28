@@ -1,8 +1,8 @@
 <div class="resultsFor">
-    <a href="{{ config.home_url }}">{{ texts.BVS_HOME }}</a> >
+    <a href="{{ config.home_url }}?lang={{ lang }}">{{ texts.BVS_HOME }}</a> >
     
     {% block bc_second_lvl %}
-        <a href="{{ constant("SEARCH_URL") }}">{{ texts.SEARCH_HOME }}</a>
+        <a href="{{ constant("SEARCH_URL") }}?lang={{ lang }}">{{ texts.SEARCH_HOME }}</a>
     {% endblock %}
 
     {% block bc_third_lvl %}
