@@ -684,13 +684,16 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	*margin-right: .3em;
 	line-height: 14px;
 	vertical-align: text-top;
-	background-image: url("http://twitter.github.com/bootstrap/assets/css/../img/glyphicons-halflings.png");
+	background-image: url("../image/glyphicons-halflings.png");
 	background-position: 14px 14px;
 	background-repeat: no-repeat;
 }
 
 .icon-plus-sign { background-position: 0 -96px; }
 .icon-minus-sign {  background-position: -24px -96px; }
+.icon-search { background-position: -48px 0; }
+.icon-th-list { background-position: -264px 0; }
+.icon-list-alt { background-position: -264px -24px; }
 
 .advanced-form {
 	padding-bottom: 100px;
