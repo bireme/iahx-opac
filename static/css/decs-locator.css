@@ -1,8 +1,5 @@
 body {
-	line-height: 1.5em;
-	font-size: 12px;
-	font-family: Arial, Verdana, Helvetica;
-	font-weight: normal;
+	line-height: 1.6em;
 }
 
 a{
@@ -12,7 +9,6 @@ a{
 
 .text-input {
 	color: #7F7F7F;	
-	font-size: 18px;
 	border-radius: 4px;
 	width: 255px;
 	height: 32px;
@@ -24,7 +20,6 @@ a{
 }
 
 .text-input  {
-	font-size: 16px;
 	padding: 0 1.5%;
 }
 
@@ -144,7 +139,7 @@ ul.tree li:last-child {
 }
 
 .btn-large {
-	font-size: 14px;
+	font-size: 130%;
 	line-height: normal;
 	padding: 9px 14px 9px;
 	-webkit-border-radius: 6px;

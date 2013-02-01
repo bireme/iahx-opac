@@ -2,7 +2,17 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app) {
+$app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
+
+    $params = array_merge(
+        $app['request']->request->all(),
+        $app['request']->query->all()
+    );
+
+    $lang = $DEFAULT_PARAMS['lang'];
+    if(isset($params['lang']) and $params['lang'] != "") {
+        $lang = $params['lang'];
+    }
 
     $tree_id = $request->get("tree_id");
     //$tree_id = "D02.065.589.099.750.124";
@@ -14,7 +24,10 @@ $app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app
     $decs_xml = simplexml_load_string($decs_response);
 
     // translate
-    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
+    $texts_interface = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+    $texts_decs = parse_ini_file(TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
+
+    $texts = array_merge($texts_interface, $texts_decs);
 
     // start session
     $SESSION = $app['session'];
@@ -58,6 +71,7 @@ $app->match('decs-locator/{lang}/', function (Request $request, $lang) use ($app
     $output_array['ancestors_i_tree'] = $ancestors_i_tree;
     $output_array['texts'] = $texts;
     $output_array['tree_id_category'] = substr($tree_id,0,1);
+    $output_array['params'] = $params;
 
     return $app['twig']->render( 'decs-locator-page.html', $output_array );     
 

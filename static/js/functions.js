@@ -66,6 +66,13 @@ function export_result(count) {
     change_output(output);
 }
 
+// advanced search
+function decs_locator(base_url) {
+    $("#searchForm").attr("action",base_url + "decs-locator/");
+    $("#searchForm").submit();
+}
+
+
 /**
  * Mostra janela com grafico do cluster selecionado
  * @param {Node} obj

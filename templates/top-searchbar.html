@@ -66,7 +66,7 @@
                 <input type="submit" value="{{ texts.SEARCH_SUBMIT }}" class="submit">
                 <div class="actions">
                     <i class="icon-search"> </i> <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}">{{ texts.ADVANCED_SEARCH }}</a> |
-                    <i class="icon-list-alt"> </i> <a href="{{ constant("SEARCH_URL") }}decs-locator/{{ lang }}/" class="fancybox_iframe75">{{ texts.DECS_LOOKUP }}</a>
+                    <i class="icon-list-alt"> </i> <a href="#" onclick="decs_locator('{{ constant("SEARCH_URL") }}')">{{ texts.DECS_LOOKUP }}</a>
                 </div>
         </div>
     </form>
