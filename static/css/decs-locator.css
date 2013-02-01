@@ -146,3 +146,7 @@ ul.tree li:last-child {
 	-moz-border-radius: 6px;
 	border-radius: 6px;
 }
+
+#details ul li{
+    margin-left: 20px;
+}

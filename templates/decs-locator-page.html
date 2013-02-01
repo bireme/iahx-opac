@@ -214,7 +214,7 @@
                         {{ decs.record_list.record.definition.occ.attributes.n }}                        
                         {% if decs.record_list.record.synonym_list.synonym %}
                             <div class="syn">
-                                Sinônimos:
+                                {{ texts.SYNONYMS }}:
                                 <ul>
                                     {% for syn in decs.record_list.record.synonym_list.synonym %}
                                         <li>{{ syn }} </li>
@@ -222,6 +222,14 @@
                                 </ul>
                             </div>
                         {% endif %}
+                        <div class="syn">
+                            {{ texts.CATEGORIES }}:
+                            <ul>
+                                {% for category in decs.record_list.record.tree_id_list.tree_id %}
+                                    <li>{{ category }} </li>
+                                {% endfor %}
+                            </ul>
+                        </div>
                     </div>
                 {% endif %}
 
