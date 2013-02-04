@@ -1,20 +1,24 @@
 <!-- source -->
-{% if doc.type.0 == 'article' and doc.fo.0 != '' %}
+{% if doc.fo %}
     <div>
         {% set journal = doc.fo.0|substring_before(';') %}
-        {% if journal != '' %}
-            <a href="http://portal.revistas.bvs.br/transf.php?xsl=xsl/titles.xsl&xml=http://catserver.bireme.br/cgi-bin/wxis1660.exe/?IsisScript=../cgi-bin/catrevistas/catrevistas.xis|database_name=TITLES|list_type=title|cat_name=ALL|from=1|count=50&lang=pt&comefrom=home&home=false&task=show_magazines&request_made_adv_search=false&lang=pt&show_adv_search=false&help_file=/help_pt.htm&connector=ET&search_exp={{ journal }}
+        {% if journal != '' and doc.type.0 == 'article' %}
+            <i><a href="http://portal.revistas.bvs.br/transf.php?xsl=xsl/titles.xsl&xml=http://catserver.bireme.br/cgi-bin/wxis1660.exe/?IsisScript=../cgi-bin/catrevistas/catrevistas.xis|database_name=TITLES|list_type=title|cat_name=ALL|from=1|count=50&lang=pt&comefrom=home&home=false&task=show_magazines&request_made_adv_search=false&lang=pt&show_adv_search=false&help_file=/help_pt.htm&connector=ET&search_exp={{ journal }}
                 " class="fancybox_iframe75"><span>{{ journal }}</span></a>;
-            {{ doc.fo.0|substring_after(';') }}
+            {{ doc.fo.0|substring_after(';') }}</i>
         {% else %}
-            {{ doc.fo }}
+            <i>{{ doc.fo.0 }}</i>
         {% endif %}        
     </div>
 {% endif %}
 
 <div>    
     {{ occ( {'element': doc.type[0],  'translate': true, 'group': 'REFINE_type' } ) }}
-    {% if doc.type[0] is defined %}  | {% endif %}
+    {% if doc.la is defined %}
+        em {{ occ( {'element': doc.la,  'translate': true, 'group': 'REFINE_la'} ) }}
+    {% endif %}
+
+
     <!-- database -->
     {% if 'LXP' in doc.services %}
     	{% if lang == 'pt' %}    	
@@ -28,10 +32,7 @@
            	LILACS-Express
        	</a>
     {% else %}
-		{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}
+		| {{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}
     {% endif %}
 	| ID: {% if '-' in doc.id %} {{ doc.id|substring_after('-') }} {% else %} {{ doc.id }} {% endif %}
-    {% if doc.la is defined %}
-        | {{ occ( {'element': doc.la,  'translate': true, 'group': 'REFINE_la'} ) }}
-    {% endif %}
 </div>
