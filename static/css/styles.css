@@ -19,7 +19,8 @@ A IMG {
 	vertical-align: middle;
 }
 HR{
-	border: 0.5px solid #E5E5E5;
+	border: 1px solid #cecece;
+	margin: 7px 0 7px 0;
 }
 a{
 	color: #07449f;
