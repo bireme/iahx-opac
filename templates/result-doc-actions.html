@@ -60,9 +60,9 @@
         </div>
     {% endif %}    
 
-    {% if 'COCHRANE' in doc.db %}
+    {% if doc.db.0|contains('COCHRANE') %}
         <div>    
-             <a href="#" onclick="javascript:cochrane_lnk(this,'{{doc.db}}','{{doc.id}}')" target="_blank" title="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="{{ texts.FULLTEXT }}" border="0" />{{ texts.TEXT }}</a> 
+             <a href="#" onclick="javascript:cochrane_lnk(this,'{{doc.db.0}}','{{doc.id}}')" target="_blank" title="{{ texts.FULLTEXT }}"><img src="{{ constant("STATIC_URL")  }}image/common/viewFullText.gif" alt="{{ texts.FULLTEXT }}" border="0" />{{ texts.TEXT }}</a> 
         </div>
     {% endif %}    
 
@@ -85,7 +85,7 @@
 {% block btn_related %}
     {% if config.show_related_docs == 'true' %} 
     	<div class="related">
-            {% if doc.db == 'DECS' %}
+            {% if 'DECS' in doc.db  %}
                 <a href="{{ constant("SEARCH_URL") }}?q=%22{{doc.ti.0}}%22&index=mh&lang={{lang}}" title="{{doc.ti.0}}">
                     <img src="{{ constant("STATIC_URL") }}image/common/icon_related.gif" alt="{{ texts.RELATED_DOCUMENTS }}" />
                     {{ texts.SEARCH_MH_DOCS }}
@@ -101,7 +101,7 @@
 {% endblock %}
 
 {% block btn_pubmed_linkout %}
-    {% if doc.db == 'MEDLINE' %} 
+    {% if 'MEDLINE' in doc.db  %} 
         <div class="pubmed">
             <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="fancybox_iframe" title="{{ doc.ti.0 }}">
                 <img src="{{ constant("STATIC_URL") }}image/common/icon_PubMed.gif" alt="PubMed More Resources"/>
