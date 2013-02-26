@@ -14,7 +14,7 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     if ( $config->show_related_docs == "true"){
         $dia_response = $dia->related($id);
     }else{
-        $dia_response = $dia->search("id:" . $id, "", array(), 0);
+        $dia_response = $dia->search("id:" . $id);
     }
     $result = json_decode($dia_response, true);
 

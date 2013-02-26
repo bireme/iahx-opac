@@ -26,8 +26,7 @@
 		<collection>
 			<name>org</name>
 			<cluster_items_limit>10</cluster_items_limit>
-			<set></set>
-			<filter></filter>
+			<initial_filter></initial_filter>
 			<index_list>
 				<index>
 					<name>ALL</name>

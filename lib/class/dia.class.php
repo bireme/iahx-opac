@@ -12,7 +12,8 @@ class Dia
         $this->param["col"]   = $collection;
         $this->param["count"] = $count;
         $this->param["output"]= $output;
-        $this->param["lang"]  = $lang;
+        $this->param["lang"]  = $lang;        
+        $this->param["initial_filter"]  = "";
         $this->setDiaServer( $config->search_server );
         
         return;
@@ -31,19 +32,33 @@ class Dia
         return;
     }
 
-    function search($query, $index, $filter,  $from){
+    function search($query, $index = "", $user_filter = array(), $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
 
+        $initial_filter = $this->param['initial_filter'];
+
         if ($from != "" && $from > 0){
             $this->param["start"] = ($from - 1);
         }
+
+        //remove empty or null values on user_filter array
+        $user_filter = array_filter($user_filter);
         
-        if ( isset($filter) ){          
-            $this->mountFilterParam($filter);
+        if ( isset($initial_filter) && $initial_filter != '' ){    
+            if ( !empty($user_filter) ){    
+                $user_filter_parsed = $this->mountFilterParam($user_filter);
+                $filter = $initial_filter . " AND ( " . $user_filter_parsed . ")";
+            }else{
+                $filter = $initial_filter;
+            }            
+        }else{
+            $filter = $this->mountFilterParam($user_filter);
         }
-        
+
+        $this->param["fq"] = $filter;   
+
         $searchUrl = $this->requestUrl();
 
         $result = $this->documentPost( $searchUrl );
@@ -84,10 +99,9 @@ class Dia
             $new_filter[] = $search_prefix . ':("' . join('" OR "', $filter[$name]) . '")';
         }
         
-        $fq = join(" AND ",$new_filter);                
-        $this->param["fq"] = stripslashes($fq);
+        $filter_query = join(" AND ",$new_filter);
         
-        return;
+        return stripslashes($filter_query);
     }
 
 

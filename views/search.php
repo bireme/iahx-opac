@@ -141,12 +141,16 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filter[$key] = str_replace("#", "", $value);
     }
 
+
     // bookmark
     $SESSION = $app['session'];
     $SESSION->start();
     $bookmark = $SESSION->get('bookmark');  
 
-    $filter_search = array_merge($filter, $where);
+    // initial filter (defined on configuration file)
+    $initial_filter = html_entity_decode($collectionData->initial_filter);
+    // user selected filters (cluster and where)
+    $user_filter = array_merge($filter, $where);
 
     // if is send email, needs to change the from parameter, or my selection
     if(isset($params['is_email'])) {
@@ -175,8 +179,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);
     $dia->setParam('sort', $sort);
+    $dia->setParam('initial_filter', $initial_filter );
 
-    $dia_response = $dia->search($q, $index, $filter_search, $from);
+    $dia_response = $dia->search($q, $index, $user_filter, $from);
     $result = json_decode($dia_response, true);
    
     // detailed query
