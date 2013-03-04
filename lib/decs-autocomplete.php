@@ -8,6 +8,8 @@ $query = str_replace(" ","+",$query);
 $query = remove_accents($query);
 $query = $query . "*";
 
+$jsoncallback = $_REQUEST['callback'];
+
 $lang = trim($_REQUEST['lang']);
 
 $service_url = "http://srv.bvsalud.org/decsQuickTerm/search?query=" . $query . "&lang=" . $lang;
@@ -34,6 +36,10 @@ $result = array(
 			);
 $result_json = json_encode($result);
 
-header("Content-type: text/plain; charset: utf8");
-echo $result_json;
+if (isset($jsoncallback) &&  $jsoncallback != ''){
+    $result_json = $jsoncallback . "(" . $result_json . ")";
+}
+
+header("Content-type: application/json;charset=UTF-8");
+echo trim($result_json);
 ?>

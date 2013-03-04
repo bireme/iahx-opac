@@ -19,7 +19,7 @@
                   source: function( request, response ) {
                     $.ajax({
                       url: '{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php?lang={{ lang }}',
-                      dataType: "json",
+                      dataType: "jsonp",
                       data: {
                         count: 30,
                         query: request.term
