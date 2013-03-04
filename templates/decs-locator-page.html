@@ -5,25 +5,62 @@
 
 {% block extrahead %}
     <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/decs-locator.css" type="text/css" media="screen">  
-    <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/jquery.autocomplete.js"></script>
+
+    <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/jquery-ui-1.10.1.custom.min.js
+"></script>
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/ui-lightness/jquery-ui-1.10.1.custom.min.css" type="text/css" media="screen">  
 
     <script>
-        // autocomplete
-        var options, a;
-        $(document).ready(function() {            
-            options = {
-                        'serviceUrl':'{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php?lang={{ lang }}',
-                        'minChars': 3,
-                        'noCache': true,
-                        'onSelect': submit_tree_id
-                      };
-            a = $('#query').autocomplete(options);
-        });            
 
+        // autocomplete
+        $(document).ready(function() {
+
+             $( "#query" ).autocomplete({
+                  source: function( request, response ) {
+                    $.ajax({
+                      url: '{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php?lang={{ lang }}',
+                      dataType: "json",
+                      data: {
+                        count: 30,
+                        query: request.term
+                      },
+                      success: function( data ) {
+                        response( $.map( data.descriptors, function( item ) {
+                          return {
+                            label: __highlight(item.name, request.term),
+                            value: item.id
+                          }
+                        }));
+                      }
+                    });
+                  },                  
+                  select: function( event, ui){
+                    submit_tree_id(ui.item.value);
+                  },
+                  minLength: 3,
+             })
+             .data('ui-autocomplete')._renderItem = function( ul, item ) {
+                    return $( "<li></li>" )
+                        .data( "ui-autocomplete-item", item )
+                        .append( '<a>' + item.label + '</a>' )
+                        .appendTo( ul );
+            };             
+
+        });
+
+        function __highlight(s, t) {
+            var matcher = new RegExp("("+$.ui.autocomplete.escapeRegex(t)+")", "ig" );
+            return s.replace(matcher, "<strong>$1</strong>");
+        }
+
+        // submit autocomplete form
+        function submit_tree_id(value){
+            $("#tree_id").val(value);
+            $("#searchForm").submit();
+        }
 
         function view_tree(id){            
-            $("#tree_id").val(id);
-            
+            $("#tree_id").val(id);            
             $("#searchForm").submit();
         }
 
@@ -31,11 +68,7 @@
         $(document).ready(function () {
             $('ul.tree li:last-child').addClass('last');
         });            
-        // submit autocomplete form
-        function submit_tree_id(value, data){
-            $("#tree_id").val(data);
-            $("#searchForm").submit();
-        }
+
 
         // submit search form
         function make_search_query(){
@@ -106,7 +139,6 @@
 
         {# CASE 1:  LEVEL 0 OF DECS HIERARCY #}
         {% if decs.tree.term_list.term is defined %}
-            
             <ul class="tree">
                 {% for t_list in decs.tree.term_list %}
                     {% if t_list.attributes.lang == lang %}
