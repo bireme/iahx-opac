@@ -133,7 +133,7 @@ function change_sort(obj){
 }
 
 function cochrane_lnk( lnk,refDB,refID ){
-    
+
     form = document.searchForm;
     lang = form.lang.value;
     if (lang == "pt"){ oneLetterLang = "p"; }
@@ -143,15 +143,20 @@ function cochrane_lnk( lnk,refDB,refID ){
     db = refDB.substr(refDB.indexOf("-")+1);
     db = db.toLowerCase();
 
-    if (db == 'bandolier' || db == 'agencias' || db == 'kovacs' || db == 'evidargent' || db == 'clibplusrefs' || db == 'gestion'){
+    if (db == 'bandolier' || db == 'agencias' || db == 'kovacs' || db == 'evidargent' || db == 'clibplusrefs' || db == 'gestion' || db == 'reviews-plus'){
         lib = 'BCP';
     }else{
         lib = 'COC';
     }
-    
+
+    if (db == 'reviews-plus'){
+        db = 'reviews';
+        refID = refID.substr(0, refID.indexOf('_'));
+    }
+
     refUrl = "http://cochrane.bvsalud.org/doc.php?db=" + db + "&id=" + refID + "&lib=" + lib;
 
     lnk.href = refUrl;
-    
+
     return true;
 }
