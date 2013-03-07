@@ -72,6 +72,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $output_array['texts'] = $texts;
     $output_array['tree_id_category'] = substr($tree_id,0,1);
     $output_array['params'] = $params;
+    $output_array['config'] = $config;
 
     return $app['twig']->render( 'decs-locator-page.html', $output_array );     
 
