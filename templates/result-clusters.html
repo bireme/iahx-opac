@@ -39,14 +39,15 @@
                 <div class="buttons" data-spy="affix" id="affix" data-offset-top="300">
                     <button type="submit" class="submit">{{texts.FILTER}}</button>
                 </div>
-                    <div class="expand_retract">
-                        <a href="javascript:show_all_clusters();" title="{{texts.EXPAND_ALL}}"><i class="icon-plus-sign"></i>{{texts.EXPAND_ALL}}</a>
-                        <a href="javascript:hide_all_clusters();" title="{{texts.RETRACT_ALL}}"><i class="icon-minus-sign"></i>{{texts.RETRACT_ALL}}</a>
-                    </div>
-
+                <div class="expand_retract">
+                    <a href="javascript:show_all_clusters();" title="{{texts.EXPAND_ALL}}"><i class="icon-plus-sign"></i>{{texts.EXPAND_ALL}}</a>
+                    <a href="javascript:hide_all_clusters();" title="{{texts.RETRACT_ALL}}"><i class="icon-minus-sign"></i>{{texts.RETRACT_ALL}}</a>
+                </div>
+                <!-- used for show more values (facet browse)-->
+                <input type="hidden" name="fb" value="">
 
                 {% for key, value in params %}
-                    {% if key != "filter" and key != "submit" %}
+                    {% if key != "filter" and key != "submit" and key != "fb" %}
                         {% if key == "from" or key == "page" %}
                             <input type="hidden" name="{{ key }}" value="1">
                         {% else %}

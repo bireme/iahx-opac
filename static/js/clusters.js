@@ -47,12 +47,12 @@ function toggle_cluster(name) {
 
 function show_more_clusters (cluster, limit) {
 
-    var form = document.searchForm;
+    var form = document.getElementById("form_clusters");
     // add anchor name for go to cluster position after reload page
     form.action = form.action + "#" + cluster;
     form.fb.value = cluster + ":" + limit;
 
-    $("#searchForm").submit();
+    $("#form_clusters").submit();
 
     form.fb.value == "";
     return false;
