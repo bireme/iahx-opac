@@ -306,6 +306,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             return $response->sendHeaders();
             break;
 
+        case "metasearch":
+            $response = new Response($app['twig']->render('export-metasearch.html', $output_array));
+            $response->headers->set('Content-type', 'text/xml');
+            return $response->sendHeaders();
+            break;
+
         case "ris":
             $response = new Response($app['twig']->render('export-ris.html', $output_array));
             $response->headers->set('Content-Type', 'application/force-download');
