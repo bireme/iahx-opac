@@ -19,6 +19,7 @@ Filters
     lower
     striptags
     join
+    split
     reverse
     abs
     length
@@ -29,4 +30,6 @@ Filters
     raw
     merge
     slice
+    first
+    last
     trim

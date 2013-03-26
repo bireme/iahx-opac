@@ -29,7 +29,7 @@ class RedisMock
     }
 
     /**
-     * Add a memcached server to connection pool
+     * Add a server to connection pool
      *
      * @param string  $host
      * @param integer $port
@@ -237,5 +237,18 @@ class RedisMock
         $this->storage[$key] = serialize($value);
 
         return true;
+    }
+    
+    public function select($dbnum)
+    {
+        if (!$this->connected) {
+            return false;
+        }
+        
+        if (0 > $dbnum) {
+            return false;
+        }
+        
+        return true;   
     }
 }

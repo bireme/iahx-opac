@@ -48,7 +48,7 @@ Many IDEs support syntax highlighting and auto-completion for Twig:
 
 * *Textmate* via the `Twig bundle`_
 * *Vim* via the `Jinja syntax plugin`_
-* *Netbeans* via the `Twig syntax plugin`_
+* *Netbeans* via the `Twig syntax plugin`_ (until 7.1, native as of 7.2)
 * *PhpStorm* (native as of 2.1)
 * *Eclipse* via the `Twig plugin`_
 * *Sublime Text* via the `Twig bundle`_
@@ -57,6 +57,7 @@ Many IDEs support syntax highlighting and auto-completion for Twig:
 * *Coda 2* via the `other Twig syntax mode`_
 * *Komodo* and *Komodo Edit* via the Twig highlight/syntax check mode
 * *Notepad++* via the `Notepad++ Twig Highlighter`_
+* *Emacs* via `web-mode.el`_
 
 Variables
 ---------
@@ -189,6 +190,56 @@ progression of integers:
 
 Go to the :doc:`functions<functions/index>` page to learn more about the
 built-in functions.
+
+Named Arguments
+---------------
+
+.. versionadded:: 1.12
+    Support for named arguments was added in Twig 1.12.
+
+Arguments for filters and functions can also be passed as *named arguments*:
+
+.. code-block:: jinja
+
+    {% for i in range(low=1, high=10, step=2) %}
+        {{ i }},
+    {% endfor %}
+
+Using named arguments makes your templates more explicit about the meaning of
+the values you pass as arguments:
+
+.. code-block:: jinja
+
+    {{ data|convert_encoding('UTF-8', 'iso-2022-jp') }}
+
+    {# versus #}
+
+    {{ data|convert_encoding(from='iso-2022-jp', to='UTF-8') }}
+
+Named arguments also allow you to skip some arguments for which you don't want
+to change the default value:
+
+.. code-block:: jinja
+
+    {# the first argument is the date format, which defaults to the global date format if null is passed #}
+    {{ "now"|date(null, "Europe/Paris") }}
+
+    {# or skip the format value by using a named argument for the timezone #}
+    {{ "now"|date(timezone="Europe/Paris") }}
+
+You can also use both positional and named arguments in one call, which is not
+recommended as it can be confusing:
+
+.. code-block:: jinja
+
+    {# both work #}
+    {{ "now"|date('d/m/Y H:i', timezone="Europe/Paris") }}
+    {{ "now"|date(timezone="Europe/Paris", 'd/m/Y H:i') }}
+
+.. tip::
+
+    Each function and filter documentation page has a section where the names
+    of all arguments are listed when supported.
 
 Control Structure
 -----------------
@@ -395,6 +446,8 @@ By default, the ``escape`` filter uses the ``html`` strategy, but depending on
 the escaping context, you might want to explicitly use any other available
 strategies:
 
+.. code-block:: jinja
+
     {{ user.username|e('js') }}
     {{ user.username|e('css') }}
     {{ user.username|e('url') }}
@@ -438,10 +491,14 @@ expression:
 
     {{ '{{' }}
 
-For bigger sections it makes sense to mark a block :doc:`raw<tags/raw>`.
+For bigger sections it makes sense to mark a block
+:doc:`verbatim<tags/verbatim>`.
 
 Macros
 ------
+
+.. versionadded:: 1.12
+    Support for default argument values was added in Twig 1.12.
 
 Macros are comparable with functions in regular programming languages. They
 are useful to reuse often used HTML fragments to not repeat yourself.
@@ -478,6 +535,15 @@ current namespace via the :doc:`from<tags/from>` tag and optionally alias them:
         <dd>{{ input_field('password', '', 'password') }}</dd>
     </dl>
 
+A default value can also be defined for macro arguments when not provided in a
+macro call:
+
+.. code-block:: jinja
+
+    {% macro input(name, value = "", type = "text", size = 20) %}
+        <input type="{{ type }}" name="{{ name }}" value="{{ value|e }}" size="{{ size }}" />
+    {% endmacro %}
+
 Expressions
 -----------
 
@@ -503,8 +569,9 @@ exist:
 
 * ``"Hello World"``: Everything between two double or single quotes is a
   string. They are useful whenever you need a string in the template (for
-  example as arguments to function calls, filters or just to extend or
-  include a template).
+  example as arguments to function calls, filters or just to extend or include
+  a template). A string can contain a delimiter if it is preceded by a
+  backslash (``\``) -- like in ``'It\'s good'``.
 
 * ``42`` / ``42.23``: Integers and floating point numbers are created by just
   writing the number down. If a dot is present the number is a float,
@@ -542,6 +609,11 @@ Arrays and hashes can be nested:
 
     {% set foo = [1, {"foo": "bar"}] %}
 
+.. tip::
+
+    Using double-quoted or single-quoted strings has no impact on performance
+    but string interpolation is only supported in double-quoted strings.
+
 Math
 ~~~~
 
@@ -551,7 +623,7 @@ but exists for completeness' sake. The following operators are supported:
 * ``+``: Adds two objects together (the operands are casted to numbers). ``{{
   1 + 1 }}`` is ``2``.
 
-* ``-``: Substracts the second number from the first one. ``{{ 3 - 2 }}`` is
+* ``-``: Subtracts the second number from the first one. ``{{ 3 - 2 }}`` is
   ``1``.
 
 * ``/``: Divides two numbers. The returned value will be a floating point
@@ -654,6 +726,9 @@ tests.
 Other Operators
 ~~~~~~~~~~~~~~~
 
+.. versionadded:: 1.12.0
+    Support for the extended ternary operator was added in Twig 1.12.0.
+
 The following operators are very useful but don't fit into any of the other
 categories:
 
@@ -669,7 +744,15 @@ categories:
 
 * ``.``, ``[]``: Gets an attribute of an object.
 
-* ``?:``: The PHP ternary operator: ``{{ foo ? 'yes' : 'no' }}``
+* ``?:``: The ternary operator:
+
+  .. code-block:: jinja
+
+      {{ foo ? 'yes' : 'no' }}
+
+      {# as of Twig 1.12.0 #}
+      {{ foo ?: 'no' }} == {{ foo ? foo : 'no' }}
+      {{ foo ? 'yes' }} == {{ foo ? 'yes' : '' }}
 
 String Interpolation
 ~~~~~~~~~~~~~~~~~~~~
@@ -678,8 +761,8 @@ String Interpolation
     String interpolation was added in Twig 1.5.
 
 String interpolation (`#{expression}`) allows any valid expression to appear
-within a string. The result of evaluating that expression is inserted into the
-string:
+within a *double-quoted string*. The result of evaluating that expression is
+inserted into the string:
 
 .. code-block:: jinja
 
@@ -754,3 +837,4 @@ Extension<creating_extensions>` chapter.
 .. _`Twig syntax mode`:           https://github.com/bobthecow/Twig-HTML.mode
 .. _`other Twig syntax mode`:     https://github.com/muxx/Twig-HTML.mode
 .. _`Notepad++ Twig Highlighter`: https://github.com/Banane9/notepadplusplus-twig
+.. _`web-mode.el`:                http://web-mode.org/

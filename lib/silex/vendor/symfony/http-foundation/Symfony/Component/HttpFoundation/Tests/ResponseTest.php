@@ -143,6 +143,10 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $now = $this->createDateTimeNow();
         $response->headers->set('Date', $now->format(DATE_RFC2822));
         $this->assertEquals(0, $now->diff($response->getDate())->format('%s'), '->getDate() returns the date when the header has been modified');
+
+        $response = new Response('', 200);
+        $response->headers->remove('Date');
+        $this->assertInstanceOf('\DateTime', $response->getDate());
     }
 
     public function testGetMaxAge()
@@ -159,6 +163,11 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response->headers->set('Cache-Control', 'must-revalidate');
         $response->headers->set('Expires', $this->createDateTimeOneHourLater()->format(DATE_RFC2822));
         $this->assertEquals(3600, $response->getMaxAge(), '->getMaxAge() falls back to Expires when no max-age or s-maxage directive present');
+
+        $response = new Response();
+        $response->headers->set('Cache-Control', 'must-revalidate');
+        $response->headers->set('Expires', -1);
+        $this->assertEquals('Sat, 01 Jan 00 00:00:00 +0000', $response->getExpires()->format(DATE_RFC822));
 
         $response = new Response();
         $this->assertNull($response->getMaxAge(), '->getMaxAge() returns null if no freshness information available');
@@ -210,6 +219,11 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response = new Response();
         $response->expire();
         $this->assertFalse($response->headers->has('Age'), '->expire() does nothing when the response does not include freshness information');
+
+        $response = new Response();
+        $response->headers->set('Expires', -1);
+        $response->expire();
+        $this->assertNull($response->headers->get('Age'), '->expire() does not set the Age when the response is expired');
     }
 
     public function testGetTtl()
@@ -223,7 +237,12 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
 
         $response = new Response();
         $response->headers->set('Expires', $this->createDateTimeOneHourAgo()->format(DATE_RFC2822));
-        $this->assertLessThan(0, $response->getTtl(), '->getTtl() returns negative values when Expires is in part');
+        $this->assertLessThan(0, $response->getTtl(), '->getTtl() returns negative values when Expires is in past');
+
+        $response = new Response();
+        $response->headers->set('Expires', $response->getDate()->format(DATE_RFC2822));
+        $response->headers->set('Age', 0);
+        $this->assertSame(0, $response->getTtl(), '->getTtl() correctly handles zero');
 
         $response = new Response();
         $response->headers->set('Cache-Control', 'max-age=60');
@@ -307,6 +326,75 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $this->assertEquals('text/css; charset=UTF-8', $response->headers->get('Content-Type'));
     }
 
+    public function testNoCacheControlHeaderOnAttachmentUsingHTTPSAndMSIE()
+    {
+        // Check for HTTPS and IE 8
+        $request = new Request();
+        $request->server->set('HTTPS', true);
+        $request->server->set('HTTP_USER_AGENT', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)');
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertFalse($response->headers->has('Cache-Control'));
+
+        // Check for IE 10 and HTTPS
+        $request->server->set('HTTP_USER_AGENT', 'Mozilla/5.0 (compatible; MSIE 10.0; Windows NT 6.1; WOW64; Trident/6.0)');
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertTrue($response->headers->has('Cache-Control'));
+
+        // Check for IE 9 and HTTPS
+        $request->server->set('HTTP_USER_AGENT', 'Mozilla/5.0 (compatible; MSIE 9.0; Windows NT 7.1; Trident/5.0)');
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertTrue($response->headers->has('Cache-Control'));
+
+        // Check for IE 9 and HTTP
+        $request->server->set('HTTPS', false);
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertTrue($response->headers->has('Cache-Control'));
+
+        // Check for IE 8 and HTTP
+        $request->server->set('HTTP_USER_AGENT', 'Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0)');
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertTrue($response->headers->has('Cache-Control'));
+
+        // Check for non-IE and HTTPS
+        $request->server->set('HTTPS', true);
+        $request->server->set('HTTP_USER_AGENT', 'Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.17 (KHTML, like Gecko) Chrome/24.0.1312.60 Safari/537.17');
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertTrue($response->headers->has('Cache-Control'));
+
+        // Check for non-IE and HTTP
+        $request->server->set('HTTPS', false);
+
+        $response = new Response();
+        $response->headers->set('Content-Disposition', 'attachment; filename="fname.ext"');
+        $response->prepare($request);
+
+        $this->assertTrue($response->headers->has('Cache-Control'));
+    }
+
     public function testPrepareDoesNothingIfContentTypeIsSet()
     {
         $response = new Response('foo');
@@ -345,6 +433,23 @@ class ResponseTest extends \PHPUnit_Framework_TestCase
         $response->prepare($request);
 
         $this->assertEquals('', $response->getContent());
+    }
+
+    public function testPrepareSetsPragmaOnHttp10Only()
+    {
+        $request = Request::create('/', 'GET');
+        $request->server->set('SERVER_PROTOCOL', 'HTTP/1.0');
+
+        $response = new Response('foo');
+        $response->prepare($request);
+        $this->assertEquals('no-cache', $response->headers->get('pragma'));
+        $this->assertEquals('-1', $response->headers->get('expires'));
+
+        $request->server->set('SERVER_PROTOCOL', 'HTTP/1.1');
+        $response = new Response('foo');
+        $response->prepare($request);
+        $this->assertFalse($response->headers->has('pragma'));
+        $this->assertFalse($response->headers->has('expires'));
     }
 
     public function testSetCache()
