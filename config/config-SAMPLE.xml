@@ -83,6 +83,11 @@
             		<name>abstract</name>
             	</format>	
             </format_list>
+            <!-- restrict list of clusters to show on result. If not set show all availables on solrconf.xml -->
+            <!--cluster_list>
+                <cluster>collection</cluster>
+                <cluster>tag_brasil</cluster>
+            </cluster_list-->            
 		</collection>
 	</search_collection_list>
 </dia_config>

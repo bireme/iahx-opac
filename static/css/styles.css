@@ -206,6 +206,10 @@ DIV.resultServices DIV.refineSearch UL LI, DIV.resultServices DIV.yourSelection 
 	color: #696969;
 	font-size:11px;
 }
+DIV.resultServices DIV.refineSearch UL LI.subtopic{
+	margin-left: 23px !important;
+}
+
 .refineSearch {
 	border-top: 2px solid #cecece !important;
 }
