@@ -83,6 +83,9 @@ DIV.search DIV.searchForm SELECT.inputText {
     width: 180px;
     margin-top: 2px;
 }
+INPUT.defaultValue {
+    color: #ccc;
+}
 
 DIV.resultNavigation {
     float: right;
