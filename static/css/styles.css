@@ -26,21 +26,27 @@ a{
 	color: #07449f;
 	}
 .container{
-	    margin: 0 auto;
+	margin: 0 auto;
     max-width: 1004px;
     min-width: 780px;
     position: relative;
 	}
-DIV.top {
-}
 DIV.identification H2 {
 	font-weight: normal;
 	font-size: 100%;
 	text-transform: lowercase;
 }
+DIV.identification {
+    margin-left: 80px;
+    float: left;
+}
 DIV.identification H1 {
 	font-size: 140%;
 	color: #22268E;
+    padding: 93px 0px 0px 190px;
+}
+DIV.identification H2{
+    
 }
 DIV.otherVersions A {
 	color: #ffffff;
@@ -206,10 +212,6 @@ DIV.resultServices DIV.refineSearch UL LI, DIV.resultServices DIV.yourSelection 
 	color: #696969;
 	font-size:11px;
 }
-DIV.resultServices DIV.refineSearch UL LI.subtopic{
-	margin-left: 23px !important;
-}
-
 .refineSearch {
 	border-top: 2px solid #cecece !important;
 }
@@ -283,11 +285,12 @@ DIV.resultSet DIV.infoBar DIV.pagination A {
 DIV.resultSet DIV.record {
 	border-bottom: 1px solid #e5e5e5;
 }
-
+.record:hover {
+    background: #f9fcfe;
+}
 DIV.resultSet DIV.record DIV.user-actions A,
 DIV.resultSet DIV.record DIV.user-actions A:visited {
 	text-decoration: none;
-	color: #121212000;
 }
 DIV.user-actions SPAN {
 	vertical-align: middle;
@@ -311,7 +314,6 @@ DIV.record DIV.data A {
 	text-decoration: none;
 }
 DIV.record DIV.data A:hover {
-	xtext-decoration: underline;
 	color: #344c66;
 
 }
@@ -488,7 +490,6 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	top: 0px;
 	left: 0px;
 	z-index: 100;
-	background: #121212000;
 	opacity: 0.55 !important;
 	filter:alpha(opacity=55);
 }
@@ -539,7 +540,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	margin-left: 555px;
 }
 .identificationBar span:hover {
-	cursor: hand;
+	cursor: pointer
 }
 #megaBox ul.menu {
 	margin: 0px;
@@ -655,7 +656,6 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	margin-top: 6px;
 	width: 500px;
 	padding: 7px;
-	
 }
 
 

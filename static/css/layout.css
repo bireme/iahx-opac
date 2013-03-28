@@ -1,3 +1,12 @@
+DIV.spacer {
+    width: 100%;
+    margin: 0px;
+    padding: 0px;
+    float: none;
+    font-size: 1px;
+    height: 1px;
+    clear: both;
+}
 DIV.resultsBar .orderBy,BODY, FORM {
     margin: 0px;
     padding: 0px;
@@ -7,17 +16,16 @@ UL{
 }
 DIV.top {
     clear: both;
-    height: 9px;
+    height:91px;
     padding: 12px 6px 6px 6px;
     position: relative;
-	background: #344C66;
 }
 DIV.parent {
     float: left;
     margin-right: 14px;
-    width: 77px;
-	margin-top: 30px;
-	heigth: 60px; !important
+    
+	
+	height: 60px !important;
 }
 DIV.identification {
     width: 500px;
@@ -26,10 +34,9 @@ DIV.identification H1, DIV.identification H2 {
     margin: 0px;
 }
 DIV.otherVersions {
-    position: absolute;
-    right: 6px;
     text-align: right;
-    top: 5px;
+    padding: 6px 6px 0px 0px;
+	height: 20px;
 }
 DIV.otherVersions A {
     margin-left: 10px;
@@ -52,7 +59,6 @@ DIV.resourcesArea {
 DIV.content {
     clear: both;
     padding: 6px 6px 6px 6px;
-	margin-top: 100px;
 }
 DIV.search DIV.informationTypes {
     padding-left: 50px;
@@ -83,9 +89,6 @@ DIV.search DIV.searchForm SELECT.inputText {
     width: 180px;
     margin-top: 2px;
 }
-INPUT.defaultValue {
-    color: #ccc;
-}
 
 DIV.resultNavigation {
     float: right;
@@ -95,8 +98,6 @@ DIV.resultNavigation {
 	
 }
 DIV.resultsBar {
-    xxborder-bottom: 2px solid #D9E2E8;
-    xxborder-top: 2px solid #D9E2E8;
     float: right;
     margin: 0px 0px 4px 0px;
     padding: 5px 0px;
@@ -256,8 +257,7 @@ DIV.results {
     clear: both;
 }
 DIV.results DIV.resultServices {
-  float: right;
-    xmargin-right: 6px;
+	float: right;
     width: 230px;
 }
 DIV.results DIV.resultServices DIV.filters {
@@ -279,6 +279,13 @@ DIV.resultServices DIV.refineSearch UL, #fulltext {
 }
 DIV #fulltext {
     margin: 0 0 15px;
+}
+#fulltext strong {
+    background: none !important;
+}
+
+#fulltext.closed strong {
+    background: none !important;
 }
 
 DIV.resultServices DIV.refineSearch UL LI {
@@ -427,7 +434,6 @@ DIV.resultSet DIV.infoBar {
     text-align: right;
 }
 DIV.resultSet DIV.infoBar DIV.pagination SPAN {
-    //margin-left: 14px;
     margin-left: 6px;
 }
 
