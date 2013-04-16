@@ -1,6 +1,6 @@
 <div class="feed">
-    <a class="RSS" href="javascript:change_output('rss');" title="Exibir resultado em RSS"><span>RSS</span></a>
-    <a class="XML" href="javascript:change_output('xml');" title="Exibir resultado em XML"><span>XML</span></a>
+    <a class="RSS" href="javascript:change_output('rss');" title="{{ texts.SHOW_RSS }}"><span>RSS</span></a>
+    <a class="XML" href="javascript:change_output('xml');" title="{{ texts.SHOW_XML }}"><span>XML</span></a>
 </div>
 
 <div class="actions">
@@ -13,21 +13,21 @@
             {{ texts.PRINT }}
             <ul>
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">            
                     <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
                         {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">            
                     <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
                         {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">            
                     <a href="javascript:print();" alt="{{ texts.PRINT }}">
                         {{ texts.ALL_REFERENCES_LIMIT }}
                     </a>
