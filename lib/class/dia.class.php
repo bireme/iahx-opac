@@ -93,7 +93,7 @@ class Dia
             ## FIX: actually mh_cluster and pt_cluster facets are DeCS codified that are decodified by the controller
             ## its necessary use the normal prefix mh or pt when do a search
             $search_prefix  = $name;
-            if ( $name == 'pt_cluster' || $name == 'mh_cluster' ){ 
+            if ( $name == 'pt_cluster' || $name == 'mh_cluster' || $name == 'mj_cluster' ){ 
                 $search_prefix = str_replace('_cluster', '', $name);
             }            
             $new_filter[] = $search_prefix . ':("' . join('" OR "', $filter[$name]) . '")';
