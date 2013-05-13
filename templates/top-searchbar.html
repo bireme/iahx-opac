@@ -1,5 +1,9 @@
 <div class="search">
+    {% if params.q is defined and params.q|length > 2048 %}
+      <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="POST">
+    {% else %}  
     <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
+    {% endif %}    
         
         <div class="searchForm">
                 <input type="hidden" name="output" id="output" value="{{ output }}">

@@ -44,6 +44,11 @@ function search() {
     }
 
     search_form.q.value = query;
+    if (query.length >= 2048) {
+        search_form.method = "POST";
+    } else {
+        search_form.method = "GET";
+    }
     search_form.submit();
 
     return false;
