@@ -21,6 +21,7 @@
 	<related_min_score>40</related_min_score>
 	<google_analytics_tracking_id></google_analytics_tracking_id>
 	<maintenance>false</maintenance>
+	<feedback_id></feedback_id>
 
 	<search_collection_list>
 		<collection>

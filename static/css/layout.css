@@ -46,9 +46,7 @@ DIV.otherVersions A IMG {
 }
 DIV.feedback {
     position: absolute;
-    right: 180px;
-    text-align: right;
-    top: 3px;
+    top: 5px;
 }
 DIV.resourcesArea {
     position: absolute;

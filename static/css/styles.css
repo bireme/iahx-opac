@@ -66,6 +66,9 @@ DIV.otherVersions A.selected IMG, DIV.otherVersions A:hover IMG {
 	filter: Alpha(Opacity=100);
 	opacity: 1;
 }
+DIV.feedback A{
+	text-decoration: none;
+}
 DIV.search DIV.informationTypes A {
 	color: #00f;
 	text-decoration: underline;

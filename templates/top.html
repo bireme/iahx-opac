@@ -1,4 +1,9 @@
 <div class="topbar">
+    {% if config.feedback_id is defined and config.feedback_id != '' %}
+    <div class="feedback">
+        <a href="http://feedback.bireme.org/feedback/?application=iahx&version={% include("version.txt") %}&lang={{ lang }}&site={{ config.feedback_id }}">{{ texts.FEEDBACK_SERVICE }}</a>
+    </div>
+    {% endif %}
     <div class="otherVersions">
         {% for langcode, item in texts.AVAILABLE_LANGUAGES %}
             <a href="javascript:change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="selected" {% endif %}>{{ item }}</a>
