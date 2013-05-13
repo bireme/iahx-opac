@@ -1,7 +1,12 @@
 <div class="refineSearch">
 	<div class="spacer"></div>
 	<strong>{{ texts.SEARCH_DETAIL_BOX }}</strong>
-	<form action="" id="form_custom_search" method="GET">
+	
+	{% if params.q is defined and params.q|length >= 2048 %}
+      <form action="" id="form_custom_search" method="POST">
+    {% else %}  
+      <form action="" id="form_custom_search" method="GET">
+    {% endif %}
 	    {% for key, value in params %}
 	        {% if key != "filter" and key != "q" %}
 	            {% if key == "from" or key == "page" %}
