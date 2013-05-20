@@ -1,7 +1,95 @@
+var next_line = 3;
+
+// show/refresh index list
+function show_index(line, update){
+
+    element_id = $(line).attr("id");
+    block_id = element_id.substring(element_id.lastIndexOf('-') + 1);
+    if (!update){
+        $('#list-' + block_id).toggle();
+    }
+
+    init = $('#input-' + block_id).val();
+    index = $('#index-' + block_id).find(':selected').val();
+    options = $('#select-' + block_id);
+
+    options.find('option').remove().end();
+
+    $.getJSON(SEARCH_URL + "browse-index/" + index +"/?init=" + init, function(result) {
+        $.each(result.terms, function() {
+            options.append($("<option />").val(this).text(this));
+        });
+
+    });
+}
+
+// previous keys
+function  show_prev(line) {
+    element_id = $(line).attr("id");
+    block_id = element_id.substring(element_id.lastIndexOf('-') + 1);
+
+    options = $('#select-' + block_id);
+    init = options.find('option:first-child').val();
+
+    options.find('option').remove().end();
+
+    $.getJSON(SEARCH_URL + "browse-index/au/?dir=previous&init=" + init, function(result) {
+        $.each(result.terms, function() {
+            options.append($("<option />").val(this).text(this));
+        });
+    });
+}
+
+function show_next(line) {
+    element_id = $(line).attr("id");
+    block_id = element_id.substring(element_id.lastIndexOf('-') + 1);
+
+    options = $('#select-' + block_id);                
+    init = options.find('option:last-child').val();
+    options.find('option').remove().end();
+
+    $.getJSON(SEARCH_URL + "browse-index/au/?dir=next&init=" + init, function(result) {
+        $.each(result.terms, function() {
+            options.append($("<option />").val(this).text(this));
+        });
+    });
+}
+
+// select one term from index
+function select_term(line){
+    element_id = $(line).attr("id");
+    block_id = element_id.substring(element_id.lastIndexOf('-') + 1);
+
+    query_input = $('#input-' + block_id);
+    selected_key= $('#select-' + block_id).find(':selected').val();                
+    query_input.val('"' + selected_key + '"');
+
+}
+
+
 function add_new_line(obj) {
-    var block = $(".block-q");
+    var previous_line = next_line-1;
+
+    var block = $(".block-q").clone();
+    //alert(block.html());
+    // update id's
+    block.find('#input-2').attr('id', 'input-' + next_line);
+    block.find('#list-2').attr('id', 'list-' + next_line);    
+    block.find('#index-2').attr('id', 'index-' + next_line);
+    block.find('#select-2').attr('id', 'select-' + next_line);
+    block.find('#show-2').attr('id', 'show-' + next_line);
+    block.find('#next-2').attr('id', 'next-' + next_line);
+    block.find('#prev-2').attr('id', 'prev-' + next_line);
+    block.find('#refresh-2').attr('id', 'refresh-' + next_line);
+
+    $('#select-' + next_line).find('option').remove().end();
+    $('#list-' + next_line).css('display', 'none');
+
     var html = block.html();
     var more = $(".more");
+
+    // update counter
+    next_line++;
 
     more.append(html);
 }

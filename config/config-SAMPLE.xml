@@ -22,6 +22,7 @@
 	<google_analytics_tracking_id></google_analytics_tracking_id>
 	<maintenance>false</maintenance>
 	<feedback_id></feedback_id>
+	<browse_index_url></browse_index_url>
 
 	<search_collection_list>
 		<collection>

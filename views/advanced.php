@@ -33,6 +33,7 @@ $app->match('/advanced/', function (Request $request) use ($app, $DEFAULT_PARAMS
     $output_array = array();
     $output_array['lang'] = $lang;
     $output_array['texts'] = $texts;
+    $output_array['config'] = $config;
     $output_array['collectionData'] = $collectionData;
     
     return $app['twig']->render('advanced.html', $output_array);
