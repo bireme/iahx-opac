@@ -6,6 +6,7 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
 
     global $lang, $texts;
 
+    $view = $request->get("view");
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
     $site = $DEFAULT_PARAMS['defaultSite'];
     $col = $DEFAULT_PARAMS['defaultCollection'];
@@ -36,8 +37,12 @@ $app->get('related/{lang}/{id}', function (Request $request, $lang, $id) use ($a
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
     $output_array['debug'] = $app['request']->get('debug');
+
+    if ( !isset($view) || $view == 'desktop'){
+        $view = ''; // default desktop site
+    }
     
-    return $app['twig']->render('related-docs.html', $output_array);     
+    return $app['twig']->render( $view . '/related-docs.html', $output_array);     
 
 });
 

@@ -1,0 +1,20 @@
+{% extends custom_template("mobile/base.html") %}
+
+{% block back_button %}
+    <div class="h-div-back">
+        <a class="b-back" href="#" onclick="history.back(); return false;">Voltar</a>
+    </div>
+{% endblock %}
+
+{% block content %}
+    {{ parent() }}
+
+    {% block results %}
+        {% block result_set %}
+            {% block result_doc %}{% include "mobile/related-list.html" %}{% endblock %}
+        {% endblock %}
+    {% endblock %}
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

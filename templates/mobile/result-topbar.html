@@ -1,0 +1,25 @@
+{% block menu %}
+    <div class="h-div">
+        <span class="h-label">
+            {{ texts.RESULTS }} 
+            <strong>
+                {{ pag.start+1 }} - 
+                {% if pag.start+pag.count <= pag.total %}
+                    {{ pag.start+pag.count }}
+                {% else %}
+                    {{ pag.total }}
+                {% endif %}
+            </strong> de <strong>{{ pag.total_formatted }}</strong>
+        </span>
+        <i class="i-nav-show"></i>
+        <i class="i-nav-hide"></i>
+    </div>
+
+    <nav class="h-nav">
+        <ul class="h-nav-ul">
+            <li class="h-nav-ul-li"><a class="h-nav-ul-lia" href="filters.html">Filtros <i class="i-arrow-right"></i></a></li>
+            <li class="h-nav-ul-li"><a class="h-nav-ul-lia" href="#">Ordenação dos Resultado <i class="i-arrow-right"></i></a></li>
+            <li class="h-nav-ul-li"><a class="h-nav-ul-lia" href="#">Localizar Descritor de Assunto <i class="i-arrow-right"></i></a></li>
+        </ul>
+    </nav>
+{% endblock %}

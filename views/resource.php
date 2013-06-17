@@ -46,7 +46,19 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     // log user action
     log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'detail', $SESSION->getId());
    
-    return $app['twig']->render( custom_template('result-detail.html'), $output_array );     
+    // define interface view (mobile or desktop)    
+    $detect = new Mobile_Detect();
+    $view = $request->get("view");
+
+    if ( !isset($view) || $view == 'desktop'){
+        $view = ''; // default desktop site
+    }else{
+        if ($view == 'mobile' || $detect->isMobile())   {
+            $view = 'mobile';
+        }
+    }
+    
+    return $app['twig']->render( custom_template($view . '/result-detail.html'), $output_array );     
 
 });
 

@@ -1,0 +1,77 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html dir="ltr" lang="{{lang}}" xmlns="http://www.w3.org/1999/xhtml">
+    <head>{% block head %}
+        
+        <meta charset="utf-8">
+        <title>{% block title %}{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }}{% endblock %}</title>
+        
+        <!-- meta-tags -->
+        <meta http-equiv="Expires" content="-1">
+        <meta http-equiv="pragma" content="no-cache">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Language" content="{{ lang }}">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta http-equiv="keywords" content="{{ texts.KEYWORDS }}">
+        <meta http-equiv="description" content="{{ texts.DESCRIPTION }} ">
+
+        <!-- page icon -->
+        <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}image/favicon.ico">
+        <!-- css -->                        
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/mobile/style.css" type="text/css" media="all" />
+
+        <script language="javascript" type="text/javascript">
+            var SEARCH_URL = '{{ constant("SEARCH_URL") }}';
+            var STATIC_URL = '{{ constant("STATIC_URL") }}';
+        </script>
+
+        {% block extrahead %}{% endblock %}
+
+        <noscript>Your browser doesn't support javascript.</noscript>
+    {% endblock %}</head>
+
+    <body {% block onload %}onload="document.searchForm.reset()"{% endblock %}>{% block body %}
+        <form name="language"><input type="hidden" name="lang" value="{{ lang }}"></form>
+        <div class="mobile">{% block container %}
+            
+            <header class="h h-bg">
+                <div class="h-padding">
+                    {% include custom_template("mobile/top.html") %}
+                    {% block searchbar %}{% include custom_template("mobile/top-searchbar.html") %}{% endblock %}
+                    {% block back_button %}{% endblock %}
+                </div>
+            </header>
+            <div class="c">
+                {% block content %}
+                {% endblock %}
+            </div>
+        {% endblock %}</div>
+    {% endblock %}
+    
+    {% block footer %}
+        {% include custom_template("mobile/footer.html") %}
+    {% endblock %}    
+    
+    <!-- javascript load -->
+   <script language="javascript" type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
+    
+    {% block script %}
+
+    {% endblock %}
+
+    {% if config.google_analytics_tracking_id != '' %}
+        <script type="text/javascript">
+          var _gaq = _gaq || [];
+          _gaq.push(['_setAccount', '{{ config.google_analytics_tracking_id }}']);
+          _gaq.push(['_trackPageview']);
+
+          (function() {
+            var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+            ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+            var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+          })();
+        </script>
+    {% endif %}
+
+    </body>
+</html>

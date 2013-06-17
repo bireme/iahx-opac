@@ -2,6 +2,7 @@
 
 require_once 'lib/class/dia.class.php';
 include 'lib/class/log.class.php';
+include 'lib/Mobile_Detect.php';
 
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -327,7 +328,19 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         default: 
-            return $app['twig']->render('index.html', $output_array);
+            // define interface view (mobile or desktop)
+            $detect = new Mobile_Detect();
+
+            if ( !isset($params['view']) || $params['view'] == 'desktop'){
+                $view = ''; // default desktop site
+            }else{
+                if ($params['view'] == 'mobile' || $detect->isMobile())   {
+                    $view = 'mobile';
+                }
+            }
+            
+            return $app['twig']->render($view . '/index.html', $output_array);
+
             break;
     }
 
