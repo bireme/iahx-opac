@@ -19,11 +19,11 @@
                 {% endfor %}
             {% endfor %}
 
-            <label for="q" class="hide">Busca</label>
+    
             <input type="text" name="q" id="q" value="{% if params.q is defined %}{{ params.q }}{% else %}{{ texts.SEARCH_WORDS }}{% endif %}" class="input-search {% if params.q is not defined %}defaultValue{% endif %}" title="{{ texts.SEARCH_WORDS }}" placeholder="{{ texts.SEARCH_WORDS }}" onfocus="if(this.value=='{{ texts.SEARCH_WORDS }}') this.value = '';" onblur="if(this.value=='') this.value = '{{ texts.SEARCH_WORDS }}';" onkeydown="$('#q').removeClass('defaultValue');">
 
             <button class="b-search">{{ texts.SEARCH_SUBMIT }}</button>
-
+            
         </div>
     </form>
 </section>

@@ -38,8 +38,8 @@
                 <div class="h-padding">
                     {% include custom_template("mobile/top.html") %}
                     {% block searchbar %}{% include custom_template("mobile/top-searchbar.html") %}{% endblock %}
-                    {% block back_button %}{% endblock %}
                 </div>
+                {% block back_button %}{% endblock %}
             </header>
             <div class="c">
                 {% block content %}
