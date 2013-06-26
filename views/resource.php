@@ -50,7 +50,11 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     $detect = new Mobile_Detect();
     $view = $request->get("view");
 
-    if ( !isset($view) || $view == 'desktop'){
+    if(!isset($view)) {
+        $view = '';
+    }    
+
+    if ( $view == 'desktop'){
         $view = ''; // default desktop site
     }else{
         if ($view == 'mobile' || $detect->isMobile())   {

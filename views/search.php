@@ -330,11 +330,15 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         default: 
             // define interface view (mobile or desktop)
             $detect = new Mobile_Detect();
+            $view = '';
+            if(isset($params['view']) and $params['view'] != "") {
+                $view = $params['view'];
+            }
 
-            if ( !isset($params['view']) || $params['view'] == 'desktop'){
+            if ($view == 'desktop'){
                 $view = ''; // default desktop site
             }else{
-                if ($params['view'] == 'mobile' || $detect->isMobile())   {
+                if ($view == 'mobile' || $detect->isMobile())   {
                     $view = 'mobile';
                 }
             }
