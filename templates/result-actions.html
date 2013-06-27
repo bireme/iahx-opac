@@ -46,8 +46,10 @@
             <h3>{{ texts.EXPORT_FORMAT }}:</h3>
             <form name="exportForm">
                 <label for="format" class="hide">{{ texts.EXPORT }}</label>
-                <input type="radio" name="format" id="format" value="ris" checked> {{ texts.EXPORT_FORMAT_RIS }}<br>
+                <input type="radio" name="format" id="format" value="ris" checked> {{ texts.EXPORT_FORMAT_RIS }}<br/>
+                <input type="radio" name="format" id="format" value="csv"> {{ texts.EXPORT_FORMAT_CSV }}<br/>
                 <input type="radio" name="format" id="format" value="citation"> {{ texts.EXPORT_FORMAT_CITATION }}
+                
             </form>
             
             <h3>{{ texts.EXPORT }}:</h3>
