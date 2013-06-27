@@ -320,6 +320,16 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             return $response->sendHeaders();
             break;
 
+        case "csv":
+            $csv = $app['twig']->render('export-csv.txt', $output_array);
+            $csv = preg_replace("/\n/", " ", $csv);
+            $csv = preg_replace("/#BR#/", "\n", $csv);
+            $response = new Response($csv);
+            $response->headers->set('Content-Type', 'application/force-download; charset=utf-8');
+            header('Content-Disposition: attachment; filename=export.csv');             
+            return $response->sendHeaders();
+            break;
+
         case "citation":
             $response = new Response($app['twig']->render('export-citation.html', $output_array));
             $response->headers->set('Content-type', 'application/force-download');
@@ -328,21 +338,19 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         default: 
-            // define interface view (mobile or desktop)
-            $detect = new Mobile_Detect();
-            $view = '';
-            if(isset($params['view']) and $params['view'] != "") {
-                $view = $params['view'];
-            }
+            $check_mobile = (bool)$config->mobile_version;
+            $view = $params['view'];
+            if( !isset($view) || $view == 'desktop' ) {
+                $view = ''; // default view desktop
+            }    
 
-            if ($view == 'desktop'){
-                $view = ''; // default desktop site
-            }else{
+            if ($check_mobile){                
+                $detect = new Mobile_Detect();
                 if ($view == 'mobile' || $detect->isMobile())   {
                     $view = 'mobile';
                 }
             }
-            
+
             return $app['twig']->render($view . '/index.html', $output_array);
 
             break;
