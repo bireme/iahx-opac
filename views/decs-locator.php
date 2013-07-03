@@ -9,6 +9,24 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
         $app['request']->query->all()
     );
 
+    // if magic quotes gpc is on, this function clean all parameters and
+    // results that was modified by the directive
+    if (get_magic_quotes_gpc()) {
+        $process = array(&$params);
+        while (list($key, $val) = each($process)) {
+            foreach ($val as $k => $v) {
+                unset($process[$key][$k]);
+                if (is_array($v)) {
+                    $process[$key][stripslashes($k)] = $v;
+                    $process[] = &$process[$key][stripslashes($k)];
+                } else {
+                    $process[$key][stripslashes($k)] = stripslashes($v);
+                }
+            }
+        }
+        unset($process);
+    }
+
     $lang = $DEFAULT_PARAMS['lang'];
     if(isset($params['lang']) and $params['lang'] != "") {
         $lang = $params['lang'];
@@ -73,6 +91,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $output_array['tree_id_category'] = substr($tree_id,0,1);
     $output_array['params'] = $params;
     $output_array['config'] = $config;
+    $output_array['filter_prefix'] = ( isset($config->decs_locate_filter) ? $config->decs_locate_filter : 'mh') ;
 
     return $app['twig']->render( 'decs-locator-page.html', $output_array );     
 

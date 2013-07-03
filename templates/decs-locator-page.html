@@ -84,7 +84,7 @@
                     $('<input>').attr({
                         type: 'hidden',
                         id: 'decslocator_{{qlf}}',
-                        name: 'filter[mh][]',
+                        name: 'filter[{{ filter_prefix }}][]',
                         value: '{{ decs.tree.self.term_list.term }}/' + qlf 
                     }).appendTo( $('#searchForm') );
                 });
@@ -94,7 +94,7 @@
                 $('<input>').attr({
                     type: 'hidden',
                     id: 'decslocator',
-                    name: 'filter[mh][]',
+                    name: 'filter[{{ filter_prefix }}][]',
                     value: '{{ decs.tree.self.term_list.term }}'
                 }).appendTo( $('#searchForm') );
 
