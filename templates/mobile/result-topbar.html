@@ -17,9 +17,17 @@
 
     <nav class="h-nav">
         <ul class="h-nav-ul">
-            <li class="h-nav-ul-li"><a class="h-nav-ul-lia" href="filters.html">Filtros <i class="i-arrow-right"></i></a></li>
-            <li class="h-nav-ul-li"><a class="h-nav-ul-lia" href="#">Ordenação dos Resultado <i class="i-arrow-right"></i></a></li>
-            <li class="h-nav-ul-li"><a class="h-nav-ul-lia" href="#">Localizar Descritor de Assunto <i class="i-arrow-right"></i></a></li>
+            <li class="h-nav-ul-li show-filters">
+                <a class="h-nav-ul-lia" href="#">Filtros <i class="i-arrow-right"></i></a>                
+            </li>
+            {% include custom_template("mobile/result-clusters.html") %}
+            
+            <li class="h-nav-ul-li">
+                <a class="h-nav-ul-lia" href="#">Ordenação dos Resultado <i class="i-arrow-right"></i></a>
+            </li>
+            <li class="h-nav-ul-li">
+                <a class="h-nav-ul-lia" href="#">Localizar Descritor de Assunto <i class="i-arrow-right"></i></a>
+            </li>
         </ul>
     </nav>
 {% endblock %}
