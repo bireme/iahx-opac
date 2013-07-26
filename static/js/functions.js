@@ -93,7 +93,7 @@ function open_chart(obj, titulo, id){
         ma = regex.exec(cluster);
         if (ma != null) {
             clusterTotal = ma[0].replace(/[()]/g,'');
-            params += "&l[]=" + clusterLabel + "&d[]=" + clusterTotal;
+            params += "&l[]=" + clusterLabel.trim() + "&d[]=" + clusterTotal.trim();
         }
     }
     // caso seja o cluster de ano passa parametro para realizar sort
