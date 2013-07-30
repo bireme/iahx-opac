@@ -22,12 +22,28 @@
             </li>
             {% include custom_template("mobile/result-clusters.html") %}
             
-            <li class="h-nav-ul-li">
-                <a class="h-nav-ul-lia" href="#">Ordenação dos Resultado <i class="i-arrow-right"></i></a>
+            <li class="h-nav-ul-li show-orderby">
+                <a class="h-nav-ul-lia" href="#">{{ texts.SORT_OPTIONS }} <i class="i-arrow-right"></i></a>
             </li>
-            <li class="h-nav-ul-li">
-                <a class="h-nav-ul-lia" href="#">Localizar Descritor de Assunto <i class="i-arrow-right"></i></a>
-            </li>
+            <div class="orderby" style="display: none;">
+                {% for sort in collectionData.sort_list.sort %}
+                    {% set sort_label = 'SORT_' ~ sort.name %}
+                    <ul class="c-orderby-ul">
+                    {% if params.sort is defined %}
+                        <li class="c-orderby-li">
+                        {% if sort.name == params.sort %}
+                            <input type="radio"  name="sortBy" value="{{sort.name}}" checked="true" id="{{sort.name}}" /><label for="{{sort.name}}">{{ attribute(texts, sort_label) }}</label>
+                        {% else %}
+                            <input type="radio"  name="sortBy" value="{{sort.name}}" id="{{sort.name}}" /><label for="{{sort.name}}">{{ attribute(texts, sort_label) }}</label>
+                        {% endif %}
+                        </li>
+                    {% else %}
+                        <input type="radio"  name="sortBy" value="{{sort.name}}" id="{{sort.name}}" /><label for="{{sort.name}}">{{ attribute(texts, sort_label) }}</label>
+                    {% endif %}
+                    </ul>
+                {% endfor %}
+            </div>
         </ul>
+        <div class="spacer"></div>
     </nav>
 {% endblock %}

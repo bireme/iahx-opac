@@ -1,6 +1,7 @@
 $(document).ready(function(){
     nav();
     filters();
+    orderby();
 });
 
 function nav(){
@@ -36,7 +37,6 @@ function filters(){
         $('.filters').toggle();
     });
 
-
     $(".c-filters-lia").on("click", function(){
         var element = $(this);
         var filtersHeight = element.siblings(".c-filters-sub").height();
@@ -54,22 +54,22 @@ function filters(){
         }
     });
 
-    $(".c-filters-ck").on("click", function(){
+};
+
+
+function orderby(){
+    var speed = 300;
+    var iShow = "<span class='i-show'></span>";
+    var iHide = "<span class='i-hide'></span>";
+
+    $(".show-orderby").on("click", function(){
         var element = $(this);
-        var pegarID = element.attr("id");
-        var filters = $("#filters-add");
-        var texto = element.siblings(".c-filters-lbl").text();
-
-        if(element.is(":checked")){
-            filters.append("<span id='"+ pegarID +"' class='c-filters-select'><span class='c-filters-remove'></span>"+ texto + "</span>");
-        }else{
-            $("span#"+pegarID).remove();
-        }
-
-        $(".c-filters-remove").on("click", function(){
-            var ID = $(this).parent().attr("id");
-            $("input#"+ID).attr("checked",false);
-            $(this).parent().remove();
-        });
+        $('.orderby').toggle();
     });
+
+    $(".c-orderby-li").on("click", function(){
+        document.searchForm.submit();
+
+    });        
+
 };

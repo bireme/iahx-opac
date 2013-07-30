@@ -42,6 +42,10 @@
                 {% block back_button %}{% endblock %}
             </header>
             <div class="c">
+                {% if filters_formatted|length > 0 %}
+                    {% include custom_template("mobile/selected-clusters.html") %}
+                {% endif %}
+
                 {% block content %}
                 {% endblock %}
             </div>
