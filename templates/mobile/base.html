@@ -31,6 +31,9 @@
     {% endblock %}</head>
 
     <body {% block onload %}onload="document.searchForm.reset()"{% endblock %}>{% block body %}
+
+        <div id="loading" style="display:none;"><span></span></div>
+        
         <form name="language"><input type="hidden" name="lang" value="{{ lang }}"></form>
         <div class="mobile">{% block container %}
             
@@ -80,6 +83,5 @@
           })();
         </script>
     {% endif %}
-
     </body>
 </html>

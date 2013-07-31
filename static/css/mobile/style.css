@@ -95,3 +95,6 @@ img{border:0; max-width: 100%; height: auto;}
 
 /* FOOTER */
 .footer{clear:both;padding:7px;}
+
+/* LOADING */
+#loading { background:url("../../image/mobile/loading.gif") no-repeat center; height: 100px; width: 100px; position: fixed; left: 50%; top: 50%; z-index: 1000; margin: -25px 0 0 -25px; }

@@ -2,6 +2,7 @@ $(document).ready(function(){
     nav();
     filters();
     orderby();
+    submit_form();
 });
 
 function nav(){
@@ -80,3 +81,15 @@ function orderby(){
     });        
 
 };
+
+function submit_form(){
+    $('.c-results-a, .c-filters-lbl, .c-filter-remove').click(function() {
+       $('#loading').show();
+       return true;            
+    });
+
+    $('#searchForm').submit(function() {
+       $('#loading').show();
+       return true;
+    });
+}
