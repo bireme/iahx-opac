@@ -49,16 +49,20 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     $check_mobile = (bool)$config->mobile_version;
     $view = $request->get("view");
 
-    if(!isset($view) || $view == 'desktop') {
-        $view = '';
-    }    
-
-    if ($check_mobile){                
-        $detect = new Mobile_Detect();
-        if ($view == 'mobile' || $detect->isMobile())   {
-            $view = 'mobile';
+    if( $view == 'desktop' ) {   // forced by user desktop version
+        $view = '';              // use default view
+    }else{
+        if ($check_mobile){      //configured to present mobile version
+            $detect = new Mobile_Detect();
+            if ($view == 'mobile' || $detect->isMobile())   {
+                $view = 'mobile';
+            }
         }
     }
+
+    if( !isset($view) ) {
+        $view = '';
+    }    
 
     return $app['twig']->render( custom_template($view . '/result-detail.html'), $output_array );     
 

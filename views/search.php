@@ -341,15 +341,16 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         default: 
             $check_mobile = (bool)$config->mobile_version;
-            $view = $params['view'];
-            if( !isset($view) || $view == 'desktop' ) {
-                $view = ''; // default view desktop
-            }    
+            $view = ( isset($params['view']) ? $params['view'] : '');
 
-            if ($check_mobile){                
-                $detect = new Mobile_Detect();
-                if ($view == 'mobile' || $detect->isMobile())   {
-                    $view = 'mobile';
+            if( $view == 'desktop' ) {   // forced by user desktop version
+                $view = '';              // use default view
+            }else{
+                if ($check_mobile){      //configured to present mobile version
+                    $detect = new Mobile_Detect();
+                    if ($view == 'mobile' || $detect->isMobile())   {
+                        $view = 'mobile';
+                    }
                 }
             }
 
