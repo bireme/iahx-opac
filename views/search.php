@@ -210,7 +210,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
     $range_min = (($page-5) > 0) ? $page-5 : 1;
     $range_max = (($range_min+10) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+10;
+    $range_max_mobile = (($range_min+5) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+5;
     $pag['pages'] = range($range_min, $range_max);
+    $pag['pages_mobile'] = range($range_min, $range_max_mobile);
 
     // HISTORY APP
     $SESSION->start();
@@ -325,7 +327,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             $csv = preg_replace("/\n/", " ", $csv);
             $csv = preg_replace("/#BR#/", "\n", $csv);
             $response = new Response($csv);
-            $response->headers->set('Content-Type', 'application/force-download; charset=utf-8');
+            $response->headers->set('Content-Type', 'text/csv; charset=utf-8');            
             header('Content-Disposition: attachment; filename=export.csv');             
             return $response->sendHeaders();
             break;

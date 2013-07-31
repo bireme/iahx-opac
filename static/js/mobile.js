@@ -13,7 +13,7 @@ function nav(){
         $(".i-nav-hide").show();
 
         $(".h-nav").css({"height":"0px", "display":"block"}).stop().animate({"height":navHeight},speed);
-        $('.c-results-list').hide();
+        $('.resultSet').hide();
     });
 
     $(".i-nav-hide").on("click", function(){
@@ -23,7 +23,7 @@ function nav(){
         $(".h-nav").stop().animate({"height":"0px"}, speed, function(){
             $(this).hide();
         });
-        $('.c-results-list').show();
+        $('.resultSet').show();
     });
 };
 
@@ -68,6 +68,13 @@ function orderby(){
     });
 
     $(".c-orderby-li").on("click", function(){
+        var element = $(this);
+        var form = document.searchForm;
+        
+        var new_sort = $('input[name=sortBy]:checked').val();
+
+        form.sort.value = new_sort;
+
         document.searchForm.submit();
 
     });        

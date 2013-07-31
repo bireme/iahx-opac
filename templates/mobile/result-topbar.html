@@ -26,22 +26,22 @@
                 <a class="h-nav-ul-lia" href="#">{{ texts.SORT_OPTIONS }} <i class="i-arrow-right"></i></a>
             </li>
             <div class="orderby" style="display: none;">
+                <ul class="c-orderby-ul">
                 {% for sort in collectionData.sort_list.sort %}
                     {% set sort_label = 'SORT_' ~ sort.name %}
-                    <ul class="c-orderby-ul">
-                    {% if params.sort is defined %}
-                        <li class="c-orderby-li">
+                    <li class="c-orderby-li">
+                    {% if params.sort is defined %}                        
                         {% if sort.name == params.sort %}
                             <input type="radio"  name="sortBy" value="{{sort.name}}" checked="true" id="{{sort.name}}" /><label for="{{sort.name}}">{{ attribute(texts, sort_label) }}</label>
                         {% else %}
                             <input type="radio"  name="sortBy" value="{{sort.name}}" id="{{sort.name}}" /><label for="{{sort.name}}">{{ attribute(texts, sort_label) }}</label>
-                        {% endif %}
-                        </li>
+                        {% endif %}                        
                     {% else %}
                         <input type="radio"  name="sortBy" value="{{sort.name}}" id="{{sort.name}}" /><label for="{{sort.name}}">{{ attribute(texts, sort_label) }}</label>
-                    {% endif %}
-                    </ul>
+                    {% endif %} 
+                    </li>                   
                 {% endfor %}
+                </ul>
             </div>
         </ul>
         <div class="spacer"></div>

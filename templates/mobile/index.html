@@ -27,7 +27,9 @@
                 {% block result_set %}
                     <div class="resultSet">
                         {% block result_doc %}{% include custom_template( "mobile/result-format-summary.html" ) %}{% endblock %}
+                        {% block result_navigation %}{% include custom_template("mobile/result-navigation.html") %}{% endblock %}
                     </div>
+
                 {% endblock %}
 
             </div>
