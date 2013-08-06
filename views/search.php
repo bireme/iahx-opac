@@ -103,6 +103,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $sort = "";
+    $sort_value = "";
     if(isset($params['sort']) and $params['sort'] != "Array") {
         
         $sort = $params['sort'];
@@ -111,7 +112,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         foreach($collectionData->sort_list->sort as $item) {
             if($sort == $item->name) {
                 $exists = true;
-                $sort = (string) urlencode($item->value);
+                $sort_value = (string) urlencode($item->value);
                 break;
             }
         }
@@ -121,7 +122,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         
     }
     if ($sort == ""){
-        $sort = getDefaultSort($collectionData, $q);
+        $sort_value = getDefaultSort($collectionData, $q);
     }
 
     $format = $DEFAULT_PARAMS['defaultDisplayFormat'];
@@ -179,7 +180,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // Dia response
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);
-    $dia->setParam('sort', $sort);
+    $dia->setParam('sort', $sort_value);
     $dia->setParam('initial_filter', $initial_filter );
 
     $dia_response = $dia->search($q, $index, $user_filter, $from);
