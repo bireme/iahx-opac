@@ -238,6 +238,22 @@ function remove_accents($string) {
     return $string;
 }
 
+function normalize_line_end($s) {
+    define('CR', "\r");          // Carriage Return: Mac
+    define('LF', "\n");          // Line Feed: Unix
+    define('CRLF', "\r\n");      // Carriage Return and Line Feed: Windows
+    define('BR', '<br />' . LF); // HTML Break    
+
+    // Normalize line endings using Global
+    // Convert all line-endings to Windows format
+    $s = str_replace(CR, CRLF, $s);
+    $s = str_replace(LF, CRLF, $s);
+    
+    // Don't allow out-of-control blank lines
+    $s = preg_replace("/\n{2,}/", CRLF, $s);
+
+    return $s;
+}
 
 /* Twig Extensions */
 function custom_template($filename) {

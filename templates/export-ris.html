@@ -33,7 +33,6 @@ EP  - {{ doc.pg.0 }}
 {% endif %}
 {% if doc.da %}
 DA  - {{ doc.da|slice(0,4) }}/{{ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{ doc.da|slice(6,2) }}{% endif %}
-
 PY  - {{ doc.da|slice(0,4) }}
 {% endif %}
 {% for mesh in doc.mh %}

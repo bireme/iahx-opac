@@ -1,12 +1,13 @@
 {% spaceless %}
-"type","author(s)","title","source","database","id","language","publication year","descriptor(s)","country","fulltext url"
+Title,Author(s),Source,Journal,Database,Type,ID,Language,Publication year,Descriptor(s),Publication Country,Fulltext URL
 #BR#
 {%- for doc in docs -%}
-"{{ doc.type.0 }}",
-"{% for author in doc.au %}{{ author }}{% if not loop.last %}; {% endif %}{% endfor %}",
 "{% for title in doc.ti %}{{ title }}{% if not loop.last %}/ {% endif %}{% endfor %}",
+"{% for author in doc.au %}{{ author }}{% if not loop.last %}, {% endif %}{% endfor %}",
 "{{ doc.fo.0 }}",
+"{{ doc.ta.0 }}",
 "{{ doc.db.0|default(doc.db) }}",
+"{{ doc.type.0 }}",
 "{{ doc.id|substring_after('-') }}",
 "{{ doc.la[0] }}",
 "{{ doc.da|slice(0,4) }}",

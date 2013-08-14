@@ -317,7 +317,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "ris":
-            $response = new Response($app['twig']->render('export-ris.html', $output_array));
+            $ris = $app['twig']->render('export-ris.html', $output_array);
+            $ris = normalize_line_end($ris);
+            $response = new Response($ris);
             $response->headers->set('Content-Type', 'application/force-download');
             header('Content-Disposition: attachment; filename=export.ris');             
             return $response->sendHeaders();
@@ -325,11 +327,14 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         case "csv":
             $csv = $app['twig']->render('export-csv.txt', $output_array);
-            $csv = preg_replace("/\n/", " ", $csv);
-            $csv = preg_replace("/#BR#/", "\n", $csv);
+            $csv = preg_replace("/\n/", " ", $csv);                 //Remove line end
+            $csv = preg_replace("/#BR#/", "\r\n", $csv);            //Windows Line end
+
             $response = new Response($csv);
-            $response->headers->set('Content-Type', 'text/csv; charset=utf-8');            
-            header('Content-Disposition: attachment; filename=export.csv');             
+            $response->headers->set('Content-Encoding', 'UTF-8');
+            $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+            header('Content-Disposition: attachment; filename=export.csv');
+            echo "\xEF\xBB\xBF"; // UTF-8 BOM
             return $response->sendHeaders();
             break;
 
