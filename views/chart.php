@@ -2,6 +2,7 @@
 
 include_once 'lib/class/chart.class.php';
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
 
 $app->match('chart/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
 
@@ -57,6 +58,19 @@ $app->match('chart/', function (Request $request) use ($app, $DEFAULT_PARAMS, $c
         
         $g->pie_values( $data, $labels );
         $g->pie_slice_colours( array('#d01f3c','#356aa0','#C79810','#FFCC99','#009933','#FF99FF','#33FFFF','#CCCC99','#330033','#00CCFF','#CCCCCC','#FFCC00','#FF0033','#660000','#FFCCCC','#33FF33','#FF6633' ) );
+
+    }else if ($type == 'export-csv'){
+
+        $csv_out =  "Label,Value\r\n";
+        for ( $i = 0; $i < count($data); $i++ ){
+            $csv_out .= '"' . $labels[$i] . '","' . $data[$i] . '"' . "\r\n";
+        }
+        $response = new Response($csv_out);
+        $response->headers->set('Content-Encoding', 'UTF-8');
+        $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
+        header('Content-Disposition: attachment; filename=export_cluster.csv');
+        echo "\xEF\xBB\xBF"; // UTF-8 BOM
+        return $response->sendHeaders();
 
     }else{
 
