@@ -1,8 +1,14 @@
 {% spaceless %}
 {% for doc in docs %}
-{% if doc.type == "article" %}TY  - JOUR{% endif %}
-{% if doc.type == "non-conventional" %}TY  - GEN{% endif %}
-{% if doc.type == "book" %}TY  - BOOK{% endif %}
+{% if doc.type.0 == "article" %}
+TY  - JOUR
+{% endif %}
+{% if doc.type.0 == "non-conventional" %}
+TY  - GEN
+{% endif %}
+{% if doc.type.0 == "book" %}
+TY  - BOOK
+{% endif %}
 {% for author in doc.au %}
 AU  - {{ author }}
 {% endfor %}
