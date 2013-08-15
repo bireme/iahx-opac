@@ -46,9 +46,9 @@
             <h3>{{ texts.EXPORT_FORMAT }}:</h3>
             <form name="exportForm">
                 <label for="format" class="hide">{{ texts.EXPORT }}</label>
-                <input type="radio" name="format" id="format" value="ris" checked> {{ texts.EXPORT_FORMAT_RIS }}<br/>
-                <input type="radio" name="format" id="format" value="csv"> {{ texts.EXPORT_FORMAT_CSV }}<br/>
-                <input type="radio" name="format" id="format" value="citation"> {{ texts.EXPORT_FORMAT_CITATION }}
+                <input type="radio" name="format" id="format_ris" value="ris" checked><label for="format_ris"> {{ texts.EXPORT_FORMAT_RIS }}</label><br/>
+                <input type="radio" name="format" id="format_csv" value="csv"><label for="format_csv"> {{ texts.EXPORT_FORMAT_CSV }}</label><br/>
+                <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
                 
             </form>
             
@@ -56,21 +56,21 @@
             <ul>
                 <li>
                     <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
-                    <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.EXPORT }}">
+                    <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.THIS_PAGE }}">
                         {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
                     <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
-                    <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.EXPORT }}">
+                    <a href="javascript:export_result();" title="{{ texts.YOUR_SELECTION }}">
                         {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
                     <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
-                    <a href="javascript:export_result();" title="{{ texts.PRINT }}">
+                    <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}">
                         {{ texts.ALL_REFERENCES }}
                     </a>
                 </li>

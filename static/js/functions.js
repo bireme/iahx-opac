@@ -61,7 +61,7 @@ function export_result(count) {
     if(count)
         form.count.value = count;
     else 
-        form.count.value = 300;
+        form.count.value = -1;
 
     change_output(output);
 }

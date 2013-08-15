@@ -7,6 +7,7 @@
 	<search_server>srv.bvsalud.org</search_server>
 	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
 	<documents_per_page>20</documents_per_page>
+    <max_export_records>2000</max_export_records>
 	<default_lang>pt</default_lang>
 	<log_user_search>true</log_user_search>	
 	<log_dir>./logs/</log_dir>

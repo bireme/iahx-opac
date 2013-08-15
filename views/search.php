@@ -177,6 +177,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
     }
     
+    // change MAX_COUNT for export operation
+    if (($output == 'ris' || $output == 'csv' || $output == 'citation') && $count == '-1'){
+        ini_set('memory_limit', '-1');  // overrides the default PHP memory limit.
+        if ($config->max_export_records){
+            $count = $config->max_export_records;
+        }else{
+            $count = $config->documents_per_page * 1000;
+        }
+        
+    }
+
     // Dia response
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);
