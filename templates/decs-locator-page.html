@@ -120,6 +120,7 @@
 
         function postMsg(descriptor) {
             window.opener.postMessage(descriptor, '*');
+            window.close();
         }
     </script>
 {% endblock %}
