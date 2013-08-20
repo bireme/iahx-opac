@@ -1,14 +1,26 @@
 {% extends custom_template("base.html") %}
 
+{% block top %}
+    {% if mode != 'dataentry' %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
+{% block footer %}
+    {% if mode != 'dataentry' %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
+
 {% block script %}{% endblock %}
 {% block onload %}{% endblock %}
 
 {% block extrahead %}
-    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/decs-locator.css" type="text/css" media="screen">  
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/decs-locator.css" type="text/css" media="screen">
 
     <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/jquery-ui-1.10.1.custom.min.js
 "></script>
-    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/ui-lightness/jquery-ui-1.10.1.custom.min.css" type="text/css" media="screen">  
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}css/ui-lightness/jquery-ui-1.10.1.custom.min.css" type="text/css" media="screen">
 
     <script>
 
@@ -33,7 +45,7 @@
                         }));
                       }
                     });
-                  },                  
+                  },
                   select: function( event, ui){
                     submit_tree_id(ui.item.value);
                   },
@@ -44,7 +56,7 @@
                         .data( "ui-autocomplete-item", item )
                         .append( '<a>' + item.label + '</a>' )
                         .appendTo( ul );
-            };             
+            };
 
         });
 
@@ -59,15 +71,15 @@
             $("#searchForm").submit();
         }
 
-        function view_tree(id){            
-            $("#tree_id").val(id);            
+        function view_tree(id){
+            $("#tree_id").val(id);
             $("#searchForm").submit();
         }
 
         // css tree view
         $(document).ready(function () {
             $('ul.tree li:last-child').addClass('last');
-        });            
+        });
 
 
         // submit search form
@@ -78,19 +90,19 @@
               return this.value;
             }).get();
 
-            // if user select qualifiers make combination query 
+            // if user select qualifiers make combination query
             if (qlf_selected.length > 0){
-                $.each(qlf_selected, function(index, qlf){                    
+                $.each(qlf_selected, function(index, qlf){
                     $('<input>').attr({
                         type: 'hidden',
                         id: 'decslocator_{{qlf}}',
                         name: 'filter[{{ filter_prefix }}][]',
-                        value: '{{ decs.tree.self.term_list.term }}/' + qlf 
+                        value: '{{ decs.tree.self.term_list.term }}/' + qlf
                     }).appendTo( $('#searchForm') );
                 });
 
             }else{
-                
+
                 $('<input>').attr({
                     type: 'hidden',
                     id: 'decslocator',
@@ -100,16 +112,28 @@
 
             }
 
-            $("#searchForm").attr('action', '{{ constant("SEARCH_URL") }}');            
-            
+            $("#searchForm").attr('action', '{{ constant("SEARCH_URL") }}');
+
             $('#searchForm').submit();
-            
+
+        }
+
+        function postMsg(descriptor) {
+            window.opener.postMessage(descriptor, '*');
         }
     </script>
 {% endblock %}
 
 {% block content %}
-    {% block breadcrumb %}{% include custom_template("top-breadcrumb.html") %}{% endblock %}
+    {% block breadcrumb %}
+        {% if mode != 'dataentry' %}
+            {% include custom_template("top-breadcrumb.html") %}
+        {% else %}
+            <div class="resultsFor">
+                <a href="#">Fechar</a>
+            </div>
+        {% endif %}
+    {% endblock %}
     <h2> {{ texts.DECS_LOOKUP }}</h2>
 
     <form action="" name="lookup" id="searchForm">
@@ -129,12 +153,12 @@
             {% endif %}
         {% endfor %}
 
-        <input type="hidden" name="tree_id" id="tree_id" value=""/>       
+        <input type="hidden" name="tree_id" id="tree_id" value=""/>
         <input type="text" name="term" id="query" class="text-input" autocomplete="off" />
 
     </form>
 
-    <div id="hierarchy">            
+    <div id="hierarchy">
         <h2><a href="#" onclick="view_tree('')">{{ texts.HIERARCHY }}</a></h2>
 
         {# CASE 1:  LEVEL 0 OF DECS HIERARCY #}
@@ -145,32 +169,32 @@
                         {% for term in t_list %}
                             <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
                         {% endfor %}
-                    {% endif %}    
+                    {% endif %}
                 {% endfor %}
             </ul>
 
         {% else %}
-            
+
             {# CASE 2:  TERM WITH ANCESTORS #}
             {% if decs.tree.ancestors.term_list.term is defined %}
-                {% set tree_count = 1 %} 
+                {% set tree_count = 1 %}
 
-                {% for i_tree in ancestors_i_tree %} 
-                    
+                {% for i_tree in ancestors_i_tree %}
+
                     {% for current_term in i_tree %}
                         <ul class="tree">
                             <li>
                                 {% if loop.first %}{{ tree_count }}.{% endif %} <a href="#" onclick="view_tree('{{ current_term|substring_before('|') }}')">{{ current_term|substring_after('|') }} </a>
                             </li>
-                            
+
                             {% if loop.last and tree_count == 1 %}
 
-                                <ul> <!-- preceding_sibling - self -->                        
+                                <ul> <!-- preceding_sibling - self -->
                                     {% if decs.tree.preceding_sibling.term_list.term is defined %}
                                         <li><!-- preceding_sibling --></li>
                                         {% for term in decs.tree.preceding_sibling.term_list.term %}
                                             <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
-                                        
+
                                         {% endfor %}
                                     {% endif %}
 
@@ -179,7 +203,7 @@
                                     <ul> <!-- descending -->
                                         {% if decs.tree.descendants.term_list.term is defined %}
                                             <li><!-- descendants --></li>
-                                            {% for term in decs.tree.descendants.term_list.term %}                                                   
+                                            {% for term in decs.tree.descendants.term_list.term %}
                                                 <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
                                             {% endfor %}
                                         {% endif %}
@@ -191,11 +215,11 @@
                                             <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
                                         {% endfor %}
                                     {% endif %}
-                                </ul> <!-- /preceding_sibling - self -->     
+                                </ul> <!-- /preceding_sibling - self -->
 
                             {% endif %}
 
-                        
+
                     {% endfor %}
 
                     {# add at final term for the last tree #}
@@ -212,19 +236,19 @@
                     <br/>
 
                     {% set tree_count = tree_count + 1 %}
-                
-                {% endfor %}                    
+
+                {% endfor %}
 
             {% else %}  {# else if dont have ancestors #}
 
-                {# CASE 3:  TERM WITHOUT ANCESTORS #}                
+                {# CASE 3:  TERM WITHOUT ANCESTORS #}
                 <ul class="tree"> <!-- descending -->
                     <li>{{ decs.tree.self.term_list.term }}</a></li>
                     <ul>
                         {% if decs.tree.descendants.term_list.term is defined %}
                             <li><!-- descendants --></li>
                             {% for term in decs.tree.descendants.term_list.term %}
-                                <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>                                
+                                <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
                             {% endfor %}
                         {% endif %}
                     </ul>
@@ -233,10 +257,10 @@
             {% endif %} {# close if have ancestors #}
 
         {% endif %}
-    </div>        
+    </div>
     <div id="details">
         {% if decs.record_list.record is defined %}
-            <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger">                    
+            <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger">
                 {% if lang == 'pt' %}
                     <h2>{{ decs.record_list.record.descriptor_list.descriptor.2 }}
                     / <small>{{ decs.record_list.record.descriptor_list.descriptor.0 }}
@@ -251,12 +275,17 @@
                     / {{ decs.record_list.record.descriptor_list.descriptor.2 }}</small></h2>
                 {% endif %}
 
-                <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn-custom btn-large" />
+                {% if mode is defined and mode == 'dataentry'%}
+                    <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}');" class="btn-custom btn-large" />
+                {% else %}
+                    <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn-custom btn-large" />
+                {% endif %}
+
                 <div class="spacer"></div>
 
                 {% if decs.record_list.record.definition.occ.attributes.n != '' or decs.record_list.record.synonym_list.synonym != '' %}
                     <div class="definition">
-                        {{ decs.record_list.record.definition.occ.attributes.n }}                        
+                        {{ decs.record_list.record.definition.occ.attributes.n }}
                         {% if decs.record_list.record.synonym_list.synonym %}
                             <div class="syn">
                                 {{ texts.SYNONYMS }}:

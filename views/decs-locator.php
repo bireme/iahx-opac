@@ -32,8 +32,8 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
         $lang = $params['lang'];
     }
 
-    $tree_id = $request->get("tree_id");
-    //$tree_id = "D02.065.589.099.750.124";
+    $tree_id = $request->get("tree_id");  // "D02.065.589.099.750.124";
+    $mode = $request->get("mode");        // allow mode dataentry
 
     $decs_service_url = "http://decs.bvs.br/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang . "&tree_id=" . $tree_id;
 
@@ -49,7 +49,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
 
     // start session
     $SESSION = $app['session'];
-    $SESSION->start();    
+    $SESSION->start();
 
     //print_r($decs_xml);
 
@@ -75,7 +75,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
                 $next_tree_id = preg_split('/\|/', $ancestors_tree[$i+1]);
 
                 if ( strlen($current_tree_id[0]) > strlen($next_tree_id[0]) ) {
-                    $tree++;            
+                    $tree++;
                 }
             }
 
@@ -91,9 +91,10 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $output_array['tree_id_category'] = substr($tree_id,0,1);
     $output_array['params'] = $params;
     $output_array['config'] = $config;
+    $output_array['mode'] = $mode;
     $output_array['filter_prefix'] = ( isset($config->decs_locate_filter) ? $config->decs_locate_filter : 'mh') ;
 
-    return $app['twig']->render( 'decs-locator-page.html', $output_array );     
+    return $app['twig']->render( 'decs-locator-page.html', $output_array );
 
 });
 
