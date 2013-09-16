@@ -14,7 +14,7 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     if ( $config->show_related_docs == "true"){
         $dia_response = $dia->related($id);
     }else{
-        $dia_response = $dia->search("id:" . $id);
+        $dia_response = $dia->search('id:"' . $id . '"');
     }
     $result = json_decode($dia_response, true);
 
@@ -29,23 +29,23 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
     $output_array['collectionData'] = $collectionData;
 
-    if ( $config->show_related_docs == "true"){        
+    if ( $config->show_related_docs == "true"){
         $output_array['doc'] = $result['diaServerResponse'][0]['match']['docs'][0];
         $output_array['maxScore'] = $result['diaServerResponse'][0]['response']['maxScore'];
         $output_array['related_docs'] = $result['diaServerResponse'][0]['response']['docs'];
-    }else{        
+    }else{
         $output_array['doc'] = $result['diaServerResponse'][0]['response']['docs'][0];
     }
     $output_array['config'] = $config;
-    $output_array['texts'] = $texts;    
+    $output_array['texts'] = $texts;
 
     // start session
     $SESSION = $app['session'];
-    $SESSION->start();    
+    $SESSION->start();
 
     // log user action
     log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'detail', $SESSION->getId());
-   
+
     $check_mobile = (bool)$config->mobile_version;
     $view = $request->get("view");
 
@@ -62,9 +62,9 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
 
     if( !isset($view) ) {
         $view = '';
-    }    
+    }
 
-    return $app['twig']->render( custom_template($view . '/result-detail.html'), $output_array );     
+    return $app['twig']->render( custom_template($view . '/result-detail.html'), $output_array );
 
 });
 
