@@ -316,7 +316,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "rss":
-            $response = new Response($app['twig']->render('export-rss.html', $output_array));
+            $response = new Response($app['twig']->render( custom_template('export-rss.html'), $output_array));
             $response->headers->set('Content-type', 'text/xml');
             return $response->sendHeaders();
             break;
@@ -328,7 +328,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "ris":
-            $ris = $app['twig']->render('export-ris.html', $output_array);
+            $ris = $app['twig']->render( custom_template('export-ris.html'), $output_array);
             $ris = normalize_line_end($ris);
             $response = new Response($ris);
             $response->headers->set('Content-Type', 'application/force-download');
@@ -337,7 +337,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "csv":
-            $csv = $app['twig']->render('export-csv.txt', $output_array);
+            $csv = $app['twig']->render( custom_template('export-csv.txt'), $output_array);
             $csv = preg_replace("/\n/", " ", $csv);                 //Remove line end
             $csv = preg_replace("/#BR#/", "\r\n", $csv);            //Windows Line end
 
@@ -350,7 +350,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "citation":
-            $response = new Response($app['twig']->render('export-citation.html', $output_array));
+            $response = new Response($app['twig']->render( custom_template('export-citation.html'), $output_array));
             $response->headers->set('Content-type', 'application/force-download');
             header('Content-Disposition: attachment; filename=export.txt');             
             return $response->sendHeaders();
