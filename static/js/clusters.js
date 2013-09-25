@@ -1,20 +1,10 @@
 function remove_filter(id) {
-
-    // filters = $("#form_clusters input[type=checkbox]");
-    
-    // // se os checkboxs existirem
-    // if(filters.length > 0) {
-
-    //     // varre todos os itens e da check no de valor "item"
-    //     filters.each(function(){
-    //         if($(this).val() == item) {
-    //             $(this).attr('checked', false);
-    //         }
-    //     });
-    
-    // }
-
-    $("#"+id).attr("checked", false);
+    if ( $("#"+id).is(":visible") ) {
+        $("#"+id).attr("checked", false);
+    }else{
+        // remove hidden file
+        $("#"+id).remove();    
+    }
     $("#form_clusters").submit();
 }
 
