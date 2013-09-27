@@ -62,7 +62,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     if(isset($params['q']) and $params['q'] != "") {
         $q = $params['q'];
     }
-    
+
     $index = "";
     if(isset($params['index']) and $params['index'] != "") {
         $index = $params['index'];
@@ -85,7 +85,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         foreach($collectionData->where_list->where as $item) {
             if($item->name == $where) {
                 $where = (string) $item->filter;
-                
+
                 if(!empty($where)) {
 
                     $where = explode(":", $where);
@@ -100,14 +100,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 break;
             }
         }
+    } else {
+        list($param_where, $where) = getDefaultWhere($collectionData, $q);
+        $params['where'] = $param_where;
     }
 
     $sort = "";
     $sort_value = "";
     if(isset($params['sort']) and $params['sort'] != "Array") {
-        
+
         $sort = $params['sort'];
-        
+
         $exists = false;
         foreach($collectionData->sort_list->sort as $item) {
             if($sort == $item->name) {
@@ -117,9 +120,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             }
         }
 
-        if(!$exists)                    
+        if(!$exists)
             $sort = "";
-        
+
     }
     if ($sort == ""){
         $sort_value = getDefaultSort($collectionData, $q);
@@ -147,7 +150,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // bookmark
     $SESSION = $app['session'];
     $SESSION->start();
-    $bookmark = $SESSION->get('bookmark');  
+    $bookmark = $SESSION->get('bookmark');
 
     // initial filter (defined on configuration file)
     $initial_filter = html_entity_decode($collectionData->initial_filter);
@@ -166,17 +169,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         if(isset($email['selection'])) {
             if($email['selection'] == "my_selection") {
-                
+
                 $from = 1;
                 $q = '+id:("' . join(array_keys($bookmark), '" OR "') . '")';
-            } 
+            }
             elseif($email['selection'] == "all_results") {
                 $from = 1;
                 $count = 300;
             }
         }
     }
-    
+
     // change MAX_COUNT for export operation
     if (($output == 'ris' || $output == 'csv' || $output == 'citation') && $count == '-1'){
         ini_set('memory_limit', '-1');  // overrides the default PHP memory limit.
@@ -185,7 +188,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }else{
             $count = $config->documents_per_page * 1000;
         }
-        
+
     }
 
     // Dia response
@@ -196,7 +199,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     $dia_response = $dia->search($q, $index, $user_filter, $from);
     $result = json_decode($dia_response, true);
-   
+
     // detailed query
     $solr_param_q = $result['diaServerResponse'][0]['responseHeader']['params']['q'];
     $solr_param_fq = $result['diaServerResponse'][0]['responseHeader']['params']['fq'];
@@ -205,18 +208,18 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }elseif ($solr_param_q != '*:*'){
         $detailed_query = $solr_param_q;
     }elseif ($solr_param_fq != ''){
-        $detailed_query = $solr_param_fq;    
+        $detailed_query = $solr_param_fq;
     }
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-    
+
     // pagination
     $pag = array();
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];
         $pag['total_formatted'] = number_format($pag['total'], 0, ',', '.');
-        $pag['start'] = $result['diaServerResponse'][0]['response']['start'];    
+        $pag['start'] = $result['diaServerResponse'][0]['response']['start'];
         $pag['total_pages'] = (($pag['total']/$count) % 10 == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
         $pag['count'] = $count;
     }
@@ -229,9 +232,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // HISTORY APP
     $SESSION->start();
     if(!$SESSION->has("history")) {
-        $SESSION->set('history', array());   
+        $SESSION->set('history', array());
     }
-    
+
     $history = $SESSION->get('history');
 
     // if doesn't exists a search history with this query, was created
@@ -239,19 +242,19 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $history[$q]['url'] = $_SERVER['REQUEST_URI'];
         $history[$q]['id'] = md5($q . $_SERVER['REQUEST_URI']);
         $history[$q]['time'] = time();
-    } 
+    }
 
     // if exists a search history with this query, but the paramaters are different,
     // update this parameters
     else if(isset($history[$q]) and $history[$q] != $q) {
         $history[$q]['url'] = $_SERVER['REQUEST_URI'];
         $history[$q]['id'] = md5($q . $_SERVER['REQUEST_URI']);
-        $history[$q]['time'] = time();    
+        $history[$q]['time'] = time();
     }
-    
-    $SESSION->set('history', $history);   
+
+    $SESSION->set('history', $history);
     $SESSION->save();
-    
+
 
     // output vars
     $output_array = array();
@@ -263,7 +266,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['sort'] = $sort;
     $output_array['format'] = $format;
     $output_array['from'] = $from;
-    $output_array['count'] = $count;    
+    $output_array['count'] = $count;
     $output_array['output'] = $output;
     $output_array['collectionData'] = $collectionData;
     $output_array['params'] = $params;
@@ -284,7 +287,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         $output_array['email'] = $email;
 
-        $render = $app['twig']->render('export-email.html', $output_array);        
+        $render = $app['twig']->render('export-email.html', $output_array);
         $subject = ($email['subject'] != '' ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
         $message = \Swift_Message::newInstance()
@@ -299,20 +302,20 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             $output_array['flash_message'] = 'MAIL_FAIL';
         }
 
-    }  
+    }
 
-    log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq, 
+    log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq,
                     $page, $output, $SESSION->getId(), $format, $params['sort']);
 
     // output
     switch($output) {
-        
+
         case "xml": case "sol":
             return new Response($dia_response, 200, array("Content-type" => "text/xml"));
             break;
-            
+
         case "print":
-            return $app['twig']->render('print.html', $output_array); 
+            return $app['twig']->render('print.html', $output_array);
             break;
 
         case "rss":
@@ -332,7 +335,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             $ris = normalize_line_end($ris);
             $response = new Response($ris);
             $response->headers->set('Content-Type', 'application/force-download');
-            header('Content-Disposition: attachment; filename=export.ris');             
+            header('Content-Disposition: attachment; filename=export.ris');
             return $response->sendHeaders();
             break;
 
@@ -352,11 +355,11 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         case "citation":
             $response = new Response($app['twig']->render( custom_template('export-citation.html'), $output_array));
             $response->headers->set('Content-type', 'application/force-download');
-            header('Content-Disposition: attachment; filename=export.txt');             
+            header('Content-Disposition: attachment; filename=export.txt');
             return $response->sendHeaders();
             break;
 
-        default: 
+        default:
             $check_mobile = (bool)$config->mobile_version;
             $view = ( isset($params['view']) ? $params['view'] : '');
 

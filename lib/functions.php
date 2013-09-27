@@ -21,7 +21,7 @@ function translate($label, $group=NULL) {
     return ucfirst(str_replace("_", " ", $label));
 }
 
-// funcao retirada da pagina http://www.php.net/utf8_encode 
+// funcao retirada da pagina http://www.php.net/utf8_encode
 function isUTF8($string){
     if (is_array($string)) {
         $enc = implode('', $string);
@@ -64,9 +64,9 @@ function getDefaultSort($colectionData, $q){
         foreach( $colectionData->sort_list->sort as $sortItem  ){
             // seleciona primeito item do config como default
             if ( $count == 0){
-                $sortValue = $sortItem->value;              
+                $sortValue = $sortItem->value;
             }
-            // caso a query esteja vazia verifica se o item possue default_for_empty_query  
+            // caso a query esteja vazia verifica se o item possue default_for_empty_query
             if ( $q == '' && isset($sortItem->default_for_empty_query) ){
                 $sortValue = $sortItem->value;
             }
@@ -75,6 +75,40 @@ function getDefaultSort($colectionData, $q){
     }
     return urlencode($sortValue);
 }
+
+function getDefaultWhere($colectionData, $q){
+    $whereValue = '';
+    $param_where = '';
+    $where = array();
+    $count = 0;
+    if ( isset($colectionData->where_list) ){
+        foreach( $colectionData->where_list->where as $whereItem  ){
+            // seleciona primeito item do config como default
+            if ( $count == 0 && $whereItem->filter != ''){
+                $whereValue = $whereItem->filter;
+                $param_where = $whereItem->name;
+            }
+            // caso a query esteja vazia verifica se o item possue default_for_empty_query
+            if ( $q == '' && isset($whereItem->default_for_empty_query) && $whereItem->filter != '' ){
+                $whereValue = $whereItem->filter;
+                $param_where = $whereItem->name;
+            }
+            $count++;
+        }
+    }
+    // always return where in array format
+    if( !empty($whereValue) ) {
+        $where = explode(":", $whereValue);
+        $where[1] = str_replace('("', "", $where[1]);
+        $where[1] = str_replace('")', "", $where[1]);
+        $where = array($where[0] => array($where[1]));
+    }else{
+        $where = array();
+    }
+    return array( $param_where,$where ) ;
+}
+
+
 // function to work when PHP directive magic_quotes_gpc is OFF
 function addslashes_array($a){
     if(is_array($a)){
@@ -92,7 +126,7 @@ function addslashes_array($a){
 /* Log User Actions */
 
 function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $page, $output, $session_id, $format ='', $sort = ''){
-    global $config, $DEFAULT_PARAMS; 
+    global $config, $DEFAULT_PARAMS;
 
     // set default values
     $col = ($col != '' ? $col : $DEFAULT_PARAMS['defaultCollection']);
@@ -105,7 +139,7 @@ function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $p
     $output = ($output != ''? $output : "site");
 
     // log user action
-    if ($config->log_user_search == 'true' ){        
+    if ($config->log_user_search == 'true' ){
         $log = new Log();
         $log->fields['ip']   = $_SERVER["REMOTE_ADDR"];
         $log->fields['lang'] = $lang;
@@ -123,7 +157,7 @@ function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $p
         $log->fields['sort'] = $sort;
 
         $log->writeLog();
-    }    
+    }
 
 
 }
@@ -242,13 +276,13 @@ function normalize_line_end($s) {
     define('CR', "\r");          // Carriage Return: Mac
     define('LF', "\n");          // Line Feed: Unix
     define('CRLF', "\r\n");      // Carriage Return and Line Feed: Windows
-    define('BR', '<br />' . LF); // HTML Break    
+    define('BR', '<br />' . LF); // HTML Break
 
     // Normalize line endings using Global
     // Convert all line-endings to Windows format
     $s = str_replace(CR, CRLF, $s);
     $s = str_replace(LF, CRLF, $s);
-    
+
     // Don't allow out-of-control blank lines
     $s = preg_replace("/\n{2,}/", CRLF, $s);
 
@@ -259,16 +293,16 @@ function normalize_line_end($s) {
 function custom_template($filename) {
     if( file_exists(CUSTOM_TEMPLATE_PATH . $filename) ) {
         return str_replace(TEMPLATE_PATH, "", CUSTOM_TEMPLATE_PATH) . $filename;
-    } 
-    
+    }
+
     return $filename;
 }
 
 function occ($params) {
     $separator = ', ';
 
-    extract($params); 
-    
+    extract($params);
+
     if ( is_array($element) ){
         for ($occ = 0; $occ <  count($element); $occ++) {
             if ($occ > 0){
@@ -286,10 +320,10 @@ function occ($params) {
         }else{
             $output = $element[$occ];
         }
-    }    
+    }
 
     return $output;
-    
+
 }
 
 function filter_substring_after($text, $needle = '-'){
@@ -317,7 +351,7 @@ function filter_starts_with($text, $needle){
     $needle = trim($needle);
 
     $length = strlen($needle);
-   
+
     return (substr($text, 0, $length) === $needle);
 }
 
@@ -334,5 +368,19 @@ function filter_truncate($text, $length = 30, $preserve = false, $separator = '.
 
     return $text;
 }
+
+function filter_slugify($text) {
+    // replace non letter or digits by -
+    $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+
+    // trim
+    $text = trim($text, '-');
+
+    // lowercase
+    $text = strtolower($text);
+
+    return $text;
+}
+
 
 ?>
