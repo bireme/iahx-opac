@@ -54,7 +54,7 @@ function getSortValue($colectionData, $sort){
             }
         }
     }
-    return urlencode($sortValue);
+    return $sortValue;
 }
 
 function getDefaultSort($colectionData, $q){
@@ -73,7 +73,7 @@ function getDefaultSort($colectionData, $q){
             $count++;
         }
     }
-    return urlencode($sortValue);
+    return $sortValue;
 }
 
 function getDefaultWhere($colectionData, $q){

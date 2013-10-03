@@ -115,7 +115,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         foreach($collectionData->sort_list->sort as $item) {
             if($sort == $item->name) {
                 $exists = true;
-                $sort_value = (string) urlencode($item->value);
+                $sort_value = (string) $item->value;
                 break;
             }
         }
