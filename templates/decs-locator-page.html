@@ -277,7 +277,7 @@
                 {% endif %}
 
                 {% if mode is defined and mode == 'dataentry'%}
-                    <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}');" class="btn-custom btn-large" />
+                    <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|{{ decs.record_list.record.attributes.mfn }}');" class="btn-custom btn-large" />
                 {% else %}
                     <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn-custom btn-large" />
                 {% endif %}
