@@ -150,3 +150,10 @@ ul.tree li:last-child {
 #details ul li{
     margin-left: 20px;
 }
+
+.ui-autocomplete {
+    max-height: 470px;
+    overflow-y: auto;
+    /* prevent horizontal scrollbar */
+    overflow-x: hidden;
+}
