@@ -1,51 +1,55 @@
 {% block format %}
-<div class="format">
-    <label for="displayFormat" class="hide">{{ texts.FORMAT_OPTIONS }}</label>
-    <select name="format" id="format" class="inputText" onchange="javascript:change_format(this);">
-        <option value="">{{ texts.FORMAT_OPTIONS }}</option>
-        {% for format in collectionData.format_list.format %}
-            {% set format_label = 'FORMAT_' ~ format.name %}
-            
-            {% if params.format is defined %}
+{% if collectionData.format_list.format|length > 1 %}
+    <div class="format">
+        <label for="displayFormat" class="hide">{{ texts.FORMAT_OPTIONS }}</label>
+        <select name="format" id="format" class="inputText" onchange="javascript:change_format(this);">
+            <option value="">{{ texts.FORMAT_OPTIONS }}</option>
+            {% for format in collectionData.format_list.format %}
+                {% set format_label = 'FORMAT_' ~ format.name %}
+                
+                {% if params.format is defined %}
 
-                {* ajusta a variavel de traducao *}
-                {% if format.name == params.format %}
-                    <option value="{{ format.name }}" selected="true">{{ attribute(texts, format_label) }}</option>
+                    {* ajusta a variavel de traducao *}
+                    {% if format.name == params.format %}
+                        <option value="{{ format.name }}" selected="true">{{ attribute(texts, format_label) }}</option>
+                    {% else %}
+                        <option value="{{ format.name }}" >{{ attribute(texts, format_label) }}</option>
+                    {% endif %}
                 {% else %}
                     <option value="{{ format.name }}" >{{ attribute(texts, format_label) }}</option>
                 {% endif %}
-            {% else %}
-                <option value="{{ format.name }}" >{{ attribute(texts, format_label) }}</option>
-            {% endif %}
 
-        {% endfor %}
-    </select>
-</div>
+            {% endfor %}
+        </select>
+    </div>
+{% endif %}
 {% endblock %}
 
 {% block order %}
-<div class="orderBy">
-    <label for="sortBy" class="hide">{{ texts.SORT_OPTIONS }}</label>
-    <select name="sortBy" id="sortBy" class="inputText" onchange="javascript:change_sort(this);">
-        <option value="">{{ texts.SORT_OPTIONS }}</option>
-        {% for sort in collectionData.sort_list.sort %}
-            {% set sort_label = 'SORT_' ~ sort.name %}
-            
-            {% if params.sort is defined %}
+{% if collectionData.sort_list.sort|length > 1 %}
+    <div class="orderBy">
+        <label for="sortBy" class="hide">{{ texts.SORT_OPTIONS }}</label>
+        <select name="sortBy" id="sortBy" class="inputText" onchange="javascript:change_sort(this);">
+            <option value="">{{ texts.SORT_OPTIONS }}</option>
+            {% for sort in collectionData.sort_list.sort %}
+                {% set sort_label = 'SORT_' ~ sort.name %}
+                
+                {% if params.sort is defined %}
 
-                {* ajusta a variavel de traducao *}
-                {% if sort.name == params.sort %}
-                    <option value="{{ sort.name }}" selected="true">{{ attribute(texts, sort_label) }}</option>
+                    {* ajusta a variavel de traducao *}
+                    {% if sort.name == params.sort %}
+                        <option value="{{ sort.name }}" selected="true">{{ attribute(texts, sort_label) }}</option>
+                    {% else %}
+                        <option value="{{ sort.name }}" >{{ attribute(texts, sort_label) }}</option>
+                    {% endif %}
                 {% else %}
                     <option value="{{ sort.name }}" >{{ attribute(texts, sort_label) }}</option>
                 {% endif %}
-            {% else %}
-                <option value="{{ sort.name }}" >{{ attribute(texts, sort_label) }}</option>
-            {% endif %}
 
-        {% endfor %}
-    </select>
-</div>
+            {% endfor %}
+        </select>
+    </div>
+{% endif %}
 {% endblock %}
 
 {% block count %}
