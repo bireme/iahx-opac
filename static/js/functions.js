@@ -16,6 +16,7 @@ function change_output(output) {
     form.output.value = output;
 
     $("#searchForm").submit();
+    form.output.value = "site"; //return to default output
 }
 
 // muda a quantidade de resultados exibidos
