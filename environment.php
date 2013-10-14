@@ -78,6 +78,7 @@ $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
     'transport' => 'smtp',
     'host' => SMTP_SERVER,
+    'port' => SMTP_PORT,
     'username' => SMTP_USERNAME,
     'password' => SMTP_USERPASSWORD,
 );
