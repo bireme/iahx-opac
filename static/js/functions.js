@@ -53,10 +53,11 @@ function print(count) {
     change_output("print");
 }
 
-// leva para output "ris/citation", passando o count
+// leva para output "ris/citation/csv", passando o count
 function export_result(count) {
 
     var form = document.searchForm;
+    var previous_count = form.count.value;
     var output = getCheckedValue(document.exportForm.format);
 
     if(count)
@@ -65,6 +66,7 @@ function export_result(count) {
         form.count.value = -1;
 
     change_output(output);
+    form.count.value = previous_count;    //return to previous value
 }
 
 // advanced search

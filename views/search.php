@@ -180,15 +180,18 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
     }
 
-    // change MAX_COUNT for export operation
-    if (($output == 'ris' || $output == 'csv' || $output == 'citation') && $count == '-1'){
-        ini_set('memory_limit', '-1');  // overrides the default PHP memory limit.
-        if ($config->max_export_records){
-            $count = $config->max_export_records;
+    // adjusts parameters for export operation
+    if (($output == 'ris' || $output == 'csv' || $output == 'citation')){
+        if ($count == '-1'){                
+            $from = 0;
+            $count = $config->documents_per_page * 10;  //increase count for export
+        }elseif ($count == 'selection'){
+            $from = 0;
+            $count = $config->documents_per_page * 100; // max for selection option
+            $q = '+id:("' . join(array_keys($bookmark), '" OR "') . '")';
         }else{
-            $count = $config->documents_per_page * 1000;
+            $export_total = $from + $count;
         }
-
     }
 
     // Dia response
@@ -330,32 +333,61 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             return $response->sendHeaders();
             break;
 
-        case "ris":
-            $ris = $app['twig']->render( custom_template('export-ris.html'), $output_array);
-            $ris = normalize_line_end($ris);
-            $response = new Response($ris);
-            $response->headers->set('Content-Type', 'application/force-download');
-            header('Content-Disposition: attachment; filename=export.ris');
-            return $response->sendHeaders();
-            break;
-
-        case "csv":
-            $csv = $app['twig']->render( custom_template('export-csv.txt'), $output_array);
-            $csv = preg_replace("/\n/", " ", $csv);                 //Remove line end
-            $csv = preg_replace("/#BR#/", "\r\n", $csv);            //Windows Line end
-
-            $response = new Response($csv);
-            $response->headers->set('Content-Encoding', 'UTF-8');
-            $response->headers->set('Content-Type', 'text/csv; charset=UTF-8');
-            header('Content-Disposition: attachment; filename=export.csv');
-            echo "\xEF\xBB\xBF"; // UTF-8 BOM
-            return $response->sendHeaders();
-            break;
-
         case "citation":
-            $response = new Response($app['twig']->render( custom_template('export-citation.html'), $output_array));
-            $response->headers->set('Content-type', 'application/force-download');
-            header('Content-Disposition: attachment; filename=export.txt');
+            $export_template = 'export-citation.html';
+            $export_filename = 'export.txt';
+            $content_type = 'text/plain';            
+        case "ris":
+            if ( !isset($export_template) ){
+                $export_template = 'export-ris.html';
+                $export_filename = 'export.txt';
+                $content_type = 'text/plain';
+            }
+        case "csv":
+            if ( !isset($export_template) ){        
+                $export_template = 'export-csv.txt';
+                $export_filename = 'export.csv';
+                $content_type = 'text/csv';
+            }
+            if ( !isset($export_total) ){
+                $export_total = ( (isset($config->max_export_records) && $config->max_export_records > 0)  ? $config->max_export_records : $pag['total']);                
+            }
+
+            $export_content = "";
+            while ($from < $export_total){
+                $export_content .= $app['twig']->render( custom_template($export_template), $output_array);
+
+                $from = $from + $count;
+
+                // Dia response
+                $dia = new Dia($site, $col, $count, $output, $lang);
+                $dia->setParam('fb', $fb);
+                $dia->setParam('sort', $sort_value);
+                $dia->setParam('initial_filter', $initial_filter );
+
+                $dia_response = $dia->search($q, $index, $user_filter, $from);
+                $result = json_decode($dia_response, true);
+
+                $output_array['from'] = $from;
+                $output_array['config'] = $config;
+                $output_array['texts'] = $texts;
+                $output_array['current_url'] = $_SERVER['REQUEST_URI'];
+                $output_array['display_file'] = "result-format-" . $format . ".html";
+                $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
+                $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+            } 
+            if ($output == 'csv'){
+                $export_content = preg_replace("/\n/", " ", $export_content);                 //Remove line end
+                $export_content = preg_replace("/#BR#/", "\r\n", $export_content);            //Windows Line end
+            }else{
+                $export_content = normalize_line_end($export_content);
+            }
+
+            $response = new Response($export_content);
+            $response->headers->set('Content-Encoding', 'UTF-8');
+            $response->headers->set('Content-Type', $content_type .'; charset=UTF-8');
+            header('Content-Disposition: attachment; filename=' . $export_filename);
+            echo "\xEF\xBB\xBF"; // UTF-8 BOM
             return $response->sendHeaders();
             break;
 
