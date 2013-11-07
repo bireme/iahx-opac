@@ -308,14 +308,14 @@
                     </div>
                 {% endif %}
 
-                {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier is defined %}
+                {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier != '' %}
                     {{ texts.RESTRICT_BY_ASPECT }}:
                     <div class="qlf_box">
                         <ul>
                             {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}
                                 <li>
                                 {% if mode is defined and mode == 'dataentry'%}
-                                    <input type="button" name="qlf" class="qlf btn-custom" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');" style="width: 30px" /> {{  attribute(texts, qlf) }}
+                                    <input type="button" name="qlf" class="qlf btn-custom" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');" style="width: 30px" /> {{  attribute(texts, qlf) }}
                                 {% else %}
                                     <input type="checkbox" name="qlf" class="qlf" value="{{ qlf }}" id="{{ qlf }}"/><label for="{{ qlf }}"> {{  attribute(texts, qlf) }}</label>
                                 {% endif %}
