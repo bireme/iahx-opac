@@ -7,7 +7,9 @@ function go_to_page(page) {
     form.from.value = from;    
     form.page.value = page;
 
+    $("#q").focus();            // prevent submit of default placeholder text
     $("#searchForm").submit();
+    $("#q").blur();
 }
 
 // usado para mudar a forma de exibição do dado (xml/rss/print/site)
