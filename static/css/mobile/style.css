@@ -30,8 +30,8 @@ img{border:0; max-width: 100%; height: auto;}
 .h{overflow:hidden; border-bottom:1px solid rgb(122,128,145);}
 .h-padding{padding:7px 7px 0 7px;}
 .h-bg{background-color:rgb(255,255,255);}
-.h-logo{width:100%; float:left; margin-bottom:12px;}
-.h-logo a img{width:320px; float:left;}
+.top{width:100%; float: left; margin-bottom:12px;}
+.h-logo a img{height: 65px; width: 60px; float: left;}
 .h-search{width:100%; float:left; position:relative; margin-bottom:12px;}
 .h-label{float:left; margin:0 7px;}
 .h-div{position:relative; width:100%; float:left; padding:7px 0; background:rgb(199,199,199);}
@@ -42,6 +42,9 @@ img{border:0; max-width: 100%; height: auto;}
 .h-nav-ul{width:100%; float:left; list-style:none;}
 .h-nav-ul-li{width:100%; padding:12px 0; display:block; border-bottom:1px solid rgb(160,160,160);}
 .h-nav-ul-lia{padding:0 7px; color:rgb(51,51,51); font-size:13px; font-weight:bold; text-decoration:none;}
+.top .identification {float: left;}
+.top .identification H1 {font-size: 120%; margin: 2px 0 0 4px;}
+.top .identification H2 {font-size: 110%; margin: 15px 0 0 4px;}
 
 /* CONTENT (c) */
 .c{width:100%; height:100%; float:left; background:rgb(232,232,232);}
