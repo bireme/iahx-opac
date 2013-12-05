@@ -41,12 +41,11 @@ DIV.identification {
 DIV.identification H1 {
     margin-top: 10px;
 	font-size: 160%;
-	color: #22268E;
+	color: rgb(40,72,125);
 }
 DIV.identification H2{
     font-size: 130%;
-    color: #22268E;
-    
+    color: rgb(40,72,125);    
 }
 DIV.otherVersions A {
 	color: #ffffff;
