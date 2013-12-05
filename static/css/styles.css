@@ -34,18 +34,18 @@ a{
 DIV.identification H2 {
 	font-weight: normal;
 	font-size: 100%;
-	text-transform: lowercase;
 }
 DIV.identification {
-    margin-left: 80px;
     float: left;
 }
 DIV.identification H1 {
-	font-size: 140%;
+    margin-top: 10px;
+	font-size: 160%;
 	color: #22268E;
-    padding: 93px 0px 0px 190px;
 }
 DIV.identification H2{
+    font-size: 130%;
+    color: #22268E;
     
 }
 DIV.otherVersions A {
