@@ -101,7 +101,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             }
         }
     } else {
-        list($param_where, $where) = getDefaultWhere($collectionData, $q);
+        list($param_where, $where) = getDefaultWhere($collectionData, $q);        
         $params['where'] = $param_where;
     }
 
@@ -134,16 +134,16 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $filter = array();
-    if(isset($params['filter']) and $params['filter'] != "Array") {
+    if(!empty($params['filter']) and $params['filter'] != "Array") {
         $filter = $params['filter'];
     }
 
     foreach($filter as $key => $value) {
-        if($value == "Array" or $value == "Array#" or $value == "") {
+        if($value == "Array" or $value == "Array#" or $value == "" or empty($value[0])) {
             unset($filter[$key]);
+        }else{
+            $filter[$key] = str_replace("#", "", $value);
         }
-
-        $filter[$key] = str_replace("#", "", $value);
     }
 
 
