@@ -290,7 +290,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         $output_array['email'] = $email;
 
-        $render = $app['twig']->render('export-email.html', $output_array);
+        $render = $app['twig']->render( custom_template('export-email.html'), $output_array);
         $subject = ($email['subject'] != '' ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
         $message = \Swift_Message::newInstance()
