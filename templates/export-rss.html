@@ -2,7 +2,7 @@
 
 <rss version="2.0">
     <channel>{% block channel %}
-        <title>{{ texts.TITLE }} | {{ q }}</title>
+        <title>{{ texts.BVS_TITLE }} | {{ q }}</title>
         <link>{{ search_url }}</link>
         <description>{% spaceless %}
         <![CDATA[
@@ -59,15 +59,15 @@
 
                         {% if doc.ab is defined %}                            
                             <p>
-                                {{ texts.RESULT.LABEL_ABSTRACT }}<br/>
-                                {% for abstract in doc.ab if doc.ab is defined %}
-                                    {{ abstract }}{% if not loop.index == doc.ab|length %}/{% endif %}
-                                {% endfor %}
+                                <strong>{{ texts.RESULT.LABEL_ABSTRACT }}</strong><br/>
+                                {% for abstract in doc.ab %}
+                                    {{ abstract }}{% if loop.last %}{% else %}<hr/>{% endif %}
+                                {% endfor %}                                
                             </p>
                         {% endif %}
 
                         {% if doc.mh is defined %}
-                            <p> {{ texts.RESULT.LABEL_SUBJECT }}:
+                            <p><strong>{{ texts.RESULT.LABEL_SUBJECT }}:</strong>
                                 {% for mesh in doc.mh %}
                                     {{ mesh }}{% if loop.last %}.{% else %};{% endif %}
                                 {% endfor %}
