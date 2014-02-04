@@ -322,6 +322,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             break;
 
         case "rss":
+            $output_array['search_url'] =  SEARCH_URL . str_replace('output=rss', 'output=site', $_SERVER['REQUEST_URI']);
             $response = new Response($app['twig']->render( custom_template('export-rss.html'), $output_array));
             $response->headers->set('Content-type', 'text/xml');
             return $response->sendHeaders();
