@@ -78,10 +78,15 @@ $app->register(new Silex\Provider\SwiftmailerServiceProvider());
 $app['swiftmailer.options'] = array(
     'transport' => 'smtp',
     'host' => SMTP_SERVER,
-    'port' => SMTP_PORT,
     'username' => SMTP_USERNAME,
     'password' => SMTP_USERPASSWORD,
 );
+
+if ( defined('SMTP_PORT') && SMTP_PORT != '' ) {
+    $app['swiftmailer.options']['port'] = SMTP_PORT;
+}else{
+    $app['swiftmailer.options']['port'] = 25;
+}
 
 if ( defined('SMTP_ENCRYPTION') && SMTP_ENCRYPTION != '' ) {
     $app['swiftmailer.options']['encryption'] = SMTP_ENCRYPTION;
