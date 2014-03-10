@@ -34,5 +34,5 @@
     {% else %}
 		| {{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}
     {% endif %}
-	| ID: {% if '-' in doc.id %} {{ doc.id|substring_after('-') }} {% else %} {{ doc.id }} {% endif %}
+	| ID: {{ doc.id }}
 </div>
