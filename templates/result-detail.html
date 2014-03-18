@@ -3,6 +3,56 @@
 {% block extrahead %}
     <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">  
     <script>window.print();</script> 
+
+    <meta name="citation_id" content="{{ doc.id }}" />
+    <meta name="citation_title" content="{{ doc.ti.0 }}" />
+
+    <meta name="dc.identifier" content="{{ doc.id }}" />    
+    {% for title in doc.ti %}
+        <meta name="dc.title" content="{{ title }}" />
+    {% endfor %}
+
+    {% if doc.au is defined %}    
+        {% for author in doc.au %}
+            <meta name="dc.contributor"  content="{{ author }}" />
+            <meta name="citation_author" content="{{ author }}" />
+        {% endfor %}
+        <meta name="citation_authors" content="{{ occ( {'element': doc.au, separator: '; '} ) }}" />
+    {% endif %}
+    {% if doc.ur is defined %}    
+        <meta name="citation_fulltext_html_url" content="{{ doc.ur.0 }}" />
+    {% endif %}
+    {% if doc.mh is defined %}    
+        {% for descriptor in doc.mh %}
+            {% if '/' in descriptor %}
+                <meta name="citation_keywords" content="{{ descriptor|substring_before('/') }}" />
+            {% else %}
+                <meta name="citation_keywords" content="{{ descriptor }}" />
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+
+    {% if doc.citation_inbook_title %}
+        <meta name="citation_inbook_title" content="{{ doc.citation_inbook_title }}" />
+    {% endif %}
+
+    {% if doc.type.0 == "article" %}
+        <meta name="citation_journal_title" content="{{ doc.ta.0 }}" />
+    {% endif %}
+
+    {% if "-" in doc.pg.0 %}
+        <meta name="citation_firstpage" content="{{ doc.pg.0|substring_before('-')|trim }}" />
+        <meta name="citation_lastpage" content="{{ doc.pg.0|substring_after('-')|trim }}" />
+    {% else %}
+        <meta name="citation_firstpage" content="{{ doc.pg.0 }}" />
+        <meta name="citation_lastpage" content="{{ doc.pg.0 }}" />
+    {% endif %}
+
+    <meta name="citation_language" content="{{ doc.la.0 }}" />
+    <meta name="citation_publication_date" content="{{ doc.da|slice(0,4) }}" />
+    <meta name="dc.date" content="{{ doc.da|slice(0,4) }}" />
+
+    
 {% endblock %}
 
 {# hide unused blocks #}
