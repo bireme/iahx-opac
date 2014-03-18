@@ -12,9 +12,11 @@
                 <input type="hidden" name="sort" id="sort" value="{{ sort }}">
                 <input type="hidden" name="format" id="format" value="{{ format }}">
                 <input type="hidden" name="count" id="count" value="{{ pag.count }}">
+                {% if filters|length > 0 and params.filterLabel is defined %}
+                    <input type="hidden" name="filterLabel" id="label" value="{{ params.filterLabel }}">
+                {% endif %}
                 <input type="hidden" name="fb" id="fb" value="">
                 <input type="hidden" name="page" id="page" value="{% if params.page is defined %}{{ params.page }}{% else %}1{% endif %}">
-
                 
                 {% for name, items in filters if filters is defined %}
                     {% for item in items %}

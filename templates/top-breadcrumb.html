@@ -6,8 +6,12 @@
     {% endblock %}
 
     {% block bc_third_lvl %}
-        {% if params.q is defined and params.q != "" %}
-            > {{ params.q|truncate(90) }} ({{ pag.total_formatted }})
+        >
+        {% if filters|length > 0 and params.filterLabel != "" %}
+            {{ params.filterLabel|truncate(90) }}
+        {% elseif params.q is defined and params.q != "" %}
+            {{ params.q|truncate(90) }} 
         {% endif %}
+        ({{ pag.total_formatted }})
     {% endblock %}
 </div>

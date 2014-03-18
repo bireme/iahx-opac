@@ -138,13 +138,22 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $filter = $params['filter'];
     }
 
+    // alternative syntax for filter param ==> index:value (ex. db:LILACS)
+    if ( !is_array($filter) ) {        
+        preg_match('/([a-z]+):(.+)/',$filter, $filter_parts);
+        if ($filter_parts){
+            // convert to internal format
+            $filter = array($filter_parts[1] => array($filter_parts[2]));
+        }
+    }
+
     foreach($filter as $key => $value) {
         if($value == "Array" or $value == "Array#" or $value == "" or empty($value[0])) {
             unset($filter[$key]);
         }else{
             $filter[$key] = str_replace("#", "", $value);
         }
-    }
+    }    
 
 
     // bookmark
