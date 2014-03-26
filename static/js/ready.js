@@ -66,4 +66,9 @@ $(function(){
         $(this).delay(3500).fadeOut();
     });
 
+    // prevent submit of default placeholder text
+    $("#searchForm").submit( function( event ) {      
+      $("#q").focus();
+    });
+
 })
