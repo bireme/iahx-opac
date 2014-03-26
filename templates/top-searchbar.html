@@ -85,16 +85,16 @@
                 {% for cluster in config_cluster_list %}
                     <li>
                     {% if user_preference_filter|length == 0 and cluster|trim in default_cluster_list %}
-                        <input id="check_{{cluster}}" type="checkbox" name="user_preference_filter[]" value="{{cluster}}" checked="true" />
+                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" checked="true" />
                         <label for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
                     {% else %}
-                        <input id="check_{{cluster}}" type="checkbox" name="user_preference_filter[]" value="{{cluster}}" {% if cluster|trim in user_preference_filter %} checked="true" {%endif%} />
+                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" {% if cluster|trim in user_preference_filter %} checked="true" {%endif%} />
                         <label for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
                     {% endif %}
                     </li>
                 {% endfor %}
                 </ul>
-                <input type="submit" value="{{texts.APPLY}}" name="user_preference_filter_apply" class="submit">
+                <input type="submit" value="{{texts.APPLY}}" name="config_filter_submit" class="submit">
                 
             {% endif %}
         </div>

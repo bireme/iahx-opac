@@ -250,8 +250,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $user_preference_filter = $SESSION->get('user_preference_filter');
 
     // add to session filters from form
-    if (  isset($params['user_preference_filter_apply']) ) {
-        $user_preference_filter = $params['user_preference_filter'];
+    if (  isset($params['config_filter_submit']) ) {
+        $user_preference_filter = $params['u_filter'];
     }
 
     $config_cluster_list = $collectionData->cluster_list->cluster;
