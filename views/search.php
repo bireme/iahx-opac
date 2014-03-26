@@ -155,11 +155,11 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
     }    
 
-
-    // bookmark
+    // BOOKMARK SESSION
     $SESSION = $app['session'];
     $SESSION->start();
     $bookmark = $SESSION->get('bookmark');
+
 
     // initial filter (defined on configuration file)
     $initial_filter = html_entity_decode($collectionData->initial_filter);
@@ -241,8 +241,26 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $pag['pages'] = range($range_min, $range_max);
     $pag['pages_mobile'] = range($range_min, $range_max_mobile);
 
-    // HISTORY APP
-    $SESSION->start();
+
+    // USER PREFERENCE FILTERS SESSION
+    if(!$SESSION->has("user_preference_filter")) {
+        $SESSION->set('user_preference_filter', array());
+    }
+
+    $user_preference_filter = $SESSION->get('user_preference_filter');
+
+    // add to session filters from form
+    if (  isset($params['user_preference_filter_apply']) ) {
+        $user_preference_filter = $params['user_preference_filter'];
+    }
+
+    $config_cluster_list = $collectionData->cluster_list->cluster;
+    $default_cluster_list = getDefaultClusterList($collectionData);
+
+    $SESSION->set('user_preference_filter', $user_preference_filter);
+    $SESSION->save();
+
+    // HISTORY SESSION
     if(!$SESSION->has("history")) {
         $SESSION->set('history', array());
     }
@@ -271,6 +289,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // output vars
     $output_array = array();
     $output_array['bookmark'] = $bookmark;
+    $output_array['user_preference_filter'] = (array) $user_preference_filter;
     $output_array['filters'] = $filter;
     $output_array['filters_formatted'] = $filter;
     $output_array['lang'] = $lang;
@@ -288,6 +307,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['current_url'] = $_SERVER['REQUEST_URI'];
     $output_array['display_file'] = "result-format-" . $format . ".html";
     $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
+    $output_array['config_cluster_list'] = $config_cluster_list;
+    $output_array['default_cluster_list'] = $default_cluster_list;
+
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;
         $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];

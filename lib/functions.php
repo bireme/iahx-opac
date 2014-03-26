@@ -111,6 +111,25 @@ function getDefaultWhere($colectionData, $q){
     return array( $param_where,$where ) ;
 }
 
+function getDefaultClusterList($colectionData){
+    $default_clusters = array();
+    if ( isset($colectionData->cluster_list) ){
+        foreach( $colectionData->cluster_list->cluster as $cluster  ){
+            if ($cluster['default'] == 'true'){
+                $default_clusters[] = (string)$cluster;
+            }
+        }    
+        // if not is set as default make all clusters of the list default
+        if ( empty($default_clusters) ){
+            foreach( $colectionData->cluster_list->cluster as $cluster  ){
+                $default_clusters[] = (string)$cluster;
+            }
+        } 
+    }
+
+    return $default_clusters;
+}
+
 
 // function to work when PHP directive magic_quotes_gpc is OFF
 function addslashes_array($a){

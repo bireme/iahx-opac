@@ -67,50 +67,54 @@
 
                     {% set cluster_labels = 'REFINE_' ~ name %}
                     
-                    {# check if config has a cluster list to show, if not show all #}
+                    {###  check if config has a cluster list to show, if not show all ###}
+                    {% if not config_cluster_list or name in config_cluster_list %}
 
-                    {% if not collectionData.cluster_list.cluster or name in collectionData.cluster_list.cluster %}
-                        <a name="{{ name }}"></a>
-                        <div id="{{ name }}">
-                            <a href="javascript:toggle_cluster('{{ name }}');" title="{{ name }}">
-                                <strong>
-                                    {{ attribute(texts.REFINE, name) }}
-                                </strong>
-                            </a>
-                            <a href="#" onclick="javascript:open_chart(this,'{{ attribute(texts.RESULT, cluster_label) }}','{{ name }}')" class="fancybox_iframe">
-                                <img src="{{ constant("STATIC_URL") }}image/common/chart.gif" alt="{{ texts.CHART }}">
-                            </a>
+                        {### check if cluster is in user_prefence_filter or is in default_cluster_list ###}
+                        {% if (not config_cluster_list) or (user_preference_filter|length > 0 and name in user_preference_filter) or  (user_preference_filter|length == 0 and name in default_cluster_list)  %}
 
-                            <ul id="ul_{{ name }}">
-                                {% for item in cluster if item.0 != '' %}
-                                    {% set cluster_item_id = name ~ '_' ~ item.0|replace({' ': '_', '/':'_'}) %}
+                            <a name="{{ name }}"></a>
+                            <div id="{{ name }}">
+                                <a href="javascript:toggle_cluster('{{ name }}');" title="{{ name }}">
+                                    <strong>
+                                        {{ attribute(texts.REFINE, name) }}
+                                    </strong>
+                                </a>
+                                <a href="#" onclick="javascript:open_chart(this,'{{ attribute(texts.RESULT, cluster_label) }}','{{ name }}')" class="fancybox_iframe">
+                                    <img src="{{ constant("STATIC_URL") }}image/common/chart.gif" alt="{{ texts.CHART }}">
+                                </a>
 
-                                    <li class="{% if '/' in item.0 %}subtopic{% endif %}">
-                                        <label for="{{ cluster_item_id }}"></label>
-                                        <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
-                                        {% for filter_name, filter in filters if filter_name == name %}
-                                            {% if item.0 in filter %}checked="true"{% endif %}
-                                        {% endfor %}
-                                        >
+                                <ul id="ul_{{ name }}">
+                                    {% for item in cluster if item.0 != '' %}
+                                        {% set cluster_item_id = name ~ '_' ~ item.0|replace({' ': '_', '/':'_'}) %}
 
-                                        <a href="javascript: add_filter('{{ name }}_{{ item.0|replace({' ': '_', '/':'_'}) }}');" title="">
-                                            {% if '/' in item.0 %}
-                                                {% set item_part = item.0|split('/') %}
-                                                {{ translate(item_part.1, cluster_labels ) }}
-                                            {% else %}
-                                                {{ translate(item.0, cluster_labels ) }}
-                                            {% endif %}
-                                        </a> ({{ item.1 }})
+                                        <li class="{% if '/' in item.0 %}subtopic{% endif %}">
+                                            <label for="{{ cluster_item_id }}"></label>
+                                            <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
+                                            {% for filter_name, filter in filters if filter_name == name %}
+                                                {% if item.0 in filter %}checked="true"{% endif %}
+                                            {% endfor %}
+                                            >
 
-                                    </li>
-                                {% endfor %}
+                                            <a href="javascript: add_filter('{{ name }}_{{ item.0|replace({' ': '_', '/':'_'}) }}');" title="">
+                                                {% if '/' in item.0 %}
+                                                    {% set item_part = item.0|split('/') %}
+                                                    {{ translate(item_part.1, cluster_labels ) }}
+                                                {% else %}
+                                                    {{ translate(item.0, cluster_labels ) }}
+                                                {% endif %}
+                                            </a> ({{ item.1 }})
 
-                                {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
-                                    <li><b><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></b></li>
-                                {% endif %}
-                                <!-- <input type="submit" value="filtrar"> -->
-                            </ul>
-                        </div>
+                                        </li>
+                                    {% endfor %}
+
+                                    {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
+                                        <li><b><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></b></li>
+                                    {% endif %}
+                                    <!-- <input type="submit" value="filtrar"> -->
+                                </ul>
+                            </div>
+                        {% endif %}
                     {% endif %}                    
                 {% endfor %}
             </form>
