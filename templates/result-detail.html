@@ -5,20 +5,23 @@
     <script>window.print();</script> 
 
     <meta name="citation_id" content="{{ doc.id }}" />
-    <meta name="citation_title" content="{{ doc.ti.0 }}" />
-
-    <meta name="dc.identifier" content="{{ doc.id }}" />    
+    <meta name="dc.identifier" content="{{ doc.id }}" />
+    
     {% for title in doc.ti %}
         <meta name="dc.title" content="{{ title }}" />
     {% endfor %}
+
+    {% if "a" in doc.nivel_tratamento %}
+        <meta name="citation_title" content="{{ doc.ti.0 }}" />
+    {% endif %}
 
     {% if doc.au is defined %}    
         {% for author in doc.au %}
             <meta name="dc.contributor"  content="{{ author }}" />
             <meta name="citation_author" content="{{ author }}" />
-        {% endfor %}
-        <meta name="citation_authors" content="{{ occ( {'element': doc.au, separator: '; '} ) }}" />
+        {% endfor %}        
     {% endif %}
+
     {% if doc.ur is defined %}    
         <meta name="citation_fulltext_html_url" content="{{ doc.ur.0 }}" />
     {% endif %}
@@ -32,8 +35,8 @@
         {% endfor %}
     {% endif %}
 
-    {% if doc.citation_inbook_title %}
-        <meta name="citation_inbook_title" content="{{ doc.citation_inbook_title }}" />
+    {% if doc.book_title %}
+        <meta name="citation_inbook_title" content="{{ doc.book_title }}" />
     {% endif %}
 
     {% if doc.type.0 == "article" %}
