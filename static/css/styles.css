@@ -68,6 +68,9 @@ DIV.otherVersions A.selected IMG, DIV.otherVersions A:hover IMG {
 DIV.feedback A{
 	text-decoration: none;
 }
+.searchForm, #config_filters {
+	border-bottom: 1px solid #cecece;
+}
 DIV.search DIV.informationTypes A {
 	color: #00f;
 	text-decoration: underline;
@@ -97,6 +100,37 @@ DIV.search DIV.searchForm SELECT.inputText {
 	color: #121212;
 	padding: 2px 8px 2px 8px;
 	font-weight: bold;
+}
+.cfg-filters {
+	float: right;
+	padding: 5px;
+	margin-top:-22px;
+	background: #f4f6f8;
+	border-top: 1px solid #b8c1ca;
+	border-right: 1px solid #b8c1ca;
+	border-left: 1px solid #b8c1ca; 
+}
+.cfg-filters a {
+	text-decoration: none;
+}
+#config_filters{
+	padding:12px;
+	background: #f9fafb;
+}
+#config_filters ul {
+	width: 80%;
+	margin:0 auto;
+}
+#config_filters li {
+	margin: 8px 0 6px 2%;
+	width: 31%;
+	display: inline-block;
+}
+#config_filters .submit {
+	margin-left:762px;
+}
+#countSelect{
+	width: 130px;
 }
 .resultsFor{
 	margin-bottom: 10px;
@@ -704,7 +738,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .icon-search { background-position: -48px 0; }
 .icon-th-list { background-position: -264px 0; }
 .icon-list-alt { background-position: -264px -24px; }
-
+.icon-cfg-filters{ background-position: -384px -146px; }
 .advanced-form {
 	padding-bottom: 100px;
 }
