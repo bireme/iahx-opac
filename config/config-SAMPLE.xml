@@ -25,6 +25,7 @@
 	<feedback_id></feedback_id>
 	<browse_index_url></browse_index_url>
 	<mobile_version>true</mobile_version>
+    <show_config_filter>true</show_config_filter>
 
 	<search_collection_list>
 		<collection>
