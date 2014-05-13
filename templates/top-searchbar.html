@@ -74,30 +74,6 @@
                     <i class="icon-search"> </i> <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}">{{ texts.ADVANCED_SEARCH }}</a> |
                     <i class="icon-list-alt"> </i> <a href="#" onclick="decs_locator('{{ constant("SEARCH_URL") }}')">{{ texts.DECS_LOOKUP }}</a>
                 </div>
-                {% if config.show_config_filter == 'true' %}
-		          <div class="cfg-filters">
-			           	<i class="icon-cfg-filters"> </i> <a href="#" onclick="$('#config_filters').slideToggle(100);">{{ texts.CONFIG_FILTERS }}</a>                  
-		          </div>
-                {% endif %}
             </div>
-        {% if config.show_config_filter == 'true' %}
-            <div id="config_filters" style="display: none">            
-                <h3>{{texts.CONFIG_FILTERS}}</h3>
-                <ul>
-                {% for cluster in config_cluster_list %}
-                    <li>
-                    {% if user_preference_filter|length == 0 and cluster|trim in default_cluster_list %}
-                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" checked="true" />
-                        <label for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
-                    {% else %}
-                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" {% if cluster|trim in user_preference_filter %} checked="true" {%endif%} />
-                        <label for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
-                    {% endif %}
-                    </li>
-                {% endfor %}
-                </ul>
-                <input type="submit" value="{{texts.APPLY}}" name="config_filter_submit" class="submit">
-            </div>
-        {% endif %}
     </form>
 </div>

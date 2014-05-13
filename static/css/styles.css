@@ -104,7 +104,7 @@ DIV.search DIV.searchForm SELECT.inputText {
 .cfg-filters {
 	float: right;
 	padding: 5px;
-	margin-top:-22px;
+	margin:-36px 4px 0 0;
 	background: #f4f6f8;
 	border-top: 1px solid #b8c1ca;
 	border-right: 1px solid #b8c1ca;
@@ -115,7 +115,7 @@ DIV.search DIV.searchForm SELECT.inputText {
 }
 #config_filters{
 	padding:12px;
-	background: #f9fafb;
+	margin-top: 10px;
 }
 #config_filters ul {
 	width: 80%;
@@ -123,11 +123,9 @@ DIV.search DIV.searchForm SELECT.inputText {
 }
 #config_filters li {
 	margin: 8px 0 6px 2%;
-	width: 31%;
-	display: inline-block;
 }
 #config_filters .submit {
-	margin-left:762px;
+	margin-left:140px;
 }
 #countSelect{
 	width: 130px;
