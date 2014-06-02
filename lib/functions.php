@@ -393,7 +393,8 @@ function filter_truncate($text, $length = 30, $preserve = false, $separator = '.
 
 function filter_slugify($text) {
     // replace non letter or digits by -
-    $text = preg_replace('~[^\\pL\d]+~u', '-', $text);
+    $text = remove_accents($text);
+    $text = preg_replace('/[^a-z0-9]/i', '-', $text);
 
     // trim
     $text = trim($text, '-');
