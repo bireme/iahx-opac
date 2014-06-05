@@ -133,5 +133,6 @@ $app['twig']->addFilter('contains', new Twig_Filter_Function('filter_contains'))
 $app['twig']->addFilter('starts_with', new Twig_Filter_Function('filter_starts_with'));
 $app['twig']->addFilter('truncate', new Twig_Filter_Function('filter_truncate'));
 $app['twig']->addFilter('slugify', new Twig_Filter_Function('filter_slugify'));
+$app['twig']->addFilter('subfield', new Twig_Filter_Function('filter_subfield'));
 
 ?>

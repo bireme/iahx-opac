@@ -405,5 +405,21 @@ function filter_slugify($text) {
     return $text;
 }
 
+function filter_subfield($text, $id) {
+    // check for old language code compatibility (pt=p, es=e, en=i)
+    if (strlen($id) == 2){ 
+        $id = ( $id == 'en' ? 'i' : substr($id,0,1) );
+    }
+
+    $subfields = array();
+
+    $sub_list = preg_split('/\^/', $text);
+    foreach($sub_list as $sub){
+        $sub_id = substr($sub,0,1);
+        $subfields[$sub_id] = substr($sub,1);
+    }
+
+    return $subfields[$id];
+}
 
 ?>
