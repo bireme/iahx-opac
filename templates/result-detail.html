@@ -76,7 +76,7 @@
 			    {% if doc.au is defined %}
 			    
 			        {% for author in doc.au %}
-			            {{ author }}{% if loop.last %}.{% else %};{% endif %}
+			            <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
 			        {% endfor %}
 
 			    {% endif %}	            
@@ -97,7 +97,7 @@
                     <div class="tags">
                         <h4>{{ texts.RESULT.LABEL_SUBJECT }}</h4>
                         {% for subject in doc.mh %}
-                            <a href="#" onclick="javascript:refineByIndex('{{ subject|raw }}','mh')">{{ subject|raw }}</a>
+                            <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'}) }}"'>{{ subject|raw }}</a>
                         {% endfor %}
                     </div>
                 {% endif %}
