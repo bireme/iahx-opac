@@ -342,6 +342,18 @@ DIV.record DIV.data  {
 	font-size: 112%;
 	line-height: 20px;
 }
+DIV.record DIV.data a {
+	border-bottom: 1px dotted #999;
+}
+DIV.record DIV.data a:hover {
+	border-bottom: 1px solid #999;
+}
+DIV.record DIV.data .user-actions a, DIV.record DIV.data h3 a {
+	border-bottom: none;
+}
+DIV.record DIV.data .user-actions a:hover, DIV.record DIV.data h3 a:hover {
+        border-bottom: none;
+}
 DIV.record DIV.data H3 {
 	font-size: 130%;
 	font-family: Arial;
