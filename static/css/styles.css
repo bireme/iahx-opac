@@ -749,29 +749,6 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .icon-th-list { background-position: -264px 0; }
 .icon-list-alt { background-position: -264px -24px; }
 .icon-cfg-filters{ background-position: -384px -146px; }
-.advanced-form {
-	padding-bottom: 100px;
-}
-.advanced-form .buttons {
-	margin: 20px 0;
-}
-.advanced-form .q-first input {
-	width: 70%;
-}
-.advanced-form select {
-	width: 17%;
-	margin: 0 5px;
-}
-.advanced-form select.index {
-	float: right;
-}
-.advanced-form input, .advanced-form select, .advanced-form button{
-	padding: 5px;
-	margin: 5px 0;
-}
-.advanced-form input {
-	width: 63%;
-}
 
 .division{
 	border-top: 2px solid #CECECE !important;

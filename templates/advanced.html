@@ -55,7 +55,7 @@
                         <option value="AND NOT">AND NOT</option>
                     </select>
 
-                    <input type="text" name="q[]" class="q" id="input-2" onkeypress="new_line(this)"> 
+                    <input type="text" name="q[]" class="q" id="input-2" onfocus="new_line(this)"> 
                     {% if config.browse_index_url is defined and config.browse_index_url != '' %}
                         <a href="#" onclick="show_index(this)" class="updateIndexList openerIndexes" id="show-2">{{ texts.SHOW_INDEX }}</a>
                     {% endif %}
