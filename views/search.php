@@ -72,7 +72,6 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     if( isset($params['search_form_submit']) ){
             $params['from'] = 0;
             $params['page'] = 1;
-            $params['filter'] = array();
     }
 
     $from = 0;
