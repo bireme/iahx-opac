@@ -37,6 +37,11 @@
             <div class="division"></div>
             <div class="filters" id="filters">
                 <h3>{{ texts.SELECTED_FILTERS }}</h3>
+                <div class="reset_filters">
+                    <i class="icon-trash"> </i> <a href="javascript:reset_filters()">{{ texts.CLEAR_FILTERS }}
+                    </a>
+                </div>
+
                 <ul>
                     {% for cluster, items in filters_formatted %}
                         {% set texts_group = 'REFINE_' ~ cluster %}
@@ -70,7 +75,7 @@
                     <input type="hidden" name="fb" value="">
 
                     {% for key, value in params %}
-                        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and "_submit" not in key  %}
+                        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and key != "reset_filters" and "_submit" not in key  %}
                             {% if key == "from" or key == "page" %}
                                 <input type="hidden" name="{{ key }}" value="1">
                             {% else %}

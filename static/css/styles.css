@@ -749,6 +749,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .icon-th-list { background-position: -264px 0; }
 .icon-list-alt { background-position: -264px -24px; }
 .icon-cfg-filters{ background-position: -384px -146px; }
+.icon-trash{ background-position: -458px 0px; } 
 
 .division{
 	border-top: 2px solid #CECECE !important;
@@ -768,4 +769,11 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 }
 .expand_retract A{
 	text-decoration: none;
+}
+
+.reset_filters{
+	width: 90px; 
+	margin: 10px 5px -5px 110px; 
+	border: solid 1px #CECECE !important; 
+	padding: 4px !important;
 }

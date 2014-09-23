@@ -68,11 +68,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $index = $params['index'];
     }
 
-    // if user submit a new search restart values of from, page and filters
+    // if user submit a new search restart values of from, page
     if( isset($params['search_form_submit']) ){
-            $params['from'] = 0;
-            $params['page'] = 1;
+        $params['from'] = 0;
+        $params['page'] = 1;
     }
+
+    // check for reset_filters param
+    if( isset($params['reset_filters']) && $params['reset_filters'] == 'ALL' ){
+        $params['filter'] = array();
+    }
+
 
     $from = 0;
     if(isset($params['from']) and $params['from'] != "") {        

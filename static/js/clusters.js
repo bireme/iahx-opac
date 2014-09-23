@@ -47,3 +47,16 @@ function show_more_clusters (cluster, limit) {
     form.fb.value == "";
     return false;
 }
+
+function reset_filters(){
+
+    $('<input>').attr({
+        type: 'hidden',
+        id: 'reset_filters',
+        name: 'reset_filters',
+        value: 'ALL'
+    }).appendTo('#form_clusters');
+
+    $("#form_clusters").submit();
+
+}
