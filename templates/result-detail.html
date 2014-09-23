@@ -71,7 +71,7 @@
 	    <div class="data">
 	        {% block data %}                
 	            <!-- title -->
-	            <h3>{{ occ( {'element': doc.ti, separator: ' / '} ) }}</h3>
+	            <h3>{% autoescape false %}{{ occ( {'element': doc.ti, separator: ' / '} ) }}{% endautoescape %}</h3>
 			    <!-- author -->
 			    {% if doc.au is defined %}
 			    
@@ -87,7 +87,7 @@
 			        <div>
 			            <h4>{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
 			            {% for abstract in doc.ab %}
-			                {{ abstract }}{% if loop.last %}{% else %}<hr/>{% endif %}
+			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
 			            {% endfor %}
 			        </div>
 			    {% endif %}

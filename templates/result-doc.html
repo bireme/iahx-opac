@@ -18,7 +18,7 @@
 
                         <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}">{{ attribute(doc, descriptor ).0 }}</a>
                     {% else %}                    
-                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}">{{ occ( {'element': doc.ti, separator: ' / '} ) }}</a>
+                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}">{% autoescape false %}{{ occ( {'element': doc.ti|raw, separator: ' / '} ) }}{% endautoescape %}</a>
                     {% endif %}
                 </h3>
                

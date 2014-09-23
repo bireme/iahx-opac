@@ -7,7 +7,7 @@
         <div>
             <h4>{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
             {% for abstract in doc.ab %}
-                {{ abstract }}{% if loop.last %}{% else %}<hr/>{% endif %}
+                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
             {% endfor %}
         </div>
     {% endif %}
