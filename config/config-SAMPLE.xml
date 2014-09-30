@@ -1,17 +1,17 @@
 <?xml version="1.0"?>
 <dia_config>
-	<site>portal</site>
-	<bvs_url>http://regional.bvsalud.org/</bvs_url>
-	<about_bvs_url>http://regional.bvsalud.org/</about_bvs_url>
-	<home_url>http://regional.bvsalud.org/</home_url>
-	<search_server>srv.bvsalud.org</search_server>
+	<site>default</site>
+	<bvs_url>http://my-bvs/</bvs_url>
+	<about_bvs_url>http://my-bvs/about</about_bvs_url>
+	<home_url>http://search.local/</home_url>
+	<search_server>localhost:8080</search_server>
 	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
 	<documents_per_page>20</documents_per_page>
     <max_export_records>2000</max_export_records>
 	<default_lang>pt</default_lang>
 	<log_user_search>true</log_user_search>	
 	<log_dir>./logs/</log_dir>
-	<environment>teste</environment>
+	<environment>prod</environment>
 	<addthis_pub></addthis_pub>
 	<addthis_buttons>
 		<button>facebook</button>
@@ -29,7 +29,7 @@
 
 	<search_collection_list>
 		<collection>
-			<name>org</name>
+			<name>main</name>
 			<cluster_items_limit>10</cluster_items_limit>
 			<initial_filter></initial_filter>
 			<index_list>
