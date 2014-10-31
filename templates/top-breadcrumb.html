@@ -7,7 +7,7 @@
 
     {% block bc_third_lvl %}
         >
-        {% if filters|length > 0 and params.filterLabel != "" %}
+        {% if params.filterLabel != "" %}
             {{ params.filterLabel|truncate(90) }}
         {% elseif params.q is defined and params.q != "" %}
             {{ params.q|truncate(90) }} 
