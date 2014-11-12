@@ -2,7 +2,7 @@
 
 <rss version="2.0">
     <channel>{% block channel %}
-        <title>{{ texts.BVS_TITLE }} | {{ q }}</title>
+        <title>{{ texts.BVS_TITLE }} | {% if params.filterLabel != '' %} {{ params.filterLabel }}{% else %} {{ q|truncate(220) }} {% endif %}</title>
         <link>{{ search_url }}</link>
         <description>{% spaceless %}
         <![CDATA[
