@@ -365,7 +365,7 @@ function filter_substring_before($text, $needle = '-'){
 }
 
 function filter_contains($text, $needle){
-    return mb_strpos($text, $needle) !== false;
+    return strpos($text, $needle) !== false;
 }
 
 function filter_starts_with($text, $needle){
