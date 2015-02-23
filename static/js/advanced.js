@@ -30,10 +30,11 @@ function  show_prev(line) {
 
     options = $('#select-' + block_id);
     init = options.find('option:first-child').val();
+    index = $('#index-' + block_id).find(':selected').val();
 
     options.find('option').remove().end();
 
-    $.getJSON(SEARCH_URL + "browse-index/au/?dir=previous&init=" + init, function(result) {
+    $.getJSON(SEARCH_URL + "browse-index/" + index + "/?dir=previous&init=" + init, function(result) {
         $.each(result.terms, function() {
             options.append($("<option />").val(this).text(this));
         });
@@ -46,9 +47,10 @@ function show_next(line) {
 
     options = $('#select-' + block_id);                
     init = options.find('option:last-child').val();
+    index = $('#index-' + block_id).find(':selected').val();
     options.find('option').remove().end();
 
-    $.getJSON(SEARCH_URL + "browse-index/au/?dir=next&init=" + init, function(result) {
+    $.getJSON(SEARCH_URL + "browse-index/" + index + "/?dir=next&init=" + init, function(result) {
         $.each(result.terms, function() {
             options.append($("<option />").val(this).text(this));
         });
