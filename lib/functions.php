@@ -2,14 +2,11 @@
 
 // translation
 function translate($label, $group=NULL) {
-
     global $texts, $lang;
 
     // labels on texts.ini must be array key without spaces
-    //$label_norm = str_replace(' ','_', $label);
     $label_norm = preg_replace('/[&,\'\s]+/', '_', $label);
     
-
     if($group == NULL) {
         if(isset($texts[$label_norm]) and $texts[$label_norm] != "") {
             return $texts[$label_norm];
@@ -23,6 +20,21 @@ function translate($label, $group=NULL) {
     // case translation not found return original label ucfirst
     return ucfirst($label);
 }
+
+// return if a label has translation at texts.ini
+function has_translation($label, $group=NULL) {
+    global $texts, $lang;
+
+    // labels on texts.ini must be array key without spaces
+    $label_norm = preg_replace('/[&,\'\s]+/', '_', $label);
+    
+    if($group == NULL) {
+        return (isset($texts[$label_norm]) and $texts[$label_norm] != "");
+    } else {
+        return (isset($texts[$group][$label_norm]) and $texts[$group][$label_norm] != "");
+    }
+}
+
 
 // funcao retirada da pagina http://www.php.net/utf8_encode
 function isUTF8($string){
