@@ -450,7 +450,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 }
             }
 
-            return $app['twig']->render($view . '/index.html', $output_array);
+            return $app['twig']->render( custom_template($view . '/index.html'), $output_array);
 
             break;
     }
