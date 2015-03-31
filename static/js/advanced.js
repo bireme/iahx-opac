@@ -117,7 +117,7 @@ function add_query(current, q, bool, index) {
 }
 
 function search() {
-    var search_form = document.search_form;
+    var search_form = document.searchForm;
     var form = document.advanced;
     var q = form["q[]"];
     var index = form['index[]'];
@@ -133,7 +133,8 @@ function search() {
         }
     }
 
-    search_form.q.value = query;
+    search_form.q.value = $.trim(query);
+    
     if (query.length >= 2048) {
         search_form.method = "POST";
     } else {
