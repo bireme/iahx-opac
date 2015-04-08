@@ -336,10 +336,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $render = $app['twig']->render( custom_template('export-email.html'), $output_array);
         $subject = ($email['subject'] != '' ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
+        # check if param email (to) is in the format of email list separated by ;
+        if ( !is_array($email['email']) && strpos($email['email'], ';') !== false) {
+            $to_email = explode(';', $email['email']);
+        }else{
+            $to_email = $email['email'];
+        }
+
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
             ->setFrom(array(FROM_MAIL => $email['name'] . ' (' . $texts['BVS_HOME'] . ')') )
-            ->setTo($email['email'])
+            ->setTo($to_email)
             ->setBody($render, 'text/html');
 
         if ( $app['mailer']->send($message) ){
@@ -349,7 +356,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
 
     }
-
+    
     log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq,
                     $page, $output, $SESSION->getId(), $format, $params['sort']);
 
