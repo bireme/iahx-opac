@@ -105,14 +105,21 @@
 				{% include "result-inc-location.html" %}                
 
 		        <div class="user-actions">
+                {% if config.show_related_docs == 'true' %}
 		            {% embed custom_template("result-doc-actions.html") %}
 		            	{# hide unused options #}
 		            	{% block btn_detail %}{% endblock %}
-		            	{% block btn_related %}{% endblock %}
+ 	            	    {% block btn_related %}{% endblock %}                        
 		            {% endembed %}
+                {% else %}
+                    {% embed custom_template("result-doc-actions.html") %}
+                        {# hide unused options #}
+                        {% block btn_detail %}{% endblock %}                        
+                    {% endembed %}
+                {% endif %}
 		        </div>
 
-				{% if maxScore > config.related_min_score %}
+				{% if config.show_related_docs == 'true' and maxScore > config.related_min_score %}
 			    	{% include "related-list.html" %}
 			    {% endif %}	                
 

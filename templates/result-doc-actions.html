@@ -83,7 +83,7 @@
 {% endblock %}
 
 {% block btn_related %}
-    {% if config.show_related_docs == 'true' %} 
+    {% if config.show_related_button == 'true' %} 
     	<div class="related">
             {% if 'DECS' in doc.db  %}
                 <a href="{{ constant("SEARCH_URL") }}?q=%22{{doc.ti.0}}%22&index=mh&lang={{lang}}" title="{{doc.ti.0}}">

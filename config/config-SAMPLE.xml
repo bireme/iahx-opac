@@ -19,6 +19,7 @@
 		<button>delicious</button>
 	</addthis_buttons>	
 	<show_related_docs>true</show_related_docs>
+	<show_related_button>true</show_related_button>
 	<related_min_score>40</related_min_score>
 	<google_analytics_tracking_id></google_analytics_tracking_id>
 	<maintenance>false</maintenance>
