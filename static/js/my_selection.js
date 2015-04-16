@@ -1,10 +1,11 @@
 $(function(){
+
     // getting the count to add in cluster menu
     manipulate_bookmark('count');
-    
+
     var checkbox = $(".my_selection");
 
-    checkbox.change(function(){
+    checkbox.change(function(){        
         var value = $(this).val();
         
         if($(this).is(':checked')) 
@@ -22,8 +23,16 @@ function manipulate_bookmark(func, id) {
         href = href + "/" + id; 
 
     $.get(href, function(data) {
-        $(".my_selection_count").html(data);
+        var total = parseInt(data);
+        var t = $(".my_selection_count");
+        t.html(data);
+        if(total > 0) {
+            t.addClass("highlighted");
+        } else
+            t.removeClass("highlighted");
+
     })
+
 }
 
 // if confirms message, clean the list and go to the main page
