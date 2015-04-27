@@ -47,6 +47,13 @@ DIV.identification H2{
     font-size: 130%;
     color: rgb(40,72,125);    
 }
+DIV.identification H3{
+    /*font-size: 130%;
+    font-style: italic;
+    font-variant: small-caps;*/
+    font-weight: normal;
+    color: rgb(40,72,125);
+}
 DIV.otherVersions A {
 	color: #ffffff;
 	text-decoration: none;
