@@ -15,13 +15,15 @@ $app->get('browse-index/{index}/', function (Request $request, $index) use ($app
         $direction = 'next';
     }
 
-    $service_url = $config->browse_index_url . "/PreviousTermServlet?fields=" . $index . "&init=" . $init . "&maxTerms=200&direction=" . $direction;
+    $index_name = $config->site;
+
+    $service_url = $config->browse_index_url . "/PreviousTermServlet?index=" . $index_name . "&fields=" . $index . "&init=" . $init . "&maxTerms=200&direction=" . $direction;
 
     $result = file_get_contents($service_url);
 
     // start session
     $SESSION = $app['session'];
-    $SESSION->start();    
+    $SESSION->start();
 
     // log user action
     log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'browseindex', $SESSION->getId());
@@ -30,9 +32,9 @@ $app->get('browse-index/{index}/', function (Request $request, $index) use ($app
     $output_array = array();
 
     $response = new Response($result);
-    $response->headers->set('Content-Type', 'application/json');    
-    
-    return $response;     
+    $response->headers->set('Content-Type', 'application/json');
+
+    return $response;
 
 });
 
