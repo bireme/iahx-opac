@@ -24,7 +24,7 @@ $app->match('/advanced/', function (Request $request) use ($app, $DEFAULT_PARAMS
 
     // start session
     $SESSION = $app['session'];
-    $SESSION->start();    
+    $SESSION->start();
 
     // log user action
     log_user_action($lang, '', '', '', '', '', '', '', 'advanced_form', $SESSION->getId());
@@ -35,9 +35,9 @@ $app->match('/advanced/', function (Request $request) use ($app, $DEFAULT_PARAMS
     $output_array['texts'] = $texts;
     $output_array['config'] = $config;
     $output_array['collectionData'] = $collectionData;
-    
-    return $app['twig']->render('advanced.html', $output_array);
-    
+
+    return $app['twig']->render( custom_template('advanced.html'), $output_array);
+
 });
 
 ?>
