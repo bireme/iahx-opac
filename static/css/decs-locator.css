@@ -8,7 +8,7 @@ a{
 }
 
 .text-input {
-	color: #7F7F7F;	
+	color: #7F7F7F;
 	border-radius: 4px;
 	width: 255px;
 	height: 32px;
@@ -55,7 +55,7 @@ Ul.tree, ul.tree ul {
     margin: 0;
     padding: 0;
 }
-   
+
 ul.tree ul {
     margin-left: 20px;
 }
@@ -83,7 +83,15 @@ ul.tree li:last-child {
 	margin-bottom: 15px;
 	-webkit-border-radius: 11px;
 	-moz-border-radius: 11px;
-	border-radius: 11px;	
+	border-radius: 11px;
+}
+
+.definition div{
+	margin: 5px 0 5px 0;
+}
+
+.definition div span{
+	font-weight: bold;
 }
 
 .qlf_box {

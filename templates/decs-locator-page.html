@@ -287,9 +287,19 @@
                 {% if decs.record_list.record.definition.occ.attributes.n != '' or decs.record_list.record.synonym_list.synonym != '' %}
                     <div class="definition">
                         {{ decs.record_list.record.definition.occ.attributes.n }}
+
+                        {% if mode == 'dataentry' and decs.record_list.record.indexing_annotation %}
+                            <div>
+                                <span>{{ texts.INDEXING_ANNOTATION }}:</span>
+                                <blockquote>
+                                    {{ decs.record_list.record.indexing_annotation }}
+                                </blockquote>
+                            <div>
+                        {% endif %}
+
                         {% if decs.record_list.record.synonym_list.synonym %}
                             <div class="syn">
-                                {{ texts.SYNONYMS }}:
+                                <span>{{ texts.SYNONYMS }}:</span>
                                 <ul>
                                     {% for syn in decs.record_list.record.synonym_list.synonym %}
                                         <li>{{ syn }} </li>
@@ -298,7 +308,7 @@
                             </div>
                         {% endif %}
                         <div class="syn">
-                            {{ texts.CATEGORIES }}:
+                            <span>{{ texts.CATEGORIES }}:</span>
                             <ul>
                                 {% for category in decs.record_list.record.tree_id_list.tree_id %}
                                     <li>{{ category }} </li>
@@ -309,7 +319,7 @@
                 {% endif %}
 
                 {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier != '' %}
-                    {{ texts.RESTRICT_BY_ASPECT }}:
+                    <span>{{ texts.RESTRICT_BY_ASPECT }}:</span>
                     <div class="qlf_box">
                         <ul>
                             {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}
