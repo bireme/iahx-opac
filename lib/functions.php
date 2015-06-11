@@ -6,7 +6,7 @@ function translate($label, $group=NULL) {
 
     // labels on texts.ini must be array key without spaces
     $label_norm = preg_replace('/[&,\'\s]+/', '_', $label);
-    
+
     if($group == NULL) {
         if(isset($texts[$label_norm]) and $texts[$label_norm] != "") {
             return $texts[$label_norm];
@@ -27,7 +27,7 @@ function has_translation($label, $group=NULL) {
 
     // labels on texts.ini must be array key without spaces
     $label_norm = preg_replace('/[&,\'\s]+/', '_', $label);
-    
+
     if($group == NULL) {
         return (isset($texts[$label_norm]) and $texts[$label_norm] != "");
     } else {
@@ -130,13 +130,13 @@ function getDefaultClusterList($colectionData){
             if ($cluster['default'] == 'true'){
                 $default_clusters[] = (string)$cluster;
             }
-        }    
+        }
         // if not is set as default make all clusters of the list default
         if ( empty($default_clusters) ){
             foreach( $colectionData->cluster_list->cluster as $cluster  ){
                 $default_clusters[] = (string)$cluster;
             }
-        } 
+        }
     }
 
     return $default_clusters;
@@ -419,7 +419,7 @@ function filter_slugify($text) {
 
 function filter_subfield($text, $id) {
     // check for old language code compatibility (pt=p, es=e, en=i)
-    if (strlen($id) == 2){ 
+    if (strlen($id) == 2){
         $id = ( $id == 'en' ? 'i' : substr($id,0,1) );
     }
 
@@ -432,6 +432,25 @@ function filter_subfield($text, $id) {
     }
 
     return $subfields[$id];
+}
+
+
+function replace_history_mark($text, $history){
+    $result = preg_replace_callback('/#([0-9]+)/',
+                                    function($match) use ($history) {
+                                        return $history[strval($match[1])-1]['detailed_query'];
+                                    }, $text);
+    return $result;
+}
+
+
+function find_in_array($array, $key, $val) {
+    foreach ($array as $item){
+        if (isset($item[$key]) && $item[$key] == $val){
+            return true;
+        }
+    }
+    return false;
 }
 
 ?>

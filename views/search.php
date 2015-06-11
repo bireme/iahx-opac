@@ -81,7 +81,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
 
     $from = 0;
-    if(isset($params['from']) and $params['from'] != "") {        
+    if(isset($params['from']) and $params['from'] != "") {
         $from = $params['from'];
     }
 
@@ -113,7 +113,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             }
         }
     } else {
-        list($param_where, $where) = getDefaultWhere($collectionData, $q);        
+        list($param_where, $where) = getDefaultWhere($collectionData, $q);
         $params['where'] = $param_where;
     }
 
@@ -151,7 +151,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     // alternative syntax for filter param ==> index:value (ex. db:LILACS)
-    if ( !is_array($filter) ) {        
+    if ( !is_array($filter) ) {
         preg_match('/([a-z]+):(.+)/',$filter, $filter_parts);
         if ($filter_parts){
             // convert to internal format
@@ -165,7 +165,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }else{
             $filter[$key] = str_replace("#", "", $value);
         }
-    }    
+    }
 
     // BOOKMARK SESSION
     $SESSION = $app['session'];
@@ -203,7 +203,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     // adjusts parameters for export operation
     if (($output == 'ris' || $output == 'csv' || $output == 'citation')){
-        if ($count == '-1'){                
+        if ($count == '-1'){
             $from = 0;
             $count = $config->documents_per_page * 10;  //increase count for export
         }elseif ($count == 'selection'){
@@ -213,6 +213,35 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }else{
             $export_total = $from + $count;
         }
+    }
+
+    // USER PREFERENCE FILTERS SESSION
+    if(!$SESSION->has("user_preference_filter")) {
+        $SESSION->set('user_preference_filter', array());
+    }
+
+    $user_preference_filter = $SESSION->get('user_preference_filter');
+
+    // add to session filters from form
+    if (  isset($params['config_filter_submit']) ) {
+        $user_preference_filter = $params['u_filter'];
+    }
+
+    $config_cluster_list = $collectionData->cluster_list->cluster;
+    $default_cluster_list = getDefaultClusterList($collectionData);
+
+    $SESSION->set('user_preference_filter', $user_preference_filter);
+
+    // HISTORY SESSION
+    if(!$SESSION->has("history")) {
+        $SESSION->set('history', array());
+    }
+
+    $history = $SESSION->get('history');
+
+    // check and replace for history mark at query string
+    if (strpos($q, '#') !== false){
+        $q = replace_history_mark($q, $history);
     }
 
     // Dia response
@@ -253,50 +282,21 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $pag['pages'] = range($range_min, $range_max);
     $pag['pages_mobile'] = range($range_min, $range_max_mobile);
 
+    // check if query alread register in session
+    $query_id = md5($params['q'] . $detailed_query . $_SERVER['REQUEST_URI']);
 
-    // USER PREFERENCE FILTERS SESSION
-    if(!$SESSION->has("user_preference_filter")) {
-        $SESSION->set('user_preference_filter', array());
+    if($q != "" and find_in_array($history, 'id', $query_id) == false) {
+        $new_history['id'] = $query_id;
+        $new_history['q'] = $params['q'];
+        $new_history['detailed_query'] = $detailed_query;
+        $new_history['filter'] = $filter;
+        $new_history['total'] = $pag['total_formatted'];
+        $new_history['time'] = time();
+
+        array_push($history, $new_history);
+        $SESSION->set('history', $history);
+        $SESSION->save();
     }
-
-    $user_preference_filter = $SESSION->get('user_preference_filter');
-
-    // add to session filters from form
-    if (  isset($params['config_filter_submit']) ) {
-        $user_preference_filter = $params['u_filter'];
-    }
-
-    $config_cluster_list = $collectionData->cluster_list->cluster;
-    $default_cluster_list = getDefaultClusterList($collectionData);
-
-    $SESSION->set('user_preference_filter', $user_preference_filter);
-    $SESSION->save();
-
-    // HISTORY SESSION
-    if(!$SESSION->has("history")) {
-        $SESSION->set('history', array());
-    }
-
-    $history = $SESSION->get('history');
-
-    // if doesn't exists a search history with this query, was created
-    if($q != "" and !isset($history[$q])) {
-        $history[$q]['url'] = $_SERVER['REQUEST_URI'];
-        $history[$q]['id'] = md5($q . $_SERVER['REQUEST_URI']);
-        $history[$q]['time'] = time();
-    }
-
-    // if exists a search history with this query, but the paramaters are different,
-    // update this parameters
-    else if(isset($history[$q]) and $history[$q] != $q) {
-        $history[$q]['url'] = $_SERVER['REQUEST_URI'];
-        $history[$q]['id'] = md5($q . $_SERVER['REQUEST_URI']);
-        $history[$q]['time'] = time();
-    }
-
-    $SESSION->set('history', $history);
-    $SESSION->save();
-
 
     // output vars
     $output_array = array();
@@ -321,6 +321,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
     $output_array['config_cluster_list'] = $config_cluster_list;
     $output_array['default_cluster_list'] = $default_cluster_list;
+    $output_array['history'] = $history;
 
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;
@@ -356,7 +357,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
 
     }
-    
+
     log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq,
                     $page, $output, $SESSION->getId(), $format, $params['sort']);
 
@@ -387,7 +388,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         case "citation":
             $export_template = 'export-citation.html';
             $export_filename = 'export.txt';
-            $content_type = 'text/plain';            
+            $content_type = 'text/plain';
         case "ris":
             if ( !isset($export_template) ){
                 $export_template = 'export-ris.html';
@@ -395,13 +396,13 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $content_type = 'text/plain';
             }
         case "csv":
-            if ( !isset($export_template) ){        
+            if ( !isset($export_template) ){
                 $export_template = 'export-csv.txt';
                 $export_filename = 'export.csv';
                 $content_type = 'text/csv';
             }
             if ( !isset($export_total) ){
-                $export_total = ( (isset($config->max_export_records) && $config->max_export_records > 0)  ? $config->max_export_records : $pag['total']);                
+                $export_total = ( (isset($config->max_export_records) && $config->max_export_records > 0)  ? $config->max_export_records : $pag['total']);
             }
 
             $export_content = "";
@@ -426,7 +427,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $output_array['display_file'] = "result-format-" . $format . ".html";
                 $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
                 $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
-            } 
+            }
             if ($output == 'csv'){
                 $export_content = preg_replace("/\n/", " ", $export_content);                 //Remove line end
                 $export_content = preg_replace("/#BR#/", "\r\n", $export_content);            //Windows Line end
