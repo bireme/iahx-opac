@@ -70,6 +70,14 @@
 {% endblock %}
 
 {% block btn_photocopy %}
+    {% if config.photocopy_url and ('MEDLINE' in doc.db or 'SCAD' in doc.services) %}
+        <div class="scad">
+            <a href="{{ config.photocopy_url }}&lang={{lang}}&db={{doc.db[0]}}&ident={{ doc.id|substring_after('-') }}">
+                <img src="{{ constant("STATIC_URL") }}image/common/icon_scad.gif" alt="{{ texts.PHOTOCOPY }}"/>
+                &#160;<span>{{ texts.PHOTOCOPY }}</span>
+            </a>
+        </div>
+    {% endif %}
 {% endblock %}
 
 {% block btn_related %}
