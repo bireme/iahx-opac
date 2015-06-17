@@ -2,7 +2,7 @@
 
 use Symfony\Component\HttpFoundation\Request;
 
-$app->get('history/{lang}/', function (Request $request, $lang) use ($app, $DEFAULT_PARAMS, $config) {
+$app->get('history/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
 
     global $texts;
 
@@ -33,6 +33,10 @@ $app->get('history/{lang}/', function (Request $request, $lang) use ($app, $DEFA
         $SESSION->save();
     }
 
+    $lang = $DEFAULT_PARAMS['lang'];
+    if(isset($params['lang']) and $params['lang'] != "") {
+        $lang = $params['lang'];
+    }
 
     // translation strings
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
