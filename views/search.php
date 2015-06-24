@@ -273,7 +273,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];
         $pag['total_formatted'] = number_format($pag['total'], 0, ',', '.');
         $pag['start'] = $result['diaServerResponse'][0]['response']['start'];
-        $pag['total_pages'] = (($pag['total']/$count) % 10 == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
+        $pag['total_pages'] = ($pag['total'] % $count == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
         $pag['count'] = $count;
     }
     $range_min = (($page-5) > 0) ? $page-5 : 1;
