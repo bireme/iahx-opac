@@ -5,10 +5,10 @@ $(function(){
 
     var checkbox = $(".my_selection");
 
-    checkbox.change(function(){        
+    checkbox.change(function(){
         var value = $(this).val();
-        
-        if($(this).is(':checked')) 
+
+        if($(this).is(':checked'))
             manipulate_bookmark('a', value);
         else
             manipulate_bookmark('d', value);
@@ -18,9 +18,9 @@ $(function(){
 
 function manipulate_bookmark(func, id) {
     var href = "bookmark/"+ func;
-    
+
     if(id != "")
-        href = href + "/" + id; 
+        href = href + "/" + id;
 
     $.get(href, function(data) {
         var total = parseInt(data);
@@ -40,9 +40,11 @@ function clean_bookmark(phrase) {
     if(confirm(phrase)) {
         manipulate_bookmark('c');
         $(".my_selection").attr('checked', false);
-
         var form = document.searchForm;
-        form.q.value = "";
+
+        if (form.q.value.substring(0,4) == '+id:'){
+            form.q.value = "";
+        }
         form.from.value = 0;
         form.submit();
     }
@@ -55,6 +57,8 @@ function list_bookmark() {
         var form = document.searchForm;
         form.q.value = q;
         form.from.value = 0;
+        form.page.value = "1";
+        $("input[name^='filter']").remove();
         form.submit();
     })
 }
