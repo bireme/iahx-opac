@@ -283,7 +283,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $pag['pages_mobile'] = range($range_min, $range_max_mobile);
 
     // check if query alread register in session
-    $query_id = md5($params['q'] . $detailed_query . $_SERVER['REQUEST_URI']);
+    $query_id = md5($detailed_query);
 
     if($q != "" and find_in_array($history, 'id', $query_id) == false) {
         $new_history['id'] = $query_id;
