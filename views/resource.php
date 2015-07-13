@@ -56,7 +56,7 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     }else{
         if ($check_mobile){      //configured to present mobile version
             $detect = new Mobile_Detect();
-            if ($view == 'mobile' || $detect->isMobile())   {
+            if ($view == 'mobile' || ($detect->isMobile() && !$detect->isTablet()) )   {
                 $view = 'mobile';
             }
         }

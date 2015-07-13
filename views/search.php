@@ -452,7 +452,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             }else{
                 if ($check_mobile){      //configured to present mobile version
                     $detect = new Mobile_Detect();
-                    if ($view == 'mobile' || $detect->isMobile())   {
+                    if ($view == 'mobile' || ($detect->isMobile() && !$detect->isTablet()) )   {
                         $view = 'mobile';
                     }
                 }
