@@ -8,13 +8,13 @@
         <![CDATA[
         {{ q }}
         {% if filters_formatted|length > 0 %}
-            | {{ texts.SELECTED_FILTERS }}: 
+            | {{ texts.SELECTED_FILTERS }}:
             {% for cluster, items in filters_formatted %}
                 {% set texts_group = 'REFINE_' ~ cluster %}
                 {{ attribute(texts.REFINE, cluster) }}=
                     {%- for item in items %}
-                       {%- set item_value = cluster ~ '_' ~ item|slugify ~ '' -%}                                
-                        {{ translate(item, texts_group) }}{% if not loop.last %}, {% endif %}                        
+                       {%- set item_value = cluster ~ '_' ~ item|slugify ~ '' -%}
+                        {{ translate(item, texts_group) }}{% if not loop.last %}, {% endif %}
                     {% endfor -%}{%- if not loop.last %} ; {% endif -%}
             {% endfor %}
         {% endif %}
@@ -37,13 +37,13 @@
                     {% endif %}
 
                     <source><![CDATA[{{ doc.fo.0 }}]]></source>
-                    
+
                     <link>{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}</link>
-                    
+
                     <description><![CDATA[
                         {% if doc.au is defined %}
                         <p>
-                            <strong>{{ texts.RESULT.LABEL_AUTHOR }}:</strong>                            
+                            <strong>{{ texts.RESULT.LABEL_AUTHOR }}:</strong>
                             {% for author in doc.au %}
                                 {{ author }}{% if loop.last %}.{% else %};{% endif %}
                             {% endfor %}
@@ -52,17 +52,17 @@
 
                         {% if doc.fo is defined %}
                         <p>
-                            <strong>{{ texts.RESULT.LABEL_SOURCE }}:</strong>                            
+                            <strong>{{ texts.RESULT.LABEL_SOURCE }}:</strong>
                             {{doc.fo.0}}
                         </p>
                         {% endif %}
 
-                        {% if doc.ab is defined %}                            
+                        {% if doc.ab is defined %}
                             <p>
                                 <strong>{{ texts.RESULT.LABEL_ABSTRACT }}</strong><br/>
                                 {% for abstract in doc.ab %}
-                                    {{ abstract }}{% if loop.last %}{% else %}<hr/>{% endif %}
-                                {% endfor %}                                
+                                    {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
+                                {% endfor %}
                             </p>
                         {% endif %}
 
@@ -74,7 +74,7 @@
                             </p>
                         {% endif %}
                     ]]></description>
-                    
+
                     <guid isPermaLink="false">{{ doc.id }}</guid>
 
 
