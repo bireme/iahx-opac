@@ -45,11 +45,12 @@
             
             <h3>{{ texts.EXPORT_FORMAT }}:</h3>
             <form name="exportForm">
-                <label for="format" class="hide">{{ texts.EXPORT }}</label>
-                <input type="radio" name="format" id="format_ris" value="ris" checked><label for="format_ris"> {{ texts.EXPORT_FORMAT_RIS }}</label><br/>
-                <input type="radio" name="format" id="format_csv" value="csv"><label for="format_csv"> {{ texts.EXPORT_FORMAT_CSV }}</label><br/>
-                <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
-                
+                <fieldset name="exportForm">
+                    <legend class="hide">{{ texts.EXPORT }}</legend>
+                    <input type="radio" name="format" id="format_ris" value="ris" checked><label for="format_ris"> {{ texts.EXPORT_FORMAT_RIS }}</label><br/>
+                    <input type="radio" name="format" id="format_csv" value="csv"><label for="format_csv"> {{ texts.EXPORT_FORMAT_CSV }}</label><br/>
+                    <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
+                </fieldset>
             </form>
             
             <h3>{{ texts.EXPORT }}:</h3>
@@ -107,10 +108,12 @@
                     <textarea id="comment" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue">{{ texts.MAIL_COMMENT }}</textarea>
                     
                     <label for="selection">{{ texts.SEND_RESULT }}</label><br>
-                    <input type="radio" name="selection" id="selection" value="page" checked>{{ texts.THIS_PAGE }}
-                    <input type="radio" name="selection" id="selection" value="my_selection">{{ texts.YOUR_SELECTION }}
-                    <input type="radio" name="selection" id="selection" value="all_results">{{ texts.ALL_REFERENCES_LIMIT }}
-                    
+                    <fieldset>
+                        <legend class="hide">{{ texts.SEND_RESULT }}</legend>
+                        <input type="radio" name="selection" id="selection" value="page" checked>{{ texts.THIS_PAGE }}
+                        <input type="radio" name="selection" id="selection" value="my_selection">{{ texts.YOUR_SELECTION }}
+                        <input type="radio" name="selection" id="selection" value="all_results">{{ texts.ALL_REFERENCES_LIMIT }}
+                    </fieldset>
                     <div>
                         <input type="submit" value=" {{ texts.SEND }} " class="submit">
                     </div>

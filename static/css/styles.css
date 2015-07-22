@@ -25,6 +25,8 @@ HR{
 a{
 	color: #07449f;
 	}
+fieldset {border: none;padding: 2px;}
+fieldset input {margin: 2px;}
 .container{
 	margin: 0 auto;
     max-width: 1004px;
