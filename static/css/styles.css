@@ -368,14 +368,13 @@ DIV.record DIV.data H3 {
 	font-family: Arial;
 }
 DIV.record DIV.data A {
-	color: #333;
+	color: #000;
 	text-decoration: none;
 }
 DIV.record DIV.data A:hover {
 	color: #344c66;
 
 }
-.tags{font-weight:bold; color:#626465; margin-bottom: 10px;}
 DIV.record DIV.data DIV.source,DIV.record DIV.data DIV.language, DIV.record DIV.data DIV.description, DIV.record DIV.data DIV.tags {
 	color: #121212;
 }
@@ -385,7 +384,8 @@ DIV.record DIV.data DIV.source {
 DIV.record DIV.data DIV.description SPAN, DIV.record DIV.data DIV.description A, DIV.record DIV.data DIV.tags A.more {
 	color: #121212;
 }
-
+.tags{font-weight:bold; color:#000; margin-bottom: 10px;}
+.tags a {color:#000;}
 DIV.record DIV.services DIV {
 	font-size: 90%;
 }
