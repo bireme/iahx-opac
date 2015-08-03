@@ -3,7 +3,7 @@
     
         {% if config.show_config_filter == 'true' %}
             <div class="cfg-filters">
-                <i class="icon-cfg-filters"> </i> <a href="#" onclick="$('#config_filters').slideToggle(100);">{{ texts.CONFIG_FILTERS }}</a> 
+                <em class="icon-cfg-filters"> </em> <a href="#" onclick="$('#config_filters').slideToggle(100);">{{ texts.CONFIG_FILTERS }}</a> 
             </div>
 
             <div id="config_filters" style="display: none">
@@ -68,8 +68,8 @@
                         <button type="submit" class="submit">{{texts.FILTER}}</button>
                     </div>
                     <div class="expand_retract">
-                        <a href="javascript:show_all_clusters();" title="{{texts.EXPAND_ALL}}"><i class="icon-plus-sign"></i>{{texts.EXPAND_ALL}}</a>
-                        <a href="javascript:hide_all_clusters();" title="{{texts.RETRACT_ALL}}"><i class="icon-minus-sign"></i>{{texts.RETRACT_ALL}}</a>
+                        <a href="javascript:show_all_clusters();" title="{{texts.EXPAND_ALL}}"><em class="icon-plus-sign"></em>{{texts.EXPAND_ALL}}</a>
+                        <a href="javascript:hide_all_clusters();" title="{{texts.RETRACT_ALL}}"><em class="icon-minus-sign"></em>{{texts.RETRACT_ALL}}</a>
                     </div>
                     <!-- used for show more values (facet browse)-->
                     <input type="hidden" name="fb" value="">
@@ -117,27 +117,26 @@
                                             {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
                                             <li class="{% if '/' in item.0 %}subtopic{% endif %}">
-                                                <label for="{{ cluster_item_id }}"></label>
                                                 <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
                                                 {% for filter_name, filter in filters if filter_name == name %}
                                                     {% if item.0 in filter %}checked="true"{% endif %}
                                                 {% endfor %}
                                                 >
 
-                                                <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');" title="">
+                                                <label for="{{ cluster_item_id }}"><a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');" title="">
                                                     {% if '/' in item.0 %}
                                                         {% set item_part = item.0|split('/') %}
                                                         {{ translate(item_part.1, cluster_labels ) }}
                                                     {% else %}
                                                         {{ translate(item.0, cluster_labels ) }}
                                                     {% endif %}
-                                                </a> ({{ item.1 }})
+                                                </a></label> ({{ item.1 }})
 
                                             </li>
                                         {% endfor %}
 
                                         {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
-                                            <li><b><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></b></li>
+                                            <li><strong><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></strong></li>
                                         {% endif %}
                                         <!-- <input type="submit" value="filtrar"> -->
                                     </ul>

@@ -2,7 +2,7 @@
 {% if collectionData.format_list.format|length > 1 %}
     <div class="format">
         <label for="displayFormat" class="hide">{{ texts.FORMAT_OPTIONS }}</label>
-        <select name="format" id="format" class="inputText" onchange="javascript:change_format(this);">
+        <select name="format" id="displayFormat" class="inputText" onchange="javascript:change_format(this);">
             <option value="">{{ texts.FORMAT_OPTIONS }}</option>
             {% for format in collectionData.format_list.format %}
                 {% set format_label = 'FORMAT_' ~ format.name %}

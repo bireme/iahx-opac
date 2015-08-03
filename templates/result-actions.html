@@ -5,7 +5,7 @@
 
 <div class="actions">
     <!-- print -->
-    <a id="inline" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
+    <a id="inline_print" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
         <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
     </a>
     <div style="display:none">        
@@ -37,7 +37,7 @@
     </div>
 
     <!-- export -->
-    <a id="inline" href="#export" alt="{{ texts.EXPORT }}" class="fancybox">
+    <a id="inline_export" href="#export" alt="{{ texts.EXPORT }}" class="fancybox">
         <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
     </a>
     <div style="display:none">
@@ -45,11 +45,12 @@
             
             <h3>{{ texts.EXPORT_FORMAT }}:</h3>
             <form name="exportForm">
-                <label for="format" class="hide">{{ texts.EXPORT }}</label>
-                <input type="radio" name="format" id="format_ris" value="ris" checked><label for="format_ris"> {{ texts.EXPORT_FORMAT_RIS }}</label><br/>
-                <input type="radio" name="format" id="format_csv" value="csv"><label for="format_csv"> {{ texts.EXPORT_FORMAT_CSV }}</label><br/>
-                <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
-                
+                <fieldset name="exportForm">
+                    <legend class="hide">{{ texts.EXPORT }}</legend>
+                    <input type="radio" name="format" id="format_ris" value="ris" checked><label for="format_ris"> {{ texts.EXPORT_FORMAT_RIS }}</label><br/>
+                    <input type="radio" name="format" id="format_csv" value="csv"><label for="format_csv"> {{ texts.EXPORT_FORMAT_CSV }}</label><br/>
+                    <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
+                </fieldset>
             </form>
             
             <h3>{{ texts.EXPORT }}:</h3>
@@ -79,7 +80,7 @@
     </div>
 
     <!-- email -->
-    <a id="inline" href="#email" alt="{{ texts.EXPORT }}" class="fancybox">
+    <a id="inline_email" href="#email" alt="{{ texts.EXPORT }}" class="fancybox">
         <img src="{{ constant("STATIC_URL") }}image/email.png" alt="{{ texts.SEND_BY_EMAIL }}">
     </a>
     <div style="display:none">
@@ -107,10 +108,12 @@
                     <textarea id="comment" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue">{{ texts.MAIL_COMMENT }}</textarea>
                     
                     <label for="selection">{{ texts.SEND_RESULT }}</label><br>
-                    <input type="radio" name="selection" id="selection" value="page" checked>{{ texts.THIS_PAGE }}
-                    <input type="radio" name="selection" id="selection" value="my_selection">{{ texts.YOUR_SELECTION }}
-                    <input type="radio" name="selection" id="selection" value="all_results">{{ texts.ALL_REFERENCES_LIMIT }}
-                    
+                    <fieldset>
+                        <legend class="hide">{{ texts.SEND_RESULT }}</legend>
+                        <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page">{{ texts.THIS_PAGE }}</label>
+                        <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my">{{ texts.YOUR_SELECTION }}</label>
+                        <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all">{{ texts.ALL_REFERENCES_LIMIT }}</label>
+                    </fieldset>
                     <div>
                         <input type="submit" value=" {{ texts.SEND }} " class="submit">
                     </div>
@@ -126,7 +129,7 @@
     <span class="addthis_separator">|</span>
     {% if doc is defined %}
         <a class="addthis_button_facebook_like" fb:like:layout="button_count" title="Facebook_like"></a>
-        <a class="addthis_button_tweet" title="Tweet"></a>            
+        <a class="addthis_button_tweet" title="Tweet"></a>
         <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>            
         <a class="addthis_counter addthis_pill_style"></a> 
         <span class="addthis_separator">|</span>
