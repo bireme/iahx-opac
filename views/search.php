@@ -290,7 +290,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $new_history['q'] = $params['q'];
         $new_history['detailed_query'] = $detailed_query;
         $new_history['filter'] = $filter;
-        $new_history['total'] = $pag['total_formatted'];
+        $new_history['total'] = ($pag['total_formatted'] > 0 ? $pag['total_formatted'] : 0);
         $new_history['time'] = time();
 
         array_push($history, $new_history);

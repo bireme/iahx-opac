@@ -26,9 +26,6 @@ $app->get('history/', function (Request $request) use ($app, $DEFAULT_PARAMS, $c
         // remove item from history array
         unset($history[$history_item]);
 
-        // reorder array
-        $history = array_values($history);
-
         $SESSION->set('history', $history);
         $SESSION->save();
     }
