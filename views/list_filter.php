@@ -16,13 +16,13 @@ $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use
     if ( !empty($filter_param) ){
         $filter = $filter_param;
     }
-    $count = $request->get("count");
+    $limit = $request->get("limit");
     // if not set count list all itens from filter
-    if ($count == ''){
-        $count = 999999;
+    if ($limit == ''){
+        $limit = 999999;
     }
     // filter browse param (ex. au:10)
-    $fb = $filter_id . ":" . $count;
+    $fb = $filter_id . ":" . $limit;
 
     $dia = new Dia($site, $col, 1, 'site', $lang);
     $dia->setParam('fb', $fb);
