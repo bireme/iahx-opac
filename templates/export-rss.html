@@ -19,7 +19,7 @@
             {% endfor %}
         {% endif %}
         ]]>
-         {% endspaceless %}</description>
+        {% endspaceless %}</description>
 
         <image>
             <title>{{ texts.TITLE }}</title>
@@ -31,53 +31,14 @@
         {% for doc in docs %}
             {% block item %}
                 <item>
-                    <title><![CDATA[{{ occ( {'element': doc.ti, separator: ' / '} ) }}]]></title>
+                    <title><![CDATA[{% if doc.ti.0|length > 100 %}{{ doc.ti.0[:100] }} [...]{% else %}{{ doc.ti.0 }}{% endif %}]]></title>
                     {% if doc.au is defined %}
-                    <author><![CDATA[{% for author in doc.au %}{{ author }}{% if loop.last %}.{% else %};{% endif %}{% endfor %}]]></author>
+                        <author><![CDATA[{% for author in doc.au %}{{ author }}{% if loop.last %}.{% else %}; {% endif %}{% endfor %}]]></author>
                     {% endif %}
-
                     <source><![CDATA[{{ doc.fo.0 }}]]></source>
-
                     <link>{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}</link>
-
-                    <description><![CDATA[
-                        {% if doc.au is defined %}
-                        <p>
-                            <strong>{{ texts.RESULT.LABEL_AUTHOR }}:</strong>
-                            {% for author in doc.au %}
-                                {{ author }}{% if loop.last %}.{% else %};{% endif %}
-                            {% endfor %}
-                        </p>
-                        {% endif %}
-
-                        {% if doc.fo is defined %}
-                        <p>
-                            <strong>{{ texts.RESULT.LABEL_SOURCE }}:</strong>
-                            {{doc.fo.0}}
-                        </p>
-                        {% endif %}
-
-                        {% if doc.ab is defined %}
-                            <p>
-                                <strong>{{ texts.RESULT.LABEL_ABSTRACT }}</strong><br/>
-                                {% for abstract in doc.ab %}
-                                    {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
-                                {% endfor %}
-                            </p>
-                        {% endif %}
-
-                        {% if doc.mh is defined %}
-                            <p><strong>{{ texts.RESULT.LABEL_SUBJECT }}:</strong>
-                                {% for mesh in doc.mh %}
-                                    {{ mesh }}{% if loop.last %}.{% else %};{% endif %}
-                                {% endfor %}
-                            </p>
-                        {% endif %}
-                    ]]></description>
-
+                    <description><![CDATA[<p>{% if doc.fo is defined %}{{ doc.fo.0 }}{% if doc.fo.0|last == '.' %} {% else %}. {% endif %}{% endif %}{% if doc.type is defined %}[{{ translate(doc.type.0, 'REFINE_type') }}]{% endif %}</p>]]></description>
                     <guid isPermaLink="false">{{ doc.id }}</guid>
-
-
                 </item>
                 {% endblock %}
         {% endfor %}
