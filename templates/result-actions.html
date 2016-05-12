@@ -8,27 +8,19 @@
     <a id="inline_print" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
         <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
     </a>
-    <div style="display:none">        
+    <div style="display:none">
         <div id="print">
             {{ texts.PRINT }}
             <ul>
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">            
-                    <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">
+                    <a href="javascript:print_page('{{ pag.count }}');" alt="{{ texts.PRINT }}">
                         {{ texts.THIS_PAGE }}
                     </a>
                 </li>
-
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">            
-                    <a href="javascript:print('{{ pag.count }}');" alt="{{ texts.PRINT }}">
-                        {{ texts.YOUR_SELECTION }}
-                    </a>
-                </li>
-
-                <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">            
-                    <a href="javascript:print();" alt="{{ texts.PRINT }}">
+                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">
+                    <a href="javascript:print_page();" alt="{{ texts.PRINT }}">
                         {{ texts.ALL_REFERENCES_LIMIT }}
                     </a>
                 </li>
@@ -42,7 +34,7 @@
     </a>
     <div style="display:none">
         <div id="export">
-            
+
             <h3>{{ texts.EXPORT_FORMAT }}:</h3>
             <form name="exportForm">
                 <fieldset name="exportForm">
@@ -52,25 +44,25 @@
                     <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
                 </fieldset>
             </form>
-            
+
             <h3>{{ texts.EXPORT }}:</h3>
             <ul>
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
                     <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.THIS_PAGE }}">
                         {{ texts.THIS_PAGE }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
                     <a href="javascript:export_result('selection');" title="{{ texts.YOUR_SELECTION }}">
                         {{ texts.YOUR_SELECTION }}
                     </a>
                 </li>
 
                 <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">            
+                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
                     <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}">
                         {{ texts.ALL_REFERENCES }}
                     </a>
@@ -85,28 +77,28 @@
     </a>
     <div style="display:none">
         <div id="email" class="optionEmail">
-            
+
             <form name="emailForm" method="POST" action="{{ current_url }}" onsubmit="return send_email();">
 
                 <input type="hidden" name="is_email" value="true" />
 
                 <formset>
                     <label for="yourName">{{ texts.MAIL_FROM_NAME }} </label>
-                    <input type="text" id="yourName" name="name" value="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue">    
+                    <input type="text" id="yourName" name="name" value="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue">
 
                     <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }} </label>
-                    <input type="text" id="yourEmail" name="your_email" value="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue">    
+                    <input type="text" id="yourEmail" name="your_email" value="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue">
 
                     <label for="email">(*) {{ texts.SEND_RESULT_TO }}</label> <a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a>
                     <div id="destinatarios"><input type="text" id="email_dest" name="email[]" value="{{ texts.MAIL_TO_EMAIL }}" title="{{ texts.MAIL_TO_EMAIL }}" class="defaultValue"></div>
                     <div id="more-destinatarios"></div>
 
                     <label for="subject">{{ texts.MAIL_SUBJECT }}</label>
-                    <input type="text" id="subject" name="subject" value="{{ texts.MAIL_SUBJECT }}" title="{{ texts.MAIL_SUBJECT }}" class="defaultValue">    
+                    <input type="text" id="subject" name="subject" value="{{ texts.MAIL_SUBJECT }}" title="{{ texts.MAIL_SUBJECT }}" class="defaultValue">
 
                     <label for="comment">{{ texts.MAIL_COMMENT }}</label>
                     <textarea id="comment" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue">{{ texts.MAIL_COMMENT }}</textarea>
-                    
+
                     <label for="selection">{{ texts.SEND_RESULT }}</label><br>
                     <fieldset>
                         <legend class="hide">{{ texts.SEND_RESULT }}</legend>
@@ -125,24 +117,24 @@
 </div>
 
 <!-- AddThis Button BEGIN -->
-<div class="addthis_toolbox addthis_default_style">        
+<div class="addthis_toolbox addthis_default_style">
     <span class="addthis_separator">|</span>
     {% if doc is defined %}
         <a class="addthis_button_facebook_like" fb:like:layout="button_count" title="Facebook_like"></a>
         <a class="addthis_button_tweet" title="Tweet"></a>
-        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>            
-        <a class="addthis_counter addthis_pill_style"></a> 
+        <a class="addthis_button_google_plusone" g:plusone:size="medium"></a>
+        <a class="addthis_counter addthis_pill_style"></a>
         <span class="addthis_separator">|</span>
     {% endif %}
 
     {% for service in config.addthis_buttons.button %}
         <a class="addthis_button_{{ service }}"></a>
-    {% endfor %}    
+    {% endfor %}
     {% if doc is not defined %}
-        <a class="addthis_button_compact"></a> 
+        <a class="addthis_button_compact"></a>
     {% endif %}
 
 </div>
 <script type="text/javascript">addthis_pub  = '{{ config.addthis_pub }}';</script>
-<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>    
+<script type="text/javascript" src="http://s7.addthis.com/js/152/addthis_widget.js"></script>
 <!-- AddThis Button END -->

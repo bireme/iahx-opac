@@ -3,8 +3,8 @@ function go_to_page(page) {
     var form = document.searchForm;
     var count = document.searchForm.count.value;
     var from = (page*count)-count+1;
-    
-    form.from.value = from;    
+
+    form.from.value = from;
     form.page.value = page;
 
     $("#q").focus();            // prevent submit of default placeholder text
@@ -26,7 +26,7 @@ function change_count(elem) {
     var form = document.searchForm;
     form.count.value = elem.value;
 
-    $("#searchForm").submit();   
+    $("#searchForm").submit();
 }
 
 // muda o parâmetro lang
@@ -44,12 +44,12 @@ function change_format(elem) {
 }
 
 // leva para output "print", passando o count
-function print(count) {
+function print_page(count) {
 
     var form = document.searchForm;
     if(count)
         form.count.value = count;
-    else 
+    else
         form.count.value = 300;
 
     change_output("print");
@@ -64,7 +64,7 @@ function export_result(count) {
 
     if(count)
         form.count.value = count;
-    else 
+    else
         form.count.value = -1;
 
     change_output(output);

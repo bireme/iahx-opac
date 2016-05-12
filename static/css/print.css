@@ -6,7 +6,7 @@ DIV.top {
 }
 
 DIV.identification H1 {
-	/* color: #CCC; */	
+	/* color: #CCC; */
 }
 
 DIV.search {
@@ -55,5 +55,9 @@ DIV.footer DIV.links {
 }
 
 DIV.otherVersions {
+	display: none;
+}
+
+DIV.yourSelectionCheck{
 	display: none;
 }
