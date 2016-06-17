@@ -27,7 +27,7 @@
         {% for name, cluster in clusters if cluster|length > 0 %}
 
             {% set cluster_labels = 'REFINE_' ~ name %}
-            
+
             {# check if config has a cluster list to show, if not show all #}
 
             {% if not collectionData.cluster_list.cluster or name in collectionData.cluster_list.cluster %}
@@ -50,13 +50,17 @@
                                         />
 
                                         <a href="javascript: add_filter('{{ name }}_{{ item.0|replace({' ': '_', '/':'_'}) }}');" title="" class="c-filters-lbl">
-                                            {% if '/' in item.0 %}
-                                                {% set item_part = item.0|split('/') %}
-                                                {{ translate(item_part.1, cluster_labels ) }}
-                                            {% else %}
-                                                {{ translate(item.0, cluster_labels ) }}
-                                            {% endif %}
-                                        </a> ({{ item.1 }})
+											{% if '/' in item.0 %}
+												{% set item_part = item.0|split('/') %}
+												{{ translate(item_part.1, cluster_labels ) }}
+                                            {% elseif '^' in item.0 %}
+                                                {{ item.0|subfield(lang) }}
+                                            {% elseif '+' in item.0 %}
+												{{ item.0|replace('+','/') }}
+											{% else %}
+												{{ translate(item.0, cluster_labels ) }}
+											{% endif %}
+                                        </a> &nbsp;({{ item.1 }})
 
                                     </li>
                                 {% endfor %}

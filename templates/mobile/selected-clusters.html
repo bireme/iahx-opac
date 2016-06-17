@@ -11,7 +11,14 @@
                             {% set item_value = cluster ~ '_' ~ item|replace({' ': '_', '/':'_'}) ~ '' %}
 
                             <li class="c-filters-lbl">
-                                {{ translate(item, texts_group) }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}" class="c-filter-remove" >(remover)</a>
+                                {% if '^' in item %}
+                                    {{ item|subfield(lang) }}
+                                {% elseif '+' in item %}
+									{{ item|replace('+','/') }}
+                                {% else %}
+                                    {{ translate(item, texts_group) }}
+                                {% endif %}
+                                <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}" class="c-filter-remove" >(remover)</a>
                             </li>
                         {% endfor %}
                     </ul>
