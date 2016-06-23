@@ -2,12 +2,11 @@
 {% block title %}{{ doc.ti.0 }} | {{ texts.BVS_TITLE }}{% endblock %}
 
 {% block extrahead %}
-    <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">  
-    <script>window.print();</script> 
+    <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">
 
     <meta name="citation_id" content="{{ doc.id }}" />
     <meta name="dc.identifier" content="{{ doc.id }}" />
-    
+
     {% for title in doc.ti %}
         <meta name="dc.title" content="{{ title }}" />
     {% endfor %}
@@ -16,17 +15,17 @@
         <meta name="citation_title" content="{{ doc.ti.0 }}" />
     {% endif %}
 
-    {% if doc.au is defined %}    
+    {% if doc.au is defined %}
         {% for author in doc.au %}
             <meta name="dc.contributor"  content="{{ author }}" />
             <meta name="citation_author" content="{{ author }}" />
-        {% endfor %}        
+        {% endfor %}
     {% endif %}
 
-    {% if doc.ur is defined %}    
+    {% if doc.ur is defined %}
         <meta name="citation_fulltext_html_url" content="{{ doc.ur.0 }}" />
     {% endif %}
-    {% if doc.mh is defined %}    
+    {% if doc.mh is defined %}
         {% for descriptor in doc.mh %}
             {% if '/' in descriptor %}
                 <meta name="citation_keywords" content="{{ descriptor|substring_before('/') }}" />
@@ -56,7 +55,7 @@
     <meta name="citation_publication_date" content="{{ doc.da|slice(0,4) }}" />
     <meta name="dc.date" content="{{ doc.da|slice(0,4) }}" />
 
-    
+
 {% endblock %}
 
 {# hide unused blocks #}
@@ -66,20 +65,20 @@
 {% block results_topbar %}{% endblock %}
 {% block resultNavigation %}{% endblock %}
 
-{% block result_set %}	
+{% block result_set %}
 	<div id="{{ doc.id }}" class="record detail">
 	    <div class="data">
-	        {% block data %}                
+	        {% block data %}
 	            <!-- title -->
 	            <h3>{% autoescape false %}{{ occ( {'element': doc.ti, separator: ' / '} ) }}{% endautoescape %}</h3>
 			    <!-- author -->
 			    {% if doc.au is defined %}
-			    
+
 			        {% for author in doc.au %}
 			            <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
 			        {% endfor %}
 
-			    {% endif %}	            
+			    {% endif %}
 
 				{% include custom_template("result-inc-source.html") %}
 
@@ -102,29 +101,28 @@
                     </div>
                 {% endif %}
 
-				{% include "result-inc-location.html" %}                
+				{% include "result-inc-location.html" %}
 
 		        <div class="user-actions">
                 {% if config.show_related_docs == 'true' %}
 		            {% embed custom_template("result-doc-actions.html") %}
 		            	{# hide unused options #}
 		            	{% block btn_detail %}{% endblock %}
- 	            	    {% block btn_related %}{% endblock %}                        
+ 	            	    {% block btn_related %}{% endblock %}
 		            {% endembed %}
                 {% else %}
                     {% embed custom_template("result-doc-actions.html") %}
                         {# hide unused options #}
-                        {% block btn_detail %}{% endblock %}                        
+                        {% block btn_detail %}{% endblock %}
                     {% endembed %}
                 {% endif %}
 		        </div>
 
 				{% if config.show_related_docs == 'true' and maxScore > config.related_min_score %}
 			    	{% include "related-list.html" %}
-			    {% endif %}	                
+			    {% endif %}
 
-	        {% endblock %}            
+	        {% endblock %}
 	    </div>
 	</div>
 {% endblock %}
-
