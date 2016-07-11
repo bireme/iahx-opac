@@ -10,6 +10,12 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     $site = $DEFAULT_PARAMS['defaultSite'];
     $col = $DEFAULT_PARAMS['defaultCollection'];
 
+    // check if is present the lang param and overwrite the url lang param
+    $param_lang =  $request->get('lang');
+    if(isset($param_lang) and $param_lang != "") {
+        $lang = $param_lang;
+    }
+
     // controller response
     $dia = new Dia($site, $col, 1, "site", $lang);
 
