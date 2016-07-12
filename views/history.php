@@ -35,6 +35,7 @@ $app->get('history/', function (Request $request) use ($app, $DEFAULT_PARAMS, $c
         $lang = $params['lang'];
     }
 
+    $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
     // translation strings
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
@@ -42,6 +43,7 @@ $app->get('history/', function (Request $request) use ($app, $DEFAULT_PARAMS, $c
     $output_array['lang'] = $lang;
     $output_array['texts'] = $texts;
     $output_array['history_list'] = $history;
+    $output_array['collectionData'] = $collectionData;
 
     return $app['twig']->render( custom_template('history.html'), $output_array);
 });
