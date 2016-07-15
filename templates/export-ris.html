@@ -12,14 +12,17 @@ TY  - BOOK
 {% for author in doc.au %}
 AU  - {{ author }}
 {% endfor %}
+TI  - {{ doc.ti.0 }}
 {% for title in doc.ti %}
-T1  - {{ title }}
+{% if not loop.first %}
+TT  - {{ title }}
+{% endif %}
 {% endfor %}
 {% if doc.ta %}
 JO  - {{ doc.ta.0 }}
 {% endif %}
 {% if doc.vi %}
-VL  - {{ doc.vi.0 }} 
+VL  - {{ doc.vi.0 }}
 {% endif %}
 {% if doc.ip %}
 IS  - {{ doc.ip.0 }}
@@ -39,22 +42,23 @@ EP  - {{ doc.pg.0 }}
 {% endif %}
 {% if doc.da %}
 DA  - {{ doc.da|slice(0,4) }}/{{ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{ doc.da|slice(6,2) }}{% endif %}
+
 PY  - {{ doc.da|slice(0,4) }}
 {% endif %}
 {% for mesh in doc.mh %}
 KW  - {{ mesh }}
 {% endfor %}
 {% for abstract in doc.ab %}
-N2  - {{ abstract }}
+AB  - {{ abstract }}
 {% endfor %}
 {% if doc.ur %}
 {% for url in doc.ur %}
-UR  - {{ url }}
+UR  - {{ url|raw }}
 {% endfor %}
 {% else %}
 UR - {{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}
 {% endif %}
-ER  - 
+ER  -
 
 {% endfor %}
 {% endspaceless %}
