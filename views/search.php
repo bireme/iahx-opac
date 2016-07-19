@@ -395,6 +395,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $export_filename = 'export.txt';
                 $content_type = 'text/plain';
             }
+        case "bibtex":
+            if ( !isset($export_template) ){
+                $export_template = 'export-bibtex.html';
+                $export_filename = 'export.bib';
+                $content_type = 'text/plain';
+            }
         case "csv":
             if ( !isset($export_template) ){
                 $export_template = 'export-csv.txt';
