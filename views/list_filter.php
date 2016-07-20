@@ -3,12 +3,22 @@
 use Symfony\Component\HttpFoundation\Request;
 
 $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use ($app, $DEFAULT_PARAMS, $config) {
-    global $lang, $texts;
+    global $texts;
 
+    $params = array_merge(
+        $app['request']->request->all(),
+        $app['request']->query->all()
+    );
+    
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
     $site = $DEFAULT_PARAMS['defaultSite'];
     $col = $DEFAULT_PARAMS['defaultCollection'];
     $filter = array();
+
+    $lang = $DEFAULT_PARAMS['lang'];
+    if(isset($params['lang']) and $params['lang'] != "") {
+        $lang = $params['lang'];
+    }
 
     $q = $request->get("q");
     $index = $request->get("index");
