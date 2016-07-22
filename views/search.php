@@ -202,7 +202,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     // adjusts parameters for export operation
-    if (($output == 'ris' || $output == 'csv' || $output == 'citation')){
+    if (($output == 'ris' || $output == 'csv' || $output == 'citation' || $output == 'bibtex')){
         if ($count == '-1'){
             $from = 0;
             $count = $config->documents_per_page * 10;  //increase count for export
