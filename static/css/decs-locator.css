@@ -165,3 +165,7 @@ ul.tree li:last-child {
     /* prevent horizontal scrollbar */
     overflow-x: hidden;
 }
+
+.alert-bar{
+	display-none;
+}

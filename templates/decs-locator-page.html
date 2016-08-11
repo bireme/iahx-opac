@@ -315,6 +315,40 @@
                                 {% endfor %}
                             </ul>
                         </div>
+
+                        {% if mode == 'dataentry' and decs.record_list.record.consider_also_terms_at %}
+                            <div>
+                                <span>{{ texts.CONSIDER_ALSO_TERMS }}:</span>
+                                <blockquote>
+                                    {{ decs.record_list.record.consider_also_terms_at }}
+                                </blockquote>
+                            <div>
+                        {% endif %}
+
+                        {% if mode == 'dataentry' and decs.record_list.record.entry_combination_list.entry_combination %}
+                            <div>
+                                <span>{{ texts.PRECOORD }}:</span>
+                                <ul>
+                                    {% for entry_combination in decs.record_list.record.entry_combination_list.entry_combination %}
+
+                                        <li>/{{  attribute(texts, entry_combination.attributes.sh_abbr1) }} Use <strong>{{ entry_combination }}</strong> </li>
+                                    {% endfor %}
+                                </ul>
+                            <div>
+                        {% endif %}
+
+                        {% if decs.record_list.record.see_related_list.see_related %}
+                            <div class="syn">
+                                <span>{{ texts.RELATED }}:</span>
+                                <ul>
+                                    {% for see_related in decs.record_list.record.see_related_list.see_related %}
+                                        <li>{{ see_related }} </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+
                     </div>
                 {% endif %}
 
