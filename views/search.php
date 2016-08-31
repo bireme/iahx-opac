@@ -244,6 +244,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $q = replace_history_mark($q, $history);
     }
 
+    // if user not using boolean searh remove from query term modifiers of lucene (?.:)
+    $pattern_bool_query = '/ AND | OR |\(/i';
+    if ( !preg_match($pattern_bool_query, $q) ){
+        $q = str_replace(array('?',':','.'), '', $q);
+    }
+
     // Dia response
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);

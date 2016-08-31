@@ -167,5 +167,5 @@ ul.tree li:last-child {
 }
 
 .alert-bar{
-	display-none;
+	display:none;
 }
