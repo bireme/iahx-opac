@@ -247,7 +247,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     // if user not using boolean searh remove from query term modifiers of lucene (?.:)
     $pattern_bool_query = '/ AND | OR |\(/i';
     if ( !preg_match($pattern_bool_query, $q) ){
-        $q = str_replace(array('?',':','.'), '', $q);
+        $q = str_replace(array('?','.'), '', $q);
     }
 
     // Dia response
