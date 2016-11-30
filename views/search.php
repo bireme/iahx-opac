@@ -322,6 +322,10 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['config_cluster_list'] = $config_cluster_list;
     $output_array['default_cluster_list'] = $default_cluster_list;
     $output_array['history'] = $history;
+    $output_array['index'] = $index;
+    $output_array['parsing_filters'] = $solr_param_fq;
+    $output_array['page'] = $page;
+    $output_array['current_page'] = 'result';
 
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;

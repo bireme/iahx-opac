@@ -84,6 +84,8 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
 
     // output vars
     $output_array = array();
+    $output_array['q'] = $request->get("tree_id");
+    $output_array['current_page'] = 'decs_lookup';
     $output_array['lang'] = $lang;
     $output_array['decs'] = $decs_xml->decsws_response;
     $output_array['ancestors_i_tree'] = $ancestors_i_tree;

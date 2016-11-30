@@ -35,6 +35,7 @@ $app->match('/advanced/', function (Request $request) use ($app, $DEFAULT_PARAMS
     $output_array['texts'] = $texts;
     $output_array['config'] = $config;
     $output_array['collectionData'] = $collectionData;
+    $output_array['current_page'] = 'advanced_form';
 
     return $app['twig']->render( custom_template('advanced.html'), $output_array);
 
