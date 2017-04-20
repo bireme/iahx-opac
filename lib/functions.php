@@ -453,4 +453,18 @@ function find_in_array($array, $key, $val) {
     return false;
 }
 
+// convert filters array to search string
+function filters_to_string($filters){
+    if(is_array($filters)){
+        $expr = array();
+        foreach($filters as $key => $value){
+            $value  = array_map(function($val) { return '"'.$val.'"'; }, $value);
+            $value  = implode(' OR ', $value);
+            $expr[] = $key.':('.$value.')';
+        }
+        $filters = ( !empty($expr) ) ? implode(' AND ', $expr) : '';
+    }
+    return $filters;
+}
+
 ?>

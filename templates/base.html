@@ -36,6 +36,7 @@
         <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/email.js"></script>
         <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/bootstrap-affix.js"></script>
         <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/ready.js"></script>
+        <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/add_collection.js"></script>
         {% endblock %}
         <!-- Page icon -->
         <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}image/favicon.ico">
@@ -47,6 +48,9 @@
             var SEARCH_URL = '{{ constant("SEARCH_URL") }}';
             var STATIC_URL = '{{ constant("STATIC_URL") }}';
             var RESULT_PAGE = {% if pag.total %}true{% else %}false{% endif %};
+            var ADD_TO_COLLECTION_SUCCESS = '{{ texts.ADD_TO_COLLECTION_SUCCESS }}';
+            var ADD_TO_COLLECTION_ERROR = '{{ texts.ADD_TO_COLLECTION_ERROR }}';
+            var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain }}';
         </script>
 
         {% if config.google_analytics_tracking_id != '' %}
@@ -69,21 +73,61 @@
     {% endblock %}</head>
 
     <body {% block onload %}onload="document.searchForm.reset()"{% endblock %}>{% block body %}
-        <form name="language"><input type="hidden" name="lang" value="{{ lang }}"></form>
-        <div class="container">{% block container %}
-            {% block top %}
-                {% include custom_template("top.html") %}
-            {% endblock %}
+        <div class="full-page">        
+			<form name="language"><input type="hidden" name="lang" value="{{ lang }}"></form>
+			<div class="container">{% block container %}
+				{% block top %}
+					{% include custom_template("top.html") %}
+				{% endblock %}
 
-            <div class="content">
-                {% block content %}
-                        {% block breadcrumb %}{% include custom_template("top-breadcrumb.html") %}{% endblock %}
-                        {% block searchbar %}{% include custom_template("top-searchbar.html") %}{% endblock %}
-                {% endblock %}
-                {% block footer %}
-                    {% include custom_template("footer.html") %}
-                {% endblock %}
-            </div>
+				<div class="content">
+					{% block content %}
+							{% block breadcrumb %}{% include custom_template("top-breadcrumb.html") %}{% endblock %}
+							{% block searchbar %}{% include custom_template("top-searchbar.html") %}{% endblock %}
+					{% endblock %}
+					{% block footer %}
+						{% include custom_template("footer.html") %}
+					{% endblock %}
+				</div>
         {% endblock %}</div>
-    {% endblock %}</body>
+    {% endblock %}</div>
+
+    {% if config.services_platform_domain != '' %}
+    <script type="text/javascript">
+        $(document).ready( function(){
+            var userTK = unescape(getCookie('userTK'));
+
+            if( typeof( userTK ) != 'undefined' && userTK !== null && userTK !== 'undefined' ) {
+                var obj = new Object();
+
+                obj.userTK = userTK;
+                obj.ip = $.trim('{{ app.request.server.get("REMOTE_ADDR") }}');
+                obj.lang = $.trim('{{ lang }}');
+                obj.col = $.trim('{{ config.search_collection_list.collection.name }}');
+                obj.site = $.trim('{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}');
+                obj.query = $.trim('{{ q }}');
+                obj.index = $.trim('{{ index }}');
+                obj.where = $.trim('{{ where }}');
+                obj.filter = $.trim('{{ filters|filters_to_string }}');
+                obj.page = $.trim('{{ page }}');
+                obj.output = $.trim('{{ current_page }}');
+                obj.referer = $.trim(document.referrer);
+                obj.session = $.trim('{{ app.session.getId() }}');
+                obj.format = $.trim('{{ format }}');
+                obj.sort = $.trim('{{ sort }}');
+
+                $.post(SERVICES_PLATFORM_DOMAIN + '/logs/', obj, function(data){
+                    console.log(data);
+                });
+            }
+
+            function getCookie(name) {
+                var value = "; " + document.cookie;
+                var parts = value.split("; " + name + "=");
+                if (parts.length == 2) return parts.pop().split(";").shift();
+            }
+        });
+    </script>
+    {% endif %}
+    </body>
 </html>

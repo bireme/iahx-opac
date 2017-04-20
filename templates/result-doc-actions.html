@@ -108,3 +108,15 @@
         </div>
     {% endif %}
 {% endblock %}
+
+{% block btn_services_platform %}
+    <!-- services platform -->
+    {% if app.request.cookies.has('userTK') %} 
+        <div class="platserv">
+            <a href="#">
+                <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
+                <span>{{ texts.ADD_TO_COLLECTION }}</span>
+            </a>
+        </div>
+    {% endif %}
+{% endblock %}

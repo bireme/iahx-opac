@@ -41,9 +41,9 @@ $(document).ready(
                 x.click( function(){
                   $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
                       if(data == true){
-                          alert('Documento adicionado à coleção.');
+                          alert(ADD_TO_COLLECTION_SUCCESS);
                       }else{
-                          alert('O documento não foi adicionado corretamente à coleção.');
+                          alert(ADD_TO_COLLECTION_ERROR);
                       }
                   });
                 });
