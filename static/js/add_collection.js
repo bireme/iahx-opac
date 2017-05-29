@@ -42,6 +42,8 @@ $(document).ready(
                   $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
                       if(data == true){
                           alert(ADD_TO_COLLECTION_SUCCESS);
+                      }else if(/OK/.test(data)) {
+                          alert(COLLECTION_EXISTS);
                       }else{
                           alert(ADD_TO_COLLECTION_ERROR);
                       }
