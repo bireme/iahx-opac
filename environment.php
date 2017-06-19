@@ -37,8 +37,8 @@ $DEFAULT_PARAMS['defaultCollectionData'] = $config->search_collection_list->coll
 
 // verifica se existe apenas uma colecao definida no config.xml
 if ( !is_array($DEFAULT_PARAMS['defaultCollectionData']) ){
-    $DEFAULT_PARAMS['defaultCollectionData'] = $config->search_collection_list->collection;   
-}   
+    $DEFAULT_PARAMS['defaultCollectionData'] = $config->search_collection_list->collection;
+}
 $DEFAULT_PARAMS['defaultCollection'] = $DEFAULT_PARAMS['defaultCollectionData']->name;
 $DEFAULT_PARAMS['defaultSite'] = $DEFAULT_PARAMS['defaultCollectionData']->site;
 
@@ -101,7 +101,7 @@ if (!DEBUG) {
     }
 
     $app['twig.options'] = array('strict_variables' => false, 'cache' => CACHE_PATH);
-    
+
 } else {
     $app['twig.options'] = array('strict_variables' => false);
 }
@@ -135,5 +135,6 @@ $app['twig']->addFilter('starts_with', new Twig_Filter_Function('filter_starts_w
 $app['twig']->addFilter('truncate', new Twig_Filter_Function('filter_truncate'));
 $app['twig']->addFilter('slugify', new Twig_Filter_Function('filter_slugify'));
 $app['twig']->addFilter('subfield', new Twig_Filter_Function('filter_subfield'));
+$app['twig']->addFilter('filters_to_string', new Twig_Filter_Function('filters_to_string'));
 
 ?>
