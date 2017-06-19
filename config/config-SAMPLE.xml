@@ -6,7 +6,7 @@
 	<home_url>http://search.local/</home_url>
 	<search_server>localhost:8080</search_server>
 	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
-	<services_platform_domain></services_platform_domain>
+	<services_platform_domain>http://platserv.bvsalud.org</services_platform_domain>
 	<documents_per_page>20</documents_per_page>
 	<max_export_records>2000</max_export_records>
 	<default_lang>pt</default_lang>

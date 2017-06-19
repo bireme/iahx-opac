@@ -99,11 +99,11 @@
 {% endblock %}
 
 {% block btn_pubmed_linkout %}
-    {% if 'MEDLINE' in doc.db  %}
+    {% if 'MEDLINE' in doc.db %}
         <div class="pubmed">
             <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="fancybox_iframe" title="{{ doc.ti.0 }}">
                 <img src="{{ constant("STATIC_URL") }}image/common/icon_PubMed.gif" alt="PubMed More Resources"/>
-                <span>PubMed More Resources</span>
+                <span>PubMed Links</span>
             </a>
         </div>
     {% endif %}
@@ -111,12 +111,14 @@
 
 {% block btn_services_platform %}
     <!-- services platform -->
-    {% if app.request.cookies.has('userTK') %} 
-        <div class="platserv">
-            <a href="#">
-                <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
-                <span>{{ texts.ADD_TO_COLLECTION }}</span>
-            </a>
-        </div>
-    {% endif %}
+    <div class="platserv">
+        {% if app.request.cookies.has('userTK') %}
+            <a class="add-collection" href="#">
+        {% else %}
+            <a href="{{ config.services_platform_domain }}" target="_blank">
+        {% endif %}
+            <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
+            <span>{{ texts.ADD_TO_COLLECTION }}</span>
+        </a>
+    </div>
 {% endblock %}

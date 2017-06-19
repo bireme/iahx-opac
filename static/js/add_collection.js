@@ -26,7 +26,7 @@ $(document).ready(
                 }
                 var source = window.location.hostname;
 
-                var x = $(this).parent().find('div.user-actions div.platserv a');
+                var x = $(this).parent().find('div.user-actions div.platserv a.add-collection');
 
                 var obj = new Object();
                 obj.url = $.trim(url);
@@ -40,9 +40,11 @@ $(document).ready(
 
                 x.click( function(){
                   $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
+                      response = $.parseJSON(data);
+
                       if(data == true){
                           alert(ADD_TO_COLLECTION_SUCCESS);
-                      }else if(/OK/.test(data)) {
+                      }else if(typeof response == 'object'){
                           alert(COLLECTION_EXISTS);
                       }else{
                           alert(ADD_TO_COLLECTION_ERROR);
