@@ -276,8 +276,10 @@
                     / {{ decs.record_list.record.descriptor_list.descriptor.2 }}</small></h2>
                 {% endif %}
 
-                {% if mode is defined and mode == 'dataentry'%}
-                    <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|^d{{ decs.record_list.record.attributes.mfn }}');" class="btn-custom btn-large" />
+                {% if mode is defined and mode == 'dataentry'%}                    
+                    {% if decs.record_list.record.tree_id_list.tree_id.0|trim|slice(0,1) != 'Q' %}
+                        <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|^d{{ decs.record_list.record.attributes.mfn }}');" class="btn-custom btn-large" />
+                    {% endif %}
                 {% else %}
                     <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn-custom btn-large" />
                 {% endif %}
