@@ -26,7 +26,7 @@ $(document).ready(
                 }
 
                 var id = $(this).parent().attr('id');
-                
+
                 var loc = location.href;
                 if ( loc.indexOf('?') > 0 ){
                     loc = loc.substring(0,loc.indexOf('?'));
@@ -48,8 +48,8 @@ $(document).ready(
                 obj.title = $.trim(title);
                 obj.id = $.trim(id);
                 obj.userTK = unescape(getCookie('userTK'));
-                
-                alert(JSON.stringify(obj, null, 4));
+
+                //alert(JSON.stringify(obj, null, 4));
 
                 x.click( function(){
                   $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
