@@ -77,7 +77,15 @@ img{border:0; max-width: 100%; height: auto;}
 .icn-epub{background-position: 0 -232px}
 .icn-pdf{background-position: -26px -232px}
 .icn-html{background-position: -52px -232px}
-.c-share-ul{margin:8px 0 0 0;}
+.c-share-ul {
+    margin: 8px 0 0 0;
+    display: inline-flex;
+    align-items: center;
+}
+.c-share-ul a.add-collection {
+    display: flex;
+    align-items: center;
+}
 .c-share-li{display: inline-block;margin:0 6px 0 0;}
 .c-share-lia{text-decoration:none;}
 .c-share-lia:hover{text-decoration:underline;}

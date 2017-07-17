@@ -1,22 +1,36 @@
 $(document).ready(
     function(){
+        var view = $('#view').val();
+
         $('div.record div.data').each(
             function(){
-                //var author = $(this).find('div.author').html();
-                var author = $(this).find('div.author').text();
-                author = author.replace(/[^ ]+/i,'');
-                var title = $(this).find('h3 > a').html();
-                if (title == null){
-                    title = $(this).find('h3').html();
+                if ( 'mobile' == view ) {
+                  var x = $(this).parent().find('nav.c-share div.platserv a.add-collection');
+
+                  //var author = $(this).find('div.author').html();
+                  var author = $(this).find('h2.c-results-intro').text();
+                  author = author.replace(/[^ ]+/i,'');
+
+                  var title = $(this).find('h1.c-results-tit').html();
+                } else {
+                  var x = $(this).parent().find('div.user-actions div.platserv a.add-collection');
+
+                  //var author = $(this).find('div.author').html();
+                  var author = $(this).find('div.author').text();
+                  author = author.replace(/[^ ]+/i,'');
+
+                  var title = $(this).find('h3 > a').html();
+                  if (title == null){
+                      title = $(this).find('h3').html();
+                  }
                 }
 
                 var id = $(this).parent().attr('id');
+                
                 var loc = location.href;
-
                 if ( loc.indexOf('?') > 0 ){
                     loc = loc.substring(0,loc.indexOf('?'));
                 }
-
                 var url = loc.replace(/#?$/i,'');
 
                 // monta url para pagina de detalhes do recurso caso o usuario não esteja nela
@@ -24,9 +38,8 @@ $(document).ready(
                     //url = loc.replace(/([a-z]+\.php)?#?$/i,'resource/'+id);
                     var url = $(this).find('h3 > a').attr('href');
                 }
-                var source = window.location.hostname;
 
-                var x = $(this).parent().find('div.user-actions div.platserv a.add-collection');
+                var source = window.location.hostname;
 
                 var obj = new Object();
                 obj.url = $.trim(url);
@@ -36,7 +49,7 @@ $(document).ready(
                 obj.id = $.trim(id);
                 obj.userTK = unescape(getCookie('userTK'));
                 
-                //alert(JSON.stringify(obj, null, 4));
+                alert(JSON.stringify(obj, null, 4));
 
                 x.click( function(){
                   $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
