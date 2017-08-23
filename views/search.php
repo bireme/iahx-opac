@@ -44,8 +44,14 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $count = $config->documents_per_page;
-    if(isset($params['count'])and $params['count'] != "") {
+    if(isset($params['count']) and $params['count'] != "") {
         $count = $params['count'];
+        if ($config->max_documents_per_page){
+            // if max_documents_per_page is defined check count url param
+            if (intval($count) > intval($config->max_documents_per_page)){
+                $count = $config->max_documents_per_page;
+            }
+        }
     }
 
     $output = "site";
@@ -396,7 +402,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         case "ris":
             if ( !isset($export_template) ){
                 $export_template = 'export-ris.html';
-                $export_filename = 'export.txt';
+                $export_filename = 'export.ris';
                 $content_type = 'text/plain';
             }
         case "bibtex":

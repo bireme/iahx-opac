@@ -8,9 +8,10 @@
 	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
 	<services_platform_domain>http://platserv.bvsalud.org</services_platform_domain>
 	<documents_per_page>20</documents_per_page>
+    <max_documents_per_page>100</max_documents_per_page>
 	<max_export_records>2000</max_export_records>
 	<default_lang>pt</default_lang>
-	<log_user_search>true</log_user_search>	
+	<log_user_search>true</log_user_search>
 	<log_dir>./logs/</log_dir>
 	<environment>prod</environment>
 	<addthis_pub></addthis_pub>
@@ -18,7 +19,7 @@
 		<button>facebook</button>
 		<button>twitter</button>
 		<button>delicious</button>
-	</addthis_buttons>	
+	</addthis_buttons>
 	<show_related_docs>true</show_related_docs>
 	<show_related_button>true</show_related_button>
 	<related_min_score>40</related_min_score>
@@ -88,13 +89,13 @@
             	</format>
             	<format>
             		<name>abstract</name>
-            	</format>	
+            	</format>
             </format_list>
             <!-- restrict list of clusters to show on result. If not set show all availables on solrconf.xml -->
             <!--cluster_list>
                 <cluster>collection</cluster>
                 <cluster>tag_brasil</cluster>
-            </cluster_list-->            
+            </cluster_list-->
 		</collection>
 	</search_collection_list>
 </dia_config>
