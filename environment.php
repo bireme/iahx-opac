@@ -21,12 +21,6 @@ define("CACHE_PATH", APP_PATH . "cache/");
 // custom applications/interface
 define("CUSTOM_TEMPLATE_PATH", TEMPLATE_PATH . "custom/");
 
-// urls
-define("SEARCH_URL",  "http://" . $_SERVER['HTTP_HOST'] . $PATH);
-define("STATIC_URL",  SEARCH_URL . "static/");
-
-
-
 // CONFIGURATION
 $config = simplexml_load_file($PATH_DATA . 'config/config.xml');
 $lang = $config->default_lang;
@@ -47,6 +41,12 @@ if ($DEFAULT_PARAMS['defaultSite'] == ""){
 }
 
 $DEFAULT_PARAMS['defaultDisplayFormat'] = (string) $DEFAULT_PARAMS['defaultCollectionData']->format_list[0]->format[0]->name;
+
+// urls
+$protocol = ( (isset($config->use_https) && $config->use_https == 'true') ? 'https' : 'http');
+
+define("SEARCH_URL",  $protocol . "://" . $_SERVER['HTTP_HOST'] . $PATH);
+define("STATIC_URL",  SEARCH_URL . "static/");
 
 
 // log's configuration
