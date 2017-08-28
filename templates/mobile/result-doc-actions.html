@@ -40,15 +40,17 @@
 {% endblock %}
 
 {% block btn_services_platform %}
-    {% if config.services_platform_domain != '' and app.request.cookies.has('userTK') %}
     <!-- services platform -->
     <div class="platserv">
-       <a class="add-collection" href="javascript:;">
-           <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
-           <span>{{ texts.ADD_TO_COLLECTION }}</span>
-       </a>
+      {% if app.request.cookies.has('userTK') %}
+          <a class="add-collection" href="#">
+      {% else %}
+          <a href="{{ config.services_platform_domain }}/client/controller/authentication/?lang={{ lang }}" target="_blank">
+      {% endif %}
+              <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
+              <span>{{ texts.ADD_TO_COLLECTION }}</span>
+          </a>
     </div>
-    {% endif %}
 {% endblock %}
 
 </ul>
