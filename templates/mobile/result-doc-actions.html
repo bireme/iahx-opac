@@ -42,11 +42,7 @@
 {% block btn_services_platform %}
     <!-- services platform -->
     <div class="platserv">
-      {% if app.request.cookies.has('userTK') %}
-          <a class="add-collection" href="#">
-      {% else %}
-          <a href="{{ config.services_platform_domain }}/client/controller/authentication/?lang={{ lang }}" target="_blank">
-      {% endif %}
+          <a class="add-collection" href="javascript:;">
               <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
               <span>{{ texts.ADD_TO_COLLECTION }}</span>
           </a>
