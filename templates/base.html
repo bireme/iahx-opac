@@ -45,6 +45,7 @@
         <link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?output=rss&amp;site=bvsms&amp;col=main&amp;lang=pt&amp;sort=da+desc">
 
         <script language="javascript" type="text/javascript">
+            var LANG = '{{ lang }}';
             var SEARCH_URL = '{{ constant("SEARCH_URL") }}';
             var STATIC_URL = '{{ constant("STATIC_URL") }}';
             var RESULT_PAGE = {% if pag.total %}true{% else %}false{% endif %};

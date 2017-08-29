@@ -47,30 +47,50 @@ $(document).ready(
                 obj.author = $.trim(author);
                 obj.title = $.trim(title);
                 obj.id = $.trim(id);
-                obj.userTK = unescape(getCookie('userTK'));
 
                 //alert(JSON.stringify(obj, null, 4));
 
-                x.click( function(){
-                  $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
-                      response = $.parseJSON(data);
+                x.on('click', function(){
+                  obj.userTK = unescape(getCookie('userTK'));
 
-                      if(data == true){
-                          alert(ADD_TO_COLLECTION_SUCCESS);
-                      }else if(typeof response == 'object'){
-                          alert(COLLECTION_EXISTS);
-                      }else{
-                          alert(ADD_TO_COLLECTION_ERROR);
-                      }
-                  });
+                  if ( obj.userTK == 'undefined' ){
+                      var win = window.open(SERVICES_PLATFORM_DOMAIN + '/client/controller/authentication/?lang=' + LANG, '_blank');
+                      win.focus();
+                  }else{
+                      $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
+                          if (isJSON(data)){
+                              response = $.parseJSON(data);
+                          }else{
+                              response = data;
+                          }
+
+                          if(data == true){
+                              alert(ADD_TO_COLLECTION_SUCCESS);
+                          }else if(typeof response == 'object'){
+                              alert(COLLECTION_EXISTS);
+                          }else{
+                              alert(ADD_TO_COLLECTION_ERROR);
+                          }
+                      });
+                  }
                 });
             }
-        )
+        );
 
         function getCookie(name) {
           var value = "; " + document.cookie;
           var parts = value.split("; " + name + "=");
           if (parts.length == 2) return parts.pop().split(";").shift();
+        }
+
+        function isJSON(str) {
+            try {
+                JSON.parse(str);
+            } catch (e) {
+                return false;
+            }
+
+            return true;
         }
     }
 );
