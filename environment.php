@@ -80,17 +80,9 @@ $app['swiftmailer.options'] = array(
     'host' => SMTP_SERVER,
     'username' => SMTP_USERNAME,
     'password' => SMTP_USERPASSWORD,
+    'port' => ( defined('SMTP_PORT') && SMTP_PORT != '' ? SMTP_PORT : 25 ),
+    'encryption' => ( defined('SMTP_ENCRYPTION') && SMTP_ENCRYPTION != '' ? SMTP_ENCRYPTION : '')
 );
-
-if ( defined('SMTP_PORT') && SMTP_PORT != '' ) {
-    $app['swiftmailer.options']['port'] = SMTP_PORT;
-}else{
-    $app['swiftmailer.options']['port'] = 25;
-}
-
-if ( defined('SMTP_ENCRYPTION') && SMTP_ENCRYPTION != '' ) {
-    $app['swiftmailer.options']['encryption'] = SMTP_ENCRYPTION;
-}
 
 // if isn't in debug ambient, create de cache dir and set to be cacheable
 if (!DEBUG) {
