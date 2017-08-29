@@ -1,5 +1,4 @@
 <?php
-
 use Symfony\Component\HttpFoundation\Request;
 
 $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($app, $DEFAULT_PARAMS, $config) {
@@ -25,6 +24,8 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
         $dia_response = $dia->search('id:"' . $id . '"');
     }
     $result = json_decode($dia_response, true);
+
+    $total_found = $result['diaServerResponse'][0]['response']['numFound'];
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
@@ -74,7 +75,12 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
         $view = '';
     }
 
-    return $app['twig']->render( custom_template($view . '/result-detail.html'), $output_array );
+    // return 404 if document not found
+    if (intval($total_found) == 0){
+        header("HTTP/1.0 404 Not Found");
+    }
+
+    echo $app['twig']->render( custom_template($view . '/result-detail.html'), $output_array );
 
 });
 
