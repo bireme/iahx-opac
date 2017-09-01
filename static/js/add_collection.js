@@ -44,7 +44,7 @@ $(document).ready(
                 var obj = new Object();
                 obj.url = $.trim(url);
                 obj.source = $.trim(source);
-                obj.author = $.trim(author);
+                obj.author = $.trim(author).replace(/\s+/g, " ");
                 obj.title = $.trim(title);
                 obj.id = $.trim(id);
 
@@ -54,7 +54,8 @@ $(document).ready(
                   obj.userTK = unescape(getCookie('userTK'));
 
                   if ( obj.userTK == 'undefined' ){
-                      var win = window.open(SERVICES_PLATFORM_DOMAIN + '/client/controller/authentication/?lang=' + LANG, '_blank');
+                      var data = encodeURIComponent(JSON.stringify(obj));
+                      var win = window.open(SERVICES_PLATFORM_DOMAIN + '/client/controller/authentication/?lang=' + LANG + '&data=' + data, '_blank');
                       win.focus();
                   }else{
                       $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
