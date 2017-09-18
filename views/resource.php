@@ -18,10 +18,14 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
     // controller response
     $dia = new Dia($site, $col, 1, "site", $lang);
 
-    if ( $config->show_related_docs == "true"){
+    if ($config->show_related_docs == "true"){
         $dia_response = $dia->related($id);
     }else{
-        $dia_response = $dia->search('id:"' . $id . '"');
+        if ($config->check_alternate_id == "true"){
+            $dia_response = $dia->search('id:"' . $id . '" OR alternate_id:"' . $id . '"');
+        }else{
+            $dia_response = $dia->search('id:"' . $id . '"');
+        }
     }
     $result = json_decode($dia_response, true);
 
