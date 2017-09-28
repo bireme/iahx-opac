@@ -110,11 +110,13 @@
 {% endblock %}
 
 {% block btn_services_platform %}
-    <!-- services platform -->
-    <div class="platserv">
-          <a class="add-collection" href="javascript:;">
-              <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
-              <span>{{ texts.ADD_TO_COLLECTION }}</span>
-          </a>
-    </div>
+    {% if config.services_platform_domain != '' %}
+        <!-- services platform -->
+        <div class="platserv">
+              <a class="add-collection" href="javascript:;">
+                  <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
+                  <span>{{ texts.ADD_TO_COLLECTION }}</span>
+              </a>
+        </div>
+    {% endif %}
 {% endblock %}
