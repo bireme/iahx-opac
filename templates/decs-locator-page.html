@@ -122,6 +122,12 @@
             window.opener.postMessage(descriptor, '*');
             window.close();
         }
+
+        function showQualifierInfo(qlf) {
+            var decs_qlf = 'http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/?IsisScript=../cgi-bin/decsserver/decsserver.xis&search_language=p&interface_language=p&previous_page=homepage&task=show_qualifier&qualifier=' + qlf
+            window.open(decs_qlf, 'decsqlf', 'scrollbars=1,width=650,height=400');
+        }
+
     </script>
 {% endblock %}
 
@@ -276,7 +282,7 @@
                     / {{ decs.record_list.record.descriptor_list.descriptor.2 }}</small></h2>
                 {% endif %}
 
-                {% if mode is defined and mode == 'dataentry'%}                    
+                {% if mode is defined and mode == 'dataentry'%}
                     {% if decs.record_list.record.tree_id_list.tree_id.0|trim|slice(0,1) != 'Q' %}
                         <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|^d{{ decs.record_list.record.attributes.mfn }}');" class="btn-custom btn-large" />
                     {% endif %}
@@ -361,7 +367,8 @@
                             {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}
                                 <li>
                                 {% if mode is defined and mode == 'dataentry'%}
-                                    <input type="button" name="qlf" class="qlf btn-custom" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');" style="width: 30px" /> {{  attribute(texts, qlf) }}
+                                    <input type="button" name="qlf" class="qlf btn-custom" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');" style="width: 30px" />
+                                    <a href="javascript:showQualifierInfo('{{qlf}}')">{{  attribute(texts, qlf) }}</a>
                                 {% else %}
                                     <input type="checkbox" name="qlf" class="qlf" value="{{ qlf }}" id="{{ qlf }}"/><label for="{{ qlf }}"> {{  attribute(texts, qlf) }}</label>
                                 {% endif %}
