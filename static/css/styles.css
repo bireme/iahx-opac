@@ -3,13 +3,12 @@
 	padding: 0;
 }
 BODY {
-	font-size: 72%;
-	_font-size: 70%;
+	font-size: 82%;
 	background: url(../image/common/bg.gif) top  repeat-x;
 
 }
 HTML/**/>BODY {
-	font-size: 70%;
+	font-size: 80%;
 }
 BODY, INPUT, SELECT, TEXTAREA {
 	font-family: Arial, Verdana, Helvetica;
@@ -47,7 +46,7 @@ DIV.identification H1 {
 }
 DIV.identification H2{
     font-size: 130%;
-    color: rgb(40,72,125);    
+    color: rgb(40,72,125);
 }
 DIV.identification H3{
     /*font-size: 130%;
@@ -117,7 +116,7 @@ DIV.search DIV.searchForm SELECT.inputText {
 	background: #f4f6f8;
 	border-top: 1px solid #b8c1ca;
 	border-right: 1px solid #b8c1ca;
-	border-left: 1px solid #b8c1ca; 
+	border-left: 1px solid #b8c1ca;
 }
 .cfg-filters a {
 	text-decoration: none;
@@ -623,8 +622,8 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	color: #cecece;
 	border: none;
 	margin-bottom: -1px;
-	
-	
+
+
 }
 #megaBox ul.menu li.active a {
 	border: 1px solid #A7A6A6;
@@ -689,10 +688,10 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	padding-bottom: 20px;
 	clear: both;
 }
-.related_docs_list h1{	
+.related_docs_list h1{
 	font-size: 110%;
 	margin-bottom: 10px;
-}	
+}
 
 .related_docs_list ol li{
 	margin: 0 0 9px 20px;
@@ -726,7 +725,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .affix {
 	top: 0;
 	background: #fcfcfc;
-	position: fixed;	
+	position: fixed;
 	border-bottom: 2px solid #ccc !important;
 	margin: 0 0 0 -10px;
 }
@@ -758,7 +757,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .icon-th-list { background-position: -264px 0; }
 .icon-list-alt { background-position: -264px -24px; }
 .icon-cfg-filters{ background-position: -384px -146px; }
-.icon-trash{ background-position: -458px 0px; } 
+.icon-trash{ background-position: -458px 0px; }
 
 .division{
 	border-top: 2px solid #CECECE !important;
@@ -781,8 +780,53 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 }
 
 .reset_filters{
-	width: 90px; 
-	margin: 10px 5px -5px 110px; 
-	border: solid 1px #CECECE !important; 
+	width: 90px;
+	margin: 10px 5px -5px 110px;
+	border: solid 1px #CECECE !important;
 	padding: 4px !important;
+}
+
+
+/* Style the tab */
+div.tab_box {
+    margin: 10px 0 10px;
+}
+
+div.tab {
+   overflow: hidden;
+   border: 1px solid #ccc;
+   background-color: #f1f1f1;
+}
+
+/* Style the buttons inside the tab */
+div.tab button {
+   background-color: inherit;
+   float: left;
+   border: none;
+   outline: none;
+   cursor: pointer;
+   padding: 14px 16px;
+   transition: 0.3s;
+}
+
+/* Change background color of buttons on hover */
+div.tab button:hover {
+   background-color: #ddd;
+}
+
+/* Create an active/current tablink class */
+div.tab button.active {
+   background-color: #ccc;
+}
+
+/* Style the tab content */
+.tabcontent {
+   padding: 15px;
+   border: 1px solid #ccc;
+   border-top: none;
+}
+
+.abstract h2{
+    color: #3A8EBE;
+    margin: 10px 0 10px;
 }

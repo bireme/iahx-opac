@@ -1,6 +1,23 @@
 {% extends "index.html" %}
 {% block title %}{{ doc.ti.0 }} | {{ texts.BVS_TITLE }}{% endblock %}
 
+{% set mark_ab_list = [] %}
+{% set raw_ab_list = [] %}
+
+{% for key in doc|keys %}
+    {% if 'mark_ab' in key %}
+        {% set mark_ab_list = mark_ab_list|merge({ (loop.index0): key}) %}
+    {% elseif 'ab_' in key %}
+        {% set raw_ab_list = raw_ab_list|merge({ (loop.index0): key}) %}
+    {% endif %}
+{% endfor %}
+
+{% if mark_ab_list %}
+    {% set ab_list = mark_ab_list %}
+{% elseif raw_ab_list %}
+    {% set ab_list = raw_ab_list %}
+{% endif %}
+
 {% block extrahead %}
     <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">
 
@@ -66,6 +83,7 @@
 {% block resultNavigation %}{% endblock %}
 
 {% block result_set %}
+
 	<div id="{{ doc.id }}" class="record detail">
 	    <div class="data">
 	        {% block data %}
@@ -82,12 +100,35 @@
 
 				{% include custom_template("result-inc-source.html") %}
 
-			    {% if doc.ab is defined %}
-			        <div>
-			            <h4>{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
-			            {% for abstract in doc.ab %}
-			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
-			            {% endfor %}
+                {% if ab_list %}
+                    <div class="tab_box">
+                        <div class="tab">
+                        {% for ab_field in ab_list %}
+                            {% set ab_lang = ab_field|split('_')|last %}
+
+                            {% set label_name = 'LABEL_ABSTRACT_' ~ ab_lang|upper %}
+                            <button class="tablinks {% if loop.index == 1%}active{% endif %}" onclick="open_tab(event, '{{ ab_field }}')">{{ attribute(texts.RESULT, label_name) }}</button>
+                        {% endfor %}
+                        </div>
+
+                        {% for ab_field in ab_list %}
+                            {% set ab_lang = ab_field|split('_')|last %}
+
+                            <div id="{{ ab_field }}" class="tabcontent abstract" {% if loop.index > 1 %}style="display: none"{% endif %}>
+                                {{ attribute(doc, ab_field).0|raw }}
+                            </div>
+                        {% endfor %}
+                    </div>
+                {% elseif doc.ab is defined %}
+                    <div class="tab_box">
+                        <div class="tab">
+                            <button class="tablinks active">{{ texts.RESULT.LABEL_ABSTRACT }}</button>
+                        </div>
+                        <div class="tabcontent abstract">
+    			            {% for abstract in doc.ab %}
+    			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
+    			            {% endfor %}
+                        </div>
 			        </div>
 			    {% endif %}
 

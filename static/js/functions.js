@@ -143,31 +143,23 @@ function change_sort(obj){
     $("#searchForm").submit();
 }
 
-function cochrane_lnk( lnk,refDB,refID ){
+function open_tab(evt, tabName) {
+    // Declare all variables
+    var i, tabcontent, tablinks;
 
-    form = document.searchForm;
-    lang = form.lang.value;
-    if (lang == "pt"){ oneLetterLang = "p"; }
-    if (lang == "es"){ oneLetterLang = "e"; }
-    if (lang == "en"){ oneLetterLang = "i"; }
-
-    db = refDB.substr(refDB.indexOf("-")+1);
-    db = db.toLowerCase();
-
-    if (db == 'bandolier' || db == 'agencias' || db == 'kovacs' || db == 'evidargent' || db == 'clibplusrefs' || db == 'gestion' || db == 'reviews-plus'){
-        lib = 'BCP';
-    }else{
-        lib = 'COC';
+    // Get all elements with class="tabcontent" and hide them
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
     }
 
-    if (db == 'reviews-plus'){
-        db = 'reviews';
-        refID = refID.substr(0, refID.indexOf('_'));
+    // Get all elements with class="tablinks" and remove the class "active"
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
     }
 
-    refUrl = "http://cochrane.bvsalud.org/doc.php?db=" + db + "&id=" + refID + "&lib=" + lib;
-
-    lnk.href = refUrl;
-
-    return true;
+    // Show the current tab, and add an "active" class to the button that opened the tab
+    document.getElementById(tabName).style.display = "block";
+    evt.currentTarget.className += " active";
 }
