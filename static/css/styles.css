@@ -347,8 +347,7 @@ DIV.data DIV.source {
 	font-size: 110%;
 }
 DIV.record DIV.data  {
-	font-size: 112%;
-	line-height: 20px;
+	line-height: 22px;
 }
 DIV.record DIV.data a {
 	border-bottom: 1px dotted #999;
@@ -805,7 +804,7 @@ div.tab button {
    border: none;
    outline: none;
    cursor: pointer;
-   padding: 14px 16px;
+   padding: 10px 12px;
    transition: 0.3s;
 }
 
@@ -829,4 +828,5 @@ div.tab button.active {
 .abstract h2{
     color: #3A8EBE;
     margin: 10px 0 10px;
+    font-weight: normal;
 }
