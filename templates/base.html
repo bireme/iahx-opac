@@ -75,7 +75,7 @@
     {% endblock %}</head>
 
     <body {% block onload %}onload="document.searchForm.reset()"{% endblock %}>{% block body %}
-        <div class="full-page">        
+        <div class="full-page">
 			<form name="language"><input type="hidden" name="lang" value="{{ lang }}"></form>
 			<div class="container">{% block container %}
 				{% block top %}
@@ -131,5 +131,7 @@
         });
     </script>
     {% endif %}
+
+    {% block footerscripts %}{% endblock %}
     </body>
 </html>
