@@ -1,34 +1,6 @@
 {% extends "index.html" %}
 {% block title %}{{ doc.ti.0 }} | {{ texts.BVS_TITLE }}{% endblock %}
 
-{% set mark_ab_list = [] %}
-{% set raw_ab_list = [] %}
-{% set ab_active_lang = '' %}
-
-{% for key in doc|keys %}
-    {% if 'mark_ab' in key %}
-        {% set mark_ab_list = mark_ab_list|merge({ (loop.index0): key}) %}
-    {% elseif 'ab_' in key %}
-        {% set raw_ab_list = raw_ab_list|merge({ (loop.index0): key}) %}
-    {% endif %}
-{% endfor %}
-
-{% if mark_ab_list %}
-    {% set ab_list = mark_ab_list %}
-{% elseif raw_ab_list %}
-    {% set ab_list = raw_ab_list %}
-{% endif %}
-
-{% if ab_list %}
-    {% for ab_field in ab_list %}
-        {% set ab_lang = ab_field|split('_')|last %}
-        {% if ab_lang == lang %}
-            {% set ab_active_lang = ab_lang %}
-        {% endif %}
-    {% endfor %}
-{% endif %}
-
-
 {% block extrahead %}
     <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">
 
@@ -158,6 +130,34 @@
 
 				{% include custom_template("result-inc-source.html") %}
 
+                <!-- abstract  -->
+                {% set mark_ab_list = [] %}
+                {% set raw_ab_list = [] %}
+                {% set ab_active_lang = '' %}
+
+                {% for key in doc|keys %}
+                    {% if 'mark_ab' in key %}
+                        {% set mark_ab_list = mark_ab_list|merge({ (loop.index0): key}) %}
+                    {% elseif 'ab_' in key %}
+                        {% set raw_ab_list = raw_ab_list|merge({ (loop.index0): key}) %}
+                    {% endif %}
+                {% endfor %}
+
+                {% if mark_ab_list %}
+                    {% set ab_list = mark_ab_list %}
+                {% elseif raw_ab_list %}
+                    {% set ab_list = raw_ab_list %}
+                {% endif %}
+
+                {% if ab_list %}
+                    {% for ab_field in ab_list %}
+                        {% set ab_lang = ab_field|split('_')|last %}
+                        {% if ab_lang == lang %}
+                            {% set ab_active_lang = ab_lang %}
+                        {% endif %}
+                    {% endfor %}
+                {% endif %}
+
                 {% if ab_list %}
                     <div class="tab_box">
                         <div class="tab">
@@ -227,7 +227,7 @@
 {% endblock %}
 
 {% block footerscripts %}
-    {% if ab_list %}
+    {% if doc.ab|length > 1 %}
     <script type="text/javascript">
         function open_tab(evt, tabName) {
             // Declare all variables
