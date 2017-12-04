@@ -324,6 +324,17 @@
                             </ul>
                         </div>
 
+                        {% if mode == 'dataentry' and decs.record_list.record.pharmacological_action_list.pharmacological_action %}
+                            <div class="syn">
+                                <span>{{ texts.PHARMACOLOGIAL_ACTION }}:</span>
+                                <ul>
+                                    {% for pharmacological_action in decs.record_list.record.pharmacological_action_list.pharmacological_action %}
+                                        <li>{{ pharmacological_action }} </li>
+                                    {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
                         {% if mode == 'dataentry' and decs.record_list.record.consider_also_terms_at %}
                             <div>
                                 <span>{{ texts.CONSIDER_ALSO_TERMS }}:</span>
