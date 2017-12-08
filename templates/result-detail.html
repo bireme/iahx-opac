@@ -163,8 +163,8 @@
                         <div class="tab">
                         {% for ab_field in ab_list %}
                             {% set ab_lang = ab_field|split('_')|last %}
-
-                            {% set label_name = 'LABEL_ABSTRACT_' ~ ab_lang|upper %}
+                            {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
+                            
                             <button class="tablinks {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" onclick="open_tab(event, '{{ ab_field }}')">{{ attribute(texts.RESULT, label_name) }}</button>
                         {% endfor %}
                         </div>
