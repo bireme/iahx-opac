@@ -49,9 +49,14 @@ function change_format(elem) {
     $("#searchForm").submit();
 }
 
+function print_record(q) {
+    var form = document.searchForm;
+    form.q.value = q;
+    print_page(1);
+}
+
 // leva para output "print", passando o count
 function print_page(count) {
-
     var form = document.searchForm;
     if(count)
         form.count.value = count;
@@ -59,6 +64,13 @@ function print_page(count) {
         form.count.value = 300;
 
     change_output("print");
+}
+
+
+function export_record(q) {
+    var form = document.searchForm;
+    form.q.value = q;
+    export_result(1);
 }
 
 // leva para output "ris/citation/csv", passando o count

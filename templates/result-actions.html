@@ -5,28 +5,34 @@
 
 <div class="actions">
     <!-- print -->
-    <a id="inline_print" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
-        <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
-    </a>
-    <div style="display:none">
-        <div id="print">
-            {{ texts.PRINT }}
-            <ul>
-                <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">
-                    <a href="javascript:print_page('{{ pag.count }}');" alt="{{ texts.PRINT }}">
-                        {{ texts.THIS_PAGE }}
-                    </a>
-                </li>
-                <li>
-                    <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">
-                    <a href="javascript:print_page();" alt="{{ texts.PRINT }}">
-                        {{ texts.ALL_REFERENCES_LIMIT }}
-                    </a>
-                </li>
-            </ul>
+    {% if current_page == 'detail' %}
+        <a href="javascript:window.print()" alt="{{ texts.PRINT }}">
+            <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
+        </a>
+    {% else %}
+        <a id="inline_print" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
+            <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
+        </a>
+        <div style="display:none">
+            <div id="print">
+                {{ texts.PRINT }}
+                <ul>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">
+                        <a href="javascript:print_page('{{ pag.count }}');" alt="{{ texts.PRINT }}">
+                            {{ texts.THIS_PAGE }}
+                        </a>
+                    </li>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}">
+                        <a href="javascript:print_page();" alt="{{ texts.PRINT }}">
+                            {{ texts.ALL_REFERENCES_LIMIT }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </div>
+    {% endif %}
 
     <!-- export -->
     <a id="inline_export" href="#export" alt="{{ texts.EXPORT }}" class="fancybox">
@@ -45,29 +51,33 @@
                 </fieldset>
             </form>
 
-            <h3>{{ texts.EXPORT }}:</h3>
-            <ul>
-                <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
-                    <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.THIS_PAGE }}">
-                        {{ texts.THIS_PAGE }}
-                    </a>
-                </li>
+            {% if current_page == 'detail' %}
+                <input class="submit" onclick="javascript:export_record('{{q}}')" value="{{ texts.EXPORT }}" type="button">
+            {% else %}
+                <h3>{{ texts.EXPORT }}:</h3>
+                <ul>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
+                        <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.THIS_PAGE }}">
+                            {{ texts.THIS_PAGE }}
+                        </a>
+                    </li>
 
-                <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
-                    <a href="javascript:export_result('selection');" title="{{ texts.YOUR_SELECTION }}">
-                        {{ texts.YOUR_SELECTION }}
-                    </a>
-                </li>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
+                        <a href="javascript:export_result('selection');" title="{{ texts.YOUR_SELECTION }}">
+                            {{ texts.YOUR_SELECTION }}
+                        </a>
+                    </li>
 
-                <li>
-                    <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
-                    <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}">
-                        {{ texts.ALL_REFERENCES }}
-                    </a>
-                </li>
-            </ul>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/export.png" alt="{{ texts.EXPORT }}">
+                        <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}">
+                            {{ texts.ALL_REFERENCES }}
+                        </a>
+                    </li>
+                </ul>
+            {% endif %}
         </div>
     </div>
 
@@ -78,7 +88,7 @@
     <div style="display:none">
         <div id="email" class="optionEmail">
 
-            <form name="emailForm" method="POST" action="{{ current_url }}" onsubmit="return send_email();">
+            <form name="emailForm" method="POST" action="{% if current_page == 'detail' %}{{ constant("SEARCH_URL") }}{% else %}{{ current_url }}{% endif %}" onsubmit="return send_email();">
 
                 <input type="hidden" name="is_email" value="true" />
 
@@ -99,13 +109,17 @@
                     <label for="comment">{{ texts.MAIL_COMMENT }}</label>
                     <textarea id="comment" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue">{{ texts.MAIL_COMMENT }}</textarea>
 
-                    <label for="selection">{{ texts.SEND_RESULT }}</label><br>
-                    <fieldset>
-                        <legend class="hide">{{ texts.SEND_RESULT }}</legend>
-                        <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page">{{ texts.THIS_PAGE }}</label>
-                        <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my">{{ texts.YOUR_SELECTION }}</label>
-                        <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all">{{ texts.ALL_REFERENCES_LIMIT }}</label>
-                    </fieldset>
+                    {% if current_page == 'detail' %}
+                        <input type="hidden" name="q" value="{{q}}" />
+                    {% else %}
+                        <label for="selection">{{ texts.SEND_RESULT }}</label><br>
+                        <fieldset>
+                            <legend class="hide">{{ texts.SEND_RESULT }}</legend>
+                            <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page">{{ texts.THIS_PAGE }}</label>
+                            <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my">{{ texts.YOUR_SELECTION }}</label>
+                            <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all">{{ texts.ALL_REFERENCES_LIMIT }}</label>
+                        </fieldset>
+                    {% endif %}
                     <div>
                         <input type="submit" value=" {{ texts.SEND }} " class="submit">
                     </div>
