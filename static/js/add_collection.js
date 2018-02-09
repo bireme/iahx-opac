@@ -58,19 +58,35 @@ $(document).ready(
                       var win = window.open(SERVICES_PLATFORM_DOMAIN + '/client/controller/authentication/?lang=' + LANG + '&data=' + data, '_blank');
                       win.focus();
                   }else{
-                      $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addDoc', obj, function(data){
+                      if (obj.id.match("^lis-")) {
+                          var task = 'addLink';
+                      } else {
+                          var task = 'addDoc';
+                      }
+
+                      $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/' + task, obj, function(data){
                           if (isJSON(data)){
                               response = $.parseJSON(data);
                           }else{
                               response = data;
                           }
 
-                          if(data == true){
-                              alert(ADD_TO_COLLECTION_SUCCESS);
-                          }else if(typeof response == 'object'){
-                              alert(COLLECTION_EXISTS);
-                          }else{
-                              alert(ADD_TO_COLLECTION_ERROR);
+                          if (obj.id.match("^lis-")) {
+                              if(data == true){
+                                  alert(ADD_LINK_SUCCESS);
+                              }else if(data == 'exists'){
+                                  alert(LINK_EXISTS);
+                              }else{
+                                  alert(ADD_LINK_ERROR);
+                              }
+                          } else {
+                              if(data == true){
+                                  alert(ADD_TO_COLLECTION_SUCCESS);
+                              }else if(typeof response == 'object'){
+                                  alert(COLLECTION_EXISTS);
+                              }else{
+                                  alert(ADD_TO_COLLECTION_ERROR);
+                              }
                           }
                       });
                   }
