@@ -55,7 +55,12 @@
             var ADD_LINK_SUCCESS = '{{ texts.ADD_LINK_SUCCESS }}';
             var ADD_LINK_ERROR = '{{ texts.ADD_LINK_ERROR }}';
             var LINK_EXISTS = '{{ texts.LINK_EXISTS }}';
+            var ADD_RSS_SUCCESS = '{{ texts.ADD_RSS_SUCCESS }}';
+            var ADD_RSS_ERROR = '{{ texts.ADD_RSS_ERROR }}';
+            var RSS_EXISTS = '{{ texts.RSS_EXISTS }}';
             var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain }}';
+            var QUERY = $.trim('{{ q }}');
+            var FILTER = $.trim('{{ filters|filters_to_string }}');
         </script>
 
         {% if config.google_analytics_tracking_id != '' %}
@@ -110,10 +115,10 @@
                 obj.lang = $.trim('{{ lang }}');
                 obj.col = $.trim('{{ config.search_collection_list.collection.name }}');
                 obj.site = $.trim('{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}');
-                obj.query = $.trim('{{ q }}');
+                obj.query = QUERY;
                 obj.index = $.trim('{{ index }}');
                 obj.where = $.trim('{{ where }}');
-                obj.filter = $.trim('{{ filters|filters_to_string }}');
+                obj.filter = FILTER;
                 obj.page = $.trim('{{ page }}');
                 obj.output = $.trim('{{ current_page }}');
                 obj.referer = $.trim(document.referrer);

@@ -51,48 +51,84 @@ $(document).ready(
                 //alert(JSON.stringify(obj, null, 4));
 
                 x.on('click', function(){
-                  obj.userTK = unescape(getCookie('userTK'));
+                    obj.userTK = unescape(getCookie('userTK'));
 
-                  if ( obj.userTK == 'undefined' ){
-                      var data = encodeURIComponent(JSON.stringify(obj));
-                      var win = window.open(SERVICES_PLATFORM_DOMAIN + '/client/controller/authentication/?lang=' + LANG + '&data=' + data, '_blank');
-                      win.focus();
-                  }else{
-                      if (obj.id.match("^lis-")) {
-                          var task = 'addLink';
-                      } else {
-                          var task = 'addDoc';
-                      }
+                    if ( obj.userTK == 'undefined' ){
+                        var data = encodeURIComponent(JSON.stringify(obj));
+                        var win = window.open(SERVICES_PLATFORM_DOMAIN + '/client/controller/authentication/?lang=' + LANG + '&data=' + data, '_blank');
+                        win.focus();
+                    }else{
+                        if (obj.id.match("^lis-")) {
+                            var task = 'addLink';
+                        } else {
+                            var task = 'addDoc';
+                        }
 
-                      $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/' + task, obj, function(data){
-                          if (isJSON(data)){
-                              response = $.parseJSON(data);
-                          }else{
-                              response = data;
-                          }
+                        $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/' + task, obj, function(data){
+                            if (isJSON(data)){
+                                response = $.parseJSON(data);
+                            }else{
+                                response = data;
+                            }
 
-                          if (obj.id.match("^lis-")) {
-                              if(data == true){
-                                  alert(ADD_LINK_SUCCESS);
-                              }else if(data == 'exists'){
-                                  alert(LINK_EXISTS);
-                              }else{
-                                  alert(ADD_LINK_ERROR);
-                              }
-                          } else {
-                              if(data == true){
-                                  alert(ADD_TO_COLLECTION_SUCCESS);
-                              }else if(typeof response == 'object'){
-                                  alert(COLLECTION_EXISTS);
-                              }else{
-                                  alert(ADD_TO_COLLECTION_ERROR);
-                              }
-                          }
-                      });
-                  }
+                            if (obj.id.match("^lis-")) {
+                                if(data == true){
+                                    alert(ADD_LINK_SUCCESS);
+                                }else if(data == 'exists'){
+                                    alert(LINK_EXISTS);
+                                }else{
+                                    alert(ADD_LINK_ERROR);
+                                }
+                            } else {
+                                if(data == true){
+                                    alert(ADD_TO_COLLECTION_SUCCESS);
+                                }else if(typeof response == 'object'){
+                                    alert(COLLECTION_EXISTS);
+                                }else{
+                                    alert(ADD_TO_COLLECTION_ERROR);
+                                }
+                            }
+                        });
+                    }
                 });
             }
         );
+
+        $('div#rss a.add-rss').on('click', function(){
+            var name = $('div.identification h1').text();
+            var url = $(location).attr('href');
+            var sep = ' | ';
+
+            if (QUERY.trim()) {
+                name += sep + QUERY;
+                sep = ' AND ';
+            }
+
+            if (FILTER.trim()) {
+                name += sep + FILTER;
+            }
+
+            if (~url.indexOf("output=site")) {
+                url = url.replace('output=site', 'output=rss');
+            } else {
+                url = SEARCH_URL + '?output=rss';
+            }
+
+            var obj = new Object();
+            obj.userTK = unescape(getCookie('userTK'));
+            obj.name = $.trim(name);
+            obj.url = $.trim(url);
+
+            $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addRSS', obj, function(data){
+                if(data == true){
+                    alert(ADD_RSS_SUCCESS);
+                }else if(data == 'exists'){
+                    alert(RSS_EXISTS);
+                }else{
+                    alert(ADD_RSS_ERROR);
+                }
+            });
+        });
 
         function getCookie(name) {
           var value = "; " + document.cookie;

@@ -186,19 +186,29 @@ DIV.resultsBar DIV.feed {
 .actions img {
 	margin: 4px 0 0 3px;
 }
-DIV#print li, DIV#export li {
+DIV#rss li,
+DIV#print li,
+DIV#export li {
 	margin: 5px 0;
 }
-DIV#print h3, DIV#export h3 {
+DIV#rss h3,
+DIV#print h3,
+DIV#export h3 {
 	margin: 20px 0 5px 0;
 }
-DIV#print h3:first-child, DIV#export h3:first-child {
+DIV#rss h3:first-child,
+DIV#print h3:first-child,
+DIV#export h3:first-child {
 	margin: 0 0 5px 0;
 }
-DIV#print p, DIV#export p {
+DIV#rss p,
+DIV#print p,
+DIV#export p {
 	margin: 0 0 15px 0;
 }
-DIV#print li img, DIV#export li img {
+DIV#rss li img,
+DIV#print li img,
+DIV#export li img {
 	margin: 4px 5px -4px 5px;
 }
 DIV#email {

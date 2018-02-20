@@ -1,5 +1,28 @@
 <div class="feed">
-    <a class="RSS" href="javascript:change_output('rss');" title="{{ texts.SHOW_RSS }}"><span>RSS</span></a>
+    {% if config.services_platform_domain != '' and app.request.cookies.has('userTK') %}
+        <a class="RSS fancybox" href="#rss" title="{{ texts.SHOW_RSS }}"><span>RSS</span></a>
+        <div style="display: none;">
+            <div id="rss">
+                <h3>RSS</h3>
+                <ul>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/common/icon_feed.gif" alt="{{ texts.PRINT }}" title="{{ texts.PRINT }}" />
+                        <a href="javascript:change_output('rss');" alt="{{ texts.PRINT }}">
+                            {{ texts.VIEW_RSS }}
+                        </a>
+                    </li>
+                    <li>
+                        <img src="{{ constant("STATIC_URL") }}image/common/icon_feed.gif" alt="{{ texts.ADD_TO_COLLECTION }}" />
+                        <a class="add-rss" href="javascript:;">
+                            {{ texts.ADD_RSS }}
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    {% else %}
+        <a class="RSS" href="javascript:change_output('rss');" title="{{ texts.SHOW_RSS }}"><span>RSS</span></a>
+    {% endif %}
     <a class="XML" href="javascript:change_output('xml');" title="{{ texts.SHOW_XML }}"><span>XML</span></a>
 </div>
 
@@ -13,7 +36,7 @@
         <a id="inline_print" href="#print" alt="{{ texts.PRINT }}" class="fancybox">
             <img src="{{ constant("STATIC_URL") }}image/print.png" alt="{{ texts.PRINT }}">
         </a>
-        <div style="display:none">
+        <div style="display: none;">
             <div id="print">
                 {{ texts.PRINT }}
                 <ul>
