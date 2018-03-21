@@ -39,7 +39,7 @@ $(document).ready(
                     var url = $(this).find('h3 > a').attr('href');
                 }
 
-                var source = window.location.hostname;
+                var source = window.location.hostname+'/'+SITE;
 
                 var obj = new Object();
                 obj.url = $.trim(url);
