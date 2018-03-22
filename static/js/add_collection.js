@@ -108,10 +108,18 @@ $(document).ready(
                 name += sep + FILTER;
             }
 
+            if ( name.length > 150 ) {
+                name = name.substr(0, 144) + ' [...]';
+            }
+
             if (~url.indexOf("output=site")) {
                 url = url.replace('output=site', 'output=rss');
             } else {
-                url = SEARCH_URL + '?output=rss';
+                if (QUERY.trim()) {
+                    url += '&output=rss';
+                } else {
+                    url = SEARCH_URL + '?output=rss';
+                }
             }
 
             var obj = new Object();
