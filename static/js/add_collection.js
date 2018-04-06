@@ -128,10 +128,12 @@ $(document).ready(
             obj.url = $.trim(url);
 
             $.post(SERVICES_PLATFORM_DOMAIN + '/client/controller/servicesplatform/control/business/task/addRSS', obj, function(data){
-                if(data == true){
-                    alert(ADD_RSS_SUCCESS);
-                }else if(data == 'exists'){
-                    alert(RSS_EXISTS);
+                if(data){
+                    if(data == 'exists'){
+                        alert(RSS_EXISTS);
+                    }else{
+                        alert(ADD_RSS_SUCCESS);
+                    }
                 }else{
                     alert(ADD_RSS_ERROR);
                 }
