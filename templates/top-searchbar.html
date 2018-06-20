@@ -1,10 +1,10 @@
 <div class="search">
     {% if params.q is defined and params.q|length > 2048 %}
       <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="POST">
-    {% else %}  
+    {% else %}
     <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
-    {% endif %}    
-        
+    {% endif %}
+
         <div class="searchForm">
                 <input type="hidden" name="output" id="output" value="{{ output }}">
                 <input type="hidden" name="lang" id="lang" value="{{ lang }}">
@@ -17,13 +17,13 @@
                 {% endif %}
                 <input type="hidden" name="fb" id="fb" value="">
                 <input type="hidden" name="page" id="page" value="{% if params.page is defined %}{{ params.page }}{% else %}1{% endif %}">
-                
+
                 {% for name, items in filters if filters is defined %}
                     {% for item in items %}
                         <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
                     {% endfor %}
                 {% endfor %}
-                
+
 
                 <label for="q" class="hide">Busca</label>
                 <input type="text" name="q" id="q" value="{% if params.q %}{{ params.q }}{% else %}{{ texts.SEARCH_WORDS }}{% endif %}" class="inputText {% if params.q is not defined %}defaultValue{% endif %}" title="{{ texts.SEARCH_WORDS }}" placeholder="{{ texts.SEARCH_WORDS }}" onfocus="if(this.value=='{{ texts.SEARCH_WORDS }}') this.value = '';" onblur="if(this.value=='') this.value = '{{ texts.SEARCH_WORDS }}';" onkeydown="$('#q').removeClass('defaultValue');">
@@ -31,7 +31,7 @@
                 {% if collectionData.index_list.index is defined %}
                     <label for="selectIndex" class="hide">{{texts.LABEL_FOR_SELECT_INDEX}}</label>
                     <select name="index" class="inputText" id="selectIndex">
-                    
+
                     {% for index in collectionData.index_list.index if not index.advanced %}
 
                         {% if params.index is defined %}
@@ -44,7 +44,7 @@
                             <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
                         {% endif %}
                     {% endfor %}
-                    
+
                     </select>
                 {% endif %}
 
@@ -66,13 +66,15 @@
                                 <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
                             {% endif %}
                         {% endfor %}
-                    </select>  
+                    </select>
                 {% endif %}
 
                 <input type="submit" value="{{ texts.SEARCH_SUBMIT }}" name="search_form_submit" class="submit">
                 <div class="actions">
-                    <em class="icon-search"> </em> <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}">{{ texts.ADVANCED_SEARCH }}</a> |
-                    <em class="icon-list-alt"> </em> <a href="#" onclick="decs_locator('{{ constant("SEARCH_URL") }}')">{{ texts.DECS_LOOKUP }}</a>
+                    <em class="icon-search"> </em> <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}">{{ texts.ADVANCED_SEARCH }}</a>
+                    {% if lang in ['pt', 'es', 'en'] %}
+                        | <em class="icon-list-alt"> </em> <a href="#" onclick="decs_locator('{{ constant("SEARCH_URL") }}')">{{ texts.DECS_LOOKUP }}</a>
+                    {% endif %}
                 </div>
             </div>
     </form>
