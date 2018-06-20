@@ -124,7 +124,9 @@
         }
 
         function showQualifierInfo(qlf) {
-            var decs_qlf = 'http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/?IsisScript=../cgi-bin/decsserver/decsserver.xis&search_language=p&interface_language=p&previous_page=homepage&task=show_qualifier&qualifier=' + qlf
+
+            var lng = {% if lang == 'en' %}'i'{% else %}'{{lang|slice(0,1)}}'{% endif %};
+            var decs_qlf = 'http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/?IsisScript=../cgi-bin/decsserver/decsserver.xis&search_language=' + lng + '&interface_language=' + lng + '&previous_page=homepage&task=show_qualifier&qualifier=' + qlf
             window.open(decs_qlf, 'decsqlf', 'scrollbars=1,width=650,height=400');
         }
 
