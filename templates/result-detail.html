@@ -164,7 +164,7 @@
                         {% for ab_field in ab_list %}
                             {% set ab_lang = ab_field|split('_')|last %}
                             {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
-                            
+
                             <button class="tablinks {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" onclick="open_tab(event, '{{ ab_field }}')">{{ attribute(texts.RESULT, label_name) }}</button>
                         {% endfor %}
                         </div>
@@ -192,10 +192,10 @@
 
 				<!-- subject -->
                 {% if doc.mh is defined  %}
-                    <div class="tags">
+                    <div class="tags{% if lang not in ['pt', 'es', 'en'] %}_disable_tooltip{% endif %}">
                         <h4>{{ texts.RESULT.LABEL_SUBJECT }}</h4>
                         {% for subject in doc.mh %}
-                            <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'}) }}"'>{{ subject|raw }}</a>
+                            <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'})|raw }}"'>{{ subject|raw }}</a>
                         {% endfor %}
                     </div>
                 {% endif %}
