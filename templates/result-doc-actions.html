@@ -113,7 +113,11 @@
     {% if config.services_platform_domain != '' %}
         <!-- services platform -->
         <div class="platserv">
-              <a class="add-collection" href="javascript:;">
+    	  {% if app.request.cookies.has('userTK') %}
+              <a class="add-collection" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Add to collection', '{{doc.ti.0}}']);">
+    	  {% else %}
+              <a class="add-collection" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Login', '{{doc.ti.0}}']);">
+          {% endif %}
                   <img src="{{ constant("STATIC_URL") }}image/common/icon_addToFolder.gif" alt="{{ texts.ADD_TO_COLLECTION }}"/>
                   <span>{{ texts.ADD_TO_COLLECTION }}</span>
               </a>

@@ -89,6 +89,13 @@ function export_result(count) {
     form.count.value = previous_count;    //return to previous value
 }
 
+function export_xml_record(q) {
+    var form = document.searchForm;
+    form.q.value = q;
+
+    change_output("xml");
+}
+
 // advanced search
 function decs_locator(base_url) {
     $("#searchForm").attr("action",base_url + "decs-locator/");
