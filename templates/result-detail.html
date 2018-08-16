@@ -119,7 +119,8 @@
 	        {% block data %}
 	            <!-- title -->
 	            <h3>{% autoescape false %}{{ occ( {'element': doc.ti, separator: ' / '} ) }}{% endautoescape %}</h3>
-			    <!-- author -->
+			<!-- author -->
+			<div class="author">
 			    {% if doc.au is defined %}
 
 			        {% for author in doc.au %}
@@ -127,6 +128,7 @@
 			        {% endfor %}
 
 			    {% endif %}
+			<div>
 
 				{% include custom_template("result-inc-source.html") %}
 
