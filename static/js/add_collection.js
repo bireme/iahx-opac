@@ -8,7 +8,7 @@ $(document).ready(
                   var x = $(this).parent().find('nav.c-share div.platserv a.add-collection');
 
                   //var author = $(this).find('div.author').html();
-                  var author = $(this).find('h2.c-results-intro').text();
+                  var author = $(this).find('div.author').text();
                   author = author.replace(/[^ ]+/i,'');
 
                   var title = $(this).find('h1.c-results-tit').html();
