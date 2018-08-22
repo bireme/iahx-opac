@@ -31,7 +31,7 @@
         {% for doc in docs %}
             {% block item %}
                 <item>
-                    <title><![CDATA[{% if doc.ti.0|length > 100 %}{{ doc.ti.0[:100] }} [...]{% else %}{{ doc.ti.0 }}{% endif %}]]></title>
+                    <title><![CDATA[{{ doc.ti.0|raw }}]]></title>
                     {% if doc.au is defined %}
                         <author><![CDATA[{% for author in doc.au %}{{ author }}{% if loop.last %}.{% else %}; {% endif %}{% endfor %}]]></author>
                     {% endif %}
