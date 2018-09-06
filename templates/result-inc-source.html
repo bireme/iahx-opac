@@ -32,7 +32,7 @@
            	LILACS-Express
        	</a>
     {% else %}
-		| {{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}
+        {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
     {% endif %}
 	| ID: {{ doc.id }}
 </div>
