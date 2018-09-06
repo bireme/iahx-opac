@@ -1,5 +1,5 @@
 {% extends "index.html" %}
-{% block title %}{{ doc.ti.0 }} | {{ texts.BVS_TITLE }}{% endblock %}
+{% block title %}{{ doc.ti.0 }} {% if doc.fo.0 %} | {{ doc.fo.0 }} {% endif %} {% if doc.db %} | {{ occ({'element': doc.db, separator: ' | '}) }} {% endif %} | {{ texts.BVS_TITLE }}{% endblock %}
 
 {% block extrahead %}
     <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">
