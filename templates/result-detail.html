@@ -174,7 +174,7 @@
                         {% for ab_field in ab_list %}
                             {% set ab_lang = ab_field|split('_')|last %}
 
-                            <div id="{{ ab_field }}" class="tabcontent abstract" {% if ab_active_lang %}{% if ab_lang != ab_active_lang %}style="display: none"{% endif %}{% elseif loop.index > 1%}style="display: none"{% endif %}>
+                            <div id="{{ ab_field }}" class="tabcontent abstract" {% if ab_active_lang %}{% if ab_lang != ab_active_lang %}style="display: none"{% endif %}{% elseif loop.index > 1%}style="display: none"{% endif %} lang="{{ab_lang}}">
                                 {{ attribute(doc, ab_field).0|raw }}
                             </div>
                         {% endfor %}

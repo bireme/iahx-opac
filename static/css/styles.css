@@ -340,7 +340,7 @@ DIV.resultSet DIV.infoBar DIV.pagination A {
 DIV.resultSet DIV.record {
 	border-bottom: 1px solid #e5e5e5;
 }
-.record:hover {
+DIV.resultSet DIV.record:hover {
     background: #f9fcfe;
 }
 DIV.resultSet DIV.record DIV.user-actions A,

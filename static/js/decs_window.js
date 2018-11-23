@@ -1,25 +1,31 @@
 $(document).ready(
     function(){
         var lang = document.searchForm.lang.value;
-        
-        $("div.tags > a").each(
+
+        $("div.tags > a, div.abstract > a").each(
         function(){
             var descriptor=$(this).html();
+            parent_div = $(this).parent();
+
             descriptor=descriptor.replace(/\/.*/,'');
             this.title=descriptor;
-            // this.rel="decs_tooltip.php?term="+escape(descriptor)+"&lang="+lang;
+
+            if (parent_div.prop('lang')){
+                lang = parent_div.prop('lang');
+            }
             this.rel= SEARCH_URL + "decs/"+lang+"/"+escape(descriptor);
+
             $(this).cluetip(
                 {
                     hoverClass:'highlight',
                     sticky:true,
                     closePosition:'title',
                     closeText:'<img src="' + STATIC_URL + 'image/common/gtk-close.png" alt="close" />',
-                    fx: { 
+                    fx: {
                         open: 'fadeIn',
                         openSpeed: 'slow'
                     },
-                    hoverIntent: {    
+                    hoverIntent: {
                       sensitivity:  1,
                       interval:     500,
                       timeout:      0
