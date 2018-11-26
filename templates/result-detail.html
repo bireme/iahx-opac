@@ -164,7 +164,7 @@
                     <div class="tab_box">
                         <div class="tab">
                         {% for ab_field in ab_list %}
-                            {% set ab_lang = ab_field|split('_')|last %}
+                            {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : doc.la[0] %}
                             {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
                             <button class="tablinks {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" onclick="open_tab(event, '{{ ab_field }}')">{{ attribute(texts.RESULT, label_name) }}</button>
@@ -172,7 +172,7 @@
                         </div>
 
                         {% for ab_field in ab_list %}
-                            {% set ab_lang = ab_field|split('_')|last %}
+                            {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : doc.la[0] %}
 
                             <div id="{{ ab_field }}" class="tabcontent abstract" {% if ab_active_lang %}{% if ab_lang != ab_active_lang %}style="display: none"{% endif %}{% elseif loop.index > 1%}style="display: none"{% endif %} lang="{{ab_lang}}">
                                 {{ attribute(doc, ab_field).0|raw }}
