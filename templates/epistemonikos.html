@@ -1,0 +1,33 @@
+<div class="epistemonikos_box">
+    <strong>{{ attribute(texts, classification|upper|replace({"-": "_"})) }}</strong>
+
+    {% if primary_study_ref or systematic_review_ref %}
+    | {{ texts.THIS_ARTICLE_INCLUDES }}
+    {% endif %}
+
+    {% if primary_study_ref %}
+        <a href="{{ primary_study_ref['url']|replace({"/en/": lang_param}) }}" target="_blank">
+            {% if primary_study_ref['studies'] %}
+                {{ primary_study_ref['studies'] }} {{ texts.PRIMARY_STUDIES }}
+                {% if  primary_study_ref['total'] != primary_study_ref['studies'] %}
+                    ({{ total_references }} {{ texts.REFERENCES}})
+                {% endif %}
+            {% else %}
+                {{ primary_study_ref['total'] }} {{ texts.PRIMARY_STUDIES }}
+            {% endif %}
+        </a>
+    {% endif %}
+
+    {% if systematic_review_ref  %}
+        <a href="{{ systematic_review_ref['url']|replace({"/en/": lang_param}) }}" target="_blank">
+            {{ systematic_review_ref['total'] }} {{ texts.SYSTEMATIC_REVIEWS }}
+            ({{ total_references }} {{ texts.REFERENCES}})
+        </a>
+    {% endif %}
+    <div class="epistemonikos_copy">
+        <a href="https://www.epistemonikos.org{{lang_param}}" target="_blank">
+            <img src="{{ constant("STATIC_URL") }}image/common/icon_epistemonikos.png" width="20" />
+            Epistemonikos
+        </a>
+    </div>
+</div>

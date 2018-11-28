@@ -132,6 +132,11 @@
 
 				{% include custom_template("result-inc-source.html") %}
 
+                {% if config.epistemonikos_token %}
+                    <div id="epistemonikos_info">
+                    </div>
+                {% endif %}
+
                 <!-- abstract  -->
                 {% set mark_ab_list = [] %}
                 {% set raw_ab_list = [] %}
@@ -253,4 +258,17 @@
         }
     </script>
     {% endif %}
+
+    {% if config.epistemonikos_token %}
+        {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
+        <script type="text/javascript">
+            doc_id = '{% if "MEDLINE" in doc.db %}{{ doc.id|substring_after('-') }}{% else %}{{ doc.id }}{% endif %}';
+
+            service_url = '{{ constant("SEARCH_URL") }}' + 'epistemonikos/' + LANG + '/' + doc_id;
+            console.log(service_url);
+            $("#epistemonikos_info" ).load(service_url);
+        </script>
+        {% endif %}
+    {% endif %}
+
 {% endblock %}

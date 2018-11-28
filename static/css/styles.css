@@ -794,3 +794,21 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 	border: solid 1px #CECECE !important;
 	padding: 4px !important;
 }
+
+.epistemonikos_box{
+    margin: 1em 0 1em 0;
+    border: 1px solid #3A8EBE;
+    padding: 10px 10px 5px;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,.025);
+    border-radius: 4px;
+}
+.epistemonikos_copy{
+    float: right;
+    width: 90px;
+    font-size: 9px;
+    font-weight: bold;
+}
+.epistemonikos_copy A{
+    text-decoration: none;
+    border: none !important;
+}
