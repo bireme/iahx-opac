@@ -8,11 +8,8 @@
         </div>
     {% endif %}
 
-    {% if primary_study_ref or systematic_review_ref %}
-    | {{ texts.THIS_ARTICLE_INCLUDES }}
-    {% endif %}
-
     {% if primary_study_ref %}
+        | {{ texts.THIS_ARTICLE_INCLUDES }}
         <a href="{{ primary_study_ref['url']|replace({"/en/": lang_param}) }}" target="_blank">
             {% if primary_study_ref['studies'] %}
                 {{ primary_study_ref['studies'] }} {{ texts.PRIMARY_STUDIES }}
@@ -26,6 +23,7 @@
     {% endif %}
 
     {% if systematic_review_ref  %}
+        | {{ texts.THIS_ARTICLE_IS_INCLUDED }}
         <a href="{{ systematic_review_ref['url']|replace({"/en/": lang_param}) }}" target="_blank">
             {{ systematic_review_ref['total'] }} {{ texts.SYSTEMATIC_REVIEWS }}
             ({{ total_references }} {{ texts.REFERENCES}})
@@ -34,7 +32,7 @@
     <div class="epistemonikos_copy">
         <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" target="_blank">
             <img src="{{ constant("STATIC_URL") }}image/common/icon_epistemonikos.png" width="20" />
-            Epistemonikos
+            {{ texts.SEE_IN }} Epistemonikos
         </a>
     </div>
 </div>
