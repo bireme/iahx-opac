@@ -1,6 +1,13 @@
 <div class="epistemonikos_box">
     <strong>{{ attribute(texts, classification|upper|replace({"-": "_"})) }}</strong>
 
+    {% if classification_status == 'machine' %}
+        <a class="epistemoniko_warning" href="#warning_message" rel="#warning_message"><span class="icon-exclamation"></span></a>
+        <div id="warning_message">
+            {{ texts.CLASSIFICATION_MACHINE }}
+        </div>
+    {% endif %}
+
     {% if primary_study_ref or systematic_review_ref %}
     | {{ texts.THIS_ARTICLE_INCLUDES }}
     {% endif %}
@@ -25,9 +32,12 @@
         </a>
     {% endif %}
     <div class="epistemonikos_copy">
-        <a href="https://www.epistemonikos.org{{lang_param}}" target="_blank">
+        <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" target="_blank">
             <img src="{{ constant("STATIC_URL") }}image/common/icon_epistemonikos.png" width="20" />
             Epistemonikos
         </a>
     </div>
 </div>
+<script>
+    $('a.epistemoniko_warning').cluetip({local:true, cursor: 'pointer', showTitle: false, width: '270px'});
+</script>

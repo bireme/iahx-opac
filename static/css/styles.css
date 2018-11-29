@@ -767,6 +767,7 @@ DIV.record DIV.data DIV.abstractFulltextList LI{
 .icon-list-alt { background-position: -264px -24px; }
 .icon-cfg-filters{ background-position: -384px -146px; }
 .icon-trash{ background-position: -458px 0px; }
+.icon-exclamation{ background-position:0 -120px; margin-top: -3px;}
 
 .division{
 	border-top: 2px solid #CECECE !important;

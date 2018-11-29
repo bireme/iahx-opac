@@ -23,7 +23,7 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
     $data = json_decode($api_result, TRUE);
     //print_r($data);
 
-    if ($data['relations_info']['total_references'] > 0){
+    if ($data['metadata']['classification']){
         $output = array();
         $output['texts'] = $texts['EPISTEMONIKOS'];
         $output['lang_param'] = "/" . $lang . "/";
@@ -31,6 +31,7 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
         $output['classification_status'] = $data['metadata']['classification_status'];
         $output['primary_study_ref'] = $data['relations_info']['references']['primary-study'];
         $output['systematic_review_ref'] = $data['relations_info']['references']['systematic-review'];
+        $output['epistemonikos_doc_url'] = $data['external_links']['epistemonikos'];
         $output['total_references'] = $data['relations_info']['total_references'];
         $output['related_references'] = $data['related_references'];
 

@@ -263,9 +263,8 @@
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">
             doc_id = '{% if "MEDLINE" in doc.db %}{{ doc.id|substring_after('-') }}{% else %}{{ doc.id }}{% endif %}';
-
             service_url = '{{ constant("SEARCH_URL") }}' + 'epistemonikos/' + LANG + '/' + doc_id;
-            console.log(service_url);
+
             $("#epistemonikos_info" ).load(service_url);
         </script>
         {% endif %}
