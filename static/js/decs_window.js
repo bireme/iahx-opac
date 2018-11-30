@@ -1,8 +1,6 @@
 $(document).ready(
     function(){
-        var lang = document.searchForm.lang.value;
-
-        $("div.tags > a, div.abstract > a").each(
+        $("div.abstract > a, div.tags > a").each(
         function(){
             var descriptor=$(this).html();
             parent_div = $(this).parent();
@@ -12,6 +10,8 @@ $(document).ready(
 
             if (parent_div.prop('lang')){
                 lang = parent_div.prop('lang');
+            }else{
+                lang = document.searchForm.lang.value;
             }
             this.rel= SEARCH_URL + "decs/"+lang+"/"+escape(descriptor);
 
