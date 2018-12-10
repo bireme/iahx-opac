@@ -369,7 +369,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq,
-                    $page, $output, $SESSION->getId(), $format, $params['sort']);
+                    $page, $output, $SESSION->getId(), $format, $sort);
 
     // output
     switch($output) {

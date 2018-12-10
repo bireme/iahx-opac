@@ -185,7 +185,7 @@ function log_user_action($lang, $col, $site, $query, $index, $where, $filter, $p
         $log->fields['filter'] = $filter;
         $log->fields['page'] = $page;
         $log->fields['output'] = $output;
-        $log->fields['referer'] = $_SERVER['HTTP_REFERER'];
+        $log->fields['referer'] = (isset($_SERVER['HTTP_REFERER']) ? $_SERVER['HTTP_REFERER'] : '');
         $log->fields['session'] = $session_id;
         $log->fields['format'] = $format;
         $log->fields['sort'] = $sort;
@@ -334,6 +334,7 @@ function custom_template($filename) {
 
 function occ($params) {
     $separator = ', ';
+    $translate = $output = '';
 
     extract($params);
 
