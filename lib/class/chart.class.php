@@ -9,11 +9,11 @@ class graph
     * Constructer for the open_flash_chart_api
     * Sets our default variables
     */
-    function graph()
+    function __construct()
     {
         $this->data_sets = array();
-        
-        
+
+
         $this->data = array();
         $this->links = array();
         $this->width = 250;
@@ -29,7 +29,7 @@ class graph
         $this->title = '';
         $this->title_style = '';
         $this->occurence = 0;
-        
+
         $this->x_offset = '';
 
         $this->x_tick_size = -1;
@@ -45,56 +45,56 @@ class graph
         $this->y_axis_colour = '';
         $this->y_grid_colour = '';
         $this->y2_axis_colour = '';
-        
-        // AXIS LABEL styles:         
+
+        // AXIS LABEL styles:
         $this->x_label_style = '';
         $this->y_label_style = '';
         $this->y_label_style_right = '';
-    
-    
+
+
         // AXIS LEGEND styles:
         $this->x_legend = '';
         $this->x_legend_size = 20;
         $this->x_legend_colour = '#000000';
-    
+
         $this->y_legend = '';
         $this->y_legend_right = '';
         //$this->y_legend_size = 20;
         //$this->y_legend_colour = '#000000';
-    
+
         $this->lines = array();
         $this->line_default['type'] = 'line';
         $this->line_default['values'] = '3,#87421F';
         $this->js_line_default = 'so.addVariable("line","3,#87421F");';
-        
+
         $this->bg_colour = '';
         $this->bg_image = '';
-    
+
         $this->inner_bg_colour = '';
         $this->inner_bg_colour_2 = '';
         $this->inner_bg_angle = '';
-        
+
         // PIE chart ------------
         $this->pie = '';
         $this->pie_values = '';
         $this->pie_colours = '';
         $this->pie_labels = '';
-        
+
         $this->tool_tip = '';
-        
+
         // which data lines are attached to the
         // right Y axis?
         $this->y2_lines = array();
-        
+
         // Number formatting:
         $this->y_format='';
         $this->num_decimals='';
         $this->is_fixed_num_decimals_forced='';
         $this->is_decimal_separator_comma='';
         $this->is_thousand_separator_disabled='';
-        
+
         $this->output_type = '';
-        
+
         //
         // set some default value incase the user forgets
         // to set them, so at least they see *something*
@@ -113,7 +113,7 @@ class graph
     {
         $this->unique_id = uniqid(rand(), true);
     }
-    
+
     /**
     * Get the flash object ID for the last rendered object.
     */
@@ -121,7 +121,7 @@ class graph
     {
         return ($this->unique_id);
     }
-    
+
     /**
     * Set the base path for the swfobject.js
     *
@@ -132,7 +132,7 @@ class graph
     {
         $this->js_path = $path;
     }
-    
+
     /**
     * Set the base path for the open-flash-chart.swf
     *
@@ -166,7 +166,7 @@ class graph
 
         return $line_num;
     }
-    
+
     // escape commas (,)
     function esc( $text )
     {
@@ -222,7 +222,7 @@ class graph
     {
         $this->width = $width;
     }
-    
+
     /**
      * Set the height of the chart.
      *
@@ -244,28 +244,28 @@ class graph
     {
         $this->base = $base;
     }
-    
+
     // Number formatting:
     function set_y_format( $val )
     {
-        $this->y_format = $val; 
+        $this->y_format = $val;
     }
-    
+
     function set_num_decimals( $val )
     {
         $this->num_decimals = $val;
     }
-    
+
     function set_is_fixed_num_decimals_forced( $val )
     {
         $this->is_fixed_num_decimals_forced = $val?'true':'false';
     }
-    
+
     function set_is_decimal_separator_comma( $val )
     {
         $this->is_decimal_separator_comma = $val?'true':'false';
     }
-    
+
     function set_is_thousand_separator_disabled( $val )
     {
         $this->is_thousand_separator_disabled = $val?'true':'false';
@@ -280,14 +280,14 @@ class graph
     {
         $this->data[] = implode(',',$a);
     }
-    
+
     // UGH, these evil functions are making me fell ill
     function set_links( $links )
     {
         // TO DO escape commas:
         $this->links[] = implode(',',$links);
     }
-    
+
     // $val is a boolean
     function set_x_offset( $val )
     {
@@ -304,7 +304,7 @@ class graph
      * #x_label# - The X label string. \n
      * #x_legend# - The X axis legend text. \n
      * Default string is: "#x_label#<br>#val#" \n
-     * 
+     *
      * @param tip a string argument.
      *   A formatted string to show as the tooltip.
      */
@@ -346,7 +346,7 @@ class graph
     function set_x_label_style( $size, $colour='', $orientation=0, $step=-1, $grid_colour='' )
     {
         $this->x_label_style = $size;
-        
+
         if( strlen( $colour ) > 0 )
             $this->x_label_style .= ','. $colour;
 
@@ -408,10 +408,10 @@ class graph
     function set_inner_background( $col, $col2='', $angle=-1 )
     {
         $this->inner_bg_colour = $col;
-        
+
         if( strlen($col2) > 0 )
             $this->inner_bg_colour_2 = $col2;
-        
+
         if( $angle != -1 )
             $this->inner_bg_angle = $angle;
     }
@@ -422,7 +422,7 @@ class graph
     function _set_y_label_style( $size, $colour )
     {
         $tmp = $size;
-        
+
         if( strlen( $colour ) > 0 )
             $tmp .= ','. $colour;
         return $tmp;
@@ -491,7 +491,7 @@ class graph
      *
      * @param max an float argument.
      *   The maximum value.
-     */  
+     */
     function set_y_right_max( $max )
     {
         $this->y2_max = floatval($max);
@@ -518,7 +518,7 @@ class graph
     {
          $this->y_steps = intval( $val );
     }
-    
+
     function title( $title, $style='' )
     {
          $this->title = $this->esc( $title );
@@ -534,14 +534,14 @@ class graph
      * @param font_size an int argument.
      *   The font size of the x legend text.
      * @param colour a string argument
-     *   The hex value of the font colour. 
+     *   The hex value of the font colour.
      */
     function set_x_legend( $text, $size=-1, $colour='' )
     {
         $this->x_legend = $this->esc( $text );
         if( $size > -1 )
             $this->x_legend_size = $size;
-        
+
         if( strlen( $colour )>0 )
             $this->x_legend_colour = $colour;
     }
@@ -581,14 +581,14 @@ class graph
         if( $size > 0 )
             $this->x_axis_3d = intval($size);
     }
-    
+
     /**
      * The private method of building the y legend output.
      */
     function _set_y_legend( $text, $size, $colour )
     {
         $tmp = $text;
-    
+
         if( $size > -1 )
             $tmp .= ','. $size;
 
@@ -606,7 +606,7 @@ class graph
      * @param font_size an int argument.
      *   The font size of the y legend text.
      * @param colour a string argument
-     *   The hex colour value of the font colour. 
+     *   The hex colour value of the font colour.
      */
     function set_y_legend( $text, $size=-1, $colour='' )
     {
@@ -621,20 +621,20 @@ class graph
      * @param font_size an int argument.
      *   The font size of the right y legend text.
      * @param colour a string argument
-     *   The hex value of the font colour. 
+     *   The hex value of the font colour.
      */
     function set_y_right_legend( $text, $size=-1, $colour='' )
     {
         $this->y_legend_right = $this->_set_y_legend( $text, $size, $colour );
     }
-    
+
     /**
      * Set the colour of the x axis line and grid.
      *
      * @param axis a string argument.
      *   The hex colour value of the x axis line.
      * @param grid a string argument.
-     *   The hex colour value of the x axis grid. 
+     *   The hex colour value of the x axis grid.
      */
     function x_axis_colour( $axis, $grid='' )
     {
@@ -648,7 +648,7 @@ class graph
      * @param axis a string argument.
      *   The hex colour value of the y axis line.
      * @param grid a string argument.
-     *   The hex colour value of the y axis grid. 
+     *   The hex colour value of the y axis grid.
      */
     function y_axis_colour( $axis, $grid='' )
     {
@@ -700,7 +700,7 @@ class graph
             $description .= ','. $size;
         }
 
-        if( $circles > 0 ) 
+        if( $circles > 0 )
             $description .= ','. $circles;
 
         $this->lines[$type] = $description;
@@ -784,7 +784,7 @@ class graph
 
         if( strlen( $text ) > 0 )
             $description .= ",$text,$font_size";
-    
+
         if( strlen( $fill_colour ) > 0 )
             $description .= ','. $fill_colour;
 
@@ -908,7 +908,7 @@ class graph
 
         $this->lines[$type] = $description;
     }
-    
+
     function candle( $data, $alpha, $line_width, $colour, $text='', $size=-1 )
     {
         $type = 'candle'. $this->next_line();
@@ -916,14 +916,14 @@ class graph
         $description = $alpha .','. $line_width .','. $colour .','. $text .','. $size;
 
         $this->lines[$type] = $description;
-        
+
         $a = array();
         foreach( $data as $can )
             $a[] = $can->toString();
-            
+
         $this->data[] = implode(',',$a);
     }
-    
+
     function hlc( $data, $alpha, $line_width, $colour, $text='', $size=-1 )
     {
         $type = 'hlc'. $this->next_line();
@@ -931,11 +931,11 @@ class graph
         $description = $alpha .','. $line_width .','. $colour .','. $text .','. $size;
 
         $this->lines[$type] = $description;
-        
+
         $a = array();
         foreach( $data as $can )
             $a[] = $can->toString();
-            
+
         $this->data[] = implode(',',$a);
     }
 
@@ -946,11 +946,11 @@ class graph
         $description = $line_width .','. $colour .','. $text .','. $size;
 
         $this->lines[$type] = $description;
-        
+
         $a = array();
         foreach( $data as $can )
             $a[] = $can->toString();
-            
+
         $this->data[] = implode(',',$a);
     }
 
@@ -998,7 +998,7 @@ class graph
      *   An array of the labels for the pie pieces.
      * @param links an array argument.
      *   An array of the links to the pie pieces.
-     */ 
+     */
     function pie_values( $values, $labels=array(), $links=array() )
     {
         $this->pie_values = implode(',',$values);
@@ -1016,7 +1016,7 @@ class graph
     {
         $this->pie_colours = implode(',',$colours);
     }
-    
+
 
     /**
      * Render the output.
@@ -1024,7 +1024,7 @@ class graph
     function render()
     {
         $tmp = array();
-        
+
         //echo headers_sent() ?'yes':'no';
         if( !headers_sent() )
             header('content-type: text; charset: utf-8');
@@ -1032,7 +1032,7 @@ class graph
         if($this->output_type == 'js')
         {
             $this->set_unique_id();
-        
+
             $tmp[] = '<div id="' . $this->unique_id . '"></div>';
             $tmp[] = '<script type="text/javascript" src="' . $this->js_path . 'swfobject.js"></script>';
             $tmp[] = '<script type="text/javascript">';
@@ -1054,10 +1054,10 @@ class graph
             $values .= ','. $this->x_legend_colour;
             $tmp[] = $this->format_output('x_legend',$values);
         }
-    
+
         if( strlen( $this->x_label_style ) > 0 )
             $tmp[] = $this->format_output('x_label_style',$this->x_label_style);
-    
+
         if( $this->x_tick_size > 0 )
             $tmp[] = $this->format_output('x_ticks',$this->x_tick_size);
 
@@ -1066,10 +1066,10 @@ class graph
 
         if( strlen( $this->x_axis_3d ) > 0 )
             $tmp[] = $this->format_output('x_axis_3d',$this->x_axis_3d);
-        
+
         if( strlen( $this->y_legend ) > 0 )
             $tmp[] = $this->format_output('y_legend',$this->y_legend);
-        
+
         if( strlen( $this->y_legend_right ) > 0 )
             $tmp[] = $this->format_output('y2_legend',$this->y_legend_right);
 
@@ -1081,14 +1081,14 @@ class graph
 
         if( count( $this->lines ) == 0 && count($this->data_sets)==0 )
         {
-            $tmp[] = $this->format_output($this->line_default['type'],$this->line_default['values']);   
+            $tmp[] = $this->format_output($this->line_default['type'],$this->line_default['values']);
         }
         else
         {
             foreach( $this->lines as $type=>$description )
-                $tmp[] = $this->format_output($type,$description);  
+                $tmp[] = $this->format_output($type,$description);
         }
-    
+
         $num = 1;
         foreach( $this->data as $data )
         {
@@ -1100,10 +1100,10 @@ class graph
             {
                 $tmp[] = $this->format_output('values_'. $num, $data);
             }
-        
+
             $num++;
         }
-        
+
         $num = 1;
         foreach( $this->links as $link )
         {
@@ -1115,7 +1115,7 @@ class graph
             {
                 $tmp[] = $this->format_output('links_'. $num, $link);
             }
-        
+
             $num++;
         }
 
@@ -1134,20 +1134,20 @@ class graph
         {
             if( strlen($this->x_min) > 0 )
                 $tmp[] = $this->format_output('x_min',$this->x_min);
-                
+
             if( strlen($this->x_max) > 0 )
-                $tmp[] = $this->format_output('x_max',$this->x_max);            
+                $tmp[] = $this->format_output('x_max',$this->x_max);
         }
-        
+
         $tmp[] = $this->format_output('y_min',$this->y_min);
         $tmp[] = $this->format_output('y_max',$this->y_max);
 
         if( strlen($this->y2_min) > 0 )
             $tmp[] = $this->format_output('y2_min',$this->y2_min);
-            
+
         if( strlen($this->y2_max) > 0 )
             $tmp[] = $this->format_output('y2_max',$this->y2_max);
-        
+
         if( strlen( $this->bg_colour ) > 0 )
             $tmp[] = $this->format_output('bg_colour',$this->bg_colour);
 
@@ -1169,10 +1169,10 @@ class graph
 
         if( strlen( $this->y_grid_colour ) > 0 )
             $tmp[] = $this->format_output('y_grid_colour',$this->y_grid_colour);
-  
+
         if( strlen( $this->y2_axis_colour ) > 0 )
             $tmp[] = $this->format_output('y2_axis_colour',$this->y2_axis_colour);
-        
+
         if( strlen( $this->x_offset ) > 0 )
             $tmp[] = $this->format_output('x_offset',$this->x_offset);
 
@@ -1186,7 +1186,7 @@ class graph
             }
             $tmp[] = $this->format_output('inner_background',$values);
         }
-    
+
         if( strlen( $this->pie ) > 0 )
         {
             $tmp[] = $this->format_output('pie',$this->pie);
@@ -1198,21 +1198,21 @@ class graph
 
         if( strlen( $this->tool_tip ) > 0 )
             $tmp[] = $this->format_output('tool_tip',$this->tool_tip);
-            
-            
-        
+
+
+
         if( strlen( $this->y_format ) > 0 )
             $tmp[] = $this->format_output('y_format',$this->y_format);
-            
+
         if( strlen( $this->num_decimals ) > 0 )
             $tmp[] = $this->format_output('num_decimals',$this->num_decimals);
-            
+
         if( strlen( $this->is_fixed_num_decimals_forced ) > 0 )
             $tmp[] = $this->format_output('is_fixed_num_decimals_forced',$this->is_fixed_num_decimals_forced);
-            
+
         if( strlen( $this->is_decimal_separator_comma ) > 0 )
             $tmp[] = $this->format_output('is_decimal_separator_comma',$this->is_decimal_separator_comma);
-            
+
         if( strlen( $this->is_thousand_separator_disabled ) > 0 )
             $tmp[] = $this->format_output('is_thousand_separator_disabled',$this->is_thousand_separator_disabled);
 
@@ -1223,13 +1223,13 @@ class graph
             $tmp[] = $set->toString( $this->output_type, $count>1?'_'.$count:'' );
             $count++;
         }
-        
+
         if($this->output_type == 'js')
         {
             $tmp[] = 'so.write("' . $this->unique_id . '");';
             $tmp[] = '</script>';
         }
-        
+
         return implode("\r\n",$tmp);
     }
 }
@@ -1245,11 +1245,11 @@ class line
     var $data;
     // extra tool tip info:
     var $tips;
-    
+
     function line( $line_width, $colour )
     {
         $this->var = 'line';
-        
+
         $this->line_width = $line_width;
         $this->colour = $colour;
         $this->data = array();
@@ -1265,62 +1265,62 @@ class line
         $this->key = graph::esc( $key );
         $this->key_size = $size;
     }
-    
+
     function add( $data )
     {
         $this->data[] = $data;
     }
-    
+
     function add_link( $data, $link )
     {
         $this->data[] = $data;
         $this->links[] = graph::esc( $link );
     }
-    
+
     function add_data_tip( $data, $tip )
     {
         $this->data[] = $data;
         $this->tips[] = graph::esc( $tip );
     }
-    
+
     function add_data_link_tip( $data, $link, $tip )
     {
         $this->data[] = $data;
         $this->links[] = graph::esc( $link );
         $this->tips[] = graph::esc( $tip );
     }
-    
+
     // return the variables for this chart
     function _get_variable_list()
     {
         $values = array();
         $values[] = $this->line_width;
         $values[] = $this->colour;
-        
+
         if( $this->_key )
         {
             $values[] = $this->key;
             $values[] = $this->key_size;
         }
-        
+
         return $values;
     }
-    
+
     function toString( $output_type, $set_num )
     {
         $values = implode( ',', $this->_get_variable_list() );
-        
+
         $tmp = array();
-        
+
         if( $output_type == 'js' )
         {
-            $tmp[] = 'so.addVariable("'. $this->var.$set_num .'","'. $values . '");'; 
+            $tmp[] = 'so.addVariable("'. $this->var.$set_num .'","'. $values . '");';
 
             $tmp[] = 'so.addVariable("values'. $set_num .'","'. implode( ',', $this->data ) .'");';
-            
+
             if( count( $this->links ) > 0 )
                 $tmp[] = 'so.addVariable("links'. $set_num .'","'. implode( ',', $this->links ) .'");';
-                
+
             if( count( $this->tips ) > 0 )
                 $tmp[] = 'so.addVariable("tool_tips_set'. $set_num .'","'. implode( ',', $this->tips ) .'");';
 
@@ -1329,12 +1329,12 @@ class line
         {
             $tmp[]  = '&'. $this->var. $set_num .'='. $values .'&';
             $tmp[] = '&values'. $set_num .'='. implode( ',', $this->data ) .'&';
-            
+
             if( count( $this->links ) > 0 )
                 $tmp[] = '&links'. $set_num .'='. implode( ',', $this->links ) .'&';
-                
+
             if( count( $this->tips ) > 0 )
-                $tmp[] = '&tool_tips_set'. $set_num .'='. implode( ',', $this->tips ) .'&'; 
+                $tmp[] = '&tool_tips_set'. $set_num .'='. implode( ',', $this->tips ) .'&';
         }
 
         return implode( "\r\n", $tmp );
@@ -1344,21 +1344,21 @@ class line
 class line_hollow extends line
 {
     var $dot_size;
-    
+
     function line_hollow( $line_width, $dot_size, $colour )
     {
         parent::line( $line_width, $colour );
         $this->var = 'line_hollow';
         $this->dot_size = $dot_size;
     }
-    
+
     // return the variables for this chart
     function _get_variable_list()
     {
         $values = array();
         $values[] = $this->line_width;
         $values[] = $this->colour;
-        
+
         if( $this->_key )
         {
             $values[] = $this->key;
@@ -1370,7 +1370,7 @@ class line_hollow extends line
             $values[] = '';
         }
         $values[] = $this->dot_size;
-        
+
         return $values;
     }
 }
@@ -1396,11 +1396,11 @@ class bar
     var $var;
     // extra tool tip info:
     var $tips;
-    
+
     function bar( $alpha, $colour )
     {
         $this->var = 'bar';
-        
+
         $this->alpha = $alpha;
         $this->colour = $colour;
         $this->data = array();
@@ -1415,7 +1415,7 @@ class bar
         $this->key = graph::esc( $key );
         $this->key_size = $size;
     }
-    
+
     function add( $data )
     {
         $this->data[] = $data;
@@ -1426,13 +1426,13 @@ class bar
         $this->data[] = $data;
         $this->links[] = graph::esc( $link );
     }
-    
+
     function add_data_tip( $data, $tip )
     {
         $this->data[] = $data;
         $this->tips[] = graph::esc( $tip );
     }
-    
+
     // return the variables for this
     // bar chart
     function _get_variable_list()
@@ -1440,31 +1440,31 @@ class bar
         $values = array();
         $values[] = $this->alpha;
         $values[] = $this->colour;
-        
+
         if( $this->_key )
         {
             $values[] = $this->key;
             $values[] = $this->key_size;
         }
-        
+
         return $values;
     }
-    
+
     function toString( $output_type, $set_num )
     {
         $values = implode( ',', $this->_get_variable_list() );
-        
+
         $tmp = array();
-        
+
         if( $output_type == 'js' )
         {
-            $tmp[] = 'so.addVariable("'. $this->var.$set_num .'","'. $values . '");'; 
+            $tmp[] = 'so.addVariable("'. $this->var.$set_num .'","'. $values . '");';
 
             $tmp[] = 'so.addVariable("values'. $set_num .'","'. implode( ',', $this->data ) .'");';
-            
+
             if( count( $this->links ) > 0 )
                 $tmp[] = 'so.addVariable("links'. $set_num .'","'. implode( ',', $this->links ) .'");';
-                
+
             if( count( $this->tips ) > 0 )
                 $tmp[] = 'so.addVariable("tool_tips_set'. $set_num .'","'. implode( ',', $this->tips ) .'");';
 
@@ -1473,17 +1473,17 @@ class bar
         {
             $tmp[]  = '&'. $this->var. $set_num .'='. $values .'&';
             $tmp[] = '&values'. $set_num .'='. implode( ',', $this->data ) .'&';
-            
+
             if( count( $this->links ) > 0 )
                 $tmp[] = '&links'. $set_num .'='. implode( ',', $this->links ) .'&';
-                
+
             if( count( $this->tips ) > 0 )
-                $tmp[] = '&tool_tips_set'. $set_num .'='. implode( ',', $this->tips ) .'&'; 
+                $tmp[] = '&tool_tips_set'. $set_num .'='. implode( ',', $this->tips ) .'&';
         }
 
         return implode( "\r\n", $tmp );
     }
-    
+
 }
 
 class bar_3d extends bar
@@ -1507,14 +1507,14 @@ class bar_fade extends bar
 class bar_outline extends bar
 {
     var $outline_colour;
-    
+
     function bar_outline( $alpha, $colour, $outline_colour )
     {
         parent::bar( $alpha, $colour );
         $this->var = 'filled_bar';
         $this->outline_colour = $outline_colour;
     }
-    
+
     // override the base method
     function _get_variable_list()
     {
@@ -1522,13 +1522,13 @@ class bar_outline extends bar
         $values[] = $this->alpha;
         $values[] = $this->colour;
         $values[] = $this->outline_colour;
-        
+
         if( $this->_key )
         {
             $values[] = $this->key;
             $values[] = $this->key_size;
         }
-        
+
         return $values;
     }
 }
@@ -1549,14 +1549,14 @@ class bar_glass extends bar_outline
 class bar_sketch extends bar_outline
 {
     var $offset;
-    
+
     function bar_sketch( $alpha, $offset, $colour, $outline_colour )
     {
         parent::bar_outline( $alpha, $colour, $outline_colour );
         $this->var = 'bar_sketch';
         $this->offset = $offset;
     }
-    
+
     // override the base method
     function _get_variable_list()
     {
@@ -1565,13 +1565,13 @@ class bar_sketch extends bar_outline
         $values[] = $this->offset;
         $values[] = $this->colour;
         $values[] = $this->outline_colour;
-        
+
         if( $this->_key )
         {
             $values[] = $this->key;
             $values[] = $this->key_size;
         }
-        
+
         return $values;
     }
 }
@@ -1579,7 +1579,7 @@ class bar_sketch extends bar_outline
 class candle
 {
     var $out;
-    
+
     function candle( $high, $open, $close, $low )
     {
         $this->out = array();
@@ -1588,7 +1588,7 @@ class candle
         $this->out[] = $close;
         $this->out[] = $low;
     }
-    
+
     function toString()
     {
         return '['. implode( ',', $this->out ) .']';
@@ -1598,7 +1598,7 @@ class candle
 class hlc
 {
     var $out;
-    
+
     function hlc( $high, $low, $close )
     {
         $this->out = array();
@@ -1606,7 +1606,7 @@ class hlc
         $this->out[] = $low;
         $this->out[] = $close;
     }
-    
+
     function toString()
     {
         return '['. implode( ',', $this->out ) .']';
@@ -1616,7 +1616,7 @@ class hlc
 class point
 {
     var $out;
-    
+
     function point( $x, $y, $size_px )
     {
         $this->out = array();
@@ -1624,7 +1624,7 @@ class point
         $this->out[] = $y;
         $this->out[] = $size_px;
     }
-    
+
     function toString()
     {
         return '['. implode( ',', $this->out ) .']';

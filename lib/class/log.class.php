@@ -5,38 +5,38 @@ define('LOG_SEPARATOR', ";");
 class Log
 {
     /**
-     * @var String 
+     * @var String
      * @desc Path do diretorio de logs com permissao de gravacao para usuario web
-     */    
+     */
     var $directory;
     /**
      * @var String
      * @desc Nome do arquivo de log
-     */  
-    var $fileName;  
-    
+     */
+    var $fileName;
+
     var $fields  = Array();
     /**
      * @var Array
      * @desc Campos de informacao do log
-     */  
-    
+     */
+
     /**
      * @desc constructor
      */
-    function log()
+    function __construct()
     {
         $this->setDirectory();
         if (defined('LOG_FILE')) {
             $this->setFileName(LOG_FILE);
         }
 
-    }    
+    }
     /**
      * @desc metodo que seta o diretorio onde os logs deveram ser escritos
      * @param string LOG_DIR constante definida como o path para o dir de logs
-     */ 
-    function setDirectory() 
+     */
+    function setDirectory()
     {
         if (!defined('LOG_DIR')) {
             define('LOG_DIR', realpath( dirname(__FILE__) . "/../logs") . "/");
@@ -48,8 +48,8 @@ class Log
                 $this->directory = LOG_DIR;
             }else{
                 $this->logError("Unable to create directory " . LOG_DIR);
-            }   
-        }   
+            }
+        }
     }
     /**
      * @desc metodo que define o nome do arquivo e log
@@ -73,7 +73,7 @@ class Log
             @chmod($this->directory . $this->fileName,0764);
             @fwrite($fp, $head);
         }
-        
+
         if ($fp){
             return $fp;
         }else{
@@ -82,7 +82,7 @@ class Log
     }
     /**
      * @desc grava no arquivo de log
-     */  
+     */
     function writeLog()
     {
 
@@ -94,7 +94,7 @@ class Log
             $this->logError("Unable to write log file " . LOG_DIR . $this->fileName);
         }else{
             fclose($fp);
-        }   
+        }
     }
 
     /**
@@ -117,8 +117,8 @@ class Log
         $fp = @fopen ($this->directory . "logerror.txt", "a+b");
         if ( !$fp ){
             print ("Unable to open log file for update " . LOG_DIR . "logerror.txt");
-        }else{  
-            if ( !fwrite($fp, $message) ){  
+        }else{
+            if ( !fwrite($fp, $message) ){
                 print ("Unable to write in log file " . $this->directory . "logerror.txt");
             }else{
                 print ("Log error message: " . $message);
@@ -126,17 +126,17 @@ class Log
         }
         return;
     }
-    
+
 
     function mkdirs($strPath, $mode = "0775")
     {
         if ( is_dir($strPath) ) {
             return true;
-        }   
+        }
         $pStrPath = dirname($strPath);
         if ( ! $this->mkdirs($pStrPath, $mode) ){
              return false;
-        }    
+        }
         $old_umask = umask(0);
         $mk = @mkdir($strPath, $mode);
         umask($old_umask);
