@@ -3,8 +3,8 @@
 class Page
 {
     private $template;
-    
-    function __construct(){ 
+
+    function __construct(){
         global $config;
 
         $this->template = new Smarty();
@@ -14,9 +14,10 @@ class Page
             $this->template->compile_check=false;
         }
     }
-    
+
     public function show(){
         global $q, $where,  $texts, $col, $site, $filter, $filterLabel,$filter_chain, $from, $count, $index, $result, $lang, $config, $printMode, $detail, $colectionData, $sort, $fmt, $media, $csa;
+
 
         if (!get_magic_quotes_gpc()) {
             $q = addslashes_array($q);
@@ -74,7 +75,7 @@ class Page
         $this->template->assign('getParams',$getParams);
         $this->template->assign('media',$media);
         $this->template->assign('csa',$csa);
-        
+
         $total = $result->diaServerResponse[0]->response->numFound;
         $pagination = $this->pagination($from, $count, $total);
 
@@ -92,11 +93,12 @@ class Page
         }else{  // default (screen) templates
 
             $this->template->display('top.tpl');
+
             if ($detail == '1'){
                 $this->template->display('result-detail.tpl');
             }else{
                 $this->template->display('result.tpl');
-            }   
+            }
             $this->template->display('bottom.tpl');
         }
 
@@ -112,7 +114,7 @@ class Page
 
         $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
         $this->template->assign('texts',$texts + $textsCol);
-        
+
         $q = "";
         $this->template->display('top.tpl');
         $this->template->display('form-advanced.tpl');
@@ -121,7 +123,7 @@ class Page
 
     public function RSS(){
         global $col, $texts, $result, $lang, $config;
-        
+
         $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
         $url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
 
@@ -181,7 +183,7 @@ class Page
 
     public function email(){
         global $col, $texts, $result, $lang, $from, $count, $config;
-        
+
         $textsCol = parse_ini_file("./languages/" . $lang . "/texts-" . $col . ".ini", false);
         $url = "http://".$_SERVER['SERVER_NAME'].":".$_SERVER['SERVER_PORT'].$_SERVER['SCRIPT_NAME'];
         $url = str_replace("mail.php","",$url);
@@ -201,11 +203,11 @@ class Page
     private function pagination($from, $count, $total){
 
         $from = ($from != 0 ? $from : 1);
-        
+
         if ( ($from + $count) <= $total ){
             $to = ($from + $count)-1;
         }else{
-            $to = $total;   
+            $to = $total;
         }
 
         $pagination['from'] = $from;
@@ -213,11 +215,11 @@ class Page
         $pagination['count'] = intval($count);
         $pagination['total'] = $total;
         $pagination['page'] = ceil($from / $count);
-        $pagination['last'] = ceil($total / $count);    
+        $pagination['last'] = ceil($total / $count);
         $pagination['npages'] = ceil($total / $count);
         $rangeSet = ( ($from/$count) / 10);
-        
-        $range = ( $rangeSet >= 1 ? intval($rangeSet) : '');
+
+        $range = ($rangeSet >= 1 ? intval($rangeSet) : 0);
 
         for ($i = 1; $i <= 9; $i++) {
             if ( intval($range.$i) <= $pagination['npages']){
@@ -226,12 +228,13 @@ class Page
         }
         if (intval($range.$i) < $pagination['npages']){
             // ultima página do conjunto (multiplo de 10)
-            $pagination['pages'][] = 10 * ($range+1);       
+            $pagination['pages'][] = 10 * ($range+1);
         }
+
         return $pagination;
 
     }
-    
+
 }
 
 ?>
