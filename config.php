@@ -71,7 +71,10 @@
 
     $lang = "";
     $tag = "1.3.3";
-    
+
+    // Turn off all error reporting
+    error_reporting(0);
+
     // define constants
     define("VERSION", $tag);
     define("USE_SERVER_PATH", false);

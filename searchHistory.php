@@ -4,7 +4,7 @@ $lang = 'pt';
 $translation = parse_ini_file("languages/$lang/texts.ini");
 
 $action = $_POST['action'];
-$term = stripslashes($_POST['term']);
+$term = (isset($_POST['term']) ? stripslashes($_POST['term']) : null);
 
 session_start();
 if( !isset($_SESSION["searchHistory"])){

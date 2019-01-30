@@ -1,5 +1,5 @@
 {include file="top-searchbar.tpl"}
- 
+
 {if $result eq ''}
     <div class="noResults">
         {$texts.COLLECTION_UNAVAILABLE}
@@ -130,7 +130,7 @@
                     <input type="button" value="{$texts.UNSELECT_PAGE}" onclick="unmarkAll();showhideLayers('clearAll');showhideLayers('selectAll')" />
                 </div>
                 <div class="orderBy">
-                    
+
                     <select name="sortBy" class="inputText" onchange="javascript:changeOrderBy(this);">
                         <option value="">{$texts.SORT_OPTIONS}</option>
                         {foreach from=$colectionData->sort_list->sort item=sortItem}
@@ -150,9 +150,9 @@
 
                 {if $colectionData->format_list->format|@count > 0}
                     <div class="format">
-                        
+
                         <select name="fmt" class="inputText" onchange="javascript:changeDisplayFormat(this);">
-                            <option value="">{$texts.FORMAT_OPTIONS}</option>                               
+                            <option value="">{$texts.FORMAT_OPTIONS}</option>
                             {foreach from=$colectionData->format_list->format item=formatItem}
                                 {assign var=formatName value=$formatItem->name|strip}
                                 {assign var=textsDisplay value=$texts.DISPLAY}
@@ -181,7 +181,7 @@
                             <div class="identificationBar">
                                 {$texts.SEND_RESULT_TO}: <span onclick="showhideLayers('megaBox')">X</span>
                             </div>
-                            
+
                             <div class="optionEmail" id="option1" style="display:block;">
                                 <ul class="menu">
                                     <li class="active"><a href="#" onclick="showLayer('option1');hideLayer('option2');hideLayer('option3');">{$texts.SEND_BY_EMAIL}</a></li>
@@ -200,7 +200,7 @@
                                         {assign var=fvalue value=$filterValue|replace:"\\\"":"&quot;"}
                                         <input type="hidden" name="filter_chain[]" value="{$fvalue}">
                                     {/foreach}
-                                    
+
                                     <div class="radioOptions">
                                         <input class="" type="radio" name="option" value="from_to" checked="true"> {$texts.THIS_PAGE}
                                         <input class="" type="radio" name="option" value="selected"> {$texts.YOUR_SELECTION}
@@ -262,7 +262,7 @@
                                     <li><a href="#" onclick="hideLayer('option1');showLayer('option2');hideLayer('option3');">{$texts.PRINT}</a></li>
                                     <li class="active"><a href="#" onclick="hideLayer('option1');hideLayer('option2');showLayer('option3');">{$texts.EXPORT}</a></li>
                                 </ul>
-                                
+
                                 <form method="post" action="export.php" name="export">
                                     <input type="hidden" name="lang" value="{$lang}"/>
                                     <input type="hidden" name="from" value="{$from}"/>
@@ -290,7 +290,7 @@
 
                                     <div class="actions">
                                         <input type="button" class="submit" onclick="showhideLayers('megaBox')" value="{$texts.CANCEL}" name="cancel"/>
-                                        <input type="submit" class="submit" value="{$texts.SEND}" name="export"/>                                                
+                                        <input type="submit" class="submit" value="{$texts.SEND}" name="export"/>
                                     </div>
                                 </form>
                             </div>
