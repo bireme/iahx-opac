@@ -31,7 +31,7 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
         $output['classification'] = $data['metadata']['classification'];
         $output['classification_status'] = $data['metadata']['classification_status'];
         $output['primary_study_ref'] = (isset($data['relations_info']['references']['primary-study']) ? $data['relations_info']['references']['primary-study'] : '');
-        $output['systematic_review_ref'] = (isset($data['relations_info']['references']['systematic-review']) ? $data['relations_info']['references']['primary-study'] : '');
+        $output['systematic_review_ref'] = (isset($data['relations_info']['references']['systematic-review']) ? $data['relations_info']['references']['systematic-review'] : '');
         $output['epistemonikos_doc_url'] = $data['external_links']['epistemonikos'];
         $output['total_references'] = $data['relations_info']['total_references'];
         $output['related_references'] = (isset($data['related_references']) ? $data['related_references'] : '') ;
