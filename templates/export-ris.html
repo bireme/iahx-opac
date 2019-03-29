@@ -29,7 +29,7 @@ IS  - {{ doc.ip.0 }}
 {% endif %}
 DB  - {{ doc.db.0|default(doc.db) }}
 DP  - {{ config.bvs_url }}
-ID  - {{ doc.id|substring_after('-') }}
+ID  - {{ doc.id }}
 LA  - {{ doc.la[0] }}
 {% if doc.pg.0  %}
 {% if "-" in doc.pg.0 %}
