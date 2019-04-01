@@ -1,5 +1,5 @@
 <div class="feed">
-    {% if config.services_platform_domain != '' and app.request.cookies.has('userTK') %}
+    {% if config.services_platform_domain != '' and app.request.cookies.has('userTK') and current_page != 'detail' %}
         <a class="RSS fancybox" href="#rss" title="{{ texts.SHOW_RSS }}"><span>RSS</span></a>
         <div style="display: none;">
             <div id="rss">
@@ -20,10 +20,15 @@
                 </ul>
             </div>
         </div>
-    {% else %}
+    {% elseif current_page != 'detail' %}
         <a class="RSS" href="javascript:change_output('rss');" title="{{ texts.SHOW_RSS }}"><span>RSS</span></a>
     {% endif %}
-    <a class="XML" href="javascript:change_output('xml');" title="{{ texts.SHOW_XML }}"><span>XML</span></a>
+
+    {% if current_page == 'detail' %}
+        <a class="XML" href="javascript:export_xml_record('{{doc.id}}');" title="{{ texts.SHOW_XML }}"><span>XML</span></a>
+    {% else %}
+        <a class="XML" href="javascript:change_output('xml');" title="{{ texts.SHOW_XML }}"><span>XML</span></a>
+    {% endif %}
 </div>
 
 <div class="actions">

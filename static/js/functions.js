@@ -66,7 +66,6 @@ function print_page(count) {
     change_output("print");
 }
 
-
 function export_record(q) {
     var form = document.searchForm;
     form.q.value = q;
@@ -89,11 +88,11 @@ function export_result(count) {
     form.count.value = previous_count;    //return to previous value
 }
 
-function export_xml_record(q) {
+function export_xml_record(id) {
     var form = document.searchForm;
-    form.q.value = q;
+    form.q.value = 'id:' + id;
 
-    change_output("xml");
+    change_output('xml');
 }
 
 // advanced search

@@ -281,7 +281,10 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $pag['start'] = $result['diaServerResponse'][0]['response']['start'];
         $pag['total_pages'] = ($pag['total'] % $count == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
         $pag['count'] = $count;
+    }else{
+        $pag['total_pages'] = 1;
     }
+
     $range_min = (($page-5) > 0) ? $page-5 : 1;
     $range_max = (($range_min+10) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+10;
     $range_max_mobile = (($range_min+3) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+3;
