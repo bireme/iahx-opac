@@ -50,7 +50,14 @@
                                 {% set item_value = cluster ~ '_' ~ item|slugify ~ '' %}
 
                                 <li>
-                                    {{ translate(item, texts_group) }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
+                                    {% if '^' in item %}
+                                        {{ item|subfield(lang) }}
+                                    {% elseif '+' in item %}
+										{{ item|replace('+','/') }}
+                                    {% else %}
+                                        {{ translate(item, texts_group) }}
+                                    {% endif %}
+                                    <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
                                 </li>
                             {% endfor %}
                         </ul>
@@ -97,26 +104,33 @@
                         {% for item in cluster if item.0 != '' %}
                             {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
-                            <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
-                                <div class="inputCheck1">
-                                    <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
-                                    {% for filter_name, filter in filters if filter_name == name %}
-                                        {% if item.0 in filter %}checked="true"{% endif %}
-                                    {% endfor %}
-                                    >
+                            {% if name in ['db', 'la', 'limit', 'type'] and not has_translation(item.0, cluster_labels) %}
+                            {% else %}
+                                <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
+                                    <div class="inputCheck1">
+                                        <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
+                                        {% for filter_name, filter in filters if filter_name == name %}
+                                            {% if item.0 in filter %}checked="true"{% endif %}
+                                        {% endfor %}
+                                        >
+                                    </div>
+                                    <label class="labelCheck1" for="{{ cluster_item_id }}">
+                                        <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');" title="">
+                                            {% if '/' in item.0 %}
+                                                {% set item_part = item.0|split('/') %}
+                                                {{ translate(item_part.1, cluster_labels ) }}
+                                            {% elseif '^' in item.0 %}
+                                                {{ item.0|subfield(lang) }}
+                                            {% elseif '+' in item.0 %}
+                                                {{ item.0|replace('+','/') }}
+                                            {% else %}
+                                                {{ translate(item.0, cluster_labels ) }}
+                                            {% endif %}
+                                        </a>
+                                        ({{ item.1 }})
+                                    </label>
                                 </div>
-                                <label class="labelCheck1" for="{{ cluster_item_id }}">
-                                    <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');" title="">
-                                        {% if '/' in item.0 %}
-                                            {% set item_part = item.0|split('/') %}
-                                            {{ translate(item_part.1, cluster_labels ) }}
-                                        {% else %}
-                                            {{ translate(item.0, cluster_labels ) }}
-                                        {% endif %}
-                                    </a>
-                                    ({{ item.1 }})
-                                </label>
-                            </div>
+                            {% endif %}
                         {% endfor %}
 
                         {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}

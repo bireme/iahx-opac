@@ -112,19 +112,22 @@
     {% if not config_cluster_list or name in config_cluster_list %}
 
         {% set filter_label = attribute(texts.REFINE, name) %}
-        {% if  filter_label != '' %}
+        {% if filter_label != '' and cluster|length > 0 %}
             <span class="atribArtigos"><b>{{ attribute(texts.REFINE, name) }}:</b>
             {% for item in cluster %}
-                {% if item.0 != '' %}
-                    {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
-                    {% if '/' in item.0 %}
-                        {% set item_part = item.0|split('/') %}
-                        {{ translate(item_part.1, cluster_labels ) }}
-                    {% else %}
-                        {{ translate(item.0, cluster_labels ) }}
-                    {% endif %}
-                    {% if not loop.last %} / {% endif %}
+                {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
+
+                {% if '/' in item.0 %}
+                    {% set item_part = item.0|split('/') %}
+                    {{ translate(item_part.1, cluster_labels ) }}
+                {% elseif '^' in item.0 %}
+                    {{ item.0|subfield(lang) }}
+                {% elseif '+' in item.0 %}
+                    {{ item.0|replace('+','/') }}
+                {% else %}
+                    {{ translate(item.0, cluster_labels ) }}
                 {% endif %}
+                {% if not loop.last %} / {% endif %}
             {% endfor %}
             </span>
         {% endif %}

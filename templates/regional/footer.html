@@ -4,29 +4,29 @@
 		<hr><br>
 		<div class="row">
 			<div class="col-md-4">
-				Powered by iAHx-2.10-117 Portal Regional da BVS
+				Powered by iAHx - {{ texts.BVS_TITLE }}
 			</div>
-			<div class="col-md-4 text-center">
-				<a href="">Enviar um comentário</a> |
-				<a href="">Comunicar um erro</a>
-			</div>
-			<div class="col-md-4 text-right">
-				<a href="">Termos e condições de uso</a> |
-				<a href="">Políticas de privacidade</a>
-			</div>
+
+            {% if config.feedback_id is defined and config.feedback_id != '' %}
+            <div class="col-md-4 text-center">
+                <a href="http://feedback.bireme.org/feedback/?application=iahx&version={% include("version.txt") %}&lang={{ lang }}&site={{ config.feedback_id }}" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+            </div>
+            {% endif %}
+
+            {% if config.show_terms_and_policy is defined and config.show_terms_and_policy == 'true' %}
+            <div class="col-md-4 text-right">
+                <a href="http://politicas.bireme.org/terminos/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.TERMS_CONDITIONS }}</a>
+                |
+                <a href="http://politicas.bireme.org/privacidad/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.PRIVACY_POLICY }}</a>
+            </div>
+            {% endif %}
 		</div>
 	</div>
 </footer>
-
 
 <!-- seta up -->
 <div id="to-top" class="to-top">
 	<span class="float-left">
 		<i class="fas fa-arrow-up"></i>
-	</span>
-	<span class="to-topText float-right text-left">
-		VOLTAR <br>
-		PARA <br>
-		O TOPO
 	</span>
 </div>
