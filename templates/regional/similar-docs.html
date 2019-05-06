@@ -1,6 +1,6 @@
 {% for similar in similar_docs['document']  %}
     {% if similar['id'] != doc_id and loop.index < 7 %}
-        <a href="http://pesquisa.bvsalud.org/portal/resource/{{lang}}/{{similar['id']}}" class="link1">
+        <a href="{{ constant('SEARCH_URL') }}resource/{{lang}}/{{similar['id']}}" class="link1" target="_blank">
             <strong>{{ get_preference_field_lang(similar,'ti', [lang, 'en', 'es', 'pt', 'fr']) }}</strong>
         </a><br>
         {% if not loop.last %}<hr/>{% endif %}

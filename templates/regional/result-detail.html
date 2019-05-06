@@ -6,55 +6,6 @@
 {% endblock %}
 
 {% block extrahead %}
-    <link rel="stylesheet" rev="stylesheet" href="{{ constant("STATIC_URL") }}css/print.css" type="text/static" media="print">
-
-    <style>
-        /* style the abstract tabs */
-        div.tab_box {
-            margin: 10px 0 10px;
-        }
-
-        div.tab {
-           overflow: hidden;
-           border: 1px solid #ccc;
-           background-color: #f1f1f1;
-        }
-
-        /* Style the buttons inside the tab */
-        div.tab button {
-           background-color: inherit;
-           float: left;
-           border: none;
-           outline: none;
-           cursor: pointer;
-           padding: 10px 12px;
-           transition: 0.3s;
-        }
-
-        /* Change background color of buttons on hover */
-        div.tab button:hover {
-           background-color: #ddd;
-        }
-
-        /* Create an active/current tablink class */
-        div.tab button.active {
-           background-color: #ccc;
-        }
-
-        /* Style the tab content */
-        .tabcontent {
-           padding: 15px;
-           border: 1px solid #ccc;
-           border-top: none;
-        }
-
-        .abstract h2{
-            color: #3A8EBE;
-            margin: 10px 0 10px;
-            font-weight: normal;
-        }
-    </style>
-
     <meta name="citation_id" content="{{ doc.id }}" />
     <meta name="dc.identifier" content="{{ doc.id }}" />
 
@@ -105,16 +56,7 @@
     <meta name="citation_language" content="{{ doc.la.0 }}" />
     <meta name="citation_publication_date" content="{{ doc.da|slice(0,4) }}" />
     <meta name="dc.date" content="{{ doc.da|slice(0,4) }}" />
-
-
 {% endblock %}
-
-{# hide unused blocks #}
-
-{% block result_navigation %}{% endblock %}
-{% block clusters %}{% endblock %}
-{% block results_topbar %}{% endblock %}
-{% block resultNavigation %}{% endblock %}
 
 {% block content %}
 
@@ -197,17 +139,17 @@
                         <ul class="nav nav-tabs" id="tabResumo" role="tablist">
                             <li class="nav-item">
                                 <a class="nav-link active" id="ab-tab" data-toggle="tab" href="#ab" role="tab" aria-controls="ab" aria-selected="true">
-                                    {{ attribute(texts.RESULT, label_name) }}
+                                    {{ texts.RESULT.LABEL_ABSTRACT }}
                                 </a>
                             </li>
-                            <div class="tab-content" id="resumo">
-                                <div class="tab-pane fade show active" id="ab" role="tabpanel" aria-labelledby="ab-tab">
-            			            {% for abstract in doc.ab %}
-            			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
-            			            {% endfor %}
-                                </div>
+                        </ul>
+                        <div class="tab-content" id="resumo">
+                            <div class="tab-pane fade show active" id="ab" role="tabpanel" aria-labelledby="ab-tab">
+        			            {% for abstract in doc.ab %}
+        			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
+        			            {% endfor %}
                             </div>
-    			        </div>
+                        </div>
     			    {% endif %}
 
                     {% if doc.mh is defined  %}
