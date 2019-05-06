@@ -1,0 +1,95 @@
+{% extends custom_template("base.html") %}
+
+{% block script %}{% endblock %}
+{% block onload %}{% endblock %}
+
+{% block extrahead %}
+    <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}js/custom_form.js"></script>
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}custom/advanced.css" type="text/css" media="screen">
+{% endblock %}
+
+{% block content %}
+    {% block breadcrumb %}
+		<div class="resultsFor">
+			<a href="{{ config.home_url }}?lang={{ lang }}">{{ texts.BVS_HOME }}</a> >
+			<a href="{{ constant("SEARCH_URL") }}?lang={{ lang }}">{{ texts.SEARCH_HOME }}</a> >
+			{{ texts.ADVANCED_SEARCH }}
+    {% endblock %}
+
+    <form name="searchForm" action="{{ constant("SEARCH_URL") }}" id="searchForm" onsubmit="return search();">
+    	<input name="lang" type="hidden" value="{{lang}}" />
+    	<input name="page" type="hidden" value="1" />
+
+		<div class="middle">
+			<h2>{{ texts.ADVANCED_SEARCH }}</h2>
+
+    		<div class="advanced-form">
+    			<div class="inputText">
+    				<input type="text" name="q" id="q" value="" placeholder="{{ texts.ADVANCED_SEARCH_PAGE.BUILD_SEARCH_PLACEHOLDER }}"> {{ texts.ADVANCED_SEARCH_PAGE.BUILD_SEARCH_1 }}
+    				<button type="submit" class="submit">{{ texts.SEARCH_SUBMIT }}</button>
+    			</div>
+    		</div>
+
+            <div class="boxContent titleSection" style="width: 95%">
+                {% for box in form.box_list %}
+                    <div class="column-{{loop.index}}" style="margin: 20px; float: left; width: 33%; padding: 10px">
+                        {% if q or filter %}
+                            {% for filter in box.filter if filter.cluster %}
+                                <div class="filter" style="margin-bottom: 20px;">
+                                    <h2>{{ filter.label }}</h2>
+                                    {% set texts_group = 'REFINE_' ~ filter.cluster %}
+                                    {% for option in cluster_list[filter.cluster] %}
+                                        <li>
+                                            <a href="filter[{{filter.cluster}}][]"> {{ translate(option.0, texts_group) }} ({{option.1}})</a>
+                                        </li>
+                                    {% endfor %}
+                                </div>
+                            {% endfor %}
+                        {% else %}
+                            {% for filter in box.filter %}
+                                <div class="filter" style="margin-bottom: 20px;">
+                                    <h2>{{ filter.label }}</h2>
+                                    {% if filter.type == 'checkbox' %}
+                                        <ul>
+                                        {% if filter.cluster %}
+                                            {% set texts_group = 'REFINE_' ~ filter.cluster %}
+                                            {% for option in cluster_list[filter.cluster] %}
+                                                <li>
+                                                    <label><input type="checkbox" name="filter[{{filter.cluster}}][]" value="{{option.0}}"> {{ translate(option.0, texts_group) }} ({{option.1}})</label>
+                                                </li>
+                                            {% endfor %}
+                                        {% else %}
+                                            {% for option in filter.options %}
+                                                <li>
+                                                    {% if filter.field %}
+                                                        <label><input type="checkbox" name="filter[{{filter.field}}][]" value="{{option.value}}">{{option.label}}</label>
+                                                    {% else %}
+                                                        <label><input type="checkbox" name="query_filter" value='{{ option.value|replace({"\n":' ', "\r":' '}) }}'>{{option.label}}</label>
+                                                    {% endif %}
+                                                </li>
+                                            {% endfor %}
+                                        {% endif %}
+                                        </ul>
+                                    {% elseif filter.type == 'select' %}
+                                        <select name="filter[{{filter.field}}][]" id="{{filter.field}}">
+                                            <option value="" />
+                                            {% if filter.cluster %}
+                                                {% for option in cluster_list[filter.cluster] %}
+                                                    <option value="{{option.0}}">{{option.0}}</option>
+                                                {% endfor %}
+                                            {% endif %}
+                                            {% for option in filter.options %}
+                                                <option value="{{option.value}}">{{option.label}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    {% endif %}
+                                </div>
+                            {% endfor %}
+                        {% endif %}
+                    </div>
+                {% endfor %}
+            </div>
+
+        </div> <!-- /middle -->
+    </form>
+{% endblock %}

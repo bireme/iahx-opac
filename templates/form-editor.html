@@ -1,0 +1,108 @@
+{% extends custom_template("base.html") %}
+
+{% block script %}{% endblock %}
+{% block onload %}{% endblock %}
+
+{% block extrahead %}
+    <link href="{{ constant("STATIC_URL") }}css/jsoneditor.min.css" rel="stylesheet" type="text/css">
+    <script src="{{ constant("STATIC_URL") }}js/jsoneditor.min.js"></script>
+    <style>
+        div.jsoneditor, div.jsoneditor-menu {
+            border-color: #344b66 !important;
+        }
+        div.jsoneditor-menu {
+            background-color: #344b66 !important;
+        }
+        /* The alert message box */
+       .alert {
+         padding: 20px;
+         color: white;
+         margin-bottom: 15px;
+         transition: opacity 0.6s;
+       }
+       .alert.success {background-color: #4CAF50;}
+       .alert.warning {background-color: #f44336;}
+
+       /* The close button */
+       .closebtn {
+         margin-left: 15px;
+         color: white;
+         font-weight: bold;
+         float: right;
+         font-size: 22px;
+         line-height: 20px;
+         cursor: pointer;
+         transition: 0.3s;
+       }
+
+       /* When moving the mouse over the close button */
+       .closebtn:hover {
+         color: black;
+       }
+       .btn {
+         border: none; /* Remove borders */
+         color: white; /* Add a text color */
+         padding: 14px 28px; /* Add some padding */
+         cursor: pointer; /* Add a pointer cursor on mouse-over */
+       }
+       .success {background-color: #4CAF50;} /* Green */
+       .success:hover {background-color: #46a049;}
+
+       .info {background-color: #2196F3;} /* Blue */
+       .info:hover {background: #0b7dda;}
+    </style>
+
+{% endblock %}
+
+{% block content %}
+    {% if update_status %}
+        <div class="alert {{update_status}}">
+            <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+            {{update_status}}
+        </div>
+    {% endif %}
+
+    <div id="jsoneditor" style="width: 990px; height: 750px; margin-bottom: 5px"></div>
+
+    <script>
+        var close = document.getElementsByClassName("closebtn");
+        var i;
+
+        for (i = 0; i < close.length; i++) {
+          close[i].onclick = function(){
+            var div = this.parentElement;
+            div.style.opacity = "0";
+            setTimeout(function(){ div.style.display = "none"; }, 600);
+          }
+        }
+       // create the editor
+       var container = document.getElementById("jsoneditor");
+       var options = {};
+       var editor = new JSONEditor(container, options);
+
+       // set json
+       var json = {{json_form|raw}}
+       editor.set(json);
+       editor.expandAll();
+
+       // get json
+       var json = editor.get();
+
+       function saveJson(){
+           document.getElementById("json_content").value = editor.getText();
+           return true;
+       }
+       function previewForm(){
+           var preview_win = window.open('{{ constant("SEARCH_URL") }}form/{{form_id}}','form_preview');
+           preview_win.focus();
+       }
+
+    </script>
+
+    <form action="{{ constant("SEARCH_URL") }}form-editor/{{form_id}}" method="post" onsubmit="saveJson()">
+        <input type="hidden" id="json_content" name="json_content" value="" />
+
+        <input type="submit" value="Save" class="btn success" />
+        <input type="button" value="View form" class="btn info" onclick="previewForm()"/>
+    </form>
+{% endblock %}
