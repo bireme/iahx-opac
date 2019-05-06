@@ -9,6 +9,8 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
         $app['request']->query->all()
     );
 
+    $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
+    
     // if magic quotes gpc is on, this function clean all parameters and
     // results that was modified by the directive
     if (get_magic_quotes_gpc()) {
@@ -32,10 +34,17 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
         $lang = $params['lang'];
     }
 
-    $tree_id = $request->get("tree_id");  // "D02.065.589.099.750.124";
+    $tree_id = $request->get("tree_id");  // D02.065.589.099.750.124
+    $descriptor = $request->get("descriptor");  // allow get detais of specific descriptor
     $mode = $request->get("mode");        // allow mode dataentry
 
-    $decs_service_url = "http://decs.bvs.br/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang . "&tree_id=" . $tree_id;
+    $decs_service_url = "http://decs.bvs.br/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang;
+
+    if ($descriptor != ''){
+        $decs_service_url .= "&bool=101%20" . $descriptor; // get descriptor by authorized term
+    }else{
+        $decs_service_url .= "&tree_id=" . $tree_id;        // get descriptor by tree
+    }
 
     $decs_response = file_get_contents($decs_service_url);
 
@@ -93,6 +102,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $output_array['tree_id_category'] = substr($tree_id,0,1);
     $output_array['params'] = $params;
     $output_array['config'] = $config;
+    $output_array['collectionData'] = $collectionData;
     $output_array['mode'] = $mode;
     $output_array['filter_prefix'] = ( isset($config->decs_locate_filter) ? $config->decs_locate_filter : 'mh') ;
 

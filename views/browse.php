@@ -5,6 +5,12 @@ use Symfony\Component\HttpFoundation\Response;
 
 $app->get('browse-index/{index}/', function (Request $request, $index) use ($app, $DEFAULT_PARAMS, $config) {
 
+    $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
+    $site = $DEFAULT_PARAMS['defaultSite'];
+    $col = $DEFAULT_PARAMS['defaultCollection'];
+
+    // check if is present the lang param and overwrite the url lang param
+    $lang = $request->get('lang');
     $init = $request->get("init");
     $direction = $request->get("dir");
     if ($init == ''){
@@ -26,7 +32,7 @@ $app->get('browse-index/{index}/', function (Request $request, $index) use ($app
     $SESSION->start();
 
     // log user action
-    log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'browseindex', $SESSION->getId());
+    log_user_action($lang, $col, $site, '', '', '', '', '', 'browseindex', $SESSION->getId());
 
     // output vars
     $output_array = array();

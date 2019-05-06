@@ -59,7 +59,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $output = $params['output'];
     }
 
-    $lang = $DEFAULT_PARAMS['lang'];
+    $lang = (string)$DEFAULT_PARAMS['lang'];
     if(isset($params['lang']) and $params['lang'] != "") {
         $lang = $params['lang'];
     }
@@ -348,7 +348,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $output_array['email'] = $email;
 
         $render = $app['twig']->render( custom_template('export-email.html'), $output_array);
-        $subject = ($email['subject'] != '' ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
+        $from_name = (isset($email['name']) ? $email['name'] : '') . ' (' . $texts['BVS_HOME'] . ')' ;
+        $subject = (isset($email['subject']) ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
         # check if param email (to) is in the format of email list separated by ;
         if ( !is_array($email['email']) && strpos($email['email'], ';') !== false) {
@@ -359,7 +360,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
         $message = \Swift_Message::newInstance()
             ->setSubject($subject)
-            ->setFrom(array(FROM_MAIL => $email['name'] . ' (' . $texts['BVS_HOME'] . ')') )
+            ->setFrom(array(FROM_MAIL => $from_name))
             ->setTo($to_email)
             ->setBody($render, 'text/html');
 
