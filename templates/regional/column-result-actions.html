@@ -1,0 +1,63 @@
+<!-- Direita -->
+<div class="col-md-2 d-none d-sm-block">
+	<div class="custom-control custom-switch d-none d-sm-block">
+		<input type="checkbox" class="custom-control-input" id="customSwitches">
+		<label class="custom-control-label" for="customSwitches">Ver mais detalhes</label>
+	</div>
+	<div class="box3">
+		<div class="boxTools">
+            <a href="" class="btnTools" data-toggle="modal" data-target="#ModalEmail">
+                <i class="far fa-envelope"></i> {{texts.SEND_BY_EMAIL}}
+            </a>
+        </div>
+		<div class="boxTools">
+            <a href="" class="btnTools" data-toggle="modal" data-target="#ModalExport">
+                <i class="fas fa-upload"></i> {{texts.EXPORT}}
+            </a>
+        </div>
+		<div class="boxTools">
+            <a href="" alt="{{ texts.PRINT }}" class="btnTools" data-toggle="modal" data-target="#ModalPrint">
+                <i class="fas fa-print"></i> {{texts.PRINT}}
+            </a>
+        </div>
+        <div class="boxTools">
+            {% if config.services_platform_domain != '' and app.request.cookies.has('userTK') %}
+                <a href="" class="btnTools" data-toggle="modal" data-target="#ModalRSS" title="{{ texts.SHOW_RSS }}"><i class="fas fa-rss"></i> RSS</a>
+            {% else %}
+                <a href="javascript:change_output('rss');" class="btnTools" title="{{ texts.SHOW_RSS }}"><i class="fas fa-rss"></i> RSS</a>
+            {% endif %}
+        </div>
+        <div class="boxTools">
+            <a class="btnTools" href="javascript:change_output('xml');" title="{{ texts.SHOW_XML }}"><i class="fas fa-code"></i> XML</a>
+        </div>
+	</div>
+	<div class="box3">
+		<h6 class="title1">{{ texts.YOUR_SELECTION }}</h6>
+		<ul class="listSelectCont">
+            <li><a href="javascript:list_bookmark();" title="{{ texts.SELECTION_LIST_REGISTERS }}">{{ texts.SELECTION_LIST_REGISTERS }} (<span class="my_selection_count">0</span>)</a></li>
+            <li><a href="javascript:clean_bookmark('{{ texts.CONFIRM_CLEAR_LIST }}');" title="{{ texts.SELECTION_CLEAR_LIST }}">{{ texts.SELECTION_CLEAR_LIST }}</a></li>
+		</ul>
+	</div>
+
+    <div class="box3">
+        <h6 class="title1">{{ texts.SEARCH_DETAIL_BOX }}</h6>
+
+    	{% if params.q is defined and params.q|length >= 2048 %}
+          <form action="" id="form_custom_search" method="POST">
+        {% else %}
+          <form action="" id="form_custom_search" method="GET">
+        {% endif %}
+    	    {% for key, value in params %}
+    	        {% if key != "filter" and key != "q" %}
+    	            {% if key == "from" or key == "page" %}
+    	                <input type="hidden" name="{{ key }}" value="1">
+    	            {% else %}
+    	                <input type="hidden" name="{{ key }}" value="{{ value }}">
+    	            {% endif %}
+    	        {% endif %}
+    	    {% endfor %}
+    		<textarea name="q" id="detailed_query_box" class="textarea1" rows="5">{{ detailed_query|default('*:*') }}</textarea>
+    		<input type="submit" value="{{texts.SEARCH_SUBMIT}}" class="btnBlueM"/>
+    	</form>
+    </div>
+</div>

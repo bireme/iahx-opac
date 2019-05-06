@@ -1,0 +1,139 @@
+<!-- Esquerda -->
+<div class="col-12"  id="btnFiltraM">
+	<i class="fas fa-filter"></i> {{texts.FILTER}}
+</div>
+<div class="col-md-3" id="filterEsq">
+    <form action="" id="form_clusters" method="GET">
+
+    {% if config.show_config_filter == 'true' %}
+    	<div class="btnFilter"  data-toggle="collapse" data-target="#filtrar">
+    		<span>{{texts.FILTER}}</span>
+            <span class="float-right"><small>Configurações</small> <i class="fas fa-cog"></i></span>
+        	<div class="clearfix"></div>
+    	</div>
+        <div class="box2 collapse" id="filtrar" >
+            {% for cluster in config_cluster_list %}
+                <div class="boxCheck">
+                {% if user_preference_filter|length == 0 and cluster|trim in default_cluster_list %}
+                    <div class="inputCheck1">
+                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" checked="true" />
+                    </div>
+                    <label class="labelCheck1" for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label>
+                {% else %}
+                    <div class="inputCheck1">
+                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" {% if cluster|trim in user_preference_filter %} checked="true" {%endif%} />
+                    </div>
+                    <label class="labelCheck1" for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
+                {% endif %}
+                </div>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+    <button type="submit" class="btnBlueM">{{texts.FILTER}}</button>
+
+    {% if filters_formatted|length > 0 %}
+        <div class="division"></div>
+        <div class="filters" id="filters">
+            <strong>{{ texts.SELECTED_FILTERS }}</strong>
+            <div class="reset_filters">
+                <a href="javascript:reset_filters()">{{ texts.CLEAR_FILTERS }}</a>
+            </div>
+
+            <ul>
+                {% for cluster, items in filters_formatted %}
+                    {% set texts_group = 'REFINE_' ~ cluster %}
+
+                    <li class="filter">{{ attribute(texts.REFINE, cluster) }}
+                        <ul>
+                            {% for item in items %}
+                                {% set item_value = cluster ~ '_' ~ item|slugify ~ '' %}
+
+                                <li>
+                                    {{ translate(item, texts_group) }} <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endif %}
+
+    <!-- used for show more values (facet browse)-->
+    <input type="hidden" name="fb" value="">
+
+    {% for key, value in params %}
+        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and key != "reset_filters" and "_submit" not in key  %}
+            {% if key == "from" or key == "page" %}
+                <input type="hidden" name="{{ key }}" value="1">
+            {% else %}
+                <input type="hidden" name="{{ key }}" value="{{ value }}">
+            {% endif %}
+        {% else %}
+            {# FIX (make more generic): decs locator filters 'mh' must be populated as they don't appears as regular cluster list #}
+            {% for name, item_list in value if name == 'mh' %}
+                {% for item in item_list %}
+                    <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}" id="{{ name ~ '_' ~ item|slugify }}">
+                {% endfor %}
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+    {% for name, cluster in clusters if cluster|length > 0 %}
+
+        {% set cluster_labels = 'REFINE_' ~ name %}
+
+        {###  check if config has a cluster list to show, if not show all ###}
+        {% if not config_cluster_list or name in config_cluster_list %}
+
+            {### check if cluster is in user_prefence_filter or is in default_cluster_list ###}
+            {% if (not config_cluster_list) or (user_preference_filter|length > 0 and name in user_preference_filter) or  (user_preference_filter|length == 0 and name in default_cluster_list)  %}
+                <div>
+                    <div class="titleBox2" data-toggle="collapse" data-target="#{{ name }}">
+                        {{ attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-minus"></span>
+                    </div>
+
+                    <div class="box2 collapse" id="{{ name }}" >
+                        {% for item in cluster if item.0 != '' %}
+                            {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
+
+                            <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
+                                <div class="inputCheck1">
+                                    <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
+                                    {% for filter_name, filter in filters if filter_name == name %}
+                                        {% if item.0 in filter %}checked="true"{% endif %}
+                                    {% endfor %}
+                                    >
+                                </div>
+                                <label class="labelCheck1" for="{{ cluster_item_id }}">
+                                    <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');" title="">
+                                        {% if '/' in item.0 %}
+                                            {% set item_part = item.0|split('/') %}
+                                            {{ translate(item_part.1, cluster_labels ) }}
+                                        {% else %}
+                                            {{ translate(item.0, cluster_labels ) }}
+                                        {% endif %}
+                                    </a>
+                                    ({{ item.1 }})
+                                </label>
+                            </div>
+                        {% endfor %}
+
+                        {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
+                            <div class="boxCheck">
+                                <label class="labelCheck1">
+                                    <strong><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></strong>
+                                </label>
+                            </div>
+                        {% endif %}
+                    </div>
+                </div>
+            {% endif %}
+        {% endif %}
+    {% endfor %}
+
+	<div id="aplicarFiltro">
+		<a href="">APLICAR FILTROS SELECIONADOS</a>
+	</div>
+    </form>
+</div>

@@ -1,0 +1,200 @@
+ /* @autor: IREME | OPAS | OMS - > Márcio Alves */
+ body{background: #f5f5f5;font-family: 'Source Sans Pro', sans-serif; font-weight: 400;}
+.padding1{padding: 20px 0;}
+.marginB1{margin-bottom: 10px;}
+.marginB2{margin-bottom: 30px;}
+.btnBlue{background:#30348d; color: #fff; padding: 10px; font-size: 14px; border:0;}
+.btnBlue:hover{background:#464bbb; color: #fff; text-decoration: none; }
+.btnBlueM{background:#30348d; color: #fff; padding: 5px 20px; font-size: 12px; border:0;}
+.btnBlueM:hover{background:#464bbb; color: #fff; text-decoration: none; }
+.btnTools{
+	border: 1px solid #ddd; color: #666; font-size: 14px;
+	padding: 5px; margin-bottom: 10px; display: inline-block;
+	transition: background .5s ease;
+}
+.btnTools:hover{ text-decoration: none; background: #ddd; color: #333; }
+#header{background: #ededed; padding: 30px 0px 30px 0px;}
+#logo img{ max-width: 210px; }
+.box1{ background: #fff; padding: 10px; margin-bottom: 15px; position: relative;}
+.box2{ background: #ededed; border:1px solid #e4e4e4; padding: 10px; font-size: 14px; margin-top: 20px;}
+.box2B{margin-top:10px; margin-bottom: 10px; }
+.box3{margin-top: 30px;}
+.box4{background: #fff; padding: 30px; margin-bottom: 20px;}
+.titleArt{font-size: 20px; color: #30348c;}
+.titleArt a{ font-weight: 900; color: #30348c; }
+.titleArt a:hover{ font-weight: bold; color: #474bb2; }
+.author a{ color: #000; text-decoration: underline; }
+.author a:hover{color: #999;}
+.reference a,.dataArticle a{color: #000; font-weight: 600;}
+.formgroup{	margin-bottom: 10px;}
+.formgroup input[type=checkbox]{margin:5px 10px 0 0; float: left; width: 20px; background: #fff;}
+.formgroup label{min-width: 40px; max-width: 200px;} 
+.lang{text-align: right;}
+.lang ul{list-style: none;}
+.lang ul li{display: inline-block; }
+.lang ul li a{background:#fff; color: #30348d; font-size: 12px; padding: 5px; text-decoration:none;}
+.lang ul li .active{background:#30348d; color: #fff;}
+.lang ul li a:hover{ color: #fff; text-decoration:none; background: #464bbb;}
+.headerBt{text-align: right; margin-top: 70px; margin-bottom: 20px;}
+.listSelectCont{padding: 0; list-style: none;}
+.listSelectCont li{padding: 0; margin-bottom: 5px;}
+.listSelectCont li a{font-size: 12px; color: #30348d;}
+.title1{ font-size: 14px; font-weight: bold; color: #30348d; }
+.title2{ font-weight: bold; color: #30348d; }
+.link1{color: #30348d;}
+.link1:hover{color: #474bb2;}
+.link2{color: #333; font-weight: 400;}
+.link2:hover{color: #999; font-weight: 400;}
+.textarea1{ padding: 10px; color: #333; font-size: 14px;  margin-bottom: 10px; }
+#footer{font-size: 12px;}
+.boxCheck{position: relative;}
+.inputCheck1{display: inline-block; width: 20px; position: absolute; top: 5px;}
+.labelCheck1{ display: inline-block; max-width: 80%; position: relative; left: 25px;  font-weight: 600; cursor: pointer;}
+.labelCheck1:hover{ text-decoration: underline; }
+.titleBox2{
+	font-weight: 900;  margin-top: 15px; color: #30348c; padding-bottom: 5px;
+	text-transform: uppercase; cursor: pointer; border-bottom: 1px solid #ddd;
+}
+.textArt{position: relative; left: 25px; width: 95%;}
+.btnFilter{
+	background: #30348d; padding: 10px; display: block;
+	color: #fff; margin-bottom: 5px; cursor: pointer;
+	border: 0;
+}
+.btnFilter:hover{background: #464bbb;}
+.selectOrder{width: 100%; padding: 5px; font-size: 14px; border: 1px solid #ddd;}
+.formControl{
+	padding: .375rem .75rem; font-size: 1rem;
+    font-weight: 400; line-height: 1.5;  color: #495057;
+   	border: 1px solid #ced4da; border-radius: 0;
+}
+.formAdvance label{ font-size: 12px; }
+.textarea2{border: 1px solid #ddd; border-radius: 0; width: 100%;}
+/*select topo*/
+.headerSearch{ background: #fff; border: 1px solid #ddd;}
+	.btnBoxSearch{	text-align: right;}
+	.inputBoxSearch input, 
+	.selectBoxSearch select{
+		width: 100%; height: 100%; border: 0px;
+		padding: 10px; outline: none;
+	}
+	.formSelect{
+		-webkit-appearance: none;
+	   	-moz-appearance: none;
+	   	appearance: none;
+	   	background: url(img/down.svg) no-repeat #fff;
+	   	background-position: 100% center;
+	   	border:1px solid #ddd;	border-radius: 5px;
+	}
+	.btnBoxSearch button{
+		background: #30348d; color: #fff; border: 0; padding: 10px;
+		height: 50px; width: 50px;
+	}
+	.btnBoxSearch button:hover{	background: #464bbb;}
+	.btnBoxSearch button i{	font-size: 30px;}
+	.textBTSearch{ display: none; }
+#btnFiltraM{display: none;}
+#aplicarFiltro{ display: none; }
+.to-top {
+	color: rgba(255, 255, 255, 0.9);
+	cursor: pointer;
+	overflow: hidden; position: fixed;
+	bottom: -100px; right: 20px; 
+	text-align: center;	font-size: 25px; 
+	-webkit-transition: all 0.4s ease-in-out;
+	-moz-transition: all 0.4s ease-in-out;
+	-ms-transition: all 0.4s ease-in-out;
+	-o-transition: all 0.4s ease-in-out;
+	transition: all 0.4s ease-in-out;
+	z-index: 9999;
+	width: 70px;height: 50px;
+	color: #999;  padding:5px; 
+}
+.to-top:hover{background: #999; color: #fff;}
+.to-topText{
+	font-size: 10px; font-weight: bold;
+	line-height: 10px; padding-top: 5px;
+}
+.breadcrumb{
+	margin: 10px 0 -20px 0  ;
+	background: none;
+	font-size: 12px;
+}
+#resumo{
+	padding: 20px; border: solid 1px #ddd; border-top: 0; 
+	margin-bottom: 20px;
+}
+.atribArtigos{padding: 1px; margin: 1px; font-size: 13px; display: block;}
+.tree{
+	list-style-type: none; font-size: 14px;
+	margin: 0; padding: 0 0 0 00px;
+	background: url(img/vline.png) repeat-y;
+}
+.tree li{
+	margin: 0; padding: 0 0px 0px 20px;
+    line-height: 20px; background: url(img/node.png) no-repeat
+}
+.tree li:last-child{
+	    background: #fff url(img/lastnode.png) no-repeat;
+}
+/******************** Breakpoints *******************/
+@media (max-width: 768px){
+	.marginMC1{ margin-bottom: 10px;}
+	.marginB2{margin-bottom: 0px;}
+	#header{text-align: center;}
+	.lang{text-align: center; margin-top: 20px;}
+		.lang ul{padding: 0;}
+	.headerBt{margin-top: 20px; text-align: center;}
+	.selectBoxSearch{ border: 0;}
+	.formSelect{ background: url(img/downMobile.svg) no-repeat #fff; background-position: 100% center;}
+	#footer, #footer .text-right{text-align: center!important;}
+	.boxTools{display: inline-block;}
+	.resultM{text-align: center!important;}
+	.title2{display: block;  margin:20px 0;}
+	.pagination{ margin-top: 20px;}
+	#filterEsq{display: none;}
+	.btnBoxSearch button{padding: 10px;	width: 100%;}
+	.btnBoxSearch button i{	font-size: 15px;}
+	.textBTSearch{display: inline-block; font-weight: bold; padding-left: 10px;}
+	#btnFiltraM{
+		display: block; padding: 10px;
+		background:#30348d; color: #fff;
+		text-align: center; margin-bottom: 20px;
+		cursor: pointer;
+	}
+	#btnFiltroD, .btnFilter{ display: none;}
+	.close{display: none!important;}
+	.open{display: block!important;}
+	#aplicarFiltro{
+		background:#30348d; 
+		padding: 10px; width: 100%;
+		position: sticky; bottom: 0px; z-index: 2;
+		font-size: 20px; text-align: center;
+		display: block; margin-bottom: 20px;
+		cursor: pointer;
+	}
+	#aplicarFiltro a{color: #fff;}
+	#tabResumo li{ border: 0; margin: 0 5px 5px 0; border: 1px solid #ddd; }
+	#tabResumo .active{border: 0; background: #eee;}
+}
+@media print{
+	p,a, h1,h2,h3,h4,h5,h5,	titleArt, b{
+		color: #000!important;
+	}
+	.box4{
+		padding:0 ; 
+	}
+	.d-print-block{
+		max-width: 100%; flex: 0 0 100%;
+	}
+   #resumo, #tabResumo li, .nav-tabs, #tabResumo .active{
+   	border: 0!important; background: #fff;
+   	padding: 0; margin: 0;
+   }
+	#tabResumo, #tabResumo li{display: none;}
+	.tab-content > .tab-pane {
+	    display: block !important;
+	    opacity: 1 !important; margin-bottom: 30px;
+	    visibility: visible !important;
+	}
+}

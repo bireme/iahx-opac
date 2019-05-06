@@ -1,0 +1,142 @@
+<div class="col-md-3">
+
+{% if doc.ur is defined %}
+    <div class="boxTools">
+        {% if doc.ur|length > 1 %}
+            <a href="#fulltext_urls_{{ doc.id }}" class="btnTools nav-toggle">
+                <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
+            </a>
+
+            <div style="display: none" id="fulltext_urls_{{ doc.id }}" class="fulltext_box">
+                <ul>
+                {% for url in doc.ur %}
+                    <li><a href="{{ url|raw }}" target="_blank" alt="{{ texts.FULLTEXT }} Link">{{ url }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools">
+                <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+
+{% if doc.ur_AUDIO is defined %}
+    <div class="boxTools">
+        {% if doc.ur_AUDIO|length > 1 %}
+            <a href="#audio_urls_{{ doc.id }}" class="btnTools nav-toggle">
+                <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
+            </a>
+
+            <div style="display: none" id="audio_urls_{{ doc.id }}" class="fulltext_box">
+                <ul>
+                {% for url in doc.ur_AUDIO %}
+                    <li><a href="{{ url }}" target="_blank" alt="{{ texts.AUDIO }} Link">{{ url }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <a href="{{ doc.ur_AUDIO.0 }}" target="_blank" title="{{ texts.AUDIO }}" class="btnTools">
+                <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if doc.ur_MULTIMIDIA is defined %}
+    <div class="boxTools">
+        {% if doc.ur_MULTIMIDIA|length > 1 %}
+            <a href="#video_urls_{{ doc.id }}" class="btnTools nav-toggle">
+                <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
+            </a>
+
+            <div style="display: none" id="video_urls_{{ doc.id }}" class="fulltext_box">
+                <ul>
+                {% for url in doc.ur_MULTIMIDIA %}
+                    <li><a href="{{ url }}" target="_blank" alt="{{ texts.VIDEO }} Link">{{ url }}</a></li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% else %}
+            <a href="{{ doc.ur_MULTIMIDIA.0 }}" target="_blank" class="btnTools">
+                <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
+            </a>
+        {% endif %}
+    </div>
+{% endif %}
+
+{% if config.services_platform_domain != '' %}
+    <!-- services platform -->
+    <div class="platserv boxTools">
+	  {% if app.request.cookies.has('userTK') %}
+          <a class="add-collection btnTools" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Add to collection', '{{doc.ti.0}}']);">
+	  {% else %}
+          <a class="add-collection btnTools" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Login', '{{doc.ti.0}}']);">
+      {% endif %}
+              <i class="fas fa-home"></i> {{ texts.ADD_TO_COLLECTION }}
+          </a>
+    </div>
+{% endif %}
+
+
+<div class="boxTools">
+    <a href="javascript:window.print()" alt="{{ texts.PRINT }}" class="btnTools">
+        <i class="fas fa-print"></i> {{texts.PRINT}}</a>
+    </a>
+</div>
+
+<div class="boxTools">
+    <a class="btnTools" href="javascript:export_xml_record('{{doc.id}}');" title="{{ texts.SHOW_XML }}">
+        <i class="fas fa-code"></i> XML
+    </a>
+</div>
+
+
+{% if 'MEDLINE' in doc.db %}
+    <div class="boxTools">
+        <a href="{{ constant("SEARCH_URL") }}pubmed_linkout/{{ lang }}/{{ doc.id }}" class="btnTools fancybox_iframe" title="{{ doc.ti.0 }}">
+            <i class="fas fa-external-link-square-alt"></i> PubMed Links
+        </a>
+    </div>
+{% endif %}
+
+
+<div class="box2 box2B">
+{% for name, cluster in clusters %}
+
+    {% set cluster_labels = 'REFINE_' ~ name %}
+
+    {###  check if config has a cluster list to show, if not show all ###}
+    {% if not config_cluster_list or name in config_cluster_list %}
+
+        {% set filter_label = attribute(texts.REFINE, name) %}
+        {% if  filter_label != '' %}
+            <span class="atribArtigos"><b>{{ attribute(texts.REFINE, name) }}:</b>
+            {% for item in cluster if item.0 != '' %}
+                {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
+                {% if '/' in item.0 %}
+                    {% set item_part = item.0|split('/') %}
+                    {{ translate(item_part.1, cluster_labels ) }}
+                {% else %}
+                    {{ translate(item.0, cluster_labels ) }}
+                {% endif %}
+            {% endfor %}
+            </span>
+        {% endif %}
+    {% endif %}
+{% endfor %}
+</div>
+
+{% if config.show_similar_docs == 'true' %}
+    <div class="boxTools">
+        <b class="title2">{{ texts.RELATED_DOCUMENTS }}</b>
+        <div id="similar-docs" class="box2 box2B">
+            {{ texts.LOADING }} ...
+        </div>
+    </div>
+{% endif %}
+
+
+</div> <!-- /col-md-3 -->
