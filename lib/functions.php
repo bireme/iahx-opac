@@ -361,6 +361,25 @@ function occ($params) {
 
 }
 
+
+function get_preference_field_lang($element, $field, $lang_list) {
+    $out_value = '';
+    // start with more generic title
+    if (isset($element[$field])){
+        $out_value = is_array($element[$field]) ? $element[$field][0] : $element[$field];
+    }
+    // search for field in different languages
+    foreach ($lang_list as $lang){
+        $field_lang = $field . '_' . $lang;
+        if (isset($element[$field_lang])){
+            $out_value = $element[$field_lang];
+            break;
+        }
+    }
+    return $out_value;
+}
+
+
 function filter_substring_after($text, $needle = '-'){
     if (strpos($text, $needle) !== false){
         return substr($text, strpos($text, $needle)+strlen($needle));

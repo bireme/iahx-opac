@@ -4,6 +4,10 @@
 $PATH = str_replace("index.php", "", $_SERVER['PHP_SELF']);
 $PATH_DATA = __DIR__ . "/";
 
+// CONFIGURATION
+$config = simplexml_load_file($PATH_DATA . 'config/config.xml');
+$lang = $config->default_lang;
+
 $config["PATH_DATA"] = $PATH_DATA;
 $config["DOCUMENT_ROOT"] = $_SERVER["DOCUMENT_ROOT"];
 $config["SERVERNAME"] = $_SERVER["HTTP_HOST"];
@@ -13,17 +17,13 @@ define("PATH_DATA" , $config["PATH_DATA"]);
 define("DOCUMENT_ROOT", $config["DOCUMENT_ROOT"]);
 define("APP_PATH", $PATH_DATA);
 
-define("TEMPLATE_PATH", APP_PATH . "templates/");
+define("TEMPLATE_PATH", APP_PATH . "templates/" . $config->template_name);
 define("VIEWS_PATH", APP_PATH . "views/");
 define("TRANSLATE_PATH", APP_PATH . "locale/");
 define("CACHE_PATH", APP_PATH . "cache/");
 
 // custom applications/interface
 define("CUSTOM_TEMPLATE_PATH", TEMPLATE_PATH . "custom/");
-
-// CONFIGURATION
-$config = simplexml_load_file($PATH_DATA . 'config/config.xml');
-$lang = $config->default_lang;
 
 $DEFAULT_PARAMS = array();
 $DEFAULT_PARAMS['lang'] = $lang;
@@ -46,7 +46,7 @@ $DEFAULT_PARAMS['defaultDisplayFormat'] = (string) $DEFAULT_PARAMS['defaultColle
 $protocol = ( (isset($config->use_https) && $config->use_https == 'true') ? 'https' : 'http');
 
 define("SEARCH_URL",  $protocol . "://" . $_SERVER['HTTP_HOST'] . $PATH);
-define("STATIC_URL",  SEARCH_URL . "static/");
+define("STATIC_URL",  SEARCH_URL . "static/" . $config->template_name);
 
 
 // log's configuration
@@ -120,6 +120,7 @@ $app['twig']->addFunction('custom_template', new Twig_Function_Function('custom_
 $app['twig']->addFunction('occ', new Twig_Function_Function('occ'));
 $app['twig']->addFunction('translate', new Twig_Function_Function('translate'));
 $app['twig']->addFunction('has_translation', new Twig_Function_Function('has_translation'));
+$app['twig']->addFunction('get_preference_field_lang', new Twig_Function_Function('get_preference_field_lang'));
 $app['twig']->addFilter('substring_before', new Twig_Filter_Function('filter_substring_before'));
 $app['twig']->addFilter('substring_after', new Twig_Filter_Function('filter_substring_after'));
 $app['twig']->addFilter('contains', new Twig_Filter_Function('filter_contains'));
