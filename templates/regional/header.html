@@ -1,5 +1,5 @@
 <!-- Topo -->
-<header id="header">
+<header id="header" class="d-print-none">
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3" id="logo">
@@ -46,7 +46,7 @@
                         {% endfor %}
                         <div class="row">
                             {% if collectionData.index_list.index is defined %}
-                                <div class="col-md-3 selectBoxSearch">
+                                <div class="col-md-4 selectBoxSearch">
                                     <select name="index" class="formSelect" id="selectIndex">
                                         {% for index in collectionData.index_list.index if not index.advanced %}
                                             {% if params.index is defined %}
@@ -63,7 +63,7 @@
                                 </div>
                             {% endif %}
 
-							<div class="col-md-7 inputBoxSearch">
+							<div class="col-md-6 inputBoxSearch">
                                 <input type="text" name="q" id="q" value="{{ params.q }}" class="inputText" title="{{texts.SEARCH_WORDS}}" placeholder="{{texts.SEARCH_WORDS}}">
 							</div>
                             {% if collectionData.where_list.where is defined %}

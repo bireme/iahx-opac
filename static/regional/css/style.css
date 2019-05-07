@@ -51,6 +51,7 @@
 .inputCheck1{display: inline-block; width: 20px; position: absolute; top: 5px;}
 .labelCheck1{ display: inline-block; max-width: 80%; position: relative; left: 25px;  font-weight: 600; cursor: pointer;}
 .labelCheck1:hover{ text-decoration: underline; }
+.labelCheck1 a{color: #333;}
 .titleBox2{
 	font-weight: 900;  margin-top: 15px; color: #30348c; padding-bottom: 5px;
 	text-transform: uppercase; cursor: pointer; border-bottom: 1px solid #ddd;
@@ -59,8 +60,9 @@
 .btnFilter{
 	background: #30348d; padding: 10px; display: block;
 	color: #fff; margin-bottom: 5px; cursor: pointer;
-	border: 0;
+	border: 0; 
 }
+#btnFiltroD{position: sticky; top: 0; z-index: 99; width: 100%;}
 .btnFilter:hover{background: #464bbb;}
 .selectOrder{width: 100%; padding: 5px; font-size: 14px; border: 1px solid #ddd;}
 .formControl{
@@ -107,7 +109,7 @@
 	-o-transition: all 0.4s ease-in-out;
 	transition: all 0.4s ease-in-out;
 	z-index: 9999;
-	width: 70px;height: 50px;
+	/*width: 70px;*/height: 50px;
 	color: #999;  padding:5px; 
 }
 .to-top:hover{background: #999; color: #fff;}
@@ -137,6 +139,7 @@
 .tree li:last-child{
 	    background: #fff url(img/lastnode.png) no-repeat;
 }
+..page-link{line-height: 1;}
 /******************** Breakpoints *******************/
 @media (max-width: 768px){
 	.marginMC1{ margin-bottom: 10px;}
@@ -146,6 +149,7 @@
 		.lang ul{padding: 0;}
 	.headerBt{margin-top: 20px; text-align: center;}
 	.selectBoxSearch{ border: 0;}
+	.inputBoxSearch input{border-top: 1px solid #ddd;}
 	.formSelect{ background: url(img/downMobile.svg) no-repeat #fff; background-position: 100% center;}
 	#footer, #footer .text-right{text-align: center!important;}
 	.boxTools{display: inline-block;}

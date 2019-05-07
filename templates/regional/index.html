@@ -25,7 +25,7 @@
         <section class="">
     		<div class="container">
     			<div class="row">
-    				<div class="col-md-7 offset-md-3">
+    				<div class="col-md-7 offset-md-3 d-print-none">
     					<div class="row padding1">
     						<div class="col-md-4">
                                 {% if collectionData.sort_list.sort|length > 1 %}
@@ -71,10 +71,10 @@
                     <!-- Filter column -->
                     {% include custom_template('column-filters.html') %}
     				<!-- Result column -->
-    				<div class="col-md-7">
+    				<div class="col-md-7 d-print-block">
     					{% for doc in docs %}
     						<div class="box1">
-    							<div class="inputCheck1">
+    							<div class="inputCheck1 d-print-none">
                                     <input type="checkbox" class="my_selection" value="{{ doc.id }}"
                                     {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
                                 </div>

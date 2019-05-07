@@ -1,20 +1,15 @@
 <html>
-    <head>
-        <title>PubMed Services</title>
-        <link rel="stylesheet" rel="stylesheet" href="{{ constant("STATIC_URL") }}css/pubmed_linkout.css" type="text/static" media="screen">  
-    </head>
     <body>
-
-        <table width="98%" cellspacing="0">
+        <table class="table table-striped">
             <tr>
-                <th>Type</th>
-                <th>Info</th>
-                <th>Provider</th>
-                <th>Full Text</th>
+                <th scope="col">Type</th>
+                <th scope="col">Info</th>
+                <th scope="col">Provider</th>
+                <th scope="col">Full Text</th>
             </tr>
 
             {% for item in set %}
-                <tr valign="top" {% if loop.index is odd %}class="odd"{% endif %}>
+                <tr>
                     <td>{{ item.SubjectType }}</td>
                     <td>
                     {% for attr in item.Attribute %}
@@ -22,11 +17,9 @@
                     {% endfor %}
                     </td>
 
-                    <td>{{ item.Provider.Name }}</td>                    
+                    <td>{{ item.Provider.Name }}</td>
                     <td><a href="{{ item.Url }}" target="blank"><img src="{{ item.IconUrl  }}" border="0"/></a></td>
-                </tr>               
+                </tr>
             {% endfor %}
-
-
     </body>
 </html>

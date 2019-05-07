@@ -1,5 +1,5 @@
 <!-- Direita -->
-<div class="col-md-2 d-none d-sm-block">
+<div class="col-md-2 d-none d-sm-block d-print-none">
 	<div class="custom-control custom-switch d-none d-sm-block">
 		<input type="checkbox" class="custom-control-input" id="customSwitches">
 		<label class="custom-control-label" for="customSwitches">Ver mais detalhes</label>
@@ -16,7 +16,7 @@
             </a>
         </div>
 		<div class="boxTools">
-            <a href="" alt="{{ texts.PRINT }}" class="btnTools" data-toggle="modal" data-target="#ModalPrint">
+            <a href="javascript:window.print()" alt="{{ texts.PRINT }}" class="btnTools">
                 <i class="fas fa-print"></i> {{texts.PRINT}}
             </a>
         </div>

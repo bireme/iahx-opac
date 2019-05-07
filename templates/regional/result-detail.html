@@ -62,7 +62,7 @@
 
     <div class="row padding1">
         <!-- Centro -->
-        <div class="col-md-9">
+        <div class="col-md-9 d-print-block">
             <div class="box4">
                 <div class="titleArt">
                     <b>{% autoescape false %}{{ occ( {'element': doc.ti, separator: ' / '} ) }}{% endautoescape %}</b>
@@ -85,7 +85,7 @@
 
             {% if doc.ab or doc.mh %}
                 <!-- abstract / subject box -->
-                <div class="box4">
+                <div class="box4 d-print-flex-12">
                     {% set mark_ab_list = [] %}
                     {% set raw_ab_list = [] %}
                     {% set ab_active_lang = '' %}
@@ -129,8 +129,10 @@
                         <div class="tab-content" id="resumo">
                             {% for ab_field in ab_list %}
                                 {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : doc.la[0] %}
+                                {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
                                 <div class="tab-pane fade show {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" id="{{ab_field}}" role="tabpanel" aria-labelledby="{{ ab_field }}-tab">
+                                    <div class="d-none d-print-block">{{ attribute(texts.RESULT, label_name) }}</div>
                                     {{ attribute(doc, ab_field).0|raw }}
                                 </div>
                             {% endfor %}
@@ -201,4 +203,15 @@
             });
         </script>
     {% endif %}
+
+    {% if 'MEDLINE' in doc.db %}
+    <script>
+        $('#pubmed_linkout').click(function (e) {
+            e.preventDefault();
+            var service_url = $(this).attr("href");
+            $("#ModalPubmed").find('.modal-body').load(service_url);
+        });
+    </script>
+    {% endif %}
+
 {% endblock %}
