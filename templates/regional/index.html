@@ -82,9 +82,15 @@
     								<div class="titleArt">
                                         {% if 'DECS' in doc.db  %}
                                             {% set descriptor = 'ti_' ~ lang %}
-                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}">{{ attribute(doc, descriptor ).0 }}</a>
+                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}"
+                                                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Show detail','Descriptor',this.href]);"{% endif %}>
+                                                {{ attribute(doc, descriptor ).0 }}
+                                            </a>
                                         {% else %}
-                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}">{% autoescape false %}{{ occ( {'element': doc.ti|raw, separator: ' / '} ) }}{% endautoescape %}</a>
+                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}"
+                                                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Show detail','Article',this.href]);"{% endif %}>
+                                                {% autoescape false %}{{ occ( {'element': doc.ti|raw, separator: ' / '} ) }}{% endautoescape %}
+                                            </a>
                                         {% endif %}
                                     </div>
 
@@ -168,7 +174,7 @@
     			</div> -->
 
                 {% if pag.total_pages > 0 %}
-        			<nav aria-label="Page navigation example" class="">
+        			<nav aria-label="Page navigation example" class="d-print-none">
         				<ul class="pagination justify-content-center">
 
                             {% if params.page is defined and params.page > 1 %}

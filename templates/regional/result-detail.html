@@ -173,6 +173,8 @@
 {% endblock %}
 
 {% block footerscripts %}
+    <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
+
     {% if config.epistemonikos_token %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">

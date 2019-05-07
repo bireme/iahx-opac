@@ -3,7 +3,7 @@
 	<i class="fas fa-filter"></i> {{texts.FILTER}}
 </div>
 <div class="col-md-3 d-print-none" id="filterEsq">
-    <form action="" id="form_clusters" method="GET">
+    <form action="{{ constant("SEARCH_URL") }}" id="form_clusters" method="GET">
 
     {% if config.show_config_filter == 'true' %}
     	<div class="btnFilter"  data-toggle="collapse" data-target="#filtrar">
@@ -30,7 +30,7 @@
         </div>
     {% endif %}
 
-    <button type="submit" class="btnBlueM">{{texts.FILTER}}</button>
+    <button type="submit" class="btnBlueM" id="btnFiltroD">{{texts.FILTER}}</button>
 
     {% if filters_formatted|length > 0 %}
         <div class="division"></div>
@@ -48,7 +48,6 @@
                         <ul>
                             {% for item in items %}
                                 {% set item_value = cluster ~ '_' ~ item|slugify ~ '' %}
-
                                 <li>
                                     {% if '^' in item %}
                                         {{ item|subfield(lang) }}
@@ -100,7 +99,7 @@
                         {{ attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-minus"></span>
                     </div>
 
-                    <div class="box2 collapse" id="{{ name }}" >
+                    <div class="box2 {% if fb is not defined or name not in fb %}collapse{% endif %}" id="{{ name }}" >
                         {% for item in cluster if item.0 != '' %}
                             {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
@@ -115,7 +114,8 @@
                                         >
                                     </div>
                                     <label class="labelCheck1" for="{{ cluster_item_id }}">
-                                        <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');" title="">
+                                        <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');"
+                                            {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Filter','{{ name }}','{{ item.0 }}']); _gaq.push(['_trackEvent','Filter','Cluster','{{ name }}']);" {% endif %}>
                                             {% if '/' in item.0 %}
                                                 {% set item_part = item.0|split('/') %}
                                                 {{ translate(item_part.1, cluster_labels ) }}
@@ -132,7 +132,7 @@
                                 </div>
                             {% endif %}
                         {% endfor %}
-
+                        <a name="{{ name }}"></a>
                         {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
                             <div class="boxCheck">
                                 <label class="labelCheck1">

@@ -28,7 +28,7 @@
 .reference a,.dataArticle a{color: #000; font-weight: 600;}
 .formgroup{	margin-bottom: 10px;}
 .formgroup input[type=checkbox]{margin:5px 10px 0 0; float: left; width: 20px; background: #fff;}
-.formgroup label{min-width: 40px; max-width: 200px;} 
+.formgroup label{min-width: 40px; max-width: 200px;}
 .lang{text-align: right;}
 .lang ul{list-style: none;}
 .lang ul li{display: inline-block; }
@@ -60,7 +60,7 @@
 .btnFilter{
 	background: #30348d; padding: 10px; display: block;
 	color: #fff; margin-bottom: 5px; cursor: pointer;
-	border: 0; 
+	border: 0;
 }
 #btnFiltroD{position: sticky; top: 0; z-index: 99; width: 100%;}
 .btnFilter:hover{background: #464bbb;}
@@ -75,7 +75,7 @@
 /*select topo*/
 .headerSearch{ background: #fff; border: 1px solid #ddd;}
 	.btnBoxSearch{	text-align: right;}
-	.inputBoxSearch input, 
+	.inputBoxSearch input,
 	.selectBoxSearch select{
 		width: 100%; height: 100%; border: 0px;
 		padding: 10px; outline: none;
@@ -101,8 +101,8 @@
 	color: rgba(255, 255, 255, 0.9);
 	cursor: pointer;
 	overflow: hidden; position: fixed;
-	bottom: -100px; right: 20px; 
-	text-align: center;	font-size: 25px; 
+	bottom: -100px; right: 20px;
+	text-align: center;	font-size: 25px;
 	-webkit-transition: all 0.4s ease-in-out;
 	-moz-transition: all 0.4s ease-in-out;
 	-ms-transition: all 0.4s ease-in-out;
@@ -110,7 +110,7 @@
 	transition: all 0.4s ease-in-out;
 	z-index: 9999;
 	/*width: 70px;*/height: 50px;
-	color: #999;  padding:5px; 
+	color: #999;  padding:5px;
 }
 .to-top:hover{background: #999; color: #fff;}
 .to-topText{
@@ -123,7 +123,7 @@
 	font-size: 12px;
 }
 #resumo{
-	padding: 20px; border: solid 1px #ddd; border-top: 0; 
+	padding: 20px; border: solid 1px #ddd; border-top: 0;
 	margin-bottom: 20px;
 }
 .atribArtigos{padding: 1px; margin: 1px; font-size: 13px; display: block;}
@@ -139,7 +139,7 @@
 .tree li:last-child{
 	    background: #fff url(img/lastnode.png) no-repeat;
 }
-..page-link{line-height: 1;}
+.page-link{line-height: 1;}
 /******************** Breakpoints *******************/
 @media (max-width: 768px){
 	.marginMC1{ margin-bottom: 10px;}
@@ -170,7 +170,7 @@
 	.close{display: none!important;}
 	.open{display: block!important;}
 	#aplicarFiltro{
-		background:#30348d; 
+		background:#30348d;
 		padding: 10px; width: 100%;
 		position: sticky; bottom: 0px; z-index: 2;
 		font-size: 20px; text-align: center;
@@ -186,7 +186,7 @@
 		color: #000!important;
 	}
 	.box4{
-		padding:0 ; 
+		padding:0 ;
 	}
 	.d-print-block{
 		max-width: 100%; flex: 0 0 100%;

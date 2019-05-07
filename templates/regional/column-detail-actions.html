@@ -10,12 +10,18 @@
             <div style="display: none" id="fulltext_urls_{{ doc.id }}" class="fulltext_box">
                 <ul>
                 {% for url in doc.ur %}
-                    <li><a href="{{ url|raw }}" target="_blank" alt="{{ texts.FULLTEXT }} Link">{{ url }}</a></li>
+                    <li>
+                        <a href="{{ url|raw }}" target="_blank" alt="{{ texts.FULLTEXT }} Link"
+                        {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Article','{{ doc.ti.0 }}']); _gaq.push(['_trackEvent','Download','Database','{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}']) {% if doc.ta.0 %}_gaq.push(['_trackEvent','Download','Journal','{{ doc.ta.0 }}']); _gaq.push(['_trackEvent','Download','Journal Source','{{ doc.fo.0 }}']); {% endif %}"{% endif %}>
+                            {{ url }}
+                        </a>
+                    </li>
                 {% endfor %}
                 </ul>
             </div>
         {% else %}
-            <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools">
+            <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools"
+                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Article','{{ doc.ti.0 }}']); _gaq.push(['_trackEvent','Download','Database','{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}']) {% if doc.ta.0 %}_gaq.push(['_trackEvent','Download','Journal','{{ doc.ta.0 }}']); _gaq.push(['_trackEvent','Download','Journal Source','{{ doc.fo.0 }}']); {% endif %}"{% endif %}>
                 <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
             </a>
         {% endif %}
@@ -33,12 +39,18 @@
             <div style="display: none" id="audio_urls_{{ doc.id }}" class="fulltext_box">
                 <ul>
                 {% for url in doc.ur_AUDIO %}
-                    <li><a href="{{ url }}" target="_blank" alt="{{ texts.AUDIO }} Link">{{ url }}</a></li>
+                    <li>
+                        <a href="{{ url }}" target="_blank" alt="{{ texts.AUDIO }} Link"
+                            {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Audio',this.href]);" {% endif %}>
+                            {{ url }}
+                        </a>
+                    </li>
                 {% endfor %}
                 </ul>
             </div>
         {% else %}
-            <a href="{{ doc.ur_AUDIO.0 }}" target="_blank" title="{{ texts.AUDIO }}" class="btnTools">
+            <a href="{{ doc.ur_AUDIO.0 }}" target="_blank" title="{{ texts.AUDIO }}" class="btnTools"
+                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Audio',this.href]);" {% endif %}>
                 <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
             </a>
         {% endif %}
@@ -55,12 +67,18 @@
             <div style="display: none" id="video_urls_{{ doc.id }}" class="fulltext_box">
                 <ul>
                 {% for url in doc.ur_MULTIMIDIA %}
-                    <li><a href="{{ url }}" target="_blank" alt="{{ texts.VIDEO }} Link">{{ url }}</a></li>
+                    <li>
+                        <a href="{{ url }}" target="_blank" alt="{{ texts.VIDEO }} Link"
+                            {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Multimedia',this.href]);" {% endif %}>
+                            {{ url }}
+                        </a>
+                    </li>
                 {% endfor %}
                 </ul>
             </div>
         {% else %}
-            <a href="{{ doc.ur_MULTIMIDIA.0 }}" target="_blank" class="btnTools">
+            <a href="{{ doc.ur_MULTIMIDIA.0 }}" target="_blank" class="btnTools"
+                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Multimedia',this.href]);" {% endif %}>
                 <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
             </a>
         {% endif %}

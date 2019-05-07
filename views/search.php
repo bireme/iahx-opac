@@ -315,6 +315,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['filters_formatted'] = $filter;
     $output_array['lang'] = $lang;
     $output_array['q'] = $q;
+    $output_array['fb'] = $fb;
     $output_array['sort'] = $sort;
     $output_array['format'] = $format;
     $output_array['from'] = $from;
