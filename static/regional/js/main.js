@@ -49,3 +49,13 @@ toTop.click(function () {
 	$('html, body').animate({scrollTop: '0px'}, 800);
 	return false;
 });
+
+// scrool botao filtro
+var btFiltro = $('#btnFiltroD');
+$(window).scroll(function () {
+	if ($(this).scrollTop() > 450) {
+		btFiltro.css({'width':'100%'});
+	} else {
+		btFiltro.css({'width':'auto'});
+	}
+});;

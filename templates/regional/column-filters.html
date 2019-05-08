@@ -1,5 +1,5 @@
 <!-- Esquerda -->
-<div class="col-12 d-print-none"  id="btnFiltraM">
+<div class="col-12 d-print-none" id="btnFiltraM">
 	<i class="fas fa-filter"></i> {{texts.FILTER}}
 </div>
 <div class="col-md-3 d-print-none" id="filterEsq">
@@ -27,6 +27,7 @@
                 {% endif %}
                 </div>
             {% endfor %}
+            <input type="submit" value="{{texts.APPLY}}" name="config_filter_submit" class="btn btn-secondary btn-sm">
         </div>
     {% endif %}
 
