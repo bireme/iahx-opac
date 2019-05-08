@@ -64,13 +64,13 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
         // log user action
         log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'detail', $SESSION->getId());
 
-        $check_mobile = (bool)$config->mobile_version;
+        $check_mobile = $config->mobile_version;
         $view = $request->get("view");
 
         if( $view == 'desktop' ) {   // forced by user desktop version
             $view = '';              // use default view
         }else{
-            if ($check_mobile){      //configured to present mobile version
+            if ($check_mobile == 'true'){  // activate alternate template for mobile
                 $detect = new Mobile_Detect();
                 if ($view == 'mobile' || ($detect->isMobile() && !$detect->isTablet()) )   {
                     $view = 'mobile';
