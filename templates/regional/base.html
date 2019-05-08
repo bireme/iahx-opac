@@ -108,61 +108,60 @@
         <form name="language">
             <input type="hidden" name="lang" value="{{ lang }}">
         </form>
-    </body>
 
-    <!-- load base js files for pages -->
-    {% if config.use_external_cdn == 'true' %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    {% else %}
-    <script src="{{ constant("STATIC_URL") }}/js/jquery.min.js"></script>
-    <script src="{{ constant("STATIC_URL") }}/js/bootstrap.min.js"></script>
-    {% endif %}
-    <!-- application js files -->
-    <script src="{{ constant("STATIC_URL") }}/js/functions.js"></script>
-    <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
-    <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
+        <!-- load base js files for pages -->
+        {% if config.use_external_cdn == 'true' %}
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% else %}
+        <script src="{{ constant("STATIC_URL") }}/js/jquery.min.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/bootstrap.min.js"></script>
+        {% endif %}
+        <!-- application js files -->
+        <script src="{{ constant("STATIC_URL") }}/js/functions.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
 
-    {% if config.services_platform_domain != '' %}
-    <script type="text/javascript">
-        $(document).ready( function(){
-            var userTK = unescape(getCookie('userTK'));
+        {% if config.services_platform_domain != '' %}
+        <script type="text/javascript">
+            $(document).ready( function(){
+                var userTK = unescape(getCookie('userTK'));
 
-            if( typeof( userTK ) != 'undefined' && userTK !== null && userTK !== 'undefined' ) {
-                var obj = new Object();
+                if( typeof( userTK ) != 'undefined' && userTK !== null && userTK !== 'undefined' ) {
+                    var obj = new Object();
 
-                obj.userTK = userTK;
-                obj.ip = $.trim('{{ app.request.server.get("REMOTE_ADDR") }}');
-                obj.lang = $.trim('{{ lang }}');
-                obj.col = $.trim('{{ config.search_collection_list.collection.name }}');
-                obj.site = SITE;
-                obj.query = QUERY;
-                obj.index = $.trim('{{ index }}');
-                obj.where = $.trim('{{ where }}');
-                obj.filter = FILTER;
-                obj.page = $.trim('{{ page }}');
-                obj.output = $.trim('{{ current_page }}');
-                obj.referer = $.trim(document.referrer);
-                obj.session = $.trim('{{ app.session.getId() }}');
-                obj.format = $.trim('{{ format }}');
-                obj.sort = $.trim('{{ sort }}');
+                    obj.userTK = userTK;
+                    obj.ip = $.trim('{{ app.request.server.get("REMOTE_ADDR") }}');
+                    obj.lang = $.trim('{{ lang }}');
+                    obj.col = $.trim('{{ config.search_collection_list.collection.name }}');
+                    obj.site = SITE;
+                    obj.query = QUERY;
+                    obj.index = $.trim('{{ index }}');
+                    obj.where = $.trim('{{ where }}');
+                    obj.filter = FILTER;
+                    obj.page = $.trim('{{ page }}');
+                    obj.output = $.trim('{{ current_page }}');
+                    obj.referer = $.trim(document.referrer);
+                    obj.session = $.trim('{{ app.session.getId() }}');
+                    obj.format = $.trim('{{ format }}');
+                    obj.sort = $.trim('{{ sort }}');
 
-                $.post(SERVICES_PLATFORM_DOMAIN + '/logs/', obj, function(data){
-                    console.log(data);
-                });
-            }
+                    $.post(SERVICES_PLATFORM_DOMAIN + '/logs/', obj, function(data){
+                        console.log(data);
+                    });
+                }
 
-            function getCookie(name) {
-                var value = "; " + document.cookie;
-                var parts = value.split("; " + name + "=");
-                if (parts.length == 2) return parts.pop().split(";").shift();
-            }
-        });
-    </script>
-    {% endif %}
+                function getCookie(name) {
+                    var value = "; " + document.cookie;
+                    var parts = value.split("; " + name + "=");
+                    if (parts.length == 2) return parts.pop().split(";").shift();
+                }
+            });
+        </script>
+        {% endif %}
 
-    {% block footerscripts %}
-    {% endblock %}
+        {% block footerscripts %}
+        {% endblock %}
 
     </body>
 </html>
