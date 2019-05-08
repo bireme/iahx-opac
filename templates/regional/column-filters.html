@@ -134,12 +134,22 @@
                             {% endif %}
                         {% endfor %}
                         <a name="{{ name }}"></a>
+
                         {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
-                            <div class="boxCheck">
-                                <label class="labelCheck1">
-                                    <strong><a href="javascript:show_more_clusters('{{ name }}', {{ collectionData.cluster_items_limit + cluster|length }});">{{ texts.SHOW_MORE_ITEMS }}...</a></strong>
-                                </label>
-                            </div>
+                            {% set fb_total = collectionData.cluster_items_limit|number_format + cluster|length %}
+
+                            {% set fb_param_value =  fb|substring_after(':')|number_format %}
+                            {% set fb_param_cluster =  fb|substring_before(':') %}
+
+                            {% if fb_param_cluster == name and fb_param_value == fb_total %}
+                                <!-- already at end of cluster -->
+                            {% else %}
+                                <div class="boxCheck">
+                                    <label class="labelCheck1">
+                                        <strong><a href="javascript:show_more_clusters('{{ name }}', {{ fb_total }});">{{ texts.SHOW_MORE_ITEMS }}...</a></strong>
+                                    </label>
+                                </div>
+                            {% endif %}
                         {% endif %}
                     </div>
                 </div>
