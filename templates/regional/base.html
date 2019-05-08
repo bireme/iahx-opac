@@ -83,7 +83,7 @@
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
-                            <a href="{{ config.home_url }}?lang={{ lang }}">{{ texts.BVS_HOME }}</a>
+                            <a href="{{ config.home_url }}{% if lang in ['pt', 'es', 'en'] %}{{ lang }}/{% endif %}">{{ texts.BVS_HOME }}</a>
                         </li>
 
                         <li class="breadcrumb-item">
