@@ -33,5 +33,5 @@
     {% else %}
         {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
     {% endif %}
-	| ID: {{ doc.id }}
+	| ID: <span class="doc_id">{{ doc.id }}</span>
 </div>

@@ -2,30 +2,17 @@ $(document).ready(
     function(){
         var view = $('#view').val();
 
-        $('div.record div.data').each(
+        $('div.box4').each(
             function(){
-                if ( 'mobile' == view ) {
-                  var x = $(this).parent().find('nav.c-share div.platserv a.add-collection');
+                var x = $('div.platserv.boxTools a.add-collection.btnTools');
 
-                  //var author = $(this).find('div.author').html();
-                  var author = $(this).find('div.author').text();
-                  author = author.replace(/[^ ]+/i,'');
+                //var author = $(this).find('div.author a').html();
+                var author = $(this).find('div.author a').text();
+                author = author.replace(/[^ ]+/i,'');
 
-                  var title = $(this).find('h1.c-results-tit').html();
-                } else {
-                  var x = $(this).parent().find('div.user-actions div.platserv a.add-collection');
+                var title = $(this).find('div.titleArt b').text();
 
-                  //var author = $(this).find('div.author').html();
-                  var author = $(this).find('div.author').text();
-                  author = author.replace(/[^ ]+/i,'');
-
-                  var title = $(this).find('h3 > a').html();
-                  if (title == null){
-                      title = $(this).find('h3').html();
-                  }
-                }
-
-                var id = $(this).parent().attr('id');
+                var id = $(this).find('div.dataArticle span.doc_id').text();
 
                 var loc = location.href;
                 if ( loc.indexOf('?') > 0 ){
@@ -48,10 +35,11 @@ $(document).ready(
                 obj.title = $.trim(title);
                 obj.id = $.trim(id);
 
-                //alert(JSON.stringify(obj, null, 4));
+                // alert(JSON.stringify(obj, null, 4));
 
                 x.on('click', function(){
                     obj.userTK = unescape(getCookie('userTK'));
+                    // obj.userTK = decodeURI(getCookie('userTK'));
 
                     if ( obj.userTK == 'undefined' ){
                         var data = encodeURIComponent(JSON.stringify(obj));
@@ -124,6 +112,7 @@ $(document).ready(
 
             var obj = new Object();
             obj.userTK = unescape(getCookie('userTK'));
+            // obj.userTK = decodeURI(getCookie('userTK'));
             obj.name = $.trim(name);
             obj.url = $.trim(url);
 
