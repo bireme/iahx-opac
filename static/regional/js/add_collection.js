@@ -2,7 +2,7 @@ $(document).ready(
     function(){
         var view = $('#view').val();
 
-        $('div.box4').each(
+        $('div.doc-detail').each(
             function(){
                 var x = $('div.platserv.boxTools a.add-collection.btnTools');
 
