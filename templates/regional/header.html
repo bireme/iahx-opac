@@ -3,7 +3,7 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-md-3" id="logo">
-				<a href="{{ config.home_url }}{% if lang in ['pt', 'es', 'en'] %}{{ lang }}/{% endif %}">
+				<a href="{{ config.home_url }}{% if lang in ['es', 'en'] %}{{ lang }}/{% endif %}">
                     <img src="{{ constant("STATIC_URL") }}/image/{{lang}}/BVS.svg" alt="" class="img-fluid">
                 </a>
 			</div>
