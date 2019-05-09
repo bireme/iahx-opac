@@ -1,7 +1,6 @@
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<!DOCTYPE html>
 <html dir="ltr" xml:lang="{{lang}}" lang="{{lang}}" xmlns="http://www.w3.org/1999/xhtml">
     <head>{% block head %}
-         <meta charset="UTF-8">
         <title>{% block title %}{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }}{% endblock %}</title>
 
         {% if config.use_external_cdn == 'true' %}
@@ -17,13 +16,11 @@
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/style.css">
 
         <!-- meta-tags -->
-        <meta http-equiv="Expires" content="-1">
-        <meta http-equiv="pragma" content="no-cache">
+        <meta charset="UTF-8">
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <meta http-equiv="Content-Language" content="{{ lang }}">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta name="robots" content="all">
 
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="keywords" content="{{ texts.KEYWORDS }}">
         <meta http-equiv="description" content="{{ texts.DESCRIPTION }} ">
         {% block headerscripts %}
@@ -31,9 +28,6 @@
         {% endblock %}
         <!-- Page icon -->
         <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}/image/favicon.ico">
-
-        <!-- RSS -->
-        <link rel="alternate" type="application/rss+xml" title="RSS" href="index.php?output=rss&amp;site=bvsms&amp;col=main&amp;lang=pt&amp;sort=da+desc">
 
         <script language="javascript" type="text/javascript">
             var LANG = '{{ lang }}';
