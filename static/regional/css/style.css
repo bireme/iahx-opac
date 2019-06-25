@@ -13,8 +13,9 @@
 	transition: background .5s ease;
 }
 .btnTools:hover{ text-decoration: none; background: #ddd; color: #333; }
+.btnToolsMain{display: block; background: #30348d; color: #fff;padding: 15px;}
 #header{background: #ededed; padding: 30px 0px 30px 0px;}
-#logo img{ max-width: 210px; }
+#logo img{ max-width: 150px; }
 .box1{ background: #fff; padding: 10px; margin-bottom: 15px; position: relative;}
 .box2{ background: #ededed; border:1px solid #e4e4e4; padding: 10px; font-size: 14px; margin-top: 20px;}
 .box2B{margin-top:10px; margin-bottom: 10px; }
@@ -28,14 +29,14 @@
 .reference a,.dataArticle a{color: #000; font-weight: 600;}
 .formgroup{	margin-bottom: 10px;}
 .formgroup input[type=checkbox]{margin:5px 10px 0 0; float: left; width: 20px; background: #fff;}
-.formgroup label{min-width: 40px; max-width: 200px;} 
+.formgroup label{min-width: 40px; max-width: 200px;}
 .lang{text-align: right;}
 .lang ul{list-style: none;}
 .lang ul li{display: inline-block; }
 .lang ul li a{background:#fff; color: #30348d; font-size: 12px; padding: 5px; text-decoration:none;}
 .lang ul li .active{background:#30348d; color: #fff;}
 .lang ul li a:hover{ color: #fff; text-decoration:none; background: #464bbb;}
-.headerBt{text-align: right; margin-top: 70px; margin-bottom: 20px;}
+.headerBt{text-align: right; margin-top: 40px; margin-bottom: 20px;}
 .listSelectCont{padding: 0; list-style: none;}
 .listSelectCont li{padding: 0; margin-bottom: 5px;}
 .listSelectCont li a{font-size: 12px; color: #30348d;}
@@ -54,13 +55,13 @@
 .labelCheck1 a{color: #333;}
 .titleBox2{
 	font-weight: 900;  margin-top: 15px; color: #30348c; padding-bottom: 5px;
-	text-transform: uppercase; cursor: pointer; border-bottom: 1px solid #ddd;
+	cursor: pointer; border-bottom: 1px solid #ddd;
 }
 .textArt{position: relative; left: 25px; width: 95%;}
 .btnFilter{
 	background: #30348d; padding: 10px; display: block;
 	color: #fff; margin-bottom: 5px; cursor: pointer;
-	border: 0; 
+	border: 0;
 }
 #btnFiltroD{position: sticky; top: 0; z-index: 99;}
 .btnFilter:hover{background: #464bbb;}
@@ -75,7 +76,7 @@
 /*select topo*/
 .headerSearch{ background: #fff; border: 1px solid #ddd;}
 	.btnBoxSearch{	text-align: right;}
-	.inputBoxSearch input, 
+	.inputBoxSearch input,
 	.selectBoxSearch select{
 		width: 100%; height: 100%; border: 0px;
 		padding: 10px; outline: none;
@@ -101,8 +102,8 @@
 	color: rgba(255, 255, 255, 0.9);
 	cursor: pointer;
 	overflow: hidden; position: fixed;
-	bottom: -100px; right: 20px; 
-	text-align: center;	font-size: 25px; 
+	bottom: -100px; right: 20px;
+	text-align: center;	font-size: 25px;
 	-webkit-transition: all 0.4s ease-in-out;
 	-moz-transition: all 0.4s ease-in-out;
 	-ms-transition: all 0.4s ease-in-out;
@@ -110,7 +111,7 @@
 	transition: all 0.4s ease-in-out;
 	z-index: 9999;
 	/*width: 70px;*/height: 50px;
-	color: #999;  padding:5px; 
+	color: #999;  padding:5px;
 }
 .to-top:hover{background: #999; color: #fff;}
 .to-topText{
@@ -123,7 +124,7 @@
 	font-size: 12px;
 }
 #resumo{
-	padding: 20px; border: solid 1px #ddd; border-top: 0; 
+	padding: 20px; border: solid 1px #ddd; border-top: 0;
 	margin-bottom: 20px;
 }
 .atribArtigos{padding: 1px; margin: 1px; font-size: 13px; display: block;}
@@ -153,7 +154,32 @@
 .boxEviColor4{background:#ecfafc;}
 .boxEviColor5{background:#dbf4f8;}
 .boxEviColor6{background:#bdf8ee;}
+.tab-pane h1{font-size: 24px;}
+.tab-pane h2{font-size: 22px;}
+.tab-pane h3{font-size: 20px;}
+.social{ float: right; width: 40px; margin:0 0 20px 20px; position: sticky; top: 0; margin-top: 38px;}
+.mediaSocial{
+	padding: 10px; display: block;
+	font-size: 20px;
+	width: 40px;
+	text-align: center;
+	text-decoration: none;
+	margin: 2px 1px; transition: all .3s ease;
+}
+.mediaSocial:hover { background: #999; color: #fff; text-decoration: none; }
+.fa-facebook-f { background: #3B5998; color: white;}
+.fa-twitter { background: #55ACEE; color: white;}
+.fa-linkedin-in { background: #007bb5;  color: white;}
+.fa-whatsapp { background: #a4c639;  color: white;}
+.fa-share-alt { background: #333;  color: white;}
+#resumo, #tabResumo{width: 92%;}
 /******************** Breakpoints *******************/
+@media (max-width: 1200px){
+	#resumo, #tabResumo{width: 90%;}
+}
+@media (max-width: 992px){
+	#resumo, #tabResumo{width: 86%;}
+}
 @media (max-width: 768px){
 	.marginMC1{ margin-bottom: 10px;}
 	.marginB2{margin-bottom: 0px;}
@@ -183,7 +209,7 @@
 	.close{display: none!important;}
 	.open{display: block!important;}
 	#aplicarFiltro{
-		background:#30348d; 
+		background:#30348d;
 		padding: 10px; width: 100%;
 		position: sticky; bottom: 0px; z-index: 2;
 		font-size: 20px; text-align: center;
@@ -194,12 +220,17 @@
 	#tabResumo li{ border: 0; margin: 0 5px 5px 0; border: 1px solid #ddd; }
 	#tabResumo .active{border: 0; background: #eee;}
 }
+@media (max-width: 556px){
+	#resumo, #tabResumo{width: 100%;}
+	.social{ margin: 0 0 20px 0;float: none; width: auto; position: static;}
+	.mediaSocial{display: block;}
+}
 @media print{
 	p,a, h1,h2,h3,h4,h5,h5,	titleArt, b{
 		color: #000!important;
 	}
 	.box4{
-		padding:0 ; 
+		padding:0 ;
 	}
 	.d-print-block{
 		max-width: 100%; flex: 0 0 100%;
