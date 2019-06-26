@@ -99,7 +99,7 @@
             {% if (not config_cluster_list) or (user_preference_filter|length > 0 and name in user_preference_filter) or  (user_preference_filter|length == 0 and name in default_cluster_list)  %}
                 <div>
                     <div class="titleBox2" data-toggle="collapse" data-target="#{{ name }}">
-                        {{ attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-minus"></span>
+                        {{ attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-angle-down"></span>
                     </div>
 
                     <div class="box2 {% if fb is not defined or name not in fb %}collapse{% endif %}" id="{{ name }}" >

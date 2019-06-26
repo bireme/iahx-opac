@@ -1,8 +1,8 @@
 // icon Accordion
 $('.collapse').on('shown.bs.collapse', function(){
-	$(this).parent().find(".fa-caret-down").removeClass("fa-caret-down").addClass("fa-minus");
+	$(this).parent().find(".fa-angle-down").removeClass("fa-angle-down").addClass("fa-angle-up");
 }).on('hidden.bs.collapse', function(){
-	$(this).parent().find(".fa-minus").removeClass("fa-minus").addClass("fa-caret-down");
+	$(this).parent().find(".fa-angle-up").removeClass("fa-angle-up").addClass("fa-angle-down");
 });
 
 var items = $('#filterEsq');
@@ -18,10 +18,8 @@ function closeFilters() {
 $('#btnFiltraM').click(function(event) {
 	if(items.hasClass('open')){
 		closeFilters();
-		console.log('fechado');
 	}else{
 		openFilters();
-		console.log('aberto')
 	}
 });
 
