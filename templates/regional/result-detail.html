@@ -113,6 +113,14 @@
                         {% endfor %}
                     {% endif %}
 
+                    <div class="social">
+                        <a href="https://www.facebook.com/sharer.php?u={{ current_url }}" target="_blank" class="mediaSocial fab fa-facebook-f"></a>
+                        <a href="https://twitter.com/intent/tweet?text={{doc.ti.0}} {{ current_url }}" target="_blank" class="mediaSocial fab fa-twitter"></a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}&title={{ doc.ti.0 }} - {{ texts.BVS_TITLE }}" target="_blank" class="mediaSocial fab fa-linkedin-in"></a>
+                        <a href="https://api.whatsapp.com/send?text={{ doc.ti.0 }} - {{ texts.BVS_TITLE }} - {{ current_url }}" target="_blank" class="mediaSocial fab fa-whatsapp"></a>
+                        <!-- <a href="#" target="_blank" class="mediaSocial fas fa-share-alt"></a> -->
+                    </div>
+
                     {% if ab_list %}
                         <ul class="nav nav-tabs" id="tabResumo" role="tablist">
                             {% for ab_field in ab_list %}
@@ -165,6 +173,14 @@
                         </div>
                     {% endif %}
                 </div> <!-- /box4 -->
+            {% else %}
+                <div class="social">
+                    <a href="https://www.facebook.com/sharer.php?u={{ current_url }}" target="_blank" class="mediaSocial fab fa-facebook-f"></a>
+                    <a href="https://twitter.com/intent/tweet?text={{doc.ti.0}} {{ current_url }}" target="_blank" class="mediaSocial fab fa-twitter"></a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}&title={{ doc.ti.0 }} - {{ texts.BVS_TITLE }}" target="_blank" class="mediaSocial fab fa-linkedin-in"></a>
+                    <a href="https://api.whatsapp.com/send?text={{ doc.ti.0 }} - {{ texts.BVS_TITLE }} - {{ current_url }}" target="_blank" class="mediaSocial fab fa-whatsapp"></a>
+                    <!-- <a href="#" target="_blank" class="mediaSocial fas fa-share-alt"></a> -->
+                </div>
             {% endif %}
         </div> <!-- /col-md-9 -->
         {% include custom_template('column-detail-actions.html') %}
