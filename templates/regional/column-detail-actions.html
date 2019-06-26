@@ -1,9 +1,9 @@
 <div class="col-md-3 d-print-none">
 
 {% if doc.ur is defined %}
-    <div class="boxTools">
+    <div class="boxToolsMain">
         {% if doc.ur|length > 1 %}
-            <a href="#fulltext_urls_{{ doc.id }}" class="btnTools nav-toggle">
+            <a href="#fulltext_urls_{{ doc.id }}" class="btnTools btnToolsMain nav-toggle">
                 <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
             </a>
 
@@ -20,7 +20,7 @@
                 </ul>
             </div>
         {% else %}
-            <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools"
+            <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools btnToolsMain"
                 {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Article','{{ doc.ti.0 }}']); _gaq.push(['_trackEvent','Download','Database','{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}']) {% if doc.ta.0 %}_gaq.push(['_trackEvent','Download','Journal','{{ doc.ta.0 }}']); _gaq.push(['_trackEvent','Download','Journal Source','{{ doc.fo.0 }}']); {% endif %}"{% endif %}>
                 <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
             </a>
@@ -30,9 +30,9 @@
 
 
 {% if doc.ur_AUDIO is defined %}
-    <div class="boxTools">
+    <div class="boxToolsMain">
         {% if doc.ur_AUDIO|length > 1 %}
-            <a href="#audio_urls_{{ doc.id }}" class="btnTools nav-toggle">
+            <a href="#audio_urls_{{ doc.id }}" class="btnTools btnToolsMain nav-toggle">
                 <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
             </a>
 
@@ -49,7 +49,7 @@
                 </ul>
             </div>
         {% else %}
-            <a href="{{ doc.ur_AUDIO.0 }}" target="_blank" title="{{ texts.AUDIO }}" class="btnTools"
+            <a href="{{ doc.ur_AUDIO.0 }}" target="_blank" title="{{ texts.AUDIO }}" class="btnTools btnToolsMain"
                 {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Audio',this.href]);" {% endif %}>
                 <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
             </a>
@@ -58,9 +58,9 @@
 {% endif %}
 
 {% if doc.ur_MULTIMIDIA is defined %}
-    <div class="boxTools">
+    <div class="boxToolsMain">
         {% if doc.ur_MULTIMIDIA|length > 1 %}
-            <a href="#video_urls_{{ doc.id }}" class="btnTools nav-toggle">
+            <a href="#video_urls_{{ doc.id }}" class="btnTools btnToolsMain nav-toggle">
                 <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
             </a>
 
@@ -77,7 +77,7 @@
                 </ul>
             </div>
         {% else %}
-            <a href="{{ doc.ur_MULTIMIDIA.0 }}" target="_blank" class="btnTools"
+            <a href="{{ doc.ur_MULTIMIDIA.0 }}" target="_blank" class="btnTools btnToolsMain"
                 {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Multimedia',this.href]);" {% endif %}>
                 <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
             </a>
@@ -87,11 +87,11 @@
 
 {% if config.services_platform_domain != '' %}
     <!-- services platform -->
-    <div class="platserv boxTools">
+    <div class="platserv boxToolsMain">
 	  {% if app.request.cookies.has('userTK') %}
-          <a class="add-collection btnTools" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Add to collection', '{{doc.ti.0}}']);">
+          <a class="add-collection btnTools btnToolsMain" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Add to collection', '{{doc.ti.0}}']);">
 	  {% else %}
-          <a class="add-collection btnTools" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Login', '{{doc.ti.0}}']);">
+          <a class="add-collection btnTools btnToolsMain" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Login', '{{doc.ti.0}}']);">
       {% endif %}
               <i class="fas fa-home"></i> {{ texts.ADD_TO_COLLECTION }}
           </a>
