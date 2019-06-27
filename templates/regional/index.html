@@ -52,6 +52,7 @@
                                 {% endif %}
     						</div>
     						<div class="col-md-4 text-center">
+                                <small>{{texts.SHOW}}:</small>
                                 {% if count is defined and count == 20 %}<b>20</b>{% else %}<a href="javascript:change_count('20')">20</a>{% endif %}
                                 | {% if count is defined and count == 50 %}<b>50</b>{% else %}<a href="javascript:change_count('50')">50</a>{% endif %}
                                 | {% if count is defined and count == 100 %}<b>100</b>{% else %}<a href="javascript:change_count('100')">100</a>{% endif %}
