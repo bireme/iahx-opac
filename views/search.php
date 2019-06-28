@@ -291,7 +291,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }
 
     $range_min = (($page-5) > 0) ? $page-5 : 1;
-    $range_max = (($range_min+10) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+10;
+    $range_max = (($range_min+5) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+5;
     $range_max_mobile = (($range_min+3) > $pag['total_pages']) ? $pag['total_pages'] : $range_min+3;
     $pag['pages'] = range($range_min, $range_max);
     $pag['pages_mobile'] = range($range_min, $range_max_mobile);
