@@ -139,7 +139,7 @@
                                 {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : doc.la[0] %}
                                 {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
-                                <div class="tab-pane fade show {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" id="{{ab_field}}" role="tabpanel" aria-labelledby="{{ ab_field }}-tab">
+                                <div class="tab-pane fade show {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %} abstract" id="{{ab_field}}" role="tabpanel" aria-labelledby="{{ ab_field }}-tab" lang="{{ab_lang}}">
                                     <div class="d-none d-print-block">{{ attribute(texts.RESULT, label_name) }}</div>
                                     {{ attribute(doc, ab_field).0|raw }}
                                 </div>
@@ -154,7 +154,7 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="resumo">
-                            <div class="tab-pane fade show active" id="ab" role="tabpanel" aria-labelledby="ab-tab">
+                            <div class="tab-pane fade show active abstract" id="ab" role="tabpanel" aria-labelledby="ab-tab" lang="{{ab_lang}}">
         			            {% for abstract in doc.ab %}
         			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
         			            {% endfor %}
@@ -165,9 +165,9 @@
                     {% if doc.mh is defined  %}
                         <b>{{ texts.RESULT.LABEL_SUBJECT }}</b><br>
                         <!-- subject -->
-                        <div class="tags{% if lang not in ['pt', 'es', 'en'] %}_disable_tooltip{% endif %}">
+                        <div class="tags{% if lang not in ['pt', 'es', 'en'] %}_disable_tooltip{% endif %}" id="tags">
                             {% for subject in doc.mh %}
-                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'})|raw }}"'  class="link1">{{ subject|raw }}</a>
+                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'})|raw }}"' class="link1 decs" id="decs_{{loop.index}}">{{ subject|raw }}</a>
                                 {% if not loop.last %}, {% endif %}
                             {% endfor %}
                         </div>
@@ -189,7 +189,10 @@
 {% endblock %}
 
 {% block footerscripts %}
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/jBox.all.min.css">
+    <script src="{{ constant("STATIC_URL") }}/js/jBox.all.min.js"></script>
     <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
+    <script src="{{ constant("STATIC_URL") }}/js/decs_window.js"></script>
 
     {% if config.epistemonikos_token %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}

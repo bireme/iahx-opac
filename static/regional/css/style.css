@@ -173,6 +173,9 @@
 .fa-whatsapp { background: #a4c639;  color: white;}
 .fa-share-alt { background: #333;  color: white;}
 #resumo, #tabResumo{width: 92%;}
+#resumo a{color:#000;}
+.decs{border-bottom: 2px solid #55acee; transition: border 0.3s ease;}
+.decs:hover{border-width: 4px; text-decoration: none; background: #efefef;}
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
