@@ -7,15 +7,17 @@ $(document).ready(
             var parent_div = $(this).parent();
             var parent_id  = parent_div.attr('id');
 
-            descriptor=descriptor.replace(/\/.*/,'');
-            this.title=descriptor;
+            var descriptor_text=descriptor.replace(/\/.*/,'');
+            var descriptor_param=descriptor_text.replace(/ /g,'+');
+            this.title=descriptor_text;
 
             if (parent_div.prop('lang')){
                 lang = parent_div.prop('lang');
             }else{
                 lang = document.searchForm.lang.value;
             }
-            var service_url = SEARCH_URL + "decs/"+lang+"/"+escape(descriptor);
+            var service_url = SEARCH_URL + "decs/"+lang+"/"+encodeURI(descriptor_param);
+            //console.log(service_url);
 
             new jBox('Tooltip', {
               attach: "#" + parent_id + " #" + element_id,
