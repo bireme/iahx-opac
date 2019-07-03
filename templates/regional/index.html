@@ -398,11 +398,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
-                    <a href="javascript:print_page('{{ pag.count }}');" class="btn btn-primary">
+                    <a href="javascript:print_page();" class="btn btn-primary">
                         {{ texts.THIS_PAGE }}
                     </a>
-                    <a href="javascript:print_page();" class="btn btn-primary">
-                        {{ texts.ALL_REFERENCES_LIMIT }}
+                    <a href="javascript:print_page(true);" class="btn btn-primary">
+                        {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)
                     </a>
 				</div>
 			</div>

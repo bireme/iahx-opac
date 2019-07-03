@@ -55,15 +55,22 @@ function print_record(q) {
     print_page(1);
 }
 
-// leva para output "print", passando o count
-function print_page(count) {
-    var form = document.searchForm;
-    if(count)
-        form.count.value = count;
-    else
-        form.count.value = 300;
-
-    change_output("print");
+// altera output param para "print" e realiza o submit
+function print_page(selection=false) {
+    if (selection == true){
+        $.get('bookmark/list', function(q) {
+            $("#q").val(q);
+            $("#from").val(0);
+            $("#page").val("1");
+            $("input[name^='filter']").remove();
+            $("#output").val("print");
+            $("#searchForm").submit();
+        });
+    }else{
+        // close modal
+        $('#ModalPrint').modal('toggle');
+        window.print();
+    }
 }
 
 function export_record(q) {
