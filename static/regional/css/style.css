@@ -174,7 +174,7 @@
 .fa-share-alt { background: #333;  color: white;}
 #resumo, #tabResumo{width: 92%;}
 #resumo a{color:#000;}
-.decs{border-bottom: 2px solid #55acee; transition: border 0.3s ease;}
+.decs{border-bottom: 2px solid #55acee;}
 .decs:hover{border-width: 4px; text-decoration: none; background: #efefef;}
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
@@ -248,4 +248,6 @@
 	    opacity: 1 !important; margin-bottom: 30px;
 	    visibility: visible !important;
 	}
+	.breadcrumb, .to-top, .social{display:none!important;}
+	.decs{border-bottom: 0; transition: 0;}
 }
