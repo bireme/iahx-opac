@@ -46,6 +46,11 @@
                                 <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
                             {% endfor %}
                         {% endfor %}
+                        {% if range_year_start %}
+                            <input type="hidden" name="range_year_start" id="range_year_start" value="{{ range_year_start }}">
+                            <input type="hidden" name="range_year_end" id="range_year_end" value="{{ range_year_end }}">
+                        {% endif %}
+
                         <div class="row">
                             {% if collectionData.index_list.index is defined %}
                                 <div class="col-md-4 selectBoxSearch">

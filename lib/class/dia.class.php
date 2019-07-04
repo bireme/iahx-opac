@@ -32,7 +32,7 @@ class Dia
         return;
     }
 
-    function search($query, $index = "", $user_filter = array(), $from = 0){
+    function search($query, $index = '', $user_filter = array(), $range_filter = '', $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
@@ -55,6 +55,10 @@ class Dia
             }
         }else{
             $filter = $this->mountFilterParam($user_filter);
+        }
+
+        if ( $range_filter != '' ){
+            $filter = $filter . " AND ( " . $range_filter . ")";
         }
 
         $this->param["fq"] = $filter;

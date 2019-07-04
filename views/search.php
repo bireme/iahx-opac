@@ -173,6 +173,20 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
     }
 
+    $range_filter = $range_year_field = $range_year_start = $range_year_end = '';
+    if ($config->range_year_field){
+        $range_year_field = $config->range_year_field;
+        if(isset($params['range_year_start']) and $params['range_year_start'] != "") {
+            $range_year_start = $params['range_year_start'];
+        }
+        if(isset($params['range_year_end']) and $params['range_year_end'] != "") {
+            $range_year_end = $params['range_year_end'];
+        }
+        if ($range_year_start != '' && $range_year_end != ''){
+            $range_filter = $range_year_field . ':[' . $range_year_start . ' TO ' . $range_year_end . ']';
+        }
+    }
+
     // BOOKMARK SESSION
     $SESSION = $app['session'];
     $SESSION->start();
@@ -256,7 +270,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $dia->setParam('sort', $sort_value);
     $dia->setParam('initial_filter', $initial_filter );
 
-    $dia_response = $dia->search($q, $index, $user_filter, $from);
+    $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $from);
     $result = json_decode($dia_response, true);
 
     // detailed query
@@ -341,6 +355,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['parsing_filters'] = $solr_param_fq;
     $output_array['page'] = $page;
     $output_array['current_page'] = 'result';
+    $output_array['range_year_start'] = $range_year_start;
+    $output_array['range_year_end'] = $range_year_end;
 
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;

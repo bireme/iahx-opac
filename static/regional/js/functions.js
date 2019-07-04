@@ -108,6 +108,15 @@ function decs_locator(base_url) {
     $("#searchForm").submit();
 }
 
+function fill_range(interval){
+    var currentTime = new Date();
+    var year = currentTime.getFullYear();
+
+    $("#range_start").val(year-interval);
+    $("#range_end").val(year);
+
+}
+
 
 /**
  * Mostra janela com grafico do cluster selecionado
