@@ -65,6 +65,7 @@
                 {% endfor %}
             </ul>
         </div>
+        <hr>
     {% endif %}
 
     <!-- used for show more values (facet browse)-->
@@ -97,62 +98,84 @@
             {### check if cluster is in user_prefence_filter or is in default_cluster_list ###}
             {% if (not config_cluster_list) or (user_preference_filter|length > 0 and name in user_preference_filter) or  (user_preference_filter|length == 0 and name in default_cluster_list)  %}
                 <div>
-                    <div class="titleBox2" data-toggle="collapse" data-target="#{{ name }}">
-                        {{ attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-angle-down"></span>
-                    </div>
-
-                    <div class="box2 {% if fb is not defined or name not in fb %}collapse{% endif %}" id="{{ name }}" >
-                        {% for item in cluster if item.0 != '' %}
-                            {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
-
-                            {% if name in ['db', 'la', 'limit', 'type'] and not has_translation(item.0, cluster_labels) %}
-                            {% else %}
-                                <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
-                                    <div class="inputCheck1">
-                                        <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
+                    {###  apply different design to fulltext filter ###}
+                    {% if name == 'fulltext' %}
+                        <div class="box2" id="{{ name }}">
+                            <div class="boxCheck">
+                                <div class="inputCheck1">
+                                    <input id="fulltext_1" type="checkbox" name="filter[fulltext][]" value="1"
                                         {% for filter_name, filter in filters if filter_name == name %}
-                                            {% if item.0 in filter %}checked="true"{% endif %}
-                                        {% endfor %}
-                                        >
+                                            {% if cluster[0][0] in filter %}checked="true"{% endif %}
+                                        {% endfor %}>
+
+                                </div>
+                                <label class="labelCheck1" for="fulltext_1">
+                                    <a href="javascript: add_filter('fulltext_1');"
+                                        {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Filter','fulltext','1']); _gaq.push(['_trackEvent','Filter','Cluster','fulltext']);" {% endif %}>
+                                        {{ attribute(texts.REFINE, name) }}
+                                        ({{ cluster[0][1] }})
+                                    </a>
+                                </label>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="titleBox2" data-toggle="collapse" data-target="#{{ name }}">
+                            {{ attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-angle-up"></span>
+                        </div>
+
+                        <div class="box2 collapse show" id="{{ name }}" >
+                            {% for item in cluster if item.0 != '' %}
+                                {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
+
+                                {% if name in ['db', 'la', 'limit', 'type'] and not has_translation(item.0, cluster_labels) %}
+                                {% else %}
+                                    <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
+                                        <div class="inputCheck1">
+                                            <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
+                                            {% for filter_name, filter in filters if filter_name == name %}
+                                                {% if item.0 in filter %}checked="true"{% endif %}
+                                            {% endfor %}
+                                            >
+                                        </div>
+                                        <label class="labelCheck1" for="{{ cluster_item_id }}">
+                                            <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');"
+                                                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Filter','{{ name }}','{{ item.0 }}']); _gaq.push(['_trackEvent','Filter','Cluster','{{ name }}']);" {% endif %}>
+                                                {% if '/' in item.0 %}
+                                                    {% set item_part = item.0|split('/') %}
+                                                    {{ translate(item_part.1, cluster_labels ) }}
+                                                {% elseif '^' in item.0 %}
+                                                    {{ item.0|subfield(lang) }}
+                                                {% elseif '+' in item.0 %}
+                                                    {{ item.0|replace('+','/') }}
+                                                {% else %}
+                                                    {{ translate(item.0, cluster_labels ) }}
+                                                {% endif %}
+                                            </a>
+                                            ({{ item.1 }})
+                                        </label>
                                     </div>
-                                    <label class="labelCheck1" for="{{ cluster_item_id }}">
-                                        <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');"
-                                            {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Filter','{{ name }}','{{ item.0 }}']); _gaq.push(['_trackEvent','Filter','Cluster','{{ name }}']);" {% endif %}>
-                                            {% if '/' in item.0 %}
-                                                {% set item_part = item.0|split('/') %}
-                                                {{ translate(item_part.1, cluster_labels ) }}
-                                            {% elseif '^' in item.0 %}
-                                                {{ item.0|subfield(lang) }}
-                                            {% elseif '+' in item.0 %}
-                                                {{ item.0|replace('+','/') }}
-                                            {% else %}
-                                                {{ translate(item.0, cluster_labels ) }}
-                                            {% endif %}
-                                        </a>
-                                        ({{ item.1 }})
-                                    </label>
-                                </div>
+                                {% endif %}
+                            {% endfor %}
+                            <a name="{{ name }}"></a>
+
+                            {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
+                                {% set fb_total = collectionData.cluster_items_limit|number_format + cluster|length %}
+
+                                {% set fb_param_value =  fb|substring_after(':')|number_format %}
+                                {% set fb_param_cluster =  fb|substring_before(':') %}
+
+                                {% if fb_param_cluster == name and fb_param_value == fb_total %}
+                                    <!-- already at end of cluster -->
+                                {% else %}
+                                    <div class="boxCheck">
+                                        <label class="labelCheck1">
+                                            <strong><a href="javascript:show_more_clusters('{{ name }}', {{ fb_total }});">{{ texts.SHOW_MORE_ITEMS }}...</a></strong>
+                                        </label>
+                                    </div>
+                                {% endif %}
                             {% endif %}
-                        {% endfor %}
-                        <a name="{{ name }}"></a>
-
-                        {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
-                            {% set fb_total = collectionData.cluster_items_limit|number_format + cluster|length %}
-
-                            {% set fb_param_value =  fb|substring_after(':')|number_format %}
-                            {% set fb_param_cluster =  fb|substring_before(':') %}
-
-                            {% if fb_param_cluster == name and fb_param_value == fb_total %}
-                                <!-- already at end of cluster -->
-                            {% else %}
-                                <div class="boxCheck">
-                                    <label class="labelCheck1">
-                                        <strong><a href="javascript:show_more_clusters('{{ name }}', {{ fb_total }});">{{ texts.SHOW_MORE_ITEMS }}...</a></strong>
-                                    </label>
-                                </div>
-                            {% endif %}
-                        {% endif %}
-                    </div>
+                        </div>
+                    {% endif %}
                 </div>
             {% endif %}
         {% endif %}
