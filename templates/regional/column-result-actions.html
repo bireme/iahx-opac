@@ -43,9 +43,9 @@
         <h6 class="title1">{{ texts.SEARCH_DETAIL_BOX }}</h6>
 
     	{% if params.q is defined and params.q|length >= 2048 %}
-          <form action="" id="form_custom_search" method="POST">
+          <form action="{{ constant("SEARCH_URL") }}" id="form_custom_search" method="POST">
         {% else %}
-          <form action="" id="form_custom_search" method="GET">
+          <form action="{{ constant("SEARCH_URL") }}" id="form_custom_search" method="GET">
         {% endif %}
     	    {% for key, value in params %}
     	        {% if key != "filter" and key != "q" %}
@@ -57,7 +57,7 @@
     	        {% endif %}
     	    {% endfor %}
     		<textarea name="q" id="detailed_query_box" class="textarea1" rows="5">{{ detailed_query }}</textarea>
-    		<input type="submit" value="{{texts.SEARCH_SUBMIT}}" class="btnBlueM"/>
+            <a href="#" onclick="$('#form_custom_search').submit();" class="btnBlueM"><i class="fas fa-search"></i></a>
     	</form>
     </div>
 </div>
