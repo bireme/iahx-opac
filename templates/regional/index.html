@@ -78,6 +78,7 @@
     							<div class="inputCheck1 d-print-none">
                                     <input type="checkbox" class="my_selection" value="{{ doc.id }}"
                                     {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
+                                    <small>{{ loop.index + pag.start }}.</small>
                                 </div>
     							<div class="textArt">
     								<div class="titleArt">
