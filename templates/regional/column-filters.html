@@ -185,15 +185,31 @@
             {{ texts.YEAR_RANGE }} <span class="acordionIcone float-right fas fa-angle-up"></span>
         </div>
 
-        <div class="box2 collapse show" id="range_year" >
-            <a href="javascript:fill_range(5)">{{ texts.LAST_5_YEARS }}</a><br/>
-            <a href="javascript:fill_range(10)">{{ texts.LAST_10_YEARS }}</a><br/>
+        <div class="box2 collapse show" id="range_year">
+            <div class="boxCheck">
+                <div class="inputCheck1">
+                    <input id="last_5years" type="radio" name="years" onclick="javascript:fill_range(5)">
+                </div>
+                <label class="labelCheck1" for="last_5years">{{ texts.LAST_5_YEARS }}</label>
+            </div>
+            <div class="boxCheck">
+                <div class="inputCheck1">
+                    <input id="last_10years" type="radio" name="years" onclick="javascript:fill_range(10)">
+                </div>
+                <label class="labelCheck1" for="last_10years">{{ texts.LAST_10_YEARS }}</label>
+            </div>
+
             <div class="form-row">
                 <div class="col-4">
                     <input id="range_start" class="form-control" type="text" name="range_year_start" value="{{ range_year_start }}">
                 </div>
                 <div class="col-4">
                     <input id="range_end" class="form-control" type="text" name="range_year_end" value="{{ range_year_end }}">
+                </div>
+                <div class="col-4">
+                    <a href="#" onclick="$('#form_clusters').submit();" class="btnFilterDate">
+                        <i class="fas fa-arrow-right"></i>
+                    </a>
                 </div>
             </div>
         </div>
