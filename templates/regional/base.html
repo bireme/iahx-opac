@@ -11,9 +11,10 @@
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/all.min.css">
         {% endif %}
 
-        <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300, 400,600,900" rel="stylesheet">
+        <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,900" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/style.css">
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/acessibilidade.css">
 
         <!-- meta-tags -->
         <meta charset="UTF-8">
@@ -69,6 +70,8 @@
     {% endblock %}</head>
 
     <body>
+        {% include custom_template("accessibility-bar.html") %}
+
         {% block header %}
             {% include custom_template("header.html") %}
         {% endblock %}
@@ -112,6 +115,8 @@
         <script src="{{ constant("STATIC_URL") }}/js/bootstrap.min.js"></script>
         {% endif %}
         <!-- application js files -->
+        <script src="{{ constant("STATIC_URL") }}/js/cookie.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/accessibility.js"></script>
         <script src="{{ constant("STATIC_URL") }}/js/functions.js"></script>
         <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
         <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
