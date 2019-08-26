@@ -23,9 +23,28 @@ $('#btnFiltraM').click(function(event) {
 	}
 });
 
-/*Ativar Resumo*/
-$('#customSwitches').click(function(){
-	$('.reference-detail').toggleClass('collapse');
+// get show/hide details switch from cookie
+var show_detail = Cookies.get('show_detail');
+
+// update switch on page load
+$( document ).ready(function() {
+	if(show_detail == 'on'){
+        $('#showDetailSwitch').click();
+	}
+});
+// update switch on page load
+$('#showDetailSwitch').click(function(){
+    // show/hide references details
+    $('.reference-detail').toggleClass('collapse');
+
+    // chck if after toggle reference is collapsed
+    var hide_detail = $('.reference-detail').hasClass('collapse');
+    // save state in cookie
+    if( hide_detail == true){
+        Cookies.set('show_detail', '', { expires: 1 });
+	}else{
+		Cookies.set('show_detail', 'on', { expires: 1 });
+	}
 });
 
 // Scroll totop button
