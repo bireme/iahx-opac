@@ -12,12 +12,16 @@ $app->match('similar/', function (Request $request) use ($app, $DEFAULT_PARAMS, 
 
     $text = (isset($params['text']) ? $params['text'] : '');
     $doc_id = (isset($params['doc_id']) ? $params['doc_id'] : '');
+    $source = (isset($params['source']) ? $params['source'] : '');
 
     if ($text != ''){
 
         $text = urlencode($text);
 
         $similar_service_url = 'http://similardocs.bireme.org/SDService?adhocSimilarDocs=' . $text;
+        if ($source != ''){
+            $similar_service_url .= '&sources=' . $source;
+        }
         $similar_response = @file_get_contents($similar_service_url);
         $similar_xml = simplexml_load_string($similar_response, 'SimpleXMLElement',LIBXML_NOCDATA);
         $json = json_encode($similar_xml);
@@ -34,6 +38,7 @@ $app->match('similar/', function (Request $request) use ($app, $DEFAULT_PARAMS, 
         $output_array['texts'] = $texts;
         $output_array['similar_docs'] = $similar_docs;
         $output_array['doc_id'] = $doc_id;
+        $output_array['source'] = $source;
 
         return $app['twig']->render( custom_template('/similar-docs.html'), $output_array );
     }

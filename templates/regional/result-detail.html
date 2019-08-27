@@ -56,6 +56,11 @@
     <meta name="citation_language" content="{{ doc.la.0 }}" />
     <meta name="citation_publication_date" content="{{ doc.da|slice(0,4) }}" />
     <meta name="dc.date" content="{{ doc.da|slice(0,4) }}" />
+
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/jBox.all.min.css">
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/slick.css">
+    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/slick-theme.css">
+
 {% endblock %}
 
 {% block content %}
@@ -182,6 +187,41 @@
                     <!-- <a href="#" target="_blank" class="mediaSocial fas fa-share-alt"></a> -->
                 </div>
             {% endif %}
+
+            <div class="titleArt"><h4><b>{{ texts.RELATED_DOCUMENTS }}</b></h4></div>
+            <div id="similares">
+                <div class="box4" >
+                    <div class="titleArt"><b>MEDLINE</b></div>
+                    <hr>
+                    <div class="row" id="similar-MEDLINE">
+                    </div>
+                    <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-MEDLINE">
+                        <span class="acordionIcone fas fa-angle-down"></span>
+                    </div>
+                </div>
+
+                <div class="box4">
+                    <div class="titleArt"><b>LILACS</b></div>
+                    <hr>
+                    <div class="row" id="similar-LILACS">
+                    </div>
+                    <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-LILACS">
+                        <span class="acordionIcone fas fa-angle-down"></span>
+                    </div>
+                </div>
+
+                <div class="box4">
+                    <div class="titleArt"><b>LIS</b></div>
+                    <hr>
+                    <div class="row" id="similar-LIS">
+
+                    </div>
+                    <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-LIS">
+                        <span class="acordionIcone fas fa-angle-down"></span>
+                    </div>
+                </div>
+            </div> <!-- /similares -->
+
         </div> <!-- /col-md-9 -->
         {% include custom_template('column-detail-actions.html') %}
     </div>
@@ -189,10 +229,11 @@
 {% endblock %}
 
 {% block footerscripts %}
-    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/jBox.all.min.css">
+    <!--jBox library is used for highlight DeCS terms in abstract -->
     <script src="{{ constant("STATIC_URL") }}/js/jBox.all.min.js"></script>
     <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
     <script src="{{ constant("STATIC_URL") }}/js/decs_window.js"></script>
+    <script src="{{ constant("STATIC_URL") }}/js/slick.js"></script>
 
     {% if config.epistemonikos_token %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
@@ -207,21 +248,25 @@
 
     {% if config.show_similar_docs == 'true' %}
         <script>
-            var similar_url = '{{ constant("SEARCH_URL") }}' + 'similar/';
-            var text_param = "{{ occ( {'element': doc.ti, separator: ' '} ) }}";
-            {% if doc.mh %}
-                text_param += "{{ occ( {'element': doc.mh, separator: ' '} ) }}";
-            {% endif %}
-            {% if doc.ab %}
-                text_param += "{{ occ( {'element': doc.ab, separator: ' '} ) }}";
-            {% endif %}
-            // Send the data using post
-            var posting = $.post( similar_url, { text: text_param, doc_id: '{{doc.id}}' } );
-
-            // Put the results in a div
-            posting.done(function( data ) {
-              $('#similar-docs').empty().append(data);
-            });
+            function get_similars($source){
+                var similar_url = '{{ constant("SEARCH_URL") }}' + 'similar/';
+                var text_param = "{{ occ( {'element': doc.ti, separator: ' '} ) }}";
+                {% if doc.mh %}
+                    text_param += "{{ occ( {'element': doc.mh, separator: ' '} ) }}";
+                {% endif %}
+                {% if doc.ab %}
+                    text_param += "{{ occ( {'element': doc.ab, separator: ' '} ) }}";
+                {% endif %}
+                // get similars articles
+                var posting = $.post( similar_url, {text: text_param, doc_id: '{{doc.id}}', source: $source} );
+                // put results in a div
+                posting.done(function( data ) {
+                  $('#similar-'+ $source).empty().append(data);
+                });
+            }
+            get_similars('MEDLINE');
+            get_similars('LILACS');
+            get_similars('LIS');
         </script>
     {% endif %}
 
@@ -234,5 +279,17 @@
         });
     </script>
     {% endif %}
+
+    <script>
+		$('#similares').slick({
+			slidesToShow: 1,
+			slidesToScroll: 1,
+			autoplay: false,
+			autoplaySpeed: 3000,
+			infinite: true,
+			dots: false
+		});
+	</script>
+
 
 {% endblock %}
