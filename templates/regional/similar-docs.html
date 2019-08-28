@@ -1,8 +1,12 @@
 {% for similar in similar_docs['document']  %}
     {% if similar['id'] != doc_id %}
+        {% if loop.first %}
+            <div class="row">
+        {% endif %}
 
         {% if loop.index == 7 %}
-            <div class="row collapse" id="more-{{source}}">
+            </div> <!-- close main div row-->
+                <div class="row collapse" id="more-{{source}}">
         {% endif %}
 
         <div class="col-md-4 similares">
@@ -11,6 +15,8 @@
             </a>
         </div>
         {% if loop.index > 7 and loop.last %}
+            </div>
+        {% elseif loop.last %}
             </div>
         {% endif %}
     {% endif %}
