@@ -1,4 +1,4 @@
-<div class="epistemonikos_box">
+<div class="epistemonikos_box" style="margin-top: 20px;">
     <strong>{{ attribute(texts, classification|upper|replace({"-": "_"})) }}</strong>
 
     {% if classification_status == 'machine' %}
@@ -31,10 +31,8 @@
             ({{ total_references }} {{ texts.REFERENCES}})
         </a>
     {% endif %}
-    <div class="epistemonikos_copy">
-        <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" onclick="_gaq.push(['_trackEvent','Epistemonikos','Show article detail','{{ doc_id }}']);" target="_blank">
+        | <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" onclick="_gaq.push(['_trackEvent','Epistemonikos','Show article detail','{{ doc_id }}']);" target="_blank">
             <img src="{{ constant("STATIC_URL") }}/image/common/icon_epistemonikos.png" width="20" />
             {{ texts.SEE_IN }} Epistemonikos
         </a>
-    </div>
 </div>

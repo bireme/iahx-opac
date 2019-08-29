@@ -313,7 +313,7 @@
                                 <label for="selection">{{ texts.SEND_RESULT }}</label><br>
                                 <fieldset>
                                     <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page"> {{ texts.THIS_PAGE }}</label>
-                                    <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }}</label>
+                                    <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)</label>
                                     <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES_LIMIT }}</label>
                                 </fieldset>
                             {% endif %}
@@ -329,7 +329,7 @@
 
     <!-- Modal Export Resul -->
 	<div class="modal fade" id="ModalExport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-		<div class="modal-dialog modal-dialog-centered" role="document">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
 					<h5 class="modal-title" id="exampleModalLabel">{{ texts.EXPORT }}</h5>
@@ -355,7 +355,7 @@
                             {{ texts.THIS_PAGE }}
                         </a>
                         <a href="javascript:export_result('selection');" title="{{ texts.YOUR_SELECTION }}" class="btn btn-primary">
-                            {{ texts.YOUR_SELECTION }}
+                            {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)
                         </a>
                         <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}" class="btn btn-primary">
                             {{ texts.ALL_REFERENCES }}
