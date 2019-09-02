@@ -10,7 +10,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     );
 
     $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
-    
+
     // if magic quotes gpc is on, this function clean all parameters and
     // results that was modified by the directive
     if (get_magic_quotes_gpc()) {
@@ -101,10 +101,11 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $output_array['texts'] = $texts;
     $output_array['tree_id_category'] = substr($tree_id,0,1);
     $output_array['params'] = $params;
+    $output_array['filters'] = ( isset($params['filter']) ? $params['filter'] : array() );
     $output_array['config'] = $config;
     $output_array['collectionData'] = $collectionData;
     $output_array['mode'] = $mode;
-    $output_array['filter_prefix'] = ( isset($config->decs_locate_filter) ? $config->decs_locate_filter : 'mh') ;
+    $output_array['filter_prefix'] = ( isset($config->decs_locate_filter) ? $config->decs_locate_filter : 'mh' );
 
     return $app['twig']->render( 'decs-locator-page.html', $output_array );
 

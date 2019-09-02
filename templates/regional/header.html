@@ -21,7 +21,7 @@
 				</div>
 				<div class="headerBt">
                     {% if lang in ['pt', 'es', 'en'] %}
-                        <a href="#" onclick="decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                        <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                     {% else %}
                          <br/>
                     {% endif %}

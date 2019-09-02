@@ -32,6 +32,11 @@
                             <input type="hidden" name="lang" value="{{lang}}"/>
                             <input type="hidden" name="mode" value="{{mode}}"/>
                             <input type="hidden" name="tree_id" id="tree_id" value=""/>
+                            {% for name, items in filters if filters is defined %}
+                                {% for item in items %}
+                                    <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
+                                {% endfor %}
+                            {% endfor %}
 
 					        <input type="text" class="form-control" id="query" autocomplete="off" placeholder="{{texts.SEARCH_WORDS}}">
                         </form>
