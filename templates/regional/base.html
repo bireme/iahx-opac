@@ -70,13 +70,13 @@
     {% endblock %}</head>
 
     <body>
-        {% include custom_template("accessibility-bar.html") %}
-
         {% block header %}
+            {% include custom_template("accessibility-bar.html") %}
             {% include custom_template("header.html") %}
         {% endblock %}
         <section class="">
             <div class="container">
+                {% block breadcrumb %}
                 <nav>
                     <ol class="breadcrumb">
                         <li class="breadcrumb-item">
@@ -92,13 +92,17 @@
                         </li>
                     </ol>
                 </nav>
+                {% endblock %}
                 {% block content %}
 
                 {% endblock %}
             </div>
         </section>
 
-        {% include custom_template("footer.html") %}
+        {% block footer %}
+            {% include custom_template("footer.html") %}
+        {% endblock %}
+
         {% block extrafooter %}
         {% endblock %}
 

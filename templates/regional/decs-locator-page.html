@@ -1,6 +1,6 @@
 {% extends custom_template("base.html") %}
 
-{% block top %}
+{% block header %}
     {% if mode != 'dataentry' %}
         {{ parent() }}
     {% endif %}
@@ -15,7 +15,11 @@
 {% block script %}{% endblock %}
 {% block onload %}{% endblock %}
 
-{% block breadcrumb_last %}{{ texts.DECS_LOOKUP }}{% endblock %}
+{% block breadcrumb %}
+    {% if mode != 'dataentry' %}
+        {{ parent() }}
+    {% endif %}
+{% endblock %}
 
 {% block content %}
     <section class="">
@@ -26,6 +30,7 @@
 						<label for=""><b>{{ texts.DECS_LOOKUP }}</b></label>
                         <form action="{{ constant("SEARCH_URL") }}decs-locator/" id="DeCSForm">
                             <input type="hidden" name="lang" value="{{lang}}"/>
+                            <input type="hidden" name="mode" value="{{mode}}"/>
                             <input type="hidden" name="tree_id" id="tree_id" value=""/>
 
 					        <input type="text" class="form-control" id="query" autocomplete="off" placeholder="{{texts.SEARCH_WORDS}}">
@@ -150,6 +155,13 @@
                                         / {{ decs.record_list.record.descriptor_list.descriptor.2 }}</strong>
                                     {% endif %}
 
+                                    {% if mode is defined and mode == 'dataentry' %}
+                                        {% if decs.record_list.record.tree_id_list.tree_id.0|trim|slice(0,1) != 'Q' %}
+                                            <input type="button" class="btn btn-block btn-primary" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|^d{{ decs.record_list.record.attributes.mfn }}');" class="btn-custom btn-large" />
+                                            <br>
+                                        {% endif %}
+                                    {% endif %}
+
                                     {% if decs.record_list.record.definition.occ.attributes.n != '' or decs.record_list.record.synonym_list.synonym != '' %}
                                         <div class="alert alert-secondary" role="alert">
 
@@ -233,7 +245,7 @@
                                             {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}
                                                 <div class="col-md-6">
                                                 {% if mode is defined and mode == 'dataentry'%}
-                                                    <input type="button" name="qlf" class="qlf btn-custom" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');" style="width: 30px" />
+                                                    <input type="button" name="qlf" class="qlf btn btn-outline-dark" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');"  />
                                                     <a href="javascript:showQualifierInfo('{{qlf}}')">{{  attribute(texts, qlf) }}</a>
                                                 {% else %}
                                                     <input type="checkbox" name="qlf" class="qlf" value="{{ qlf }}" id="{{ qlf }}"/>
@@ -246,11 +258,7 @@
 
     								<div class="form-group">
                                         <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger">
-                                            {% if mode is defined and mode == 'dataentry'%}
-                                                {% if decs.record_list.record.tree_id_list.tree_id.0|trim|slice(0,1) != 'Q' %}
-                                                    <input type="button" value="{{ texts.SELECT }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}|^d{{ decs.record_list.record.attributes.mfn }}');" class="btn btn-block btn-primary" />
-                                                {% endif %}
-                                            {% else %}
+                                            {% if mode != 'dataentry'%}
                                                 <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn btn-block btn-primary" />
                                             {% endif %}
                                         </form>
