@@ -41,7 +41,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $decs_service_url = "http://decs.bvs.br/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang;
 
     if ($descriptor != ''){
-        $decs_service_url .= "&bool=101%20" . $descriptor; // get descriptor by authorized term
+        $decs_service_url .= "&bool=101%20" . str_replace(' ','%20', $descriptor); // get descriptor by authorized term
     }else{
         $decs_service_url .= "&tree_id=" . $tree_id;        // get descriptor by tree
     }

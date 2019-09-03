@@ -245,7 +245,11 @@
                                     {% endif %}
 
                                     {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier != '' %}
-                                        <strong>{{ texts.RESTRICT_BY_ASPECT }}:</strong>
+                                        {% if mode is defined and mode == 'dataentry'%}
+                                            <strong>{{ texts.SPECIFY_ASPECT }}</strong>
+                                        {% else %}
+                                            <strong>{{ texts.RESTRICT_BY_ASPECT }}:</strong>
+                                        {% endif %}
                                         <div class="row qlf_box">
                                             {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}
                                                 <div class="col-md-6">
