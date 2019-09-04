@@ -1,7 +1,7 @@
 /*Versão Beta*/
 /*Aumentar ou Reduzir Fontes*/
 $(document).ready(function(){
-	var fontPadrao = 16; var classPadrao = 'p, li'; 
+	var fontPadrao = 16; var classPadrao = 'p, li';
 	var font12 = 12; var class12 = '.listSelectCont li a, footer, .atribArtigos, .breadcrumb-item a, .breadcrumb-item, #btnFiltroD, .formAdvance label';
 	var font14 = 14; var class14 = '.box2, .title1, .textarea1, .selectOrder, .similares, .btnTools, .link1, .tree li, .btnBlue, .btnBlueM';
 	var font16 = 16; var class16 = '.tab-content, .reference, .dataArticle, .btnFilter, .titleBox2, .similares .link1, #searchDocsTrigger, .listSelectCont li a, .formSelect, #q';
@@ -64,7 +64,7 @@ $('a[href="#pesquisa"]').click(function(){
 })
 // cache contraste
 var cor = Cookies.get('cor');
-// Ao Abrir a pagina 
+// Ao Abrir a pagina
 $( document ).ready(function() {
 	if(cor == '' || typeof cor === "undefined"){
 		$('body').removeClass('bodyBlack');
@@ -81,7 +81,7 @@ $('#contraste').on( "click", function(){
 	}
 	$('body').toggleClass('bodyBlack');
 });
-/*Busca por voz*/
+/*Busca por voz
 window.addEventListener('DOMContentLoaded', function() {
 	var speakBtn = document.querySelector('#speakBtn');
         // testa se o navegador suporta o reconhecimento de voz
@@ -106,3 +106,4 @@ window.addEventListener('DOMContentLoaded', function() {
         	$('#speakBtn').css('display','none');
         }
     }, false);
+*/
