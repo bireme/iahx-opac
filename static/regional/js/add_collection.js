@@ -4,13 +4,13 @@ $(document).ready(
 
         $('div.doc-detail').each(
             function(){
-                var x = $('div.platserv.boxTools a.add-collection.btnTools');
+                var x = $('div.platserv.boxToolsMain a.add-collection.btnTools');
 
                 //var author = $(this).find('div.author a').html();
-                var author = $(this).find('div.author a').text();
+                var author = $(this).find('div.author').text();
                 author = author.replace(/[^ ]+/i,'');
 
-                var title = $(this).find('div.titleArt b').text();
+                var title = $(this).find('div.titleArt').text();
 
                 var id = $(this).find('div.dataArticle span.doc_id').text();
 
@@ -35,7 +35,7 @@ $(document).ready(
                 obj.title = $.trim(title);
                 obj.id = $.trim(id);
 
-                // alert(JSON.stringify(obj, null, 4));
+                // alert(JSON.stringify(obj, null, 4)); return false;
 
                 x.on('click', function(){
                     obj.userTK = unescape(getCookie('userTK'));
