@@ -260,9 +260,6 @@
                 {% if doc.mh %}
                     text_param += "{{ occ( {'element': doc.mh, separator: ' '} ) }}";
                 {% endif %}
-                {% if doc.ab %}
-                    text_param += "{{ occ( {'element': doc.ab, separator: ' '} ) }}";
-                {% endif %}
                 // get similars articles
                 var posting = $.post( similar_url, {text: text_param, doc_id: '{{doc.id}}', source: $source} );
                 // put results in a div
