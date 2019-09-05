@@ -1,7 +1,5 @@
 {% extends custom_template("base.html") %}
 
-{% set current_url = constant("SEARCH_URL") ~ app.request.server.get('REQUEST_URI')|slice(1) %}
-
 {% block breadcrumb_last %}
     {% if params.filterLabel != "" %}
         {{ params.filterLabel|truncate(90) }}

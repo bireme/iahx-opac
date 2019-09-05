@@ -54,6 +54,7 @@ $app->get('resource/{lang}/{id}', function (Request $request, $lang, $id) use ($
             $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
         }
 
+        $output_array['current_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
         $output_array['config'] = $config;
         $output_array['texts'] = $texts;
 

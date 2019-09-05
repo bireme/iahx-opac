@@ -345,7 +345,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['pag'] = $pag;
     $output_array['config'] = $config;
     $output_array['texts'] = $texts;
-    $output_array['current_url'] = $_SERVER['REQUEST_URI'];
+    $output_array['current_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
     $output_array['display_file'] = "result-format-" . $format . ".html";
     $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
     $output_array['config_cluster_list'] = $config_cluster_list;
