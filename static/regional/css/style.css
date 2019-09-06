@@ -159,6 +159,7 @@
 }
 @media (max-width: 992px){
 	#resumo, #tabResumo{width: 86%;}
+    .textArt{width: 80%;}
 }
 @media (max-width: 768px){
 	.marginMC1{ margin-bottom: 10px;}
