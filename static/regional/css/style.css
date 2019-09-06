@@ -199,7 +199,7 @@
 @media (max-width: 556px){
 	#resumo, #tabResumo{width: 100%;}
 	.social{ margin: 0 0 20px 0;float: none; width: auto; position: static;}
-	.mediaSocial{display: block;}
+	.mediaSocial{float:left; margin-bottom:20px}
 }
 @media print{
 	p,a, h1,h2,h3,h4,h5,h5,	titleArt, b{color: #000!important;}
