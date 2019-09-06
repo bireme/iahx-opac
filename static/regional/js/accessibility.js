@@ -81,7 +81,7 @@ $('#contraste').on( "click", function(){
 	}
 	$('body').toggleClass('bodyBlack');
 });
-/*Busca por voz
+/*Busca por voz */
 window.addEventListener('DOMContentLoaded', function() {
 	var speakBtn = document.querySelector('#speakBtn');
         // testa se o navegador suporta o reconhecimento de voz
@@ -106,4 +106,3 @@ window.addEventListener('DOMContentLoaded', function() {
         	$('#speakBtn').css('display','none');
         }
     }, false);
-*/
