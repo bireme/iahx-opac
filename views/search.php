@@ -449,17 +449,17 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
             $export_content = "";
             while ($from < $export_total){
+                // export results
                 $export_content .= $app['twig']->render( custom_template($export_template), $output_array);
-
+                // increase from to get next result set
                 $from = $from + $count;
-
-                // Dia response
+                // get next result set
                 $dia = new Dia($site, $col, $count, $output, $lang);
                 $dia->setParam('fb', $fb);
                 $dia->setParam('sort', $sort_value);
                 $dia->setParam('initial_filter', $initial_filter );
 
-                $dia_response = $dia->search($q, $index, $user_filter, $from);
+                $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $from);
                 $result = json_decode($dia_response, true);
 
                 $output_array['from'] = $from;
