@@ -153,6 +153,9 @@
 .slick-next{right: 10px!important; z-index: 10;}
 .slick-prev{left: 10px!important; z-index: 10;}
 #q{width: 120%;}
+
+#iconeFeedback{width: 35px;position: fixed; left: 0; bottom: 100px;}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}

@@ -407,6 +407,11 @@
 			</div>
 		</div>
 	</div>
+        {% if config.feedback_button_urls %}
+            <div id="iconeFeedback">
+                <a href="{{ attribute(config.feedback_button_urls, lang) }}" target="blank"><img src="{{ constant("STATIC_URL") }}/image/{{lang}}/iconFeedback.svg" alt=""></a>
+            </div>
+        {% endif %}
     {% endif %}
 {% endblock %}
 
