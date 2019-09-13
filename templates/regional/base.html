@@ -14,6 +14,9 @@
         <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,900" rel="stylesheet">
 
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/style.css">
+        {% if config.use_custom_stylesheet == 'true' %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/custom/css/style.css">
+        {% endif %}
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/acessibilidade.css">
 
         <!-- meta-tags -->
