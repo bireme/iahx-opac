@@ -15,7 +15,7 @@ $app->match('decs/{lang}/{term}', function (Request $request, $lang, $term) use 
 
     $term = stripcslashes($term);
     $term = strtoupper($term);
-    $term = urlencode($term);
+    $term = remove_accents($term);
 
     $concept = 0;
     for( $i = 0; !$concept && ($i < sizeof($bool)); $i = $i + 1 ){
@@ -23,6 +23,7 @@ $app->match('decs/{lang}/{term}', function (Request $request, $lang, $term) use 
         $decs = @simplexml_load_file($query);
         if ($decs){
             $concept = (String) @$decs->decsws_response->record_list->record->definition->occ['n'];
+            break;
         }
     }
     $i = $i - 1;
