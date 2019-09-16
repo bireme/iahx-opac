@@ -82,8 +82,8 @@ $(document).ready(
             }
         );
 
-        $('div#rss a.add-rss').on('click', function(){
-            var name = $('div.identification h1').text();
+        $('a.add-rss').on('click', function(){
+            var name = $('div.titleMain1').text();
             var url = $(location).attr('href');
             var sep = ' | ';
 
