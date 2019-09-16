@@ -129,6 +129,8 @@
         <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
 
         {% if config.services_platform_domain != '' %}
+        <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
+        
         <script type="text/javascript">
             $(document).ready( function(){
                 var userTK = unescape(getCookie('userTK'));
