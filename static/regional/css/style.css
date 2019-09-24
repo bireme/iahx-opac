@@ -156,6 +156,13 @@
 
 #iconeFeedback{width: 35px;position: fixed; left: 0; bottom: 100px;}
 
+.ui-autocomplete {
+  max-height: 350px;
+  overflow-y: auto;
+  /* prevent horizontal scrollbar */
+  overflow-x: hidden;
+}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
