@@ -72,7 +72,7 @@
     <input type="hidden" name="fb" value="">
 
     {% for key, value in params %}
-        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and key != "reset_filters" and "_submit" not in key  %}
+        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and key != "reset_filters" and key != "view_filter" and "_submit" not in key  %}
             {% if key == "from" or key == "page" %}
                 <input type="hidden" name="{{ key }}" value="1">
             {% else %}
@@ -86,6 +86,9 @@
                 {% endfor %}
             {% endfor %}
         {% endif %}
+    {% endfor %}
+    {% for vf_value in view_filter if view_filter is defined %}
+        <input type="hidden" id="view_filter_{{vf_value}}" name="view_filter[]" value="{{vf_value}}">
     {% endfor %}
 
     {% for name, cluster in clusters if cluster|length > 0 %}
@@ -127,7 +130,7 @@
                             {% for item in cluster if item.0 != '' %}
                                 {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
-                                {% if name in ['db', 'la', 'limit', 'type'] and not has_translation(item.0, cluster_labels) %}
+                                {% if name in ['db', 'la', 'limit', 'type', 'type_of_study'] and not has_translation(item.0, cluster_labels) %}
                                 {% else %}
                                     <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
                                         <div class="inputCheck1">
