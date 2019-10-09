@@ -32,7 +32,7 @@ class Dia
         return;
     }
 
-    function search($query, $index = '', $user_filter = array(), $range_filter = '', $from = 0){
+    function search($query, $index = '', $user_filter = array(), $range_filter = '', $view_filter = '', $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
@@ -58,7 +58,11 @@ class Dia
         }
 
         if ( $range_filter != '' ){
-            $filter = $filter . " AND ( " . $range_filter . ")";
+            $filter = $filter . " AND (" . $range_filter . ")";
+        }
+
+        if ( $view_filter != '' ){
+            $filter = $filter . " AND (" . $view_filter . ")";
         }
 
         $this->param["fq"] = $filter;

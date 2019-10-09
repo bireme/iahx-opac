@@ -3,13 +3,13 @@ function remove_filter(id) {
         $("#"+id).attr("checked", false);
     }else{
         // remove hidden file
-        $("#"+id).remove();    
+        $("#"+id).remove();
     }
     $("#form_clusters").submit();
 }
 
 function add_filter(id) {
-    
+
     filter = $("#"+id);
 
     // check or uncheck
@@ -49,7 +49,6 @@ function show_more_clusters (cluster, limit) {
 }
 
 function reset_filters(){
-
     $('<input>').attr({
         type: 'hidden',
         id: 'reset_filters',
@@ -58,5 +57,22 @@ function reset_filters(){
     }).appendTo('#form_clusters');
 
     $("#form_clusters").submit();
+}
 
+function add_view_filter(value){
+    view_filter_id = 'view_filter_' + value;
+    // if filter already applied remove it
+    if ($('#' + view_filter_id).length){
+        $('#' + view_filter_id).remove();
+    }else{
+    // create new filter as input hidden
+        $('<input>').attr({
+            type: 'hidden',
+            id: view_filter_id,
+            name: 'view_filter[]',
+            value: value
+        }).appendTo('#form_clusters');
+    }
+    // resubmit cluster form
+    $("#form_clusters").submit();
 }

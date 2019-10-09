@@ -18,6 +18,9 @@
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/custom/css/style.css">
         {% endif %}
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/acessibilidade.css">
+        {% if config_view_filter %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/sidebar.css">
+        {% endif %}
 
         <!-- meta-tags -->
         <meta charset="UTF-8">
@@ -76,6 +79,9 @@
         {% block header %}
             {% include custom_template("accessibility-bar.html") %}
             {% include custom_template("header.html") %}
+            {% if config_view_filter %}
+                {% include custom_template("sidebar.html") %}
+            {% endif %}
         {% endblock %}
         <section class="">
             <div class="container">
@@ -127,10 +133,13 @@
         <script src="{{ constant("STATIC_URL") }}/js/functions.js"></script>
         <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
         <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
+        {% if config_view_filter %}
+        <script src="{{ constant("STATIC_URL") }}/js/sidebar.js"></script>
+        {% endif %}
 
         {% if config.services_platform_domain != '' %}
         <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
-        
+
         <script type="text/javascript">
             $(document).ready( function(){
                 var userTK = unescape(getCookie('userTK'));

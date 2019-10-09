@@ -187,6 +187,27 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         }
     }
 
+    // apply view_filters
+    $view_filter_param = array();
+    $view_filter = '';
+    $config_view_filter = ($collectionData->view_filter ? $collectionData->view_filter : '');
+    if( !empty($params['view_filter']) ) {
+        $view_filter_param = $params['view_filter'];
+        $view_filter_array = array();
+        // load view filter configuration
+        $view_filter_json = file_get_contents(PATH_DATA . 'config/filter-' . $config_view_filter . '.json');
+        $view_filter_config = json_decode($view_filter_json, true);
+
+        foreach ($view_filter_param as $vf){
+            $vf_data = explode("_", $vf);
+            $vf_group = $vf_data[0];
+            $vf_item = $vf_data[1];
+            array_push($view_filter_array, $view_filter_config['filter'][$vf_group]['options'][$vf_item]['value']);
+        }
+        $view_filter = join(' OR ', $view_filter_array);
+    }
+
+
     // BOOKMARK SESSION
     $SESSION = $app['session'];
     $SESSION->start();
@@ -270,7 +291,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $dia->setParam('sort', $sort_value);
     $dia->setParam('initial_filter', $initial_filter );
 
-    $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $from);
+    $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
     $result = json_decode($dia_response, true);
 
     // detailed query
@@ -332,6 +353,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['user_preference_filter'] = (array) $user_preference_filter;
     $output_array['filters'] = $filter;
     $output_array['filters_formatted'] = $filter;
+    $output_array['config_view_filter'] = $config_view_filter;
+    $output_array['view_filter'] = $view_filter_param;
     $output_array['lang'] = $lang;
     $output_array['q'] = $q;
     $output_array['fb'] = $fb;
@@ -459,7 +482,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $dia->setParam('sort', $sort_value);
                 $dia->setParam('initial_filter', $initial_filter );
 
-                $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $from);
+                $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
                 $result = json_decode($dia_response, true);
 
                 $output_array['from'] = $from;

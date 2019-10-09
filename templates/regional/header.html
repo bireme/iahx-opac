@@ -52,6 +52,11 @@
                                 <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
                             {% endfor %}
                         {% endfor %}
+
+                        {% for vf_value in view_filter if view_filter is defined %}
+                            <input type="hidden" name="view_filter[]" value="{{vf_value}}">
+                        {% endfor %}
+
                         {% if range_year_start %}
                             <input type="hidden" name="range_year_start" id="range_year_start" value="{{ range_year_start }}">
                             <input type="hidden" name="range_year_end" id="range_year_end" value="{{ range_year_end }}">
@@ -106,9 +111,14 @@
 							</div>
                         </div>
                     </form>
-
 				</div>
+                {% if config_view_filter %}
+                    <div style="margin-top: 10px">
+                        <a href="#" id="btSidebar" data-view="{{config_view_filter}}" class="btn btn-sm btn-outline-light">{{ texts.VIEW_FILTER }}</a>
+                    </div>
+                {% endif %}
 			</div>
 		</div>
 	</div>
+
 </header>
