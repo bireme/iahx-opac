@@ -5,7 +5,7 @@ $('#btSidebar').click(function(e){
     $("input[id^='view_filter_']").each(function(){
         applied_filters.push($(this).val());
     });
-    $.get("/view-filter/" + view_filter_id, {"applied_filters[]": applied_filters}, function(response){
+    $.get("view-filter/" + view_filter_id, {"applied_filters[]": applied_filters}, function(response){
         $("#sidebar-body").html(response);
     });
 
