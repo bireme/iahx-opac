@@ -56,7 +56,7 @@ function print_record(q) {
 }
 
 // altera output param para "print" e realiza o submit
-function print_page(selection=false) {
+function print_page(selection) {
     if (selection == true){
         $.get('bookmark/list', function(q) {
             $("#q").val(q);
