@@ -99,10 +99,10 @@ window.addEventListener('DOMContentLoaded', function() {
             	var result = e.results[0][0].transcript;
             	// console.log(result);
             	document.getElementById("q").value = result;
-                // $("#pesquisa").val(result);
+                $("#searchForm").submit();
             }, false);
         } else {
-        	// alert('Este navegador não suporta esta funcionalidade ainda!');
+            // nao suportado
         	$('#speakBtn').css('display','none');
         }
     }, false);
