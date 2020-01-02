@@ -13,9 +13,7 @@
         <meta name="dc.title" content="{{ title }}" />
     {% endfor %}
 
-    {% if 'article' in doc.type %}
-        <meta name="citation_title" content="{{ doc.ti.0 }}" />
-    {% endif %}
+    <meta name="citation_title" content="{{ doc.ti.0 }}" />
 
     {% if doc.au is defined %}
         {% for author in doc.au %}
