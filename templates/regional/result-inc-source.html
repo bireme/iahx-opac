@@ -22,16 +22,19 @@
 
     <!-- database -->
     {% if 'LXP' in doc.services %}
-    	{% if lang == 'pt' %}
-    		{% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/P/llxp_disclaimer.htm' %}
-    	{% elseif lang == 'es' %}
-    		{% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/E/llxp_disclaimer.htm' %}
-    	{% else %}
-    		{% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/I/llxp_disclaimer.htm' %}
-    	{% endif %}
-       	| <a href="{{ lxp_disclaimer_url }}" title="LILACS-Express" class="fancybox_iframe">
-           	LILACS-Express
-       	</a>
+        {% set disclaimer_file = 'IBECS' in doc.db ? 'ibc_llxp_disclaimer.htm' : 'llxp_disclaimer.htm' %}
+        {% set lxp_db = 'IBECS' in doc.db ? 'IBECS-Express' : 'LILACS-Express' %}
+
+        {% if lang == 'pt' %}
+            {% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/P/' ~ disclaimer_file %}
+        {% elseif lang == 'es' %}
+            {% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/E/' ~ disclaimer_file %}
+        {% else %}
+            {% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/I/' ~ disclaimer_file %}
+        {% endif %}
+        | <a href="{{ lxp_disclaimer_url }}" target="_blank" title="{{ lxp_db }}">
+            {{ lxp_db }}
+        </a>
     {% else %}
         {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
     {% endif %}
