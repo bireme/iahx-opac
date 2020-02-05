@@ -509,11 +509,11 @@ function get_page_type($type) {
     if ( 'site' == $type ) {
         $page = 'Search';
     } elseif ( 'advanced_form' == $type ) {
-        $page = 'Advanced Form';
+        $page = 'Advanced Search';
     } elseif ( 'detail' == $type ) {
-        $page = 'Home';
+        $page = 'Document';
     } elseif ( 'decs_lookup' == $type ) {
-        $page = 'DeCS Lookup';
+        $page = 'DeCS Locator';
     }
 
     return $page;
