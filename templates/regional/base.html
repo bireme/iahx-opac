@@ -21,6 +21,9 @@
         {% if config_view_filter %}
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/sidebar.css">
         {% endif %}
+        {% if config.impact_measurement_code != '' %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/survey.css">
+        {% endif %}
 
         <!-- meta-tags -->
         <meta charset="UTF-8">
@@ -30,9 +33,10 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <meta http-equiv="keywords" content="{{ texts.KEYWORDS }}">
         <meta http-equiv="description" content="{{ texts.DESCRIPTION }} ">
+        
         {% block headerscripts %}
-
         {% endblock %}
+        
         <!-- Page icon -->
         <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}/image/favicon.ico">
 
@@ -70,7 +74,8 @@
             </script>
         {% endif %}
 
-        {% block extrahead %}{% endblock %}
+        {% block extrahead %}
+        {% endblock %}
 
         <noscript>Your browser doesn't support javascript.</noscript>
     {% endblock %}</head>
@@ -119,6 +124,12 @@
             <input type="hidden" name="lang" value="{{ lang }}">
         </form>
 
+        <!-- survey box -->
+        {% if config.impact_measurement_code != '' %}
+            <div id="im_survey_box">
+            </div>
+        {% endif %}
+
         <!-- load base js files for pages -->
         {% if config.use_external_cdn == 'true' %}
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
@@ -139,7 +150,6 @@
 
         {% if config.services_platform_domain != '' %}
         <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
-
         <script type="text/javascript">
             $(document).ready( function(){
                 var userTK = unescape(getCookie('userTK'));
@@ -174,6 +184,15 @@
                     if (parts.length == 2) return parts.pop().split(";").shift();
                 }
             });
+        </script>
+        {% endif %}
+
+        {% if config.impact_measurement_code != '' %}
+        <script type="text/javascript">
+            var im_code = '{{ config.impact_measurement_code }}';
+            var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}';
+
+            $("#im_survey_box" ).load(im_service_url);
         </script>
         {% endif %}
 
