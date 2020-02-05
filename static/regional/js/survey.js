@@ -67,8 +67,12 @@
 			$(this).addClass("fa-star, starClick");
 			$(this).prevAll().addClass("fa-star, starClick");
 		})
+
+		$('label.btn-yesno').click(function(){
+			$(this).find(':radio').attr('checked', 'checked');
+		})
 		
-	    $('div.rowQuestion input:radio, .star-rating').click(function(e) {
+	    $('div.rowQuestion input:radio, label.btn-yesno, .star-rating').click(function(e) {
 	    	// Check if all questions have been answered
 	        var len = $('div.rowQuestion:not(:has(:radio:checked,:hidden[value!=""]))').length;
 	        if ( len == 0 ) $('#formdata-submit').attr("disabled", false);
