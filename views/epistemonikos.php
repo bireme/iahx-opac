@@ -18,7 +18,7 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
     );
 
     $context = stream_context_create($opts);
-    $api_result = file_get_contents($api_url, false, $context);
+    $api_result = @file_get_contents($api_url, false, $context);
 
     $data = json_decode($api_result, TRUE);
     //print_r($data);

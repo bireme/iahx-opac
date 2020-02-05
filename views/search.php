@@ -299,7 +299,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $solr_param_fq = $result['diaServerResponse'][0]['responseHeader']['params']['fq'];
     // limpa initial filter da variavel solr_param_fq
     if ($initial_filter != ''){
-        $solr_param_fq = preg_replace('/\('. $initial_filter . '\) AND | AND \('. $initial_filter . '\) |\('. $initial_filter . '\)/', '', $solr_param_fq);
+        $solr_param_fq = preg_replace('~\('. $initial_filter . '\) AND | AND \('. $initial_filter . '\) |\('. $initial_filter . '\)~', '', $solr_param_fq);
     }
     $detailed_query = '';
     if ($solr_param_q != '*:*' && $solr_param_fq != ''){
