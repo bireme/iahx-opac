@@ -110,3 +110,22 @@
 #formdata-submit {
 	font-weight: 800;
 }
+
+#detail_survey_box #boxFeedback {
+	position: initial;
+	width: 100%;
+	/*background: #f5f5f5;*/
+}
+#detail_survey_box #conteudoFeedback {
+	float: none;
+	text-align: center;
+	background: #fff;
+	width: 100%;
+}
+#detail_survey_box #iconFeedback,
+#detail_survey_box #feedbackFechar {
+	display: none;
+}
+#detail_survey_box .im-formdata-submit {
+	display: inline-block;
+}

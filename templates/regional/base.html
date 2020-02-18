@@ -125,7 +125,7 @@
         </form>
 
         <!-- survey box -->
-        {% if config.impact_measurement_code != '' %}
+        {% if config.impact_measurement_code != '' and current_page != 'detail' %}
             <div id="im_survey_box">
             </div>
         {% endif %}
@@ -192,7 +192,11 @@
             var im_code = '{{ config.impact_measurement_code }}';
             var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}';
 
-            $("#im_survey_box" ).load(im_service_url);
+            {% if current_page == 'detail' %}
+                $("#detail_survey_box" ).load(im_service_url);
+            {% else %}
+                $("#im_survey_box" ).load(im_service_url);
+            {% endif %}
         </script>
         {% endif %}
 

@@ -9,7 +9,7 @@
 
 <div id="boxFeedback">
 	<div id="conteudoFeedback">
-		<form action="http://127.0.0.1:8000/send-feedback/" id="feedbackForm">
+		<form action="https://im.teste.bireme.org/send-feedback/" id="feedbackForm">
 			<input type="hidden" name="code" value="{{ code }}">
 			<input type="hidden" name="user" value="{{ user }}">
 			<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
@@ -22,7 +22,7 @@
 		<hr />
 		<div class="im-questions">
 			{% for key, question in questions %}
-				<form action="http://127.0.0.1:8000/send-feedback/" id="feedbackForm{{ key }}">
+				<form action="https://im.teste.bireme.org/send-feedback/" id="feedbackForm{{ key }}">
 					<input type="hidden" name="question" value="{{ question.id }}">
 					{% if 'star' == question.type %}
 						<div class="row rowQuestion text-center">
