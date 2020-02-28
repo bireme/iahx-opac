@@ -508,6 +508,8 @@ function get_page_type($type) {
 
     if ( 'site' == $type ) {
         $page = 'Search';
+    } elseif ( 'result' == $type ) {
+        $page = 'Search';
     } elseif ( 'advanced_form' == $type ) {
         $page = 'Advanced Search';
     } elseif ( 'detail' == $type ) {
