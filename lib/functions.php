@@ -506,9 +506,7 @@ function read_more($text) {
 function get_page_type($type) {
     $page = 'Unknown';
 
-    if ( 'site' == $type ) {
-        $page = 'Search';
-    } elseif ( 'result' == $type ) {
+    if ( 'result' == $type ) {
         $page = 'Search';
     } elseif ( 'advanced_form' == $type ) {
         $page = 'Advanced Search';
