@@ -12,7 +12,7 @@
                 {% for url in doc.ur %}
                     <li>
                         <a href="{{ url|raw }}" target="_blank" alt="{{ texts.FULLTEXT }} Link"
-                        {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Article','{{ doc.ti.0 }}']); _gaq.push(['_trackEvent','Download','Database','{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}']) {% if doc.ta.0 %}_gaq.push(['_trackEvent','Download','Journal','{{ doc.ta.0 }}']); _gaq.push(['_trackEvent','Download','Journal Source','{{ doc.fo.0 }}']); {% endif %}"{% endif %}>
+                        {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article' , {'event_category': 'Download', 'event_label': '{{ doc.ti.0 }}'}); gtag('event', 'Database' , {'event_category': 'Download', 'event_label': '{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}'}); {% if doc.ta.0 %}gtag('event', 'Journal' , {'event_category': 'Download', 'event_label': '{{ doc.ta.0 }}'}); gtag('event', 'Journal Source' , {'event_category': 'Download', 'event_label': '{{ doc.fo.0 }}'}); {% endif %}"{% endif %}>
                             {{ url }}
                         </a>
                     </li>
@@ -21,7 +21,7 @@
             </div>
         {% else %}
             <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools btnToolsMain"
-                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Article','{{ doc.ti.0 }}']); _gaq.push(['_trackEvent','Download','Database','{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}']) {% if doc.ta.0 %}_gaq.push(['_trackEvent','Download','Journal','{{ doc.ta.0 }}']); _gaq.push(['_trackEvent','Download','Journal Source','{{ doc.fo.0 }}']); {% endif %}"{% endif %}>
+                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article' , {'event_category': 'Download', 'event_label': '{{ doc.ti.0 }}'}); gtag('event', 'Database' , {'event_category': 'Download', 'event_label': '{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}'}); {% if doc.ta.0 %}gtag('event', 'Journal' , {'event_category': 'Download', 'event_label': '{{ doc.ta.0 }}'}); gtag('event', 'Journal Source' , {'event_category': 'Download', 'event_label': '{{ doc.fo.0 }}'}); {% endif %}"{% endif %}>
                 <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
             </a>
         {% endif %}
@@ -41,7 +41,7 @@
                 {% for url in doc.ur_AUDIO %}
                     <li>
                         <a href="{{ url }}" target="_blank" alt="{{ texts.AUDIO }} Link"
-                            {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Audio',this.href]);" {% endif %}>
+                            {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Audio' , {'event_category': 'Download', 'event_label': this.href});" {% endif %}>
                             {{ url }}
                         </a>
                     </li>
@@ -50,7 +50,7 @@
             </div>
         {% else %}
             <a href="{{ doc.ur_AUDIO.0 }}" target="_blank" title="{{ texts.AUDIO }}" class="btnTools btnToolsMain"
-                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Audio',this.href]);" {% endif %}>
+                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Audio' , {'event_category': 'Download', 'event_label': this.href});" {% endif %}>
                 <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
             </a>
         {% endif %}
@@ -69,7 +69,7 @@
                 {% for url in doc.ur_MULTIMIDIA %}
                     <li>
                         <a href="{{ url }}" target="_blank" alt="{{ texts.VIDEO }} Link"
-                            {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Multimedia',this.href]);" {% endif %}>
+                            {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Multimedia' , {'event_category': 'Download', 'event_label': this.href});" {% endif %}>
                             {{ url }}
                         </a>
                     </li>
@@ -78,7 +78,7 @@
             </div>
         {% else %}
             <a href="{{ doc.ur_MULTIMIDIA.0 }}" target="_blank" class="btnTools btnToolsMain"
-                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Download','Multimedia',this.href]);" {% endif %}>
+                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Multimedia' , {'event_category': 'Download', 'event_label': this.href});" {% endif %}>
                 <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
             </a>
         {% endif %}
@@ -89,9 +89,9 @@
     <!-- services platform -->
     <div class="platserv boxToolsMain">
 	  {% if app.request.cookies.has('userTK') %}
-          <a class="add-collection btnTools btnToolsMain" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Add to collection', '{{doc.ti.0}}']);">
+          <a class="add-collection btnTools btnToolsMain" href="javascript:;" onclick="gtag('event', 'Add to collection' , {'event_category': 'My VHL', 'event_label': '{{doc.ti.0}}'});">
 	  {% else %}
-          <a class="add-collection btnTools btnToolsMain" href="javascript:;" onclick="_gaq.push(['_trackEvent','My VHL','Login', '{{doc.ti.0}}']);">
+          <a class="add-collection btnTools btnToolsMain" href="javascript:;" onclick="gtag('event', 'Login' , {'event_category': 'My VHL', 'event_label': '{{doc.ti.0}}'});">
       {% endif %}
               <i class="fas fa-home"></i> {{ texts.ADD_TO_COLLECTION }}
           </a>

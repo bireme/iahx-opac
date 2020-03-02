@@ -12,7 +12,7 @@
 
     {% if primary_study_ref %}
         | {{ texts.THIS_ARTICLE_INCLUDES }}
-        <a href="{{ primary_study_ref['url']|replace({"/en/": lang_param}) }}" onclick="_gaq.push(['_trackEvent','Epistemonikos','Show primary studies','{{ doc_id }}']);" target="_blank">
+        <a href="{{ primary_study_ref['url']|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show primary studies', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
             {% if primary_study_ref['studies'] %}
                 {{ primary_study_ref['studies'] }} {{ texts.PRIMARY_STUDIES }}
                 {% if  primary_study_ref['total'] != primary_study_ref['studies'] %}
@@ -26,12 +26,12 @@
 
     {% if systematic_review_ref  %}
         | {{ texts.THIS_ARTICLE_IS_INCLUDED }}
-        <a href="{{ systematic_review_ref['url']|replace({"/en/": lang_param}) }}" onclick="_gaq.push(['_trackEvent','Epistemonikos','Show systematic reviews','{{ doc_id }}']);" target="_blank">
+        <a href="{{ systematic_review_ref['url']|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show systematic reviews', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
             {{ systematic_review_ref['total'] }} {{ texts.SYSTEMATIC_REVIEWS }}
             ({{ total_references }} {{ texts.REFERENCES}})
         </a>
     {% endif %}
-        | <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" onclick="_gaq.push(['_trackEvent','Epistemonikos','Show article detail','{{ doc_id }}']);" target="_blank">
+        | <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show article detail', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
             <img src="{{ constant("STATIC_URL") }}/image/common/icon_epistemonikos.png" width="20" />
             {{ texts.SEE_IN }} Epistemonikos
         </a>

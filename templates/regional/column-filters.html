@@ -114,7 +114,7 @@
                                 </div>
                                 <label class="labelCheck1" for="fulltext_1">
                                     <a href="javascript: add_filter('fulltext_1');"
-                                        {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Filter','fulltext','1']); _gaq.push(['_trackEvent','Filter','Cluster','fulltext']);" {% endif %}>
+                                        {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'fulltext', {'event_category': 'Filter', 'event_label': '1'}); gtag('event', 'Cluster', {'event_category': 'Filter', 'event_label': 'fulltext'});" {% endif %}>
                                         {{ attribute(texts.REFINE, name) }}
                                         ({{ cluster[0][1] }})
                                     </a>
@@ -142,7 +142,7 @@
                                         </div>
                                         <label class="labelCheck1" for="{{ cluster_item_id }}">
                                             <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');"
-                                                {% if config.google_analytics_tracking_id != '' %} onclick="_gaq.push(['_trackEvent','Filter','{{ name }}','{{ item.0 }}']); _gaq.push(['_trackEvent','Filter','Cluster','{{ name }}']);" {% endif %}>
+                                                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', '{{name}}' , {'event_category': 'Filter', 'event_label': '{{item.0}}'}); gtag('event', 'Cluster' , {'event_category': 'Filter', 'event_label': '{{name}}'});" {% endif %}>
                                                 {% if '/' in item.0 %}
                                                     {% set item_part = item.0|split('/') %}
                                                     {{ translate(item_part.1, cluster_labels ) }}
