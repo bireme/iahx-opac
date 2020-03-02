@@ -487,20 +487,36 @@ function filters_to_string($filters){
     return $filters;
 }
 
-function date_to_text ($lang, $month) {
+function date_to_text($lang, $month) {
     $months['pt'] = array('Jan', 'Fev', 'Mar', 'Abr', 'Maio', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez');
     $months['es'] = array('Ene', 'Feb', 'Mar', 'Abr', 'Mayo', 'Jun', 'Jul', 'Ago', 'Sept', 'Oct', 'Nov', 'Dic');
     $months['en'] = array('Jan', 'Feb', 'Mar', 'Apr', 'May', 'June', 'July', 'Aug', 'Sept', 'Oct', 'Nov', 'Dec');
     return $months["$lang"][intval($month)-1];
 }
 
-function read_more ($text) {
+function read_more($text) {
     if (strlen($text) > 500) {
         $text = substr($text, 0, 500);
         $pos = strrpos($text, ' ');
         $text = substr($text, 0, $pos) . ' [...]';
     }
     return $text;
+}
+
+function get_page_type($type) {
+    $page = 'Unknown';
+
+    if ( 'result' == $type ) {
+        $page = 'Search';
+    } elseif ( 'advanced_form' == $type ) {
+        $page = 'Advanced Search';
+    } elseif ( 'detail' == $type ) {
+        $page = 'Document';
+    } elseif ( 'decs_lookup' == $type ) {
+        $page = 'DeCS Locator';
+    }
+
+    return $page;
 }
 
 ?>

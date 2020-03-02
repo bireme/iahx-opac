@@ -239,6 +239,12 @@
                 </div>
             </div> <!-- /similares -->
 
+            <!-- survey box -->
+            {% if config.impact_measurement_code != '' %}
+                <div id="detail_survey_box">
+                </div>
+            {% endif %}
+
         </div> <!-- /col-md-9 -->
         {% include custom_template('column-detail-actions.html') %}
     </div>
