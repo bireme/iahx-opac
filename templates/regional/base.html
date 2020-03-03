@@ -161,6 +161,7 @@
             $(document).ready( function(){
                 var userTK = unescape(getCookie('userTK'));
 
+
                 if( typeof( userTK ) != 'undefined' && userTK !== null && userTK !== 'undefined' ) {
                     var obj = new Object();
 
@@ -183,6 +184,16 @@
                     $.post(SERVICES_PLATFORM_DOMAIN + '/logs/', obj, function(data){
                         console.log(data);
                     });
+
+                    {% if config.google_analytics_tracking_id != '' %}
+                        var userID = unescape(getCookie('userID'));
+                        if( typeof(userID) != 'undefined' && userID !== null && userID !== 'undefined' ) {
+                            gtag('config', '{{config.google_analytics_tracking_id}}', {
+                                'user_id': userID
+                            });
+                        }
+                    {% endif %}
+
                 }
 
                 function getCookie(name) {
