@@ -1,0 +1,154 @@
+<section class="">
+    <form action="{{ constant("SEARCH_URL") }}" id="form_clusters" method="GET">
+        <!-- used for show more values (facet browse)-->
+        <input type="hidden" name="fb" value="">
+
+        <div class="container">
+            <div class="row">
+                <div class="col-12 d-print-none" id="main_container">
+                    <div class="row padding1">
+                        <div class="col-12">
+                            <div class="alert alert-light" role="alert">
+                                <h5 class="text-center">
+                                    {{ texts.FILTER_PAGE_TOTAL_1 }} <b>{{ pag.total_formatted }}</b> {{ texts.FILTER_PAGE_TOTAL_2 }}, <a href="{{ constant("SEARCH_URL") }}?lang={{ lang }}&skfp=true">{{ texts.FILTER_PAGE_TOTAL_3 }}</a> {{ texts.FILTER_PAGE_TOTAL_4 }}
+                                </h5>
+                            </div>
+                        </div>
+
+                {% for name, cluster in clusters %}
+
+                    {% set cluster_labels = 'REFINE_' ~ name %}
+
+                    {###  check if config has a cluster list to show, if not show all ###}
+                    {% if not config_cluster_list or name in config_cluster_list %}
+
+                        {### check if cluster is in user_prefence_filter or is in default_cluster_list ###}
+                        {% if (not config_cluster_list) or (user_preference_filter|length > 0 and name in user_preference_filter) or  (user_preference_filter|length == 0 and name in default_cluster_list)  %}
+                            {###  apply different design to fulltext filter ###}
+                            {% if name != 'fulltext' %}
+                                <div class="col-md-6 col-lg-3">
+                                    <div class="box5">
+
+                                    <a name="{{ name }}"></a>
+                                    <div class="titleBox3">
+                                        {{ attribute(texts.REFINE, name) }}
+                                    </div>
+
+                                    <div class="row overflow1" id="{{ name }}" >
+                                        {% for item in cluster if item.0 != '' %}
+                                            {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
+
+                                            {% if name in ['db', 'la', 'limit', 'type', 'type_of_study'] and not has_translation(item.0, cluster_labels) %}
+                                            {% else %}
+                                                <div class="boxCheck col-md-12 {% if '/' in item.0 %}subtopic{% endif %}">
+                                                    <div class="inputCheck1">
+                                                        <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
+                                                        {% for filter_name, filter in filters if filter_name == name %}
+                                                            {% if item.0 in filter %}checked="true"{% endif %}
+                                                        {% endfor %}
+                                                        >
+                                                    </div>
+                                                    <label class="labelCheck1 labelCheck2" for="{{ cluster_item_id }}">
+                                                        {% if '/' in item.0 %}
+                                                            {% set item_part = item.0|split('/') %}
+                                                            {{ translate(item_part.1, cluster_labels ) }}
+                                                        {% elseif '^' in item.0 %}
+                                                            {{ item.0|subfield(lang) }}
+                                                        {% elseif '+' in item.0 %}
+                                                            {{ item.0|replace('+','/') }}
+                                                        {% else %}
+                                                            {{ translate(item.0, cluster_labels ) }}
+                                                        {% endif %}
+                                                        ({{ item.1 }})
+                                                    </label>
+                                                </div>
+                                            {% endif %}
+                                        {% endfor %}
+                                        <div id="show_more_{{name}}">
+                                        </div>
+                                        {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
+                                            <div class="labelCheck1 d-flex align-items-center" id="show_more_link_{{name}}">
+                                                <div id="loading_{{name}}">
+                                                    <strong>
+                                                        <a href="javascript:show_more_filter_items('{{ name }}', {{collectionData.cluster_items_limit}}); {% if config.google_analytics_tracking_id != '' %} gtag('event', 'show_more_filterpage', {'event_category': 'Filter', 'event_label': '{{name}}'});{% endif %}">
+                                                            {{ texts.SHOW_MORE_ITEMS }}...
+                                                        </a>
+                                                    </strong>
+                                                    <div id="loading_more_spin_{{name}}" class="spinner-border spinner-border-sm ml-2 text-info" role="status" aria-hidden="true" style="display: none"></div>
+                                                </div>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                {% endif %}
+                                    </div> <!-- /class="box5" -->
+                                </div> <!-- class="col-md-6 col-lg-3" -->
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+                <div class="col-md-6">
+                    <div class="box5">
+                        <div class="titleBox3">
+                            {{ texts.YEAR_RANGE }}
+                        </div>
+
+                        <div class="row overflow2" id="range_year">
+                            <div class="boxCheck col-md-6 col-lg-4">
+                                <div class="inputCheck1">
+                                    <input id="last_5years" type="radio" name="years" onclick="javascript:fill_range(5)">
+                                </div>
+                                <label class="labelCheck1" for="last_5years">{{ texts.LAST_5_YEARS }}</label>
+                            </div>
+                            <div class="boxCheck col-md-6 col-lg-4">
+                                <div class="inputCheck1">
+                                    <input id="last_10years" type="radio" name="years" onclick="javascript:fill_range(10)">
+                                </div>
+                                <label class="labelCheck1" for="last_10years">{{ texts.LAST_10_YEARS }}</label>
+                            </div>
+
+                            <div class="boxCheck col-md-12">
+                                <div class="form-row">
+                                    <div class="col-4">
+                                        <input id="range_start" class="form-control" type="text" name="range_year_start" value="{{ range_year_start }}" placeholder="yyyy">
+                                    </div>
+                                    <div class="col-4">
+                                        <input id="range_end" class="form-control" type="text" name="range_year_end" value="{{ range_year_end }}" placeholder="yyyy">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Texto Completo -->
+                {% for name, cluster in clusters %}
+                    {% if name == 'fulltext' %}
+                        <div class="col-md-6">
+                            <div class="box5">
+                                <div class="titleBox3">
+                                    {{ attribute(texts.REFINE, name) }}
+                                </div>
+                                <div class="row overflow2">
+                                    <div class="boxCheck col-md-12">
+                                        <div class="inputCheck1">
+                                            <input id="fulltext_1" type="checkbox" name="filter[fulltext][]" value="1">
+                                        </div>
+                                        <label class="labelCheck1" for="fulltext_1">
+                                            {{ attribute(texts.REFINE, name) }} ({{ cluster[0][1] }})
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+
+                <div class="col-md-12 text-center">
+                    <br>
+                    <button class="btn btn-primary btnBlue">{{texts.FILTER|upper}}</button>
+                </div>
+
+            </div> <!-- /class="row padding1" -->
+          </div> <!-- / id="main_container" -->
+       </div> <!-- class="row" -->
+  </form>   <!-- /form -->
+</section>
