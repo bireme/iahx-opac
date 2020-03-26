@@ -76,3 +76,42 @@ function add_view_filter(value){
     // resubmit cluster form
     $("#form_clusters").submit();
 }
+
+var more_filter_from = {};
+
+function show_more_filter_items(filter_id, initial_from=10){
+    var LONG_FILTER_LIMIT = 100;
+    var from_param = initial_from;
+    var long_filter_ids = ['la', 'mj_cluster'];
+
+    var list_filter_url = SEARCH_URL + 'list-filter/' + filter_id + '?lang=' + LANG;
+
+    if ( long_filter_ids.indexOf(filter_id) != -1 ){
+         if (filter_id in more_filter_from){
+             from_param = more_filter_from[filter_id];
+             more_filter_from[filter_id] += LONG_FILTER_LIMIT;
+         }else{
+             more_filter_from[filter_id] = LONG_FILTER_LIMIT + from_param;
+         }
+
+         list_filter_url += '&limit=' + LONG_FILTER_LIMIT;
+     }
+     list_filter_url += '&from=' + from_param;
+
+     $.ajax({
+         url: list_filter_url,
+         cache: false,
+         beforeSend: function(){
+             $('#loading_more_spin_' + filter_id).show();
+         },
+         complete: function(){
+             $('#loading_more_spin_' + filter_id).hide();
+         },
+         success: function(html){
+             $('#show_more_' + filter_id).append(html);
+             if ( html == '' || !(filter_id in more_filter_from) ){
+                $('#show_more_link_' + filter_id).empty();
+            }
+         }
+     });
+ }

@@ -23,8 +23,8 @@
 .btnFilterDate:hover{ background:#464bbb; color: #fff;  }
 #header{background: #ededed; padding: 30px 0px 30px 0px;}
 #logo img{ max-width: 150px; }
-.box1{ background: #fff; padding: 10px; margin-bottom: 15px; position: relative;}
-.box2{ background: #ededed; border:1px solid #e4e4e4; padding: 10px; font-size: 14px; margin-top: 20px;}
+.box1{background: #fff; padding: 10px; margin-bottom: 15px; position: relative;}
+.box2{background: #ededed; border:1px solid #e4e4e4; padding: 10px; font-size: 14px; margin-top: 20px;}
 .box2B{margin-top:10px; margin-bottom: 10px; }
 .box3{margin-top: 30px;}
 .box4{background: #fff; padding: 30px; margin-bottom: 20px;}
@@ -59,7 +59,8 @@
 .boxCheck{position: relative;}
 .inputCheck1{display: inline-block; width: 60px; position: absolute; top: 5px;}
 .labelCheck1{ display: inline-block; max-width: 80%; position: relative; left: 25px;  font-weight: 600; cursor: pointer;}
-.labelCheck1:hover{ text-decoration: underline; }
+.labelCheck1:hover{text-decoration: underline;}
+.labelCheck2:hover{text-decoration: none!important;}
 .inputCheck1 small{margin:-20px 0 0 7px; position: relative; top: -3px;}
 .labelCheck1 a{color: #333;}
 .titleBox2{
@@ -69,6 +70,10 @@
 .textArt{position: relative; left: 50px; width: 90%;}
 .btnFilter{
 	background: #30348d; padding: 10px; display: block; border-radius: 3px;
+	color: #fff; margin-bottom: 5px; cursor: pointer; border: 0;
+}
+.btnFilter2{
+	background: #30348d; padding: 10px; border-radius: 3px;
 	color: #fff; margin-bottom: 5px; cursor: pointer; border: 0;
 }
 #btnFiltroD{position: sticky; top: 0; z-index: 99;}
@@ -165,6 +170,15 @@
   overflow-x: hidden;
 }
 
+.titleBox3{
+	font-weight: 900;  color: #30348c; padding-bottom: 5px;
+	cursor: pointer; border-bottom: 1px solid #ddd; margin-bottom: 10px;
+}
+.btnColorBlue{background:#30348d; border: 0;}
+.box5{background: #ededed; border:1px solid #e4e4e4; padding: 20px 10px; font-size: 14px; margin-top: 20px;}
+.overflow1{height: 340px; overflow: auto; overflow-x:hidden}
+.overflow2{height: 80px; overflow: auto; overflow-x:hidden}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
@@ -208,6 +222,7 @@
 	#tabResumo li{ border: 0; margin: 0 5px 5px 0; border: 1px solid #ddd; }
 	#tabResumo .active{border: 0; background: #eee;}
 	#q{width: 100%;}
+    .overflow1, .overflow2{height: auto;}
 }
 @media (max-width: 556px){
 	#resumo, #tabResumo{width: 100%;}

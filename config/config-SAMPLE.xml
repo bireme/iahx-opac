@@ -37,6 +37,7 @@
     <use_https>false</use_https>
     <check_alternate_id>false</check_alternate_id>
     <use_custom_stylesheet>false</use_custom_stylesheet>
+    <show_filter_page>true</show_filter_page>
 
 	<search_collection_list>
 		<collection>

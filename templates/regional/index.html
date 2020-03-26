@@ -22,6 +22,9 @@
     {% endif %}
 
     {% if docs|length > 0 %}
+        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+            {% include custom_template('index-filters.html') %}
+        {% else %}
         <section class="">
     		<div class="container">
     			<div class="row">
@@ -241,7 +244,7 @@
                 {% endif %}
     		</div>
     	</section>
-
+        {% endif %}
     {% else %}
         <div class="noResults">
             {{ texts.NO_RESULTS }}
