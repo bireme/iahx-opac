@@ -47,15 +47,15 @@ document.onkeydown=function(e){
 		pressedALT = true;
 	}
 	// Main Alt + 1
-	if(e.which == 49 && pressedALT == true) {
+	if((e.which == 49 || e.which == 97) && pressedALT == true) {
 		window.location.assign("#main_container");
 	}
 	//Pesquisa ALT + 2
-	if(e.which == 50 && pressedALT == true) {
+	if((e.which == 50 || e.which == 98) && pressedALT == true) {
 		$("#q").focus();
 	}
 	//Footer ALT + 3
-	if(e.which == 51 && pressedALT == true) {
+	if((e.which == 51 || e.which == 100) && pressedALT == true) {
 		window.location.assign("#footer");
 	}
 }
