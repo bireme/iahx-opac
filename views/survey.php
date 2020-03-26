@@ -12,7 +12,7 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
 
     if ( ! $_COOKIE['impact_measurement'] ) {
         $impact_measurement_cookie = md5(uniqid(rand(), true));
-        setcookie("impact_measurement", $impact_measurement_cookie, (time() + (10 * 365 * 24 * 60 * 60)), $im_scope);
+        setcookie("impact_measurement", $impact_measurement_cookie, (time() + (10 * 365 * 24 * 60 * 60)), '/', $im_scope);
 
         $domains = array(
             '.bvs.br' => $config->impact_measurement_bvs_cookie_domain,
@@ -25,7 +25,9 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
             unset($domains[$im_scope]);
 
             foreach ($domains as $domain => $url) {
-                $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$code.'&im_data='.base64_encode($im_api);
+                if ( ! empty($url) ) {
+                    $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$code.'&im_data='.base64_encode($im_api);
+                }
             }
 
             $output['im_cookie'] = $im_cookie;
