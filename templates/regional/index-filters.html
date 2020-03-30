@@ -38,7 +38,7 @@
                                         {% for item in cluster if item.0 != '' %}
                                             {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
-                                            {% if name in ['db', 'la', 'limit', 'type', 'type_of_study'] and not has_translation(item.0, cluster_labels) %}
+                                            {% if name in only_translated_items_clusters and not has_translation(item.0, cluster_labels) %}
                                             {% else %}
                                                 <div class="boxCheck col-md-12 {% if '/' in item.0 %}subtopic{% endif %}">
                                                     <div class="inputCheck1">
@@ -66,6 +66,7 @@
                                         {% endfor %}
                                         <div id="show_more_{{name}}">
                                         </div>
+
                                         {% if (cluster|length % collectionData.cluster_items_limit) == 0 %}
                                             <div class="labelCheck1 d-flex align-items-center" id="show_more_link_{{name}}">
                                                 <div id="loading_{{name}}">

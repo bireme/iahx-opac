@@ -101,10 +101,23 @@
             	</format>
             </format_list>
             <!-- restrict list of clusters to show on result. If not set show all availables on solrconf.xml -->
-            <!--cluster_list>
+            <cluster_list>
+                <cluster default="true">fulltext</cluster>
+                <cluster default="true" show_only_translated_items="true">db</cluster>
+                <cluster default="true">mj_cluster</cluster>
+                <cluster default="true" show_only_translated_items="true">type_of_study</cluster>
+                <cluster default="true" show_only_translated_items="true">la</cluster>
+
                 <cluster>collection</cluster>
-                <cluster>tag_brasil</cluster>
-            </cluster_list-->
+                <cluster>clinical_aspect</cluster>
+                <cluster show_only_translated_items="true">limit</cluster>
+                <cluster>pais_assunto</cluster>
+                <cluster>year_cluster</cluster>
+                <cluster show_only_translated_items="true">type</cluster>
+                <cluster>ta_cluster</cluster>
+                <cluster>jd</cluster>
+                <cluster>pais_afiliacao</cluster>
+            </cluster_list>
 		</collection>
 	</search_collection_list>
 </dia_config>

@@ -142,6 +142,20 @@ function getDefaultClusterList($colectionData){
     return $default_clusters;
 }
 
+function getOnlyTranslatedItemsClusterList($colectionData){
+    $only_translated_items_clusters = array();
+
+    if ( isset($colectionData->cluster_list) ){
+        foreach( $colectionData->cluster_list->cluster as $cluster  ){
+            if ($cluster['show_only_translated_items'] == 'true'){
+                $only_translated_items_clusters[] = (string)$cluster;
+            }
+        }
+    }
+
+    return $only_translated_items_clusters;
+}
+
 
 // function to work when PHP directive magic_quotes_gpc is OFF
 function addslashes_array($a){

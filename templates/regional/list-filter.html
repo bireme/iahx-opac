@@ -3,6 +3,8 @@
 {% for item in filter_list if item.0 != '' %}
     {% set cluster_item_id = filter_id ~ '_' ~ item.0|slugify %}
 
+        {% if filter_id in only_translated_items_clusters and not has_translation(item.0, cluster_labels) %}
+        {% else %}
         <div class="boxCheck col-md-12 {% if '/' in item.0 %}subtopic{% endif %}">
             <div class="inputCheck1">
                 <input type="checkbox" name="filter[{{filter_id}}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}">
@@ -21,5 +23,5 @@
                 ({{ item.1 }})
             </label>
         </div>
-
+        {% endif %}
 {% endfor %}

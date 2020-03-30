@@ -130,7 +130,7 @@
                             {% for item in cluster if item.0 != '' %}
                                 {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
-                                {% if name in ['db', 'la', 'limit', 'type', 'type_of_study'] and not has_translation(item.0, cluster_labels) %}
+                                {% if name in only_translated_items_clusters and not has_translation(item.0, cluster_labels) %}
                                 {% else %}
                                     <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
                                         <div class="inputCheck1">

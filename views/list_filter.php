@@ -1,6 +1,7 @@
 <?php
 
 use Symfony\Component\HttpFoundation\Request;
+require_once 'lib/functions.php';
 
 $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use ($app, $DEFAULT_PARAMS, $config) {
     global $texts;
@@ -48,7 +49,8 @@ $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use
         $filter_list = array_slice($filter_list, $from);
     }
 
-    //print_r($filter_list);
+    $config_cluster_list = $collectionData->cluster_list->cluster;
+    $only_translated_items_clusters = getOnlyTranslatedItemsClusterList($collectionData);
 
     // translation file
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
@@ -60,6 +62,7 @@ $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use
     $output_array['texts'] = $texts;
     $output_array['filter_id'] = $filter_id;
     $output_array['filter_list'] = $filter_list;
+    $output_array['only_translated_items_clusters'] = $only_translated_items_clusters;
 
     if ($filter_list){
         return $app['twig']->render(custom_template('list-filter.html'), $output_array);
