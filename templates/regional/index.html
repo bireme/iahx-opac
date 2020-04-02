@@ -424,4 +424,7 @@
 {% block footerscripts %}
     <script src="{{ constant("STATIC_URL") }}/js/clusters.js"></script>
     <script src="{{ constant("STATIC_URL") }}/js/my_selection.js"></script>
+    {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+    <script src="{{ constant("STATIC_URL") }}/js/ready-index-filter.js"></script>
+    {% endif %}
 {% endblock %}

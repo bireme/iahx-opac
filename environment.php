@@ -23,7 +23,7 @@ define("TRANSLATE_PATH", APP_PATH . "locale/");
 define("CACHE_PATH", APP_PATH . "cache/");
 
 // custom applications/interface
-define("CUSTOM_TEMPLATE_PATH", TEMPLATE_PATH . "custom/");
+define("CUSTOM_TEMPLATE_PATH", TEMPLATE_PATH . "/custom/");
 
 $DEFAULT_PARAMS = array();
 $DEFAULT_PARAMS['lang'] = $lang;

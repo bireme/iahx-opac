@@ -1,7 +1,9 @@
 <section class="">
-    <form action="{{ constant("SEARCH_URL") }}" id="form_clusters" method="GET">
+    <form action="{{ constant("SEARCH_URL") }}" id="formIndexFilters" method="GET">
         <!-- used for show more values (facet browse)-->
         <input type="hidden" name="fb" value="">
+        <!-- used for combine user query with filters -->
+        <input type="hidden" name="q" id="q_index_filter" value="">
 
         <div class="container">
             <div class="row">
