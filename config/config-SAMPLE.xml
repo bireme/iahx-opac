@@ -38,6 +38,8 @@
     <check_alternate_id>false</check_alternate_id>
     <use_custom_stylesheet>false</use_custom_stylesheet>
     <show_filter_page>true</show_filter_page>
+    <show_advanced_search_button>true</show_advanced_search_button>
+    <show_decs_lookup_button>true</show_decs_lookup_button>
 
 	<search_collection_list>
 		<collection>

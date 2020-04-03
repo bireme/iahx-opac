@@ -20,12 +20,14 @@
 					</ul>
 				</div>
 				<div class="headerBt">
-                    {% if lang in ['pt', 'es', 'en'] %}
+                    {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
                         <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                     {% else %}
                          <br/>
                     {% endif %}
+                    {% if (not config.show_advanced_search_button or config.show_advanced_search_button == 'true') %}
                     <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
+                    {% endif %}
 				</div>
 				<div class="headerSearch" >
 
