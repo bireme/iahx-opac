@@ -1,5 +1,6 @@
 <section class="">
     <form action="{{ constant("SEARCH_URL") }}" id="formIndexFilters" method="GET">
+        <input type="hidden" name="lang" id="lang_index_filter" value="{{lang}}">
         <!-- used for show more values (facet browse)-->
         <input type="hidden" name="fb" value="">
         <!-- used for combine user query with filters -->
@@ -12,7 +13,7 @@
                         <div class="col-12">
                             <div class="alert alert-light" role="alert">
                                 <h5 class="text-center">
-                                    {{ texts.FILTER_PAGE_TOTAL_1 }} <b>{{ pag.total_formatted }}</b> {{ texts.FILTER_PAGE_TOTAL_2 }}, <a href="{{ constant("SEARCH_URL") }}?lang={{ lang }}&skfp=true">{{ texts.FILTER_PAGE_TOTAL_3 }}</a> {{ texts.FILTER_PAGE_TOTAL_4 }}
+                                    {{ texts.FILTER_PAGE_TOTAL_1 }} <b>{{ pag.total_formatted }}</b> {{ texts.FILTER_PAGE_TOTAL_2 }}. <a href="{{ constant("SEARCH_URL") }}?lang={{ lang }}&skfp=true">{{ texts.FILTER_PAGE_TOTAL_3 }}</a> {{ texts.FILTER_PAGE_TOTAL_4 }}
                                 </h5>
                             </div>
                         </div>

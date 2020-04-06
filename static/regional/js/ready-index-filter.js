@@ -5,7 +5,10 @@ $(function(){
     $('#searchForm').submit( function(event) {
         event.preventDefault();
         user_query = $('#searchForm #q').val();
+        interface_lang = $('#searchForm #lang').val();
+        // populate hidden fields to preserve expression and language
         $('#q_index_filter').val(user_query);
+        $('#lang_index_filter').val(interface_lang);
         $('#formIndexFilters').submit();
     });
     // if user submit the filter form populate the hidden query field

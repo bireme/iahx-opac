@@ -31,7 +31,7 @@ function change_count(count) {
 
 // muda o parâmetro lang
 function change_language(lang) {
-    if (RESULT_PAGE){
+    if ($("#searchForm").length){
         var form = document.searchForm;
         form.lang.value = lang;
         $("#searchForm").submit();
