@@ -43,7 +43,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $fb = $params['fb'];
     }
 
-    $count = $config->documents_per_page;
+    $count = (string)$config->documents_per_page;
     if(isset($params['count']) and $params['count'] != "") {
         $count = $params['count'];
         if ($config->max_documents_per_page){
