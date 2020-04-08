@@ -2,3 +2,5 @@ logs/*
 cache/*
 config/config.xml
 config/config-mail.php
+templates/custom/
+template/*/custom
