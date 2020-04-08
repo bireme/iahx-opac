@@ -28,7 +28,7 @@
     </div>
 {% else %}
     {% if config.show_search_google_button == 'true' %}
-        <a href="https://www.google.com/search?q={{doc.ti.0}}" class="btnTools btnToolsMain nav-toggle" target="_blank">
+        <a href='https://www.google.com/search?q="{{doc.ti.0}}"' class="btnTools btnToolsMain nav-toggle" target="_blank">
             <i class="fab fa-google"></i> {{ texts.SEARCH_GOOGLE_BUTTON }}
         </a>
     {% endif %}
@@ -144,7 +144,7 @@
 
 {% if doc.ur is defined and config.show_search_google_button == 'true' %}
     <div class="boxTools">
-        <a href="https://www.google.com/search?q={{doc.ti.0}}" class="btnTools" target="_blank">
+        <a href='https://www.google.com/search?q="{{doc.ti.0}}"' class="btnTools" target="_blank">
             <i class="fab fa-google"></i> {{ texts.SEARCH_GOOGLE_BUTTON }}
         </a>
     </div>
