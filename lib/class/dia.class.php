@@ -58,11 +58,13 @@ class Dia
         }
 
         if ( $range_filter != '' ){
-            $filter = $filter . " AND (" . $range_filter . ")";
+            $filter = ($filter != '' ? $filter . " AND " : '');
+            $filter.= "(" . $range_filter . ")";
         }
 
         if ( $view_filter != '' ){
-            $filter = $filter . " AND (" . $view_filter . ")";
+            $filter = ($filter != '' ? $filter . " AND " : '');
+            $filter.= "(" . $view_filter . ")";
         }
 
         $this->param["fq"] = $filter;
