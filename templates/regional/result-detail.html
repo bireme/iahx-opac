@@ -141,7 +141,7 @@
                     {% if ab_list %}
                         <ul class="nav nav-tabs" id="tabResumo" role="tablist">
                             {% for ab_field in ab_list %}
-                                {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : doc.la[0] %}
+                                {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : 'en' %}
                                 {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
                                 <li class="nav-item">
@@ -153,7 +153,7 @@
                         </ul>
                         <div class="tab-content" id="resumo">
                             {% for ab_field in ab_list %}
-                                {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : doc.la[0] %}
+                                {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : 'en' %}
                                 {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
                                 <div class="tab-pane fade show {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %} abstract" id="{{ab_field}}" role="tabpanel" aria-labelledby="{{ ab_field }}-tab" lang="{{ab_lang}}">
