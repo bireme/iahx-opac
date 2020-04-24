@@ -23,10 +23,8 @@ $app->match('decs/{lang}/{term}', function (Request $request, $lang, $term) use 
         $decs = @simplexml_load_file($query);
         if ($decs){
             $concept = (String) @$decs->decsws_response->record_list->record->definition->occ['n'];
-            break;
         }
     }
-    $i = $i - 1;
 
     $href = "http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/" .
     "?IsisScript=../cgi-bin/decsserver/decsserver.xis" .
