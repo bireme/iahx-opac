@@ -522,6 +522,10 @@ function get_page_type($type) {
 
     if ( 'result' == $type ) {
         $page = 'Search';
+    } elseif ( 'result_skfp_true' == $type ) {
+        $page = 'Search skfp=true';
+    } elseif ( 'result_skfp_false' == $type ) {
+        $page = 'Search skfp=false';
     } elseif ( 'advanced_form' == $type ) {
         $page = 'Advanced Search';
     } elseif ( 'detail' == $type ) {
