@@ -129,3 +129,10 @@
 #detail_survey_box .im-formdata-submit {
 	display: inline-block;
 }
+#detail_survey_box .rowOptions {
+	display: flex;
+    justify-content: space-evenly;
+}
+#detail_survey_box .im-questions {
+	max-height: none;
+}
