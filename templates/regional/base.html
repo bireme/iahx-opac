@@ -210,9 +210,9 @@
             var im_code = '{{ config.impact_measurement_code }}';
             var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}';
 
-            {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp == 'true' %}
+            {% if current_page == 'result' and config.show_filter_page == 'true' and detailed_query == '' and params.skfp == 'true' %}
                 im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}_skfp_true';
-            {% elseif config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+            {% elseif current_page == 'result' and config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
                 im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}_skfp_false';
             {% endif %}
 
