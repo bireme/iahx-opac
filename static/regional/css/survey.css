@@ -136,3 +136,6 @@
 #detail_survey_box .im-questions {
 	max-height: none;
 }
+#detail_survey_box hr {
+	margin-bottom: 0;
+}

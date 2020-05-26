@@ -35,7 +35,8 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
     }
 
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-    $content = file_get_contents($im_api.$code);
+    $page_type = get_page_type($_GET['page_type'], true);
+    $content = file_get_contents($im_api.$code.'&page='.$page_type);
     $data = json_decode($content, TRUE);
 
     if ( $data && count($data['objects']) > 0 ) {

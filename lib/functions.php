@@ -517,23 +517,34 @@ function read_more($text) {
     return $text;
 }
 
-function get_page_type($type) {
-    $page = 'Unknown';
+function get_page_type($ptype, $slug=false) {
+    $type = 'iahx-unknown';
 
-    if ( 'result' == $type ) {
-        $page = 'Search';
-    } elseif ( 'result_skfp_true' == $type ) {
-        $page = 'Search skfp=true';
-    } elseif ( 'result_skfp_false' == $type ) {
-        $page = 'Search skfp=false';
-    } elseif ( 'advanced_form' == $type ) {
-        $page = 'Advanced Search';
-    } elseif ( 'detail' == $type ) {
-        $page = 'Document';
-    } elseif ( 'decs_lookup' == $type ) {
-        $page = 'DeCS Locator';
+    $pages = array(
+        'iahx-document' => 'Document',
+        'iahx-search' => 'Search',
+        'iahx-search-skip-true' => 'Search skfp=true',
+        'iahx-search-skip-false' => 'Search skfp=false',
+        'iahx-advanced-search' => 'Advanced Search',
+        'iahx-decs-locator' => 'DeCS Locator',
+        'iahx-unknown' => 'Unknown'
+    );
+
+    if ( 'result' == $ptype ) {
+        $type = 'iahx-search';
+    } elseif ( 'result_skfp_true' == $ptype ) {
+        $type = 'iahx-search-skip-true';
+    } elseif ( 'result_skfp_false' == $ptype ) {
+        $type = 'iahx-search-skip-false';
+    } elseif ( 'advanced_form' == $ptype ) {
+        $type = 'iahx-advanced-search';
+    } elseif ( 'detail' == $ptype ) {
+        $type = 'iahx-document';
+    } elseif ( 'decs_lookup' == $ptype ) {
+        $type = 'iahx-decs-locator';
     }
 
+    $page = ( $slug ) ? $type : $pages[$type];
     return $page;
 }
 

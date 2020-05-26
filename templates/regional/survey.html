@@ -7,6 +7,7 @@
 	{% endfor %}
 {% endblock %}
 
+{% if questions %}
 <div id="boxFeedback">
 	<div id="conteudoFeedback">
 		<form action="https://im.bireme.org/send-feedback/" id="feedbackForm">
@@ -161,6 +162,7 @@
 	</div>
 	<div class="clear"></div>
 </div>
+{% endif %}
 
 {% block footerscripts %}
 	<script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
