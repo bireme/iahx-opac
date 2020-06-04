@@ -30,11 +30,11 @@
 /****************** IAHX *********************/
 .bodyBlack,
 .bodyBlack .modal-content,
-.bodyBlack #header, 
+.bodyBlack #header,
 .bodyBlack .headerSearch, .bodyBlack .card-header,
 .bodyBlack .homeConsult .titulo2,
 .bodyBlack .box1, .bodyBlack .box2, .bodyBlack .box3,.bodyBlack .box4, .bodyBlack #indiceLetras,
-.bodyBlack .page-link, .bodyBlack .titleArt, .bodyBlack .boxEvidence
+.bodyBlack .page-link, .bodyBlack .titleArt, .bodyBlack .boxEvidence, .bodyBlack .alert-light, .bodyBlack .box5
 {background: #000; color: #fff;}
 .bodyBlack .titleBox2, .bodyBlack #topAcessibility, .bodyBlack .decs:hover, .bodyBlack .btnTools:hover
 { background: #666; color: #fff; }
