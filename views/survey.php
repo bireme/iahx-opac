@@ -7,7 +7,7 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
 
     $output = array();
     $impact_measurement_cookie = '';
-    $im_api = 'https://im.teste.bireme.org/api/main/?format=json&code=';
+    $im_api = 'https://im.bireme.org/api/main/?format=json&code=';
     $im_scope = strval($config->impact_measurement_cookie_domain_scope);
 
     if ( ! $_COOKIE['impact_measurement'] ) {
@@ -35,7 +35,8 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
     }
 
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-    $content = file_get_contents($im_api.$code);
+    $page_type = get_page_type($_GET['page_type'], true);
+    $content = file_get_contents($im_api.$code.'&page='.$page_type);
     $data = json_decode($content, TRUE);
 
     if ( $data && count($data['objects']) > 0 ) {
