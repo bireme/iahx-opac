@@ -297,7 +297,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     // detailed query
     $solr_param_q = $result['diaServerResponse'][0]['responseHeader']['params']['q'];
-    $solr_param_fq = $result['diaServerResponse'][0]['responseHeader']['params']['fq'];
+    $solr_param_fq = (array_key_exists("fq", $result) ? $result['diaServerResponse'][0]['responseHeader']['params']['fq'] : '');
+
     // limpa initial filter da variavel solr_param_fq
     if ($initial_filter != ''){
         $solr_param_fq = preg_replace('~\('. $initial_filter . '\) AND | AND \('. $initial_filter . '\) |\('. $initial_filter . '\)~', '', $solr_param_fq);
@@ -477,7 +478,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 // export results
                 $export_content .= $app['twig']->render( custom_template($export_template), $output_array);
                 // increase from to get next result set
-                $from = $from + $count;
+                $from = ($from + 1) + $count;
                 // get next result set
                 $dia = new Dia($site, $col, $count, $output, $lang);
                 $dia->setParam('fb', $fb);
