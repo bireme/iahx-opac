@@ -474,11 +474,13 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             }
 
             $export_content = "";
+            $from++;  //set from to 1 to get corret next result set
+
             while ($from < $export_total){
                 // export results
                 $export_content .= $app['twig']->render( custom_template($export_template), $output_array);
-                // increase from to get next result set
-                $from = ($from + 1) + $count;
+                // set next from
+                $from = $from + $count;
                 // get next result set
                 $dia = new Dia($site, $col, $count, $output, $lang);
                 $dia->setParam('fb', $fb);
