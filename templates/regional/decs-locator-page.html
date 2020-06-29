@@ -372,6 +372,10 @@
                 }).appendTo( $('#searchForm') );
 
             }
+            // check and update skip filter page param
+            if ( $("#searchForm #skfp").length ){
+                $("#searchForm #skfp").val("true");
+            }
             $('#searchForm').submit();
         }
 
