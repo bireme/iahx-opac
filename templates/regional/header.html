@@ -21,7 +21,11 @@
 				</div>
 				<div class="headerBt">
                     {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
-                        <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+                            <a href="{{ constant("SEARCH_URL") }}decs-locator/?lang={{lang}}" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                        {% else %}
+                            <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                        {% endif %}
                     {% else %}
                          <br/>
                     {% endif %}
