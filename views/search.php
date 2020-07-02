@@ -297,7 +297,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     // detailed query
     $solr_param_q = $result['diaServerResponse'][0]['responseHeader']['params']['q'];
-    $solr_param_fq = (array_key_exists("fq", $result) ? $result['diaServerResponse'][0]['responseHeader']['params']['fq'] : '');
+    $solr_param_fq = @$result['diaServerResponse'][0]['responseHeader']['params']['fq'];
 
     // limpa initial filter da variavel solr_param_fq
     if ($initial_filter != ''){
