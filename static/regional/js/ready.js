@@ -47,8 +47,14 @@ $(function(){
 
     // show loading indicator for any form submit
     $("form").submit( function( event ) {
-        $(".loading").removeClass('d-none');
-        $(".loading").addClass('d-block');
+        var modal_export_open = ($("#ModalExport").data('bs.modal') || {})._isShown
+        var modal_email_open = ($("#ModalEmail").data('bs.modal') || {})._isShown
+        // don't show loading if export or email modal are open
+        if (modal_export_open || modal_email_open){
+        }else{
+            $(".loading").removeClass('d-none');
+            $(".loading").addClass('d-block');
+        }
     });
 
 })
