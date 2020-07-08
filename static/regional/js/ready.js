@@ -45,4 +45,10 @@ $(function(){
       $("#q").focus();
     });
 
+    // show loading indicator for any form submit
+    $("form").submit( function( event ) {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    });
+
 })

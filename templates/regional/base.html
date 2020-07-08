@@ -88,6 +88,10 @@
     {% endblock %}</head>
 
     <body>
+        <!-- loading box -->
+        <div class="loading d-none">
+            <img src="{{ constant("STATIC_URL") }}/image/loading.gif" class="rounded" alt="loading">
+        </div>
         {% block header %}
             {% include custom_template("accessibility-bar.html") %}
             {% include custom_template("header.html") %}
