@@ -179,6 +179,46 @@
 .overflow1{height: 340px; overflow: auto; overflow-x:hidden}
 .overflow2{height: 80px; overflow: auto; overflow-x:hidden}
 
+#disclaimer{
+	position: relative;
+	height: 60px;
+	overflow: hidden;
+	padding-bottom: 60px;
+}
+.disclaimer{
+	height: auto!important;
+}
+.disclaimerTransparente{
+	background-image: linear-gradient(rgba(255, 243, 205,0),rgba(255, 243, 205,.8),#fff3cd);
+	min-height: 60px;
+	width: 100%;
+	position: absolute;
+	bottom: 0;
+	z-index: 10;
+	text-align: center;
+	cursor: pointer;
+}
+.disclaimerTransparente:hover{
+	background-image: linear-gradient(rgba(255, 243, 205,0),rgba(255, 243, 205,.8),#f2e4b6);
+	color: #5f30e3;
+}
+.loading {
+	background: rgba(0,0,0,.6);
+	position: fixed;
+	width: 100%;
+	height: 100%;
+	z-index: 999999;
+}
+.loading img{
+	width: 80px;
+	height: 80px;
+	left:50%;
+	top:50%;
+	position: relative;
+	margin-left:-40px;
+	margin-top:-40px;
+}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}

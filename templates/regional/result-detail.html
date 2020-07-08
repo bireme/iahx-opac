@@ -66,6 +66,64 @@
     <div class="row padding1">
         <!-- Centro -->
         <div class="col-md-9 d-print-block" id="main_container">
+            {% if 'preprint' in doc.type %}
+            <div class="alert alert-warning" role="alert">
+                {% if lang == 'pt' %}
+                    <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Este artigo é um Preprint</h4>
+                    <div id="disclaimer">
+                        <p>
+                            Preprints são relatos preliminares de pesquisa que não foram certificados pela revisão por pares. Eles não devem ser considerados para orientar a prática clínica ou comportamentos relacionados à saúde e não devem ser publicados na mídia como informação estabelecida.
+                        </p>
+                        <p>
+                            Preprints publicados online permitem que os autores recebam feedback rápido, e toda a comunidade científica pode avaliar o trabalho independentemente e responder adequadamente. Estes comentários são publicados juntamente com os preprints para qualquer pessoa ler e servir como uma avaliação pós-publicação.
+                        </p>
+                        <div class="disclaimerTransparente">
+                            <br><span class="acordionIcone fas fa-angle-down" style="font-size: 25px;"></span>
+                        </div>
+                    </div>
+                {% elseif lang == 'es' %}
+                    <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Este articulo es un Preprint</h4>
+                    <div id="disclaimer">
+                        <p>
+                            Los preprints son informes de investigación preliminares que no han sido certificados por revisión por pares. No deben considerarse para guiar la práctica clínica o los comportamientos relacionados con la salud y no deben publicarse en los medios como información establecida.
+                        </p>
+                        <p>
+                            Los preprints publicados en línea permiten a los autores recibir comentarios rápidamente, y toda la comunidad científica puede evaluar de forma independiente el trabajo y responder adecuadamente. Estos comentarios se publican junto con los preprints para que cualquiera pueda leer y servir como una revisión pospublicación.
+                        </p>
+                        <div class="disclaimerTransparente">
+                            <br><span class="acordionIcone fas fa-angle-down" style="font-size: 25px;"></span>
+                        </div>
+                    </div>
+                {% elseif lang == 'fr' %}
+                    <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Cet article est une Preprint</h4>
+                    <div id="disclaimer">
+                        <p>
+                            Les preprints sont des rapports de recherche préliminaires qui n'ont pas été certifiés par l’évaluation par les pairs. Ils ne devraient pas être considérés comme guidant la pratique clinique ou les comportements liés à la santé et ne devraient pas être rapportés dans les médias comme des informations établies.
+                        </p>
+                        <p>
+                            Les preprints publiées en ligne permettent aux auteurs de recevoir des commentaires rapidement, et toute la communauté scientifique peut évaluer indépendamment le travail et répondre en conséquence. Ces commentaires sont publiés avec les preprints que quiconque peut lire et servir d’évaluation post-publication.
+                        </p>
+                        <div class="disclaimerTransparente">
+                            <br><span class="acordionIcone fas fa-angle-down" style="font-size: 25px;"></span>
+                        </div>
+                    </div>
+                {% else %}
+                    <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> This article is a Preprint</h4>
+                    <div id="disclaimer">
+                        <p>
+                            Preprints are preliminary research reports that have not been certified by peer review. They should not be relied on to guide clinical practice or health-related behavior and should not be reported in news media as established information.
+                        </p>
+                        <p>
+                            Preprints posted online allow authors to receive rapid feedback and the entire scientific community can appraise the work for themselves and respond appropriately. Those comments are posted alongside the preprints for anyone to read them and serve as a post publication assessment.
+                        </p>
+                        <div class="disclaimerTransparente">
+                            <br><span class="acordionIcone fas fa-angle-down" style="font-size: 25px;"></span>
+                        </div>
+                    </div>
+                {% endif %}
+
+            </div>
+            {% endif %}
             <div class="doc-detail box4">
                 <div class="titleArt">
                     {% autoescape false %}{{ occ( {'element': doc.ti, separator: ' / '} ) }}{% endautoescape %}
