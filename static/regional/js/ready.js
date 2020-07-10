@@ -56,5 +56,10 @@ $(function(){
             $(".loading").addClass('d-block');
         }
     });
+    // show loading indicator breadcrumb links
+    $(".breadcrumb-item a").click( function( event ) {
+        $(".loading").removeClass('d-none');
+        $(".loading").addClass('d-block');
+    });
 
 })
