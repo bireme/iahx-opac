@@ -2,12 +2,10 @@
 {% for doc in docs %}
 {% if doc.type.0 == "article" %}
 TY  - JOUR
-{% endif %}
-{% if doc.type.0 == "non-conventional" %}
-TY  - GEN
-{% endif %}
-{% if doc.type.0 == "book" %}
+{% elseif doc.type.0 == "book" %}
 TY  - BOOK
+{% else %}
+TY  - GEN
 {% endif %}
 {% for author in doc.au %}
 AU  - {{ author }}
