@@ -7,59 +7,59 @@ TY  - BOOK
 {% else %}
 TY  - GEN
 {% endif %}
+#BR#
 {% for author in doc.au %}
-AU  - {{ author }}
+{{ "AU  - " ~ author }}#BR#
 {% endfor %}
-TI  - {{ doc.ti.0 }}
+{{ "TI  - " ~ doc.ti.0 }}#BR#
 {% for title in doc.ti %}
 {% if not loop.first %}
-TT  - {{ title }}
+{{ "TT  - " ~ title }}#BR#
 {% endif %}
 {% endfor %}
 {% if doc.ta %}
-JO  - {{ doc.ta.0 }}
+{{ "JO  - " ~  doc.ta.0 }}#BR#
 {% endif %}
 {% if doc.vi %}
-VL  - {{ doc.vi.0 }}
+{{ "VL  - " ~ doc.vi.0 }}#BR#
 {% endif %}
 {% if doc.ip %}
-IS  - {{ doc.ip.0 }}
+{{ "IS  - " ~ doc.ip.0 }}#BR#
 {% endif %}
-DB  - {{ doc.db.0|default(doc.db) }}
-DP  - {{ config.bvs_url }}
-ID  - {{ doc.id }}
-LA  - {{ doc.la[0] }}
+{{ "DB  - " ~ doc.db.0|default(doc.db) }}#BR#
+{{ "DP  - " ~ config.bvs_url }}#BR#
+{{ "ID  - " ~ doc.id }}#BR#
+{{ "LA  - " ~ doc.la[0] }}#BR#
 {% if doc.pg.0  %}
 {% if "-" in doc.pg.0 %}
-SP  - {{ doc.pg.0|substring_before('-')|trim }}
-EP  - {{ doc.pg.0|substring_after('-')|trim }}
+{{ "SP  - " ~ doc.pg.0|substring_before('-')|trim }}#BR#
+{{ "EP  - " ~ doc.pg.0|substring_after('-')|trim }}#BR#
 {% else %}
-SP  - {{ doc.pg.0 }}
-EP  - {{ doc.pg.0 }}
+{{ "SP  - " ~ doc.pg.0 }}#BR#
+{{ "EP  - " ~ doc.pg.0 }}#BR#
 {% endif %}
 {% endif %}
 {% if doc.da %}
-DA  - {{ doc.da|slice(0,4) }}/{{ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{ doc.da|slice(6,2) }}{% endif %}
-
-PY  - {{ doc.da|slice(0,4) }}
+{{ "DA  - " ~  doc.da|slice(0,4) ~ "/" ~ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{ doc.da|slice(6,2) }}{% endif %}#BR#
+{{ "PY  - " ~  doc.da|slice(0,4) }}#BR#
 {% endif %}
 {% if doc.doi %}
-DO  - {{ doc.doi }}
+{{ "DO  - " ~ doc.doi }}#BR#
 {% endif %}
 {% for mesh in doc.mh %}
-KW  - {{ mesh }}
+{{ "KW  - " ~  mesh }}#BR#
 {% endfor %}
 {% for abstract in doc.ab %}
-AB  - {{ abstract }}
+{{ "AB  - " ~ abstract }}#BR#
 {% endfor %}
 {% if doc.ur %}
 {% for url in doc.ur %}
-UR  - {{ url|raw }}
+{{ "UR  - " ~ url|raw }}#BR#
 {% endfor %}
 {% else %}
-UR - {{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}
+{{ "UR - " ~ constant("SEARCH_URL") ~ "resource/" ~ lang ~ "/"  ~ doc.id }}#BR#
 {% endif %}
-ER  -
-
+{{ "ER  -" }}#BR#
+#BR#
 {% endfor %}
 {% endspaceless %}

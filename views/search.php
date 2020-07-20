@@ -480,7 +480,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 // export results
                 $export_content_range = $app['twig']->render( custom_template($export_template), $output_array);
                 // normalize line end
-                if ($output == 'csv'){
+                if ($output == 'csv' || $output == 'ris'){
                     $export_content_range = preg_replace("/\n/", " ", $export_content_range);                 //Remove line end
                     $export_content_range = preg_replace("/#BR#/", "\r\n", $export_content_range);            //Windows Line end
                 }else{
