@@ -476,9 +476,18 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             $export_content = "";
             $from++;  //set from to 1 to get corret next result set
 
+            $response = new Response();
+            $response->headers->set('Content-Encoding', 'UTF-8');
+            $response->headers->set('Content-Type', $content_type .'; charset=UTF-8');
+            header('Content-Disposition: attachment; filename=' . $export_filename);
+            echo "\xEF\xBB\xBF"; // UTF-8 BOM
+
+            $handle = fopen('php://output', 'w');
+            ob_clean();
+
             while ($from < $export_total){
                 // export results
-                $export_content_range = $app['twig']->render( custom_template($export_template), $output_array);
+                $export_content_range = $app['twig']->render(custom_template($export_template), $output_array);
                 // normalize line end
                 if ($output == 'csv' || $output == 'ris'){
                     $export_content_range = preg_replace("/\n/", " ", $export_content_range);                 //Remove line end
@@ -486,7 +495,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 }else{
                     $export_content_range = normalize_line_end($export_content_range);
                 }
-                $export_content .= $export_content_range;
+                // put current export range to output
+                fputs($handle, $export_content_range);
 
                 // set next from
                 $from = $from + $count;
@@ -507,12 +517,9 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
                 $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
             }
+            ob_flush();
+            fclose($handle);
 
-            $response = new Response($export_content);
-            $response->headers->set('Content-Encoding', 'UTF-8');
-            $response->headers->set('Content-Type', $content_type .'; charset=UTF-8');
-            header('Content-Disposition: attachment; filename=' . $export_filename);
-            echo "\xEF\xBB\xBF"; // UTF-8 BOM
             return $response->sendHeaders();
             break;
 
