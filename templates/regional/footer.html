@@ -7,11 +7,15 @@
 				Powered by iAHx - {{ texts.BVS_TITLE }}
 			</div>
 
-            {% if config.feedback_id is defined and config.feedback_id != '' %}
             <div class="col-md-4 text-center">
-                <a href="http://feedback.bireme.org/feedback/?application=iahx&version={% include("version.txt") %}&lang={{ lang }}&site={{ config.feedback_id }}" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% if lang == 'pt' %}
+                    <a href="https://bvsalud.org/contate-nos/" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% elseif lang == 'es' %}
+                    <a href="https://bvsalud.org/es/contactenos/" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% else %}
+                    <a href="https://bvsalud.org/en/contact_us/" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% endif %}
             </div>
-            {% endif %}
 
             {% if config.show_terms_and_policy is defined and config.show_terms_and_policy == 'true' %}
             <div class="col-md-4 text-right">
