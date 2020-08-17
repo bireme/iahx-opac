@@ -219,6 +219,39 @@
 	margin-top:-40px;
 }
 
+/*wizard*/
+.wizardModalTitle{
+	background-color: #3b2c85;
+	color: #fff;
+	border-radius: 0;
+}
+.wizardModalBody{
+	background-color: #f1f1f1;
+}
+.wizardModalfooter{
+	background-color: #fff;
+}
+.cartbt{
+	cursor: pointer;
+}
+.cartbt:hover{
+	cursor: pointer;
+}
+.wizard-color-step-1{
+	border-left: 5px solid cyan;
+}
+.wizard-color-step-2{
+	border-left: 5px solid orange;
+}
+.wizard-color-step-3{
+	border-left: 5px solid red;
+}
+.wizard-color-step-4{
+	border-left: 5px solid darkcyan;
+}
+
+
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}

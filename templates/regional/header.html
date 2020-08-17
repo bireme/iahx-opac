@@ -119,12 +119,17 @@
 							</div>
                         </div>
                     </form>
-				</div>
-                {% if config_view_filter %}
-                    <div style="margin-top: 10px">
+                </div>
+                <div style="margin-top: 10px;">
+                    {% if config_view_filter %}
                         <a href="#" id="btSidebar" data-view="{{config_view_filter}}" class="btn btn-sm btn-outline-primary">{{ texts.VIEW_FILTER }}</a>
-                    </div>
-                {% endif %}
+                    {% endif %}
+                    {% if config_wizard_list %}
+                        {% for wizard in config_wizard_list %}
+                            <a href="#" id="btnOpenWizard" data-wizard="{{wizard}}">{{ attribute(texts.WIZARD, wizard) }}</a><br/>
+                        {% endfor %}
+                    {% endif %}
+                </div>
 			</div>
 		</div>
 	</div>

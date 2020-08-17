@@ -1,0 +1,45 @@
+{% set filter_labels = 'REFINE_' ~ step_info.filter_name %}
+
+<div id="content" class="row marginTB1">
+    <div class="col-md-12">
+        <h5 class="text-center">{{ get_translated_label(lang, step_info.label, step_info.language, step_info.translations) }}</h5>
+    </div>
+
+    <div class="col-12">
+        {% if step_info.filter_name != '' %}
+            <select name="{{step_info.filter_name}}" id="option-step-{{step_info.step}}" class="form-control step-option-list wizard-color-step-{{step_info.step}}" data-step="{{step_info.step}}">
+                <option value=""></option>
+                {% for option in option_list %}
+                    {% if step_info.filter_name in only_translated_items_filters and not has_translation(option.0, filter_labels) %}
+                    {% else %}
+                        {% if not filter_by_prefix or option.0|starts_with(filter_by_prefix) %}
+                            <option value="{{option.0}}">{{ translate(option.0, filter_labels ) }}</option>
+                        {% endif %}
+                    {% endif %}
+                {% endfor %}
+            </select>
+        {% else %}
+            <div style="display: none">
+                <select name="wizard_option_group" id="option-step-{{step_info.step}}" class="step-option-list" data-step="{{step_info.step}}">
+                    <option value="" id="option_wizard_group"></option>
+                </select>
+            </div>
+            <div class="row marginTB1">
+                {% for option in option_list %}
+                    {% if not option_group or option.group == option_group %}
+                        {% set option_label = get_translated_label(lang, option.label, option.language, option.translations) %}
+                        <div class="col-md-6 marginTB1">
+                            <div class="card h-100 cartbt wizard-color-step-{{step_info.step}}">
+                                <a href="#" onclick="$('#option-step-{{step_info.step}}').val('{{option.group}}').text('{{option_label}}').trigger('change');">
+                                    <div class="card-body">
+                                        {{option_label}}
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+                    {% endif %}
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

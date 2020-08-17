@@ -394,6 +394,31 @@ function get_preference_field_lang($element, $field, $lang_list) {
 }
 
 
+function get_translated_label($target_lang,  $label, $lang, $translations, $default_lang = 'en'){
+    $default_translated_label = $label;
+    $translated_label = '';
+
+    if ($lang == $target_lang){
+        $translated_label = $label;
+    }else{
+        foreach ($translations as $translation){
+            $translation_lang = substr($translation['language'], 0, 2);
+            if ($translation_lang == $target_lang){
+                $translated_label = $translation['label'];
+            }elseif ($translation_lang == $default_lang){
+                $default_translated_label = $translation['label'];
+            }
+        }
+    }
+    if ($translated_label == ''){
+        $translated_label = $default_translated_label;
+    }
+
+    return $translated_label;
+
+}
+
+
 function filter_substring_after($text, $needle = '-'){
     if (strpos($text, $needle) !== false){
         return substr($text, strpos($text, $needle)+strlen($needle));

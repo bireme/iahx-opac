@@ -1,0 +1,32 @@
+{% for wizard in config_wizard_list %}
+
+<div class="modal fade" id="modal-wizard-{{wizard}}" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+	<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+		<div class="modal-content">
+
+			<div class="modal-header wizardModalTitle">
+				<h4 class="text-center">{{ attribute(texts.WIZARD, wizard) }}</h4>
+            </div>
+
+            <div id="smartwizard" data-wizard="{{wizard}}" data-total="{{wizard.attributes.steps}}" class="hide">
+                <ul class="nav">
+                    {% for step in 1..wizard.attributes.steps %}
+                        <li>
+                            <a class="nav-link" href="#step-{{step}}" id="step-{{step}}-title">
+                            </a>
+                        </li>
+                {% endfor %}
+                </ul>
+
+                <div class="tab-content">
+                    {% for step in 1..wizard.attributes.steps %}
+                        <div id="step-{{step}}" class="tab-pane" role="tabpanel"></div>
+                    {% endfor %}
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endfor %}

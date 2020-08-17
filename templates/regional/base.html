@@ -21,6 +21,9 @@
         {% if config_view_filter %}
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/sidebar.css">
         {% endif %}
+        {% if config_wizard_list %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/smart_wizard_all.min.css">
+        {% endif %}
         {% if config.impact_measurement_code != '' %}
         <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/survey.css">
         {% endif %}
@@ -98,6 +101,9 @@
             {% if config_view_filter %}
                 {% include custom_template("sidebar.html") %}
             {% endif %}
+            {% if config_wizard_list %}
+                {% include custom_template("wizard.html") %}
+            {% endif %}
         {% endblock %}
         <section class="">
             <div class="container">
@@ -157,6 +163,10 @@
         <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
         {% if config_view_filter %}
         <script src="{{ constant("STATIC_URL") }}/js/sidebar.js"></script>
+        {% endif %}
+        {% if config_wizard_list %}
+        <script src="{{ constant("STATIC_URL") }}/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/wizard.js" type="text/javascript"></script>
         {% endif %}
 
         {% if config.services_platform_domain != '' %}

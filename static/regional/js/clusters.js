@@ -77,6 +77,16 @@ function add_view_filter(value){
     $("#form_clusters").submit();
 }
 
+function add_wizard_filter(filter_name, filter_value){
+    // create new filter as input hidden
+    $('<input>').attr({
+        type: 'hidden',
+        name: 'filter[' + filter_name + '][]',
+        value: filter_value
+    }).appendTo('#form_clusters');
+}
+
+
 var more_filter_from = {};
 
 function show_more_filter_items(filter_id, initial_from=10){

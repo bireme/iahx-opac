@@ -207,6 +207,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
         $view_filter = join(' OR ', $view_filter_array);
     }
 
+    // wizard
+    $config_wizard_list = $collectionData->wizard_list->wizard;
 
     // BOOKMARK SESSION
     $SESSION = $app['session'];
@@ -383,6 +385,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['current_page'] = 'result';
     $output_array['range_year_start'] = $range_year_start;
     $output_array['range_year_end'] = $range_year_end;
+    $output_array['config_wizard_list'] = $config_wizard_list;
 
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;

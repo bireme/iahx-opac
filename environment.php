@@ -123,6 +123,8 @@ $app['twig']->addFunction('has_translation', new Twig_Function_Function('has_tra
 $app['twig']->addFunction('get_preference_field_lang', new Twig_Function_Function('get_preference_field_lang'));
 $app['twig']->addFunction('date_to_text', new Twig_Function_Function('date_to_text'));
 $app['twig']->addFunction('read_more', new Twig_Function_Function('read_more'));
+$app['twig']->addFunction('get_translated_label', new Twig_Function_Function('get_translated_label'));
+
 $app['twig']->addFilter('substring_before', new Twig_Filter_Function('filter_substring_before'));
 $app['twig']->addFilter('substring_after', new Twig_Filter_Function('filter_substring_after'));
 $app['twig']->addFilter('contains', new Twig_Filter_Function('filter_contains'));
