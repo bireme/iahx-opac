@@ -48,7 +48,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     if ($wizard_filter){
         foreach ($wizard_filter as $wf){
             // wizard_option filter is used only to filter API option list
-            if ($wizard_filter != 'wizard_option'){
+            if ($wizard_filter != 'wizard_option_group'){
                 $name = $wf['filter'];
                 $value = $wf[ 'value'];
                 $filter[$name] = array($value);
@@ -88,7 +88,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     }else{
         $option_list = $step_info['options'];
         $option_group = '';
-        if ($filter == 'wizard_option_group'){
+        if ($filter_name == 'wizard_option_group'){
             $option_group = $filter_value;
         }
     }

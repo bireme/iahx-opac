@@ -29,7 +29,23 @@ $(document).ready(function(){
             $(".step-option-list").each(function(){
                 var filter_name = $(this).attr('name');
                 var filter_value = $(this).val();
-                add_wizard_filter(filter_name, filter_value);
+
+                if (filter_name == 'wizard_option_group'){
+                    // skip internal wizard filter
+                }else{
+                    // special treatment for filter_query
+                    if(filter_name == 'filter_query'){
+                        // check for multiples filters. Ex db:LILACS|type:article
+                        var filters_to_apply = filter_value.split("|");
+                        // split values in filter name e value
+                        filters_to_apply.forEach(function(entry) {
+                            var filter_name_value = entry.split(":");
+                            filter_name = filter_name_value[0];
+                            filter_value = filter_name_value[1];
+                        });
+                    }
+                    add_wizard_filter(filter_name, filter_value);
+                }
             });
 
             $('#smartwizard').hide();
