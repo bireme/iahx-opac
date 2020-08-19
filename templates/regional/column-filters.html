@@ -6,41 +6,46 @@
     <form action="{{ constant("SEARCH_URL") }}" id="form_clusters" method="GET">
 
     {% if config.show_config_filter == 'true' %}
-    	<div class="btnFilter"  data-toggle="collapse" data-target="#filtrar">
-    		<span>{{texts.ADD_FILTERS}}</span>
-        	<div class="clearfix"></div>
-    	</div>
-        <div class="box2 collapse" id="filtrar" >
-            {% for cluster in config_cluster_list %}
-                <div class="boxCheck">
-                {% if user_preference_filter|length == 0 and cluster|trim in default_cluster_list %}
-                    <div class="inputCheck1">
-                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" checked="true" />
+        {% if docs|length > 0 %}
+            <div class="btnFilter"  data-toggle="collapse" data-target="#filtrar">
+                <span>{{texts.ADD_FILTERS}}</span>
+                <div class="clearfix"></div>
+            </div>
+            <div class="box2 collapse" id="filtrar" >
+                {% for cluster in config_cluster_list %}
+                    <div class="boxCheck">
+                    {% if user_preference_filter|length == 0 and cluster|trim in default_cluster_list %}
+                        <div class="inputCheck1">
+                            <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" checked="true" />
+                        </div>
+                        <label class="labelCheck1" for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label>
+                    {% else %}
+                        <div class="inputCheck1">
+                            <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" {% if cluster|trim in user_preference_filter %} checked="true" {%endif%} />
+                        </div>
+                        <label class="labelCheck1" for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
+                    {% endif %}
                     </div>
-                    <label class="labelCheck1" for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label>
-                {% else %}
-                    <div class="inputCheck1">
-                        <input id="check_{{cluster}}" type="checkbox" name="u_filter[]" value="{{cluster}}" {% if cluster|trim in user_preference_filter %} checked="true" {%endif%} />
-                    </div>
-                    <label class="labelCheck1" for="check_{{cluster}}">{{ attribute(texts.REFINE, cluster) }}</label><br>
-                {% endif %}
-                </div>
-            {% endfor %}
-            <hr>
-            <input type="submit" value="{{texts.APPLY}}" name="config_filter_submit" class="btn btnBlue btn-sm btn-block float-right">
-            <div class="clearfix"></div>
-        </div>
+                {% endfor %}
+                <hr>
+                <input type="submit" value="{{texts.APPLY}}" name="config_filter_submit" class="btn btnBlue btn-sm btn-block float-right">
+                <div class="clearfix"></div>
+            </div>
+        {% endif %}
     {% endif %}
-
-    <button type="submit" class="btnBlueM" id="btnFiltroD">{{texts.FILTER}}</button>
+    {% if docs|length > 0 %}
+        <button type="submit" class="btnBlueM" id="btnFiltroD">{{texts.FILTER}}</button>
+    {% endif %}
 
     {% if filters_formatted|length > 0 %}
         <div class="division"></div>
         <div class="filters" id="filters">
             <strong>{{ texts.SELECTED_FILTERS }}</strong>
-            <div class="reset_filters">
-                <a href="javascript:reset_filters()">{{ texts.CLEAR_FILTERS }}</a>
-            </div>
+            {% if docs|length > 0 %}
+                <div class="reset_filters">
+                    <a href="javascript:reset_filters()">{{ texts.CLEAR_FILTERS }}</a>
+                </div>
+            {% endif %}
 
             <ul>
                 {% for cluster, items in filters_formatted %}
@@ -49,7 +54,7 @@
                     <li class="filter">{{ attribute(texts.REFINE, cluster) }}
                         <ul>
                             {% for item in items %}
-                                {% set item_value = cluster ~ '_' ~ item|slugify ~ '' %}
+                                {% set item_value = cluster ~ '_' ~ loop.index %}
                                 <li>
                                     {% if '^' in item %}
                                         {{ item|subfield(lang) }}
@@ -58,14 +63,15 @@
                                     {% else %}
                                         {{ translate(item, texts_group) }}
                                     {% endif %}
-                                    <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
+                                    {% if docs|length > 0 %}
+                                        <a href="javascript:remove_filter('{{ item_value }}')" title="Remover cluster: {{ item }}">(remover)</a>
+                                    {% endif %}
                                 </li>
                             {% endfor %}
                         </ul>
                 {% endfor %}
             </ul>
         </div>
-        <hr>
     {% endif %}
 
     <!-- used for show more values (facet browse)-->
@@ -128,7 +134,7 @@
 
                         <div class="box2 collapse show" id="{{ name }}" >
                             {% for item in cluster if item.0 != '' %}
-                                {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
+                                {% set cluster_item_id = name ~ '_' ~ loop.index %}
 
                                 {% if name in only_translated_items_clusters and not has_translation(item.0, cluster_labels) %}
                                 {% else %}
@@ -141,7 +147,7 @@
                                             >
                                         </div>
                                         <label class="labelCheck1" for="{{ cluster_item_id }}">
-                                            <a href="javascript: add_filter('{{ name }}_{{ item.0|slugify }}');"
+                                            <a href="javascript: add_filter('{{ cluster_item_id }}');"
                                                 {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', '{{name}}' , {'event_category': 'Filter', 'event_label': '{{item.0}}'}); gtag('event', 'Cluster' , {'event_category': 'Filter', 'event_label': '{{name}}'});" {% endif %}>
                                                 {% if '/' in item.0 %}
                                                     {% set item_part = item.0|split('/') %}
@@ -183,44 +189,47 @@
             {% endif %}
         {% endif %}
     {% endfor %}
-    <div>
-        <div class="titleBox2" data-toggle="collapse" data-target="#range_year">
-            {{ texts.YEAR_RANGE }} <span class="acordionIcone float-right fas fa-angle-up"></span>
+
+    {% if docs|length > 0 %}
+        <div>
+            <div class="titleBox2" data-toggle="collapse" data-target="#range_year">
+                {{ texts.YEAR_RANGE }} <span class="acordionIcone float-right fas fa-angle-up"></span>
+            </div>
+
+            <div class="box2 collapse show" id="range_year">
+                <div class="boxCheck">
+                    <div class="inputCheck1">
+                        <input id="last_5years" type="radio" name="years" onclick="javascript:fill_range(5)">
+                    </div>
+                    <label class="labelCheck1" for="last_5years">{{ texts.LAST_5_YEARS }}</label>
+                </div>
+                <div class="boxCheck">
+                    <div class="inputCheck1">
+                        <input id="last_10years" type="radio" name="years" onclick="javascript:fill_range(10)">
+                    </div>
+                    <label class="labelCheck1" for="last_10years">{{ texts.LAST_10_YEARS }}</label>
+                </div>
+
+                <div class="form-row">
+                    <div class="col-4">
+                        <input id="range_start" class="form-control" type="text" name="range_year_start" value="{{ range_year_start }}" placeholder="yyyy">
+                    </div>
+                    <div class="col-4">
+                        <input id="range_end" class="form-control" type="text" name="range_year_end" value="{{ range_year_end }}" placeholder="yyyy">
+                    </div>
+                    <div class="col-4">
+                        <a href="#" onclick="$('#form_clusters').submit();" class="btnFilterDate">
+                            <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
         </div>
 
-        <div class="box2 collapse show" id="range_year">
-            <div class="boxCheck">
-                <div class="inputCheck1">
-                    <input id="last_5years" type="radio" name="years" onclick="javascript:fill_range(5)">
-                </div>
-                <label class="labelCheck1" for="last_5years">{{ texts.LAST_5_YEARS }}</label>
-            </div>
-            <div class="boxCheck">
-                <div class="inputCheck1">
-                    <input id="last_10years" type="radio" name="years" onclick="javascript:fill_range(10)">
-                </div>
-                <label class="labelCheck1" for="last_10years">{{ texts.LAST_10_YEARS }}</label>
-            </div>
-
-            <div class="form-row">
-                <div class="col-4">
-                    <input id="range_start" class="form-control" type="text" name="range_year_start" value="{{ range_year_start }}" placeholder="yyyy">
-                </div>
-                <div class="col-4">
-                    <input id="range_end" class="form-control" type="text" name="range_year_end" value="{{ range_year_end }}" placeholder="yyyy">
-                </div>
-                <div class="col-4">
-                    <a href="#" onclick="$('#form_clusters').submit();" class="btnFilterDate">
-                        <i class="fas fa-arrow-right"></i>
-                    </a>
-                </div>
-            </div>
+        <div id="aplicarFiltro">
+        <button type="submit" class="btnBlueM" id="btnFiltroD">{{texts.FILTER}}</button>
         </div>
-    </div>
-
-    <div id="aplicarFiltro">
-       <button type="submit" class="btnBlueM" id="btnFiltroD">{{texts.FILTER}}</button>
-    </div>
+    {% endif %}
 
     </form>
 </div>

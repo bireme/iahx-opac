@@ -104,10 +104,10 @@
                                            {% endfor %}
                                        </div>
                                    {% endif %}
-                                   
+
                                    <!-- display source fields -->
                                    {% include custom_template("result-inc-source.html") %}
-                                   
+
                                    <!-- More details div -->
     							    <div class="reference-detail collapse" >
                                         {% if doc.ab %}
@@ -204,8 +204,19 @@
     	</section>
         {% endif %}
     {% else %}
-        <div class="noResults">
-            {{ texts.NO_RESULTS }}
+
+    <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-3 d-print-none">
+
+                        <div class="alert alert-dark text-center" role="alert">
+                            <h5>{{ texts.NO_RESULTS }}</h5>
+                        </div>
+
+                </div>
+                {% include custom_template('column-filters.html') %}
+            </div>
         </div>
     {% endif %}
 
