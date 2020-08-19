@@ -9,10 +9,10 @@ $(function(){
         // populate hidden fields to preserve expression and language
         $('#q_index_filter').val(user_query);
         $('#lang_index_filter').val(interface_lang);
-        $('#formIndexFilters').submit();
+        $('#form_clusters').submit();
     });
     // if user submit the filter form populate the hidden query field
-    $('#formIndexFilters').submit( function(event) {
+    $('#form_clusters').submit( function(event) {
         user_query = $('#searchForm #q').val();
         $('#q_index_filter').val(user_query);
     });
