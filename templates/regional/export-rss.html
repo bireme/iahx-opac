@@ -37,7 +37,17 @@
                     {% endif %}
                     <source><![CDATA[{{ doc.fo.0 }}]]></source>
                     <link>{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}</link>
-                    <description><![CDATA[<p>{% if doc.fo is defined %}{{ doc.fo.0 }}{% if doc.fo.0|last == '.' %} {% else %}. {% endif %}{% endif %}{% if doc.type is defined %}[{{ translate(doc.type.0, 'REFINE_type') }}]{% endif %}</p>]]></description>
+                    <description>
+                        <![CDATA[
+                        {% if doc.ab %}
+                            {% for abstract in doc.ab %}
+                                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
+                            {% endfor %}
+                        {% else %}
+                            {{ doc.fo.0 }}
+                        {% endif %}
+                        ]]>
+                    </description>
                     <guid isPermaLink="false">{{ doc.id }}</guid>
                 </item>
                 {% endblock %}
