@@ -35,8 +35,8 @@
         | <a href="{{ lxp_disclaimer_url }}" target="_blank" title="{{ lxp_db }}">
             {{ lxp_db }}
         </a>
-    {% else %}
-        {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
     {% endif %}
+    {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
+
 	| ID: <span class="doc_id">{{ doc.id }}</span>
 </div>
