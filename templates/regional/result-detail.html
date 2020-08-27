@@ -133,7 +133,18 @@
     			        {% for author in doc.au %}
     			            <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
     			        {% endfor %}
-    			    {% endif %}
+                    {% endif %}
+                    {% if doc.afiliacao_autor is defined %}
+                        <span id="affiliations" class="fas fa-angle-down" data-toggle="collapse" href="#affiliationsBox" role="button" aria-expanded="true"></span>
+                        <div id="affiliationsBox" class="collapse">
+                            <b>{{ texts.RESULT.LABEL_AFFILIATION }}</b>
+                            <ul>
+                                {% for af in doc.afiliacao_autor %}
+                                    <li>{{af}}</li>
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    {% endif %}
                 </div>
 
                 {% include custom_template("result-inc-source.html") %}

@@ -253,7 +253,17 @@
 	border-left: 5px solid darkcyan;
 }
 
-
+#affiliationsBox{
+	padding: 10px;
+	border: 1px solid #ddd;
+	border-left: 5px solid #ddd;
+	margin: 10px 0;
+	border-radius: 0 5px 5px 0;
+	font-size: 15px;
+}
+#affiliationsBox ol{
+	padding-left: 30px;
+}
 
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
