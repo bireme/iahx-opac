@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($app, $DEFAULT_PARAMS, $config) {
     global $texts;
 
-    $wizard_api_url = "http://iahx-wizard.teste.bireme.org/api";
+    $wizard_api_url = "https://iahx-wizard.teste.bireme.org/api";
 
     $params = array_merge(
         $app['request']->request->all(),
@@ -14,47 +14,58 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
 
     $SESSION = $app['session'];
     $SESSION->start();
+    $wizard_session = $SESSION->get('wizard_session');
 
     $lang = $DEFAULT_PARAMS['lang'];
     if(isset($params['lang']) and $params['lang'] != "") {
         $lang = $params['lang'];
     }
 
-    $step = (isset($params['step']) ? $params['step'] : '1');
-    $filter_name = $params['filter_name'];
-    $filter_value = $params['filter_value'];
+    $step = (isset($params['step']) ? intval($params['step']) : 1);
+    $previous_filter_name = $params['filter_name'];
+    $previous_filter_value = $params['filter_value'];
+    $previous_filter_label = $params['filter_label'];
     $filter_by_prefix = null;
 
-    if ($filter_name != '' && $filter_value != ''){
-        $wizard_filter = $SESSION->get('wizard_filter');
-        $wizard_filter_id = intval($step)-1;
+    /* DEBUG
+    print_r($wizard_session);
+    print('previous_fiter_name: '  . $previous_filter_name . ' previous_filter_value: '  . $previous_filter_value);
+    */
 
-        $filter = array('filter' => $filter_name, 'value' => $filter_value);
-        $wizard_filter[$wizard_filter_id] = $filter;
-        // remove filters after current filter
-        array_splice($wizard_filter, $wizard_filter_id);
+    if ($previous_filter_name != '' && $previous_filter_value != ''){
+        $previous_step = $step - 1;
+        $previous_filter = array('filter' => $previous_filter_name, 'value' => $previous_filter_value, 'label' => $previous_filter_label);
 
-        $found_filter_prefix = preg_match('/^[0-9]+_/', $filter_value, $match_prefix);
+        //update wizard_session with previous filter
+        $wizard_session[$previous_step] = $previous_filter;
+
+        $found_filter_prefix = preg_match('/^[0-9]+_/', $previous_filter_value, $match_prefix);
         if ($found_filter_prefix){
             $filter_by_prefix = $match_prefix[0];
         }
     }
+
     // update session
-    $SESSION->set('wizard_filter', $wizard_filter);
+    $SESSION->set('wizard_session', $wizard_session);
     $SESSION->save();
 
-    // mount internal class filter param used to solr query
-    $filter = array();
-    if ($wizard_filter){
-        foreach ($wizard_filter as $wf){
-            // wizard_option filter is used only to filter API option list
-            if ($wizard_filter != 'wizard_option_group'){
-                $name = $wf['filter'];
-                $value = $wf[ 'value'];
-                $filter[$name] = array($value);
+    // mount internal class filter param used to Solr query
+    $filters_to_apply = array();
+    if ($wizard_session){
+        for ($i = 1; $i < $step; $i++){
+            $wizard_filter = $wizard_session[$i];
+            // skip wizard_option filter (used only to filter API option list)
+            if ($wizard_filter['filter'] != 'wizard_option_group'){
+                $name = $wizard_filter['filter'];
+                $value = $wizard_filter[ 'value'];
+                $filters_to_apply[$name] = array($value);
             }
         }
     }
+    /* DEBUG
+    print('FILTERS_TO_APPLY:');
+    print_r($filters_to_apply);
+    */
 
     // get step info
     $step_url = $wizard_api_url . '/step/?wizard=' . $wizard_id . '&step=' . $step;
@@ -79,7 +90,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         $dia->setParam('fb', $fb);
         $dia->setParam('initial_filter', $initial_filter);
 
-        $solr_response = $dia->search($q, $index, $filter);
+        $solr_response = $dia->search($q, $index, $filters_to_apply);
         $solr_result = json_decode($solr_response, true);
 
         $option_list = $solr_result['diaServerResponse'][0]['facet_counts']['facet_fields'][$step_filter];
@@ -88,8 +99,8 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     }else{
         $option_list = $step_info['options'];
         $option_group = '';
-        if ($filter_name == 'wizard_option_group'){
-            $option_group = $filter_value;
+        if ($previous_filter_name == 'wizard_option_group'){
+            $option_group = $previous_filter_value;
         }
     }
 
@@ -106,6 +117,14 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     $output_array['option_group'] = $option_group;
     $output_array['filter_by_prefix'] = $filter_by_prefix;
     $output_array['only_translated_items_filters'] = $only_translated_items_filters;
+
+    if ($wizard_session[$step]){
+        $output_array['previous_session_selection'] = $wizard_session[$step];
+        /* DEBUG
+        print_r($wizard_session[$step]);
+        */
+
+    }
 
     return $app['twig']->render(custom_template('wizard-step.html'), $output_array);
 

@@ -13,7 +13,7 @@
                     {% if step_info.filter_name in only_translated_items_filters and not has_translation(option.0, filter_labels) %}
                     {% else %}
                         {% if not filter_by_prefix or option.0|starts_with(filter_by_prefix) %}
-                            <option value="{{option.0}}">{{ translate(option.0, filter_labels ) }}</option>
+                            <option value="{{option.0}}" {% if option.0 == previous_session_selection.value %}selected="true"{% endif %} >{{ translate(option.0, filter_labels ) }}</option>
                         {% endif %}
                     {% endif %}
                 {% endfor %}
@@ -32,13 +32,13 @@
                             <div class="card h-100 cartbt wizard-color-step-{{step_info.step}}">
                                 {% if option.filter_query != '' %}
                                     <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','filter_query'); $('#option_wizard_group_{{step_info.step}}').val('{{option.filter_query}}').text('{{option_label}}').trigger('change');">
-                                        <div class="card-body">
+                                        <div class="card-body {% if option_label == previous_session_selection.label %} card-selected {% endif %}">
                                             {{option_label}}
                                         </div>
                                     </a>
                                 {% else %}
                                     <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','wizard_option_group'); $('#option_wizard_group_{{step_info.step}}').val('{{option.group}}').text('{{option_label}}').trigger('change');">
-                                        <div class="card-body">
+                                        <div class="card-body {% if option_label == previous_session_selection.label %} card-selected {% endif %}">
                                             {{option_label}}
                                         </div>
                                     </a>

@@ -214,6 +214,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $SESSION = $app['session'];
     $SESSION->start();
     $bookmark = $SESSION->get('bookmark');
+    $wizard_session = $SESSION->get('wizard_session');
 
 
     // initial filter (defined on configuration file)
@@ -386,6 +387,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['range_year_start'] = $range_year_start;
     $output_array['range_year_end'] = $range_year_end;
     $output_array['config_wizard_list'] = $config_wizard_list;
+    $output_array['wizard_session'] = $wizard_session;
 
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;

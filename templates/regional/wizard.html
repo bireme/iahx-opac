@@ -11,8 +11,10 @@
             <div id="smartwizard" data-wizard="{{wizard}}" data-total="{{wizard.attributes.steps}}" class="hide">
                 <ul class="nav">
                     {% for step in 1..wizard.attributes.steps %}
+                        {% set step_number = step|number_format %}
                         <li>
                             <a class="nav-link" href="#step-{{step}}" id="step-{{step}}-title">
+                                {{ attribute(wizard_session, step_number).label }}
                             </a>
                         </li>
                 {% endfor %}
