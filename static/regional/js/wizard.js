@@ -85,7 +85,7 @@ $(document).ready(function(){
             // update previous step title
             $('#step-' + previous_step + '-title').html(previous_option_text);
             // filter next step with previous values
-            ajaxURL += '&filter_name=' + previous_filter + '&filter_value=' + previous_option_value + '&filter_label=' + previous_option_text;
+            ajaxURL += '&previous_filter_name=' + previous_filter + '&previous_filter_value=' + previous_option_value + '&previous_filter_label=' + previous_option_text;
         }
 
         // Return a promise object

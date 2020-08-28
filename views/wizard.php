@@ -22,9 +22,9 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     }
 
     $step = (isset($params['step']) ? intval($params['step']) : 1);
-    $previous_filter_name = $params['filter_name'];
-    $previous_filter_value = $params['filter_value'];
-    $previous_filter_label = $params['filter_label'];
+    $previous_filter_name = $params['previous_filter_name'];
+    $previous_filter_value = $params['previous_filter_value'];
+    $previous_filter_label = $params['previous_filter_label'];
     $filter_by_prefix = null;
 
     /* DEBUG
