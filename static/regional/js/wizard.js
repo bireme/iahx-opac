@@ -29,14 +29,21 @@ $(document).ready(function(){
 
         // if last step add all filters of wizard steps to form_clusters and submit the query
         if (current_step == last_step){
-            $(".step-option-list").each(function(){
+            // remove all previous interface applied filters
+            $("#form_clusters input[name^='filter']").remove();
+
+            var user_selected_options = $(".step-option-list");
+
+            user_selected_options.each(function(index){
                 var filter_name = $(this).attr('name');
                 var filter_value = $(this).val();
+                var filter_label = $(this).text();
 
                 if (filter_name == 'wizard_option_group'){
                     // skip internal wizard filter
                 }else{
-                    // special treatment for filter_query
+
+                    // special treatment for filter_query (last step of wizard)
                     if(filter_name == 'filter_query'){
                         // check for multiples filters. Ex db:LILACS|type:article
                         var filters_to_apply = filter_value.split("|");
@@ -45,9 +52,17 @@ $(document).ready(function(){
                             var filter_name_value = entry.split(":");
                             filter_name = filter_name_value[0];
                             filter_value = filter_name_value[1];
+
+                            // add filter to search form
+                            add_wizard_filter(filter_name, filter_value);
+                            // add last step filter to session
+                            $.post("/wizard-session/add", {"filter_name": filter_name, "filter_value": filter_value, "filter_label": filter_label});
                         });
+
+                    }else{
+                        // add filter to search form
+                        add_wizard_filter(filter_name, filter_value);
                     }
-                    add_wizard_filter(filter_name, filter_value);
                 }
             });
 
@@ -55,9 +70,11 @@ $(document).ready(function(){
             $("#form_clusters").submit();
             return true;
         }else{
-            // clear content of next step div
-            $('#step-' + next_step + '-title').html('');
-            $('#step-' + next_step).html('');
+            // clear content of nexts steps div
+            for (s = next_step; s <= last_step; s++){
+                $('#step-' + s + '-title').html('');
+                $('#step-' + s).html('');
+            }
             // load next step
             $('#smartwizard').smartWizard('next');
         }
