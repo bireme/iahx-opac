@@ -56,7 +56,7 @@ $(document).ready(function(){
                             // add filter to search form
                             add_wizard_filter(filter_name, filter_value);
                             // add last step filter to session
-                            $.post("/wizard-session/add", {"filter_name": filter_name, "filter_value": filter_value, "filter_label": filter_label});
+                            $.post("wizard-session/add", {"filter_name": filter_name, "filter_value": filter_value, "filter_label": filter_label});
                         });
 
                     }else{
