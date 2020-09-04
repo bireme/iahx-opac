@@ -5,7 +5,7 @@ use Symfony\Component\HttpFoundation\Request;
 $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($app, $DEFAULT_PARAMS, $config) {
     global $texts;
 
-    $wizard_api_url = "https://iahx-wizard.teste.bireme.org/api";
+    $wizard_api_url = "https://iahx-wizard.bireme.org/api";
 
     $params = array_merge(
         $app['request']->request->all(),
