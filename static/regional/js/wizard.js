@@ -86,7 +86,7 @@ $(document).ready(function(){
         var current_step = stepIndex+1;
         var last_step = parseInt($(this).data('total'));
         var wizard_id = $(this).data('wizard');
-        var ajaxURL = 'wizard/' + wizard_id + '?step=' + current_step;
+        var ajaxURL = 'wizard/' + wizard_id + '?step=' + current_step + '&lang=' + LANG;
 
         if ($('#step-' + current_step).contents().length > 0){
             return true;
