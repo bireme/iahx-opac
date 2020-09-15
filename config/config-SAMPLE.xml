@@ -8,10 +8,11 @@
 	<photocopy_url>http://scad.bvs.br/php/index.php?identificado=1</photocopy_url>
 	<services_platform_domain>http://platserv.bvsalud.org</services_platform_domain>
 	<impact_measurement_code></impact_measurement_code>
-    <impact_measurement_cookie_domain_scope></impact_measurement_cookie_domain_scope>
-    <impact_measurement_bvs_cookie_domain></impact_measurement_bvs_cookie_domain>
-    <impact_measurement_bvsalud_cookie_domain></impact_measurement_bvsalud_cookie_domain>
-    <impact_measurement_bireme_cookie_domain></impact_measurement_bireme_cookie_domain>
+	<impact_measurement_cookie_domain_scope>/</impact_measurement_cookie_domain_scope>
+	<impact_measurement_survey_link></impact_measurement_survey_link>
+	<impact_measurement_bvs_cookie_domain></impact_measurement_bvs_cookie_domain>
+	<impact_measurement_bvsalud_cookie_domain></impact_measurement_bvsalud_cookie_domain>
+	<impact_measurement_bireme_cookie_domain></impact_measurement_bireme_cookie_domain>
 	<documents_per_page>20</documents_per_page>
     <max_documents_per_page>100</max_documents_per_page>
 	<max_export_records>2000</max_export_records>

@@ -150,7 +150,13 @@
 		</div>
 		<div class="feedback-message">
             <div class="alert alert-success result-ok" role="alert">
-                {{ texts.THANKS }}
+            	{% if im_survey_link == '' %}
+                	{{ texts.THANKS }}
+                {% else %}
+                	{{ texts.THANKS }}<br />
+                	{{ texts.SURVEY_LINK_DESC }}<br />
+                	<a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
+                {% endif %}
             </div>
             <div class="alert alert-warning result-error" role="alert">
                 {{ texts.ERROR|raw }}
