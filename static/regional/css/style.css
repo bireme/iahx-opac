@@ -322,10 +322,18 @@
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
+	.modal-xl{max-width: 90%;}
+}
+@media (max-width: 1024px){
+	.sw.sw-justified>.nav>li h6{min-height: 77px;}
 }
 @media (max-width: 992px){
+	.container{min-width: 95%!important;}
 	#resumo, #tabResumo{width: 86%;}
-    .textArt{width: 80%;}
+	.textArt{width: 80%;}
+	.headerBt a{margin-bottom: 5px;}
+	#wizardName{font-size: 18px;}
+	.wizardModalTitle h4{font-size: 22px;}
 }
 @media (max-width: 768px){
 	.marginMC1{ margin-bottom: 10px;}
@@ -362,7 +370,13 @@
 	#tabResumo li{ border: 0; margin: 0 5px 5px 0; border: 1px solid #ddd; }
 	#tabResumo .active{border: 0; background: #eee;}
 	#q{width: 100%;}
-    .overflow1, .overflow2{height: auto;}
+	.overflow1, .overflow2{height: auto;}
+	#wizardName{font-size: 14px!important; margin-top: 10px;}
+	.wizardModalTitle h4{font-size: 20px!important;}
+}
+@media (max-width: 640px){
+	.sw.sw-justified>.nav>li h6{min-height: auto;}
+	.sw.sw-justified>.nav>li{margin-bottom: -25px;}
 }
 @media (max-width: 556px){
 	#resumo, #tabResumo{width: 100%;}
