@@ -32,6 +32,10 @@
                     {% if (not config.show_advanced_search_button or config.show_advanced_search_button == 'true') %}
                     <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
                     {% endif %}
+                    {% if config_wizard_list %}
+                        <a href="#" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" id="btnOpenWizard" data-wizard="{{config_wizard_list.0}}" class="btnBlue">{{ texts.WIZARD.BUTTON }}</a><br/>
+                    {% endif %}
+
 				</div>
 				<div class="{% if current_page != 'decs_lookup'%}headerSearch{% else %}d-none{% endif %}">
 
@@ -123,11 +127,6 @@
                 <div style="margin-top: 10px;">
                     {% if config_view_filter %}
                         <a href="#" id="btSidebar" data-view="{{config_view_filter}}" class="btn btn-sm btn-outline-primary">{{ texts.VIEW_FILTER }}</a>
-                    {% endif %}
-                    {% if config_wizard_list %}
-                        {% for wizard in config_wizard_list %}
-                            <a href="#" id="btnOpenWizard" data-wizard="{{wizard}}">{{ attribute(texts.WIZARD, wizard) }}</a><br/>
-                        {% endfor %}
                     {% endif %}
                 </div>
 			</div>

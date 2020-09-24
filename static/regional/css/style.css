@@ -45,6 +45,7 @@
 .lang ul li .active{background:#30348d; color: #fff;}
 .lang ul li a:hover{ color: #fff; text-decoration:none; background: #464bbb;}
 .headerBt{text-align: right; margin-top: 40px; margin-bottom: 20px;}
+.headerBt a {display: inline-block!important;}
 .listSelectCont{padding: 0; list-style: none;}
 .listSelectCont li{padding: 0; margin-bottom: 5px;}
 .listSelectCont li a{ color: #30348d;}
@@ -218,15 +219,16 @@
 	margin-left:-40px;
 	margin-top:-40px;
 }
+.padding2{padding-bottom: 5px;}
 
-/*wizard*/
+/*  wizard */
 .wizardModalTitle{
 	background-color: #3b2c85;
 	color: #fff;
 	border-radius: 0;
 }
 .wizardModalBody{
-	background-color: #f1f1f1;
+	background-color: #fff;
 }
 .wizardModalfooter{
 	background-color: #fff;
@@ -236,6 +238,10 @@
 }
 .cartbt:hover{
 	cursor: pointer;
+}
+.card-body:hover, .list-group-item:hover{
+	background: rgba(59, 44, 133, 0.1)!important;
+	border-color: #3b2c85!important;
 }
 .card-selected{
 	background-color: #f5f5f5;
@@ -252,6 +258,54 @@
 .wizard-color-step-4{
 	border-left: 5px solid darkcyan;
 }
+#wizardName{
+	background: #007bff;
+	padding:5px 20px;
+	position: absolute;
+	top: -30px;
+	border-radius: 5px;
+	font-size: 20px;
+	font-weight: 500;
+}
+.sw.sw-justified>.nav>li{
+	font-size: 14px;
+}
+.sw.sw-justified>.nav>li h6{
+	font-size: 15px;
+	font-weight: 600;
+	padding-bottom: 3px;
+	background: #3b2c85;
+	color: #fff;
+	border-radius: 5px;
+	padding: 5px;
+	font-size: 14px;
+	min-height: 60px;
+	vertical-align: center;
+}
+.sw-theme-dots>.nav .active h6{
+	/*background: #5bc0de!important;*/
+	background-image: linear-gradient(to bottom right, #007bff, #124b5d)!important;
+	color: #ff0!important;
+	border:3px solid #00ffff;
+}
+.sw-theme-dots>.nav .nav-link.done p{
+	color: #3b2c85!important;
+	font-size: 16px;
+}
+.sw.sw-justified>.nav a{
+	color: #666;
+}
+.sw-theme-dots>.nav::before, .sw-theme-dots>.nav .nav-link::before {
+	background: #3b2c85!important;
+}
+.sw-theme-dots>.nav .nav-link.done::after{
+	background: #fdfdfd!important;
+}
+.sw-theme-dots>.nav .nav-link.active::after {
+    background-color: #fff207!important;
+}
+
+/*  affiliation */
 
 #affiliationsBox{
 	padding: 10px;
