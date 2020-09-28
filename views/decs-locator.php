@@ -2,7 +2,7 @@
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
-$app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
+$app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config) {
 
     $params = array_merge(
         $app['request']->request->all(),
@@ -38,7 +38,7 @@ $app->match('/decs-locator/', function (Request $request) use ($app, $DEFAULT_PA
     $descriptor = $request->get("descriptor");  // allow get detais of specific descriptor
     $mode = $request->get("mode");        // allow mode dataentry
 
-    $decs_service_url = "http://decs.bvs.br/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang;
+    $decs_service_url = "https://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang;
 
     if ($descriptor != ''){
         $decs_service_url .= "&bool=101%20" . str_replace(' ','%20', $descriptor); // get descriptor by authorized term

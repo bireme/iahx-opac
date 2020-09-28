@@ -18,19 +18,20 @@ $app->match('decs/{lang}/{term}', function (Request $request, $lang, $term) use 
     $term = remove_accents($term);
 
     $concept = 0;
+    $concept_id = 0;
     for( $i = 0; !$concept && ($i < sizeof($bool)); $i = $i + 1 ){
-        $query = "http://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?bool=".$bool[$i]."%20$term&lang=$lang";
+        $query = "https://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?bool=".$bool[$i]."%20$term&lang=$lang";
         $decs = @simplexml_load_file($query);
         if ($decs){
             $concept = (String) @$decs->decsws_response->record_list->record->definition->occ['n'];
+            $concept_id = (String) @$decs->decsws_response->record_list->record['mfn'];
         }
     }
 
-    $href = "http://decs.bvsalud.org/cgi-bin/wxis1660.exe/decsserver/" .
-    "?IsisScript=../cgi-bin/decsserver/decsserver.xis" .
-    "&search_language=".$lang_one_letter .
-    "&interface_language=".$lang_one_letter .
-    "&previous_page=homepage&task=exact_term&search_exp=" . $term;
+    $decs_url = "https://decs.bvsalud.org/";
+    $decs_url_lang = ($lang != "pt" ? $lang : '');
+
+    $href = $decs_url . $decs_url_lang . "/ths/resource/?id=" . $concept_id . "&filter=ths_exact_term&q=" . $term;
 
     $output_array = array();
     $output_array['texts'] = $texts;
