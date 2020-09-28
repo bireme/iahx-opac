@@ -10,7 +10,7 @@
         {% endif %}
 
         <div class="col-md-4 similares">
-            <a href="{{ constant('SEARCH_URL') }}resource/{{lang}}/{{similar['id']}}" class="link1" target="_blank">
+            <a href="{{ constant('SEARCH_URL') }}resource/{{lang}}/{{similar['id']}}?src=similardocs" class="link1" target="_blank">
                 {{ get_preference_field_lang(similar,'ti', [lang, 'en', 'es', 'pt', 'fr']) }}
             </a>
         </div>
