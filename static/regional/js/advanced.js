@@ -1,3 +1,8 @@
+/*
+* advanced.js
+* version: 1.0.1
+*/
+
 var next_line = 3;
 
 // show/refresh index list
@@ -16,7 +21,7 @@ function show_index(line, update){
     options.find('option').remove().end();
 
     console.log(SEARCH_URL + "browse-index/" + index +"/?init=" + init);
-    
+
     $.getJSON(SEARCH_URL + "browse-index/" + index +"/?init=" + init, function(result) {
         $.each(result.terms, function() {
             options.append($("<option />").val(this).text(this));
@@ -122,9 +127,9 @@ function add_query(current, q, bool, index) {
 function search() {
     var search_form = document.searchForm;
     var form = document.advanced;
-    var q = form["q[]"];
-    var index = form['index[]'];
-    var bool = form['bool[]'];
+    var q = document.getElementsByName("q[]");
+    var index = document.getElementsByName("index[]");
+    var bool = document.getElementsByName("bool[]");
     var query = "";
 
     if(q[0].value != "") {
