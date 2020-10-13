@@ -314,6 +314,10 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     }elseif ($solr_param_fq != ''){
         $detailed_query = $solr_param_fq;
     }
+    // replace NOT (returned from lucene parser) by AND NOT
+    if ($detailed_query != ''){
+        $detailed_query = preg_replace('/(?<!AND) NOT /', ' AND NOT ', $detailed_query);
+    }
 
     // translate
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
