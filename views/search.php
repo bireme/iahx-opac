@@ -293,7 +293,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $dia = new Dia($site, $col, $count, $output, $lang);
     $dia->setParam('fb', $fb);
     $dia->setParam('sort', $sort_value);
-    $dia->setParam('initial_filter', $initial_filter );
+    $dia->setParam('initial_filter', $initial_filter);
+    $dia->setParam('filter_list', $config_cluster_list);
 
     $dia_response = $dia->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
     $result = json_decode($dia_response, true);

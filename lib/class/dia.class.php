@@ -69,6 +69,13 @@ class Dia
 
         $this->param["fq"] = $filter;
 
+        $filter_list = $this->param["filter_list"];
+        if (isset($filter_list) && !empty($filter_list)){
+            foreach ($filter_list as $filter){
+                $this->param["facet.field"][] = (string) $filter;
+            }
+        }
+
         $searchUrl = $this->requestUrl();
 
         $result = $this->documentPost( $searchUrl );
@@ -124,8 +131,15 @@ class Dia
         reset($this->param);
 
         foreach ($this->param as $key => $value){
-            if ($value != ""){
-                $urlParam .= "&" . $key . "=" . urlencode($value);
+            if (is_array($this->param[$key])){
+                foreach ($this->param[$key] as $value_param){
+                    $urlParam .= "&" . $key . "=" . urlencode($value_param);
+                }
+
+            }else{
+                if ($value != ""){
+                    $urlParam .= "&" . $key . "=" . urlencode($value);
+                }
             }
         }
         $requestUrl = "http://" . $this->DIASERVER . "/iahx-controller/?" . substr($urlParam,1);
