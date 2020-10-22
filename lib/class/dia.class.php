@@ -72,7 +72,15 @@ class Dia
         $filter_list = $this->param["filter_list"];
         if (isset($filter_list) && !empty($filter_list)){
             foreach ($filter_list as $filter){
+                $filter_name = (string) $filter;
                 $this->param["facet.field"][] = (string) $filter;
+                if ($filter['sort'] != ''){
+                    $this->param['f.' . $filter_name . '.facet.sort'] = $filter['sort'];
+                }
+                if ($filter['limit'] != ''){
+                    $this->param['f.' . $filter_name . '.facet.limit'] = $filter['limit'];
+                }
+
             }
         }
 
