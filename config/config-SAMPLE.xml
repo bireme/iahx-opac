@@ -42,6 +42,7 @@
     <show_advanced_search_button>true</show_advanced_search_button>
     <show_decs_lookup_button>true</show_decs_lookup_button>
 	<show_search_google_button>true</show_search_google_button>
+	<request_cluster_list>true</request_cluster_list>
 
 	<search_collection_list>
 		<collection>
