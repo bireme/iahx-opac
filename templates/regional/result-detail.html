@@ -270,6 +270,10 @@
                 </div>
             {% endif %}
 
+            <div class="col-12 d-block d-md-none box4">
+                {% include custom_template('column-detail-actions.html') %}
+            </div>
+
             <div class="titleArt"><h4><b>{{ texts.RELATED_DOCUMENTS }}</b></h4></div>
             <div id="similares">
                 <div class="box4" >
@@ -317,7 +321,10 @@
             {% endif %}
 
         </div> <!-- /col-md-9 -->
-        {% include custom_template('column-detail-actions.html') %}
+
+        <div class="col-md-3 d-print-none d-none d-md-block">
+            {% include custom_template('column-detail-actions.html') %}
+        </div>
     </div>
 
 {% endblock %}
