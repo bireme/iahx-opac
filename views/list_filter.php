@@ -16,6 +16,7 @@ $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use
     $site = $DEFAULT_PARAMS['defaultSite'];
     $col = $DEFAULT_PARAMS['defaultCollection'];
     $initial_filter = html_entity_decode($collectionData->initial_filter);
+    $config_cluster_list = $collectionData->cluster_list->cluster;
     $filter = array();
 
     $lang = $DEFAULT_PARAMS['lang'];
@@ -39,6 +40,7 @@ $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use
     $dia = new Dia($site, $col, 1, 'site', $lang);
     $dia->setParam('fb', $fb);
     $dia->setParam('initial_filter', $initial_filter );
+    $dia->setParam('filter_list', $config_cluster_list);
 
     $dia_response = $dia->search($q, $index, $filter);
     $result = json_decode($dia_response, true);
