@@ -1,11 +1,11 @@
 {% if doc.ur is defined %}
     <div class="boxToolsMain">
         {% if doc.ur|length > 1 %}
-            <a href="#fulltext_urls_{{ doc.id }}" class="btnTools btnToolsMain nav-toggle">
+            <a href="#fulltext_urls_{{ doc.id }}" class="btnTools btnToolsMain" data-toggle="collapse">
                 <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
             </a>
 
-            <div style="display: none" id="fulltext_urls_{{ doc.id }}" class="fulltext_box">
+            <div id="fulltext_urls_{{ doc.id }}" class="linksBox collapse">
                 <ul>
                 {% for url in doc.ur %}
                     <li>
@@ -36,11 +36,11 @@
 {% if doc.ur_AUDIO is defined %}
     <div class="boxToolsMain">
         {% if doc.ur_AUDIO|length > 1 %}
-            <a href="#audio_urls_{{ doc.id }}" class="btnTools btnToolsMain nav-toggle">
+            <a href="#audio_urls_{{ doc.id }}" class="btnTools btnToolsMain" data-toggle="collapse">
                 <i class="far fa-volume-up"></i> {{ texts.AUDIO }}
             </a>
 
-            <div style="display: none" id="audio_urls_{{ doc.id }}" class="fulltext_box">
+            <div id="audio_urls_{{ doc.id }}" class="linksBox collapse">
                 <ul>
                 {% for url in doc.ur_AUDIO %}
                     <li>
@@ -64,11 +64,11 @@
 {% if doc.ur_MULTIMIDIA is defined %}
     <div class="boxToolsMain">
         {% if doc.ur_MULTIMIDIA|length > 1 %}
-            <a href="#video_urls_{{ doc.id }}" class="btnTools btnToolsMain nav-toggle">
+            <a href="#video_urls_{{ doc.id }}" class="btnTools btnToolsMain" data-toggle="collapse">
                 <i class="far fa-play-circle"></i> {{ texts.VIDEO }}
             </a>
 
-            <div style="display: none" id="video_urls_{{ doc.id }}" class="fulltext_box">
+            <div id="video_urls_{{ doc.id }}" class="linksBox collapse">
                 <ul>
                 {% for url in doc.ur_MULTIMIDIA %}
                     <li>

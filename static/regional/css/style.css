@@ -319,6 +319,10 @@
 	padding-left: 30px;
 }
 
+.linksBox{
+	word-break: break-all;
+}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
