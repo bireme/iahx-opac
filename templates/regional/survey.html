@@ -1,10 +1,4 @@
 {% block extrahead %}
-	{% for src in im_cookie %}
-	<script type="text/javascript">
-	    var el = document.createElement("img");
-	    el.setAttribute('src', "{{ src }}");
-	</script>
-	{% endfor %}
 {% endblock %}
 
 {% if questions %}
@@ -165,5 +159,4 @@
 {% endif %}
 
 {% block footerscripts %}
-	<!-- <script src="{{ constant("STATIC_URL") }}/js/survey.js"></script> -->
 {% endblock %}

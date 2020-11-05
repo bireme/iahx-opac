@@ -432,6 +432,34 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
 
     }
 
+    // Impact Measurement
+    $im_api = 'https://im.bireme.org/api/main/?format=json&code=';
+    $im_scope = strval($config->impact_measurement_cookie_domain_scope);
+
+    if ( ! $_COOKIE['impact_measurement'] ) {
+        $impact_measurement_cookie = md5(uniqid(rand(), true));
+        setcookie("impact_measurement", $impact_measurement_cookie, (time() + (10 * 365 * 24 * 60 * 60)), '/', $im_scope);
+
+        $domains = array(
+            '.bvs.br' => $config->impact_measurement_bvs_cookie_domain,
+            '.bvsalud.org' => $config->impact_measurement_bvsalud_cookie_domain,
+            '.bireme.org' => $config->impact_measurement_bireme_cookie_domain
+        );
+
+        if ( array_key_exists($im_scope, $domains) ) {
+            $im_cookie = array();
+            unset($domains[$im_scope]);
+
+            foreach ($domains as $domain => $url) {
+                if ( ! empty($url) ) {
+                    $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$code.'&im_data='.base64_encode($im_api);
+                }
+            }
+
+            $output_array['im_cookie'] = $im_cookie;
+        }
+    }
+
     log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq,
                     $page, $output, $SESSION->getId(), $format, $sort);
 

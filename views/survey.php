@@ -13,25 +13,6 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
     if ( ! $_COOKIE['impact_measurement'] ) {
         $impact_measurement_cookie = md5(uniqid(rand(), true));
         setcookie("impact_measurement", $impact_measurement_cookie, (time() + (10 * 365 * 24 * 60 * 60)), '/', $im_scope);
-
-        $domains = array(
-            '.bvs.br' => $config->impact_measurement_bvs_cookie_domain,
-            '.bvsalud.org' => $config->impact_measurement_bvsalud_cookie_domain,
-            '.bireme.org' => $config->impact_measurement_bireme_cookie_domain
-        );
-
-        if ( array_key_exists($im_scope, $domains) ) {
-            $im_cookie = array();
-            unset($domains[$im_scope]);
-
-            foreach ($domains as $domain => $url) {
-                if ( ! empty($url) ) {
-                    $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$code.'&im_data='.base64_encode($im_api);
-                }
-            }
-
-            $output['im_cookie'] = $im_cookie;
-        }
     }
 
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);

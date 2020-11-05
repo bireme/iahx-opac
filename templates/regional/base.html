@@ -85,6 +85,14 @@
         {% endif %}
 
         {% block extrahead %}
+            {% if config.impact_measurement_code != '' %}
+                {% for src in im_cookie %}
+                <script type="text/javascript">
+                    var el = document.createElement("img");
+                    el.setAttribute('src', "{{ src }}");
+                </script>
+                {% endfor %}
+            {% endif %}
         {% endblock %}
 
         <noscript>Your browser doesn't support javascript.</noscript>
