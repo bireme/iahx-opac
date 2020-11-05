@@ -143,7 +143,22 @@
 
         <!-- survey box -->
         {% if config.impact_measurement_code != '' and current_page != 'detail' %}
-            <div id="im_survey_box">
+            <div id="im_survey_box" class="im-ajax">
+                <div id="boxFeedback">
+                    <div id="conteudoFeedback">
+                        <div class="im-loading">
+                            <div class="col-md-12 text-center">
+                                <div class="spinner-border text-center">
+                                    <span class="sr-only">...</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div id="iconFeedback">
+                        <img src="{{ constant("STATIC_URL") }}/image/{{ lang|slice(0, 2) }}/iconFeedback.svg" alt="">
+                    </div>
+                    <div class="clear"></div>
+                </div>
             </div>
         {% endif %}
 
@@ -233,9 +248,15 @@
             {% if current_page == 'detail' %}
                 $("#detail_survey_box" ).load(im_service_url);
             {% else %}
-                $("#im_survey_box" ).load(im_service_url);
+                $(document).on('click', '#im_survey_box.im-ajax', function(e){
+                    var _this = $(this);
+                    $("#conteudoFeedback").load(im_service_url + ' #conteudoFeedback > *', function(){
+                        _this.removeClass('im-ajax');
+                    });
+                });
             {% endif %}
         </script>
+        <script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
         {% endif %}
 
         {% block footerscripts %}
