@@ -548,8 +548,8 @@ function get_page_type($ptype, $slug=false) {
     $pages = array(
         'iahx-document' => 'Document',
         'iahx-search' => 'Search',
-        'iahx-search-skip-true' => 'Search skfp=true',
-        'iahx-search-skip-false' => 'Search skfp=false',
+        'iahx-search-skfp-true' => 'Search skfp=true',
+        'iahx-search-skfp-false' => 'Search skfp=false',
         'iahx-advanced-search' => 'Advanced Search',
         'iahx-decs-locator' => 'DeCS Locator',
         'iahx-unknown' => 'Unknown'
@@ -558,9 +558,9 @@ function get_page_type($ptype, $slug=false) {
     if ( 'result' == $ptype ) {
         $type = 'iahx-search';
     } elseif ( 'result_skfp_true' == $ptype ) {
-        $type = 'iahx-search-skip-true';
+        $type = 'iahx-search-skfp-true';
     } elseif ( 'result_skfp_false' == $ptype ) {
-        $type = 'iahx-search-skip-false';
+        $type = 'iahx-search-skfp-false';
     } elseif ( 'advanced_form' == $ptype ) {
         $type = 'iahx-advanced-search';
     } elseif ( 'detail' == $ptype ) {
