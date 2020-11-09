@@ -1,175 +1,162 @@
 {% block extrahead %}
-	{% for src in im_cookie %}
-	<script type="text/javascript">
-	    var el = document.createElement("img");
-	    el.setAttribute('src', "{{ src }}");
-	</script>
-	{% endfor %}
 {% endblock %}
 
 {% if questions %}
-<div id="boxFeedback">
-	<div id="conteudoFeedback">
-		<form action="https://im.bireme.org/send-feedback/" id="feedbackForm">
-			<input type="hidden" name="code" value="{{ code }}">
-			<input type="hidden" name="user" value="{{ user }}">
-			<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
-			<input type="hidden" name="page" value="{{ page }}">
-			<input type="hidden" name="page_type" value="{{ page_type }}">
-		</form>
-		<div id="feedbackFechar"><i class="fas fa-times"></i></div>
-		<h1>{{ texts.TITLE }}</h1>
-		<!-- <h2>{{ texts.SUBTITLE }}</h2> -->
-		<hr />
-		<div class="im-questions">
-			{% for key, question in questions %}
-				<form action="https://im.bireme.org/send-feedback/" id="feedbackForm{{ key }}">
-					<input type="hidden" name="question" value="{{ question.id }}">
-					{% if 'star' == question.type %}
-						<div class="row rowQuestion text-center">
-							<input type="hidden" id="rating" name="rating" value="">
-							<div class="col-12 feedbackTitulo">
-								<b>{{ question.question[lang] }}</b>
-							</div>
-							<div class="col-12 feedbackTitulo">
-								<i class="far fa-star star1 star-rating" data-rating="1"></i>
-								<i class="far fa-star star2 star-rating" data-rating="2"></i>
-								<i class="far fa-star star3 star-rating" data-rating="3"></i>
-								<i class="far fa-star star4 star-rating" data-rating="4"></i>
-								<i class="far fa-star star5 star-rating" data-rating="5"></i>
+<div id="conteudoFeedback">
+	<form action="https://im.bireme.org/send-feedback/" id="feedbackForm">
+		<input type="hidden" name="code" value="{{ code }}">
+		<input type="hidden" name="user" value="{{ user }}">
+		<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
+		<input type="hidden" name="page" value="{{ page }}">
+		<input type="hidden" name="page_type" value="{{ page_type }}">
+	</form>
+	<div id="feedbackFechar"><i class="fas fa-times"></i></div>
+	<h1>{{ texts.TITLE }}</h1>
+	<!-- <h2>{{ texts.SUBTITLE }}</h2> -->
+	<hr />
+	<div class="im-questions">
+		{% for key, question in questions %}
+			<form action="https://im.bireme.org/send-feedback/" id="feedbackForm{{ key }}">
+				<input type="hidden" name="question" value="{{ question.id }}">
+				{% if 'star' == question.type %}
+					<div class="row rowQuestion text-center">
+						<input type="hidden" id="rating" name="rating" value="">
+						<div class="col-12 feedbackTitulo">
+							<b>{{ question.question[lang] }}</b>
+						</div>
+						<div class="col-12 feedbackTitulo">
+							<i class="far fa-star star1 star-rating" data-rating="1"></i>
+							<i class="far fa-star star2 star-rating" data-rating="2"></i>
+							<i class="far fa-star star3 star-rating" data-rating="3"></i>
+							<i class="far fa-star star4 star-rating" data-rating="4"></i>
+							<i class="far fa-star star5 star-rating" data-rating="5"></i>
+						</div>
+					</div>
+				{% elseif 'number' == question.type %}
+					<div class="row rowQuestion text-center">
+						<div class="col-12 feedbackTitulo">
+							<b>{{ question.question[lang] }}</b>
+						</div>
+						<div class="col-12">
+							<span class="feedRadio">
+								<label for="1b">1</label>
+								<input type="radio" id="1a" name="rating" value="1">
+							</span>
+							<span class="feedRadio">
+								<label for="2b">2</label>
+								<input type="radio" id="2a" name="rating" value="2">
+							</span>
+							<span class="feedRadio">
+								<label for="3b">3</label>
+								<input type="radio" id="3a" name="rating" value="3">
+							</span>
+							<span class="feedRadio">
+								<label for="4b">4</label>
+								<input type="radio" id="4a" name="rating" value="4">
+							</span>
+							<span class="feedRadio">
+								<label for="5b">5</label>
+								<input type="radio" id="5a" name="rating" value="5">
+							</span>
+						</div>
+					</div>
+				{% elseif 'yes-no' == question.type %}
+					<div class="row rowQuestion text-center">
+						<div class="col-12 feedbackTitulo">
+							<b>{{ question.question[lang] }}</b>
+						</div>
+						<div class="col-12">
+							<div class="btn-group btn-group-toggle" data-toggle="buttons">
+							    <label class="btn btn-secondary btn-yesno">
+							    	<input type="radio" name="rating" id="opt1" autocomplete="off" value="1"> {{ texts.LABEL_YES }}
+							    </label>
+							    <label class="btn btn-secondary btn-yesno">
+							    	<input type="radio" name="rating" id="opt2" autocomplete="off" value="2"> {{ texts.LABEL_NO }}
+							    </label>
 							</div>
 						</div>
-					{% elseif 'number' == question.type %}
-						<div class="row rowQuestion text-center">
-							<div class="col-12 feedbackTitulo">
-								<b>{{ question.question[lang] }}</b>
+					</div>
+				{% elseif 'likert-1' == question.type %}
+					<div class="row rowQuestion rowLikert">
+						<div class="col-12 text-center feedbackTitulo">
+							<b>{{ question.question[lang] }}</b>
+						</div>
+						<div class="col-12 rowOptions">
+							<div>
+								<input type="radio" id="5b" name="rating" value="5">
+								<label for="5c">{{ texts.LIKERT_1_OP_1 }}</label>
 							</div>
-							<div class="col-12">
-								<span class="feedRadio">
-									<label for="1b">1</label>
-									<input type="radio" id="1a" name="rating" value="1">
-								</span>
-								<span class="feedRadio">
-									<label for="2b">2</label>
-									<input type="radio" id="2a" name="rating" value="2">
-								</span>
-								<span class="feedRadio">
-									<label for="3b">3</label>
-									<input type="radio" id="3a" name="rating" value="3">
-								</span>
-								<span class="feedRadio">
-									<label for="4b">4</label>
-									<input type="radio" id="4a" name="rating" value="4">
-								</span>
-								<span class="feedRadio">
-									<label for="5b">5</label>
-									<input type="radio" id="5a" name="rating" value="5">
-								</span>
+							<div>
+								<input type="radio" id="4b" name="rating" value="4">
+								<label for="4c">{{ texts.LIKERT_1_OP_2 }}</label>
+							</div>
+							<div>
+								<input type="radio" id="3b" name="rating" value="3">
+								<label for="3c">{{ texts.LIKERT_1_OP_3 }}</label>
+							</div>
+							<div>
+								<input type="radio" id="2b" name="rating" value="2">
+								<label for="2c">{{ texts.LIKERT_1_OP_4 }}</label>
+							</div>
+							<div>
+								<input type="radio" id="1b" name="rating" value="1">
+								<label for="1c">{{ texts.LIKERT_1_OP_5 }}</label>
 							</div>
 						</div>
-					{% elseif 'yes-no' == question.type %}
-						<div class="row rowQuestion text-center">
-							<div class="col-12 feedbackTitulo">
-								<b>{{ question.question[lang] }}</b>
+					</div>
+				{% elseif 'likert-2' == question.type %}
+					<div class="row rowQuestion rowLikert">
+						<div class="col-12 text-center feedbackTitulo">
+							<b>{{ question.question[lang] }}</b>
+						</div>
+						<div class="col-12 rowOptions">
+							<div>
+								<input type="radio" id="5c" name="rating" value="5">
+								<label for="5c">{{ texts.LIKERT_2_OP_1 }}</label>
 							</div>
-							<div class="col-12">
-								<div class="btn-group btn-group-toggle" data-toggle="buttons">
-								    <label class="btn btn-secondary btn-yesno">
-								    	<input type="radio" name="rating" id="opt1" autocomplete="off" value="1"> {{ texts.LABEL_YES }}
-								    </label>
-								    <label class="btn btn-secondary btn-yesno">
-								    	<input type="radio" name="rating" id="opt2" autocomplete="off" value="2"> {{ texts.LABEL_NO }}
-								    </label>
-								</div>
+							<div>
+								<input type="radio" id="4c" name="rating" value="4">
+								<label for="4c">{{ texts.LIKERT_2_OP_2 }}</label>
+							</div>
+							<div>
+								<input type="radio" id="3c" name="rating" value="3">
+								<label for="3c">{{ texts.LIKERT_2_OP_3 }}</label>
+							</div>
+							<div>
+								<input type="radio" id="2c" name="rating" value="2">
+								<label for="2c">{{ texts.LIKERT_2_OP_4 }}</label>
+							</div>
+							<div>
+								<input type="radio" id="1c" name="rating" value="1">
+								<label for="1c">{{ texts.LIKERT_2_OP_5 }}</label>
 							</div>
 						</div>
-					{% elseif 'likert-1' == question.type %}
-						<div class="row rowQuestion rowLikert">
-							<div class="col-12 text-center feedbackTitulo">
-								<b>{{ question.question[lang] }}</b>
-							</div>
-							<div class="col-12 rowOptions">
-								<div>
-									<input type="radio" id="5b" name="rating" value="5">
-									<label for="5c">{{ texts.LIKERT_1_OP_1 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="4b" name="rating" value="4">
-									<label for="4c">{{ texts.LIKERT_1_OP_2 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="3b" name="rating" value="3">
-									<label for="3c">{{ texts.LIKERT_1_OP_3 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="2b" name="rating" value="2">
-									<label for="2c">{{ texts.LIKERT_1_OP_4 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="1b" name="rating" value="1">
-									<label for="1c">{{ texts.LIKERT_1_OP_5 }}</label>
-								</div>
-							</div>
-						</div>
-					{% elseif 'likert-2' == question.type %}
-						<div class="row rowQuestion rowLikert">
-							<div class="col-12 text-center feedbackTitulo">
-								<b>{{ question.question[lang] }}</b>
-							</div>
-							<div class="col-12 rowOptions">
-								<div>
-									<input type="radio" id="5c" name="rating" value="5">
-									<label for="5c">{{ texts.LIKERT_2_OP_1 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="4c" name="rating" value="4">
-									<label for="4c">{{ texts.LIKERT_2_OP_2 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="3c" name="rating" value="3">
-									<label for="3c">{{ texts.LIKERT_2_OP_3 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="2c" name="rating" value="2">
-									<label for="2c">{{ texts.LIKERT_2_OP_4 }}</label>
-								</div>
-								<div>
-									<input type="radio" id="1c" name="rating" value="1">
-									<label for="1c">{{ texts.LIKERT_2_OP_5 }}</label>
-								</div>
-							</div>
-						</div>
-						{% endif %}
-				</form>
-			{% endfor %}
+					</div>
+					{% endif %}
+			</form>
+		{% endfor %}
+	</div>
+	<div class="row im-formdata-submit">
+		<div class="col-12 marginT1">
+			<button type="button" id="formdata-submit" class="btn btn-block btn-primary" disabled>{{ texts.SEND }}</button>
 		</div>
-		<div class="row im-formdata-submit">
-			<div class="col-12 marginT1">
-				<button type="button" id="formdata-submit" class="btn btn-block btn-primary" disabled>{{ texts.SEND }}</button>
-			</div>
-		</div>
-		<div class="feedback-message">
-            <div class="alert alert-success result-ok" role="alert">
-            	{% if im_survey_link == '' %}
-                	{{ texts.THANKS }}
-                {% else %}
-                	{{ texts.THANKS }}<br />
-                	{{ texts.SURVEY_LINK_DESC }}<br />
-                	<a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
-                {% endif %}
-            </div>
-            <div class="alert alert-warning result-error" role="alert">
-                {{ texts.ERROR|raw }}
-            </div>
+	</div>
+	<div class="feedback-message">
+        <div class="alert alert-success result-ok" role="alert">
+        	{% if im_survey_link == '' %}
+            	{{ texts.THANKS }}
+            {% else %}
+            	{{ texts.THANKS }}<br />
+            	{{ texts.SURVEY_LINK_DESC }}<br />
+            	<a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
+            {% endif %}
         </div>
-	</div>
-	<div id="iconFeedback">
-		<img src="{{ constant("STATIC_URL") }}/image/{{ lang|slice(0, 2) }}/iconFeedback.svg" alt="">
-	</div>
-	<div class="clear"></div>
+        <div class="alert alert-warning result-error" role="alert">
+            {{ texts.ERROR|raw }}
+        </div>
+    </div>
 </div>
 {% endif %}
 
 {% block footerscripts %}
-	<script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
 {% endblock %}
