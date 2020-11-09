@@ -1,3 +1,8 @@
+/*
+* functions.js
+* version: 1.0.1
+*/
+
 // usado para fazer paginação
 function go_to_page(page) {
     var form = document.searchForm;
@@ -31,7 +36,7 @@ function change_count(count) {
 
 // muda o parâmetro lang
 function change_language(lang) {
-    if ($("#searchForm").length){
+    if (RESULT_PAGE == true){
         var form = document.searchForm;
         form.lang.value = lang;
         $("#searchForm").submit();
