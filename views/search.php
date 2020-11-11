@@ -58,6 +58,10 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     if(isset($params['output']) and $params['output'] != "") {
         $output = $params['output'];
     }
+    $output_as_file = true;
+    if(isset($params['output_as_file']) and $params['output_as_file'] != "") {
+        $output_as_file = ($params['output_as_file'] === 'true'? true : false);
+    }
 
     $lang = (string)$DEFAULT_PARAMS['lang'];
     if(isset($params['lang']) and $params['lang'] != "") {
@@ -517,10 +521,12 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
             $from++;  //set from to 1 to get corret next result set
 
             $response = new Response();
-            $response->headers->set('Content-Encoding', 'UTF-8');
-            $response->headers->set('Content-Type', $content_type .'; charset=UTF-8');
-            header('Content-Disposition: attachment; filename=' . $export_filename);
-            echo "\xEF\xBB\xBF"; // UTF-8 BOM
+            if ($output_as_file == true){
+                $response->headers->set('Content-Encoding', 'UTF-8');
+                $response->headers->set('Content-Type', $content_type .'; charset=UTF-8');
+                header('Content-Disposition: attachment; filename=' . $export_filename);
+                echo "\xEF\xBB\xBF"; // UTF-8 BOM
+            }
 
             $handle = fopen('php://output', 'w');
             ob_clean();
