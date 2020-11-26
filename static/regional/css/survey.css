@@ -118,6 +118,10 @@
 #formdata-submit {
 	font-weight: 800;
 }
+#survey-submit {
+    font-size: 14px;
+    margin-top: 6px;
+}
 
 #detail_survey_box #boxFeedback {
 	position: initial;

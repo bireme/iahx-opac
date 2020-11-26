@@ -7,7 +7,7 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
 
     $output = array();
     $impact_measurement_cookie = '';
-    $im_api = 'https://im.bireme.org/api/main/?format=json&code=';
+    $im_api = strval($config->impact_measurement_domain) . '/api/main/?format=json&code=';
     $im_scope = strval($config->impact_measurement_cookie_domain_scope);
 
     if ( ! $_COOKIE['impact_measurement'] ) {
@@ -27,9 +27,10 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
         $output['myvhl_user'] = ( $_COOKIE['userID'] ) ? $_COOKIE['userID'] : '';
         $output['page'] = $_SERVER['HTTP_REFERER'];
         $output['page_type'] = get_page_type($_GET['page_type']);
+        $output['page_type_slug'] = $page_type;
         $output['texts'] = $texts['IMPACT_MEASUREMENT'];
         $output['lang'] = ( 'pt' == $lang ) ? 'pt-BR' : $lang;
-        $output['im_survey_link'] = $config->impact_measurement_survey_link;
+        $output['config'] = $config;
 
         $response = $app['twig']->render('survey.html', $output);
     } else {

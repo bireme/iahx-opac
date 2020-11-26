@@ -85,7 +85,7 @@
             var url = $('#feedbackForm').attr("action");
          
             // Get some values from elements on the page
-            $("#conteudoFeedback form").each(function(i){
+            $("#conteudoFeedback .im-questions form").each(function(i){
                 var $form = $( this );
                 datastring[i] = $form.serialize();
             });
@@ -98,9 +98,14 @@
                 $(".im-questions").hide();
                 $(".im-formdata-submit").hide();
 
-                if ( data == 'True' ) {       
+                if ( data == 'Survey' ) {  
+                    $(".feedback-message").find('.result-ok').hide();
+                    $(".feedback-message").find('.result-error').hide();
+                } else if ( data == 'True' ) {
+                    $(".feedback-message").find('.im-survey').hide();
                     $(".feedback-message").find('.result-error').hide();
                 } else {
+                    $(".feedback-message").find('.im-survey').hide();
                     $(".feedback-message").find('.result-ok').hide();
                 }
 
