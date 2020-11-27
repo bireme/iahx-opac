@@ -14,7 +14,7 @@
 	position: fixed;
 	left: -340px;
 	/*bottom: 10px;*/
-	top: 500px;
+	top: 450px;
 	transition: left .5s ease;
 	z-index: 10;
 } 
@@ -107,7 +107,7 @@
 	display: inline-block;
 }
 .im-questions {
-	max-height: 250px;
+	max-height: 300px;
 	overflow-y: auto;
 	overflow-x: hidden;
 }
@@ -117,6 +117,10 @@
 }
 #formdata-submit {
 	font-weight: 800;
+}
+#survey-submit {
+    font-size: 14px;
+    margin-top: 6px;
 }
 
 #detail_survey_box #boxFeedback {
