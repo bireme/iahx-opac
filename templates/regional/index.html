@@ -286,7 +286,7 @@
                                 <fieldset>
                                     <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page"> {{ texts.THIS_PAGE }}</label>
                                     <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)</label>
-                                    <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES_LIMIT }}</label>
+                                    <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES }} ({{texts.ALL_REFERENCES_LIMIT}}&nbsp; 300)</label>
                                 </fieldset>
                             {% endif %}
                             <div>
@@ -331,6 +331,9 @@
                         </a>
                         <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}" class="btn btn-primary">
                             {{ texts.ALL_REFERENCES }}
+                            {% if max_export_records > 0 and pag.total > max_export_records %}
+                                ({{texts.ALL_REFERENCES_LIMIT}}&nbsp;{{max_export_records|number_format(0, ',', '.')}})
+                            {% endif %}
                         </a>
                     {% endif %}
 				</div>

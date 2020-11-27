@@ -399,6 +399,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['range_year_end'] = $range_year_end;
     $output_array['config_wizard_list'] = $config_wizard_list;
     $output_array['wizard_session'] = $wizard_session;
+    $output_array['max_export_records'] = $config->max_export_records;
 
     if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
         $output_array['detailed_query'] = $detailed_query;
@@ -566,6 +567,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $output_array['display_file'] = "result-format-" . $format . ".html";
                 $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
                 $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+
             }
             ob_flush();
             fclose($handle);
