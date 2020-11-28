@@ -16,7 +16,7 @@
 	/*bottom: 10px;*/
 	top: 450px;
 	transition: left .5s ease;
-	z-index: 10;
+	z-index: 99;
 } 
 .boxFeedback {
 	left: 0px!important;
@@ -25,6 +25,7 @@
 	outline: 0;
 }
 #conteudoFeedback {
+	min-height: 160px;
 	background: #f5f5f5;
 	float: left;
 	width: 335px;
@@ -76,6 +77,18 @@
 	display: flex;
     align-items: center;
 	min-height: 120px;
+}
+.im-loading {
+	min-height: 120px;
+}
+.im-error {
+	display: flex;
+    justify-content: center;
+    flex-direction: column;
+    min-height: 120px;
+}
+.im-error .alert {
+	margin: 0 !important;
 }
 
 /* Stars */

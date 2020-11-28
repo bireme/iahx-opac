@@ -26,6 +26,7 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
         $output['user'] = ( $_COOKIE['impact_measurement'] ) ? $_COOKIE['impact_measurement'] : $impact_measurement_cookie;
         $output['myvhl_user'] = ( $_COOKIE['userID'] ) ? $_COOKIE['userID'] : '';
         $output['page'] = $_SERVER['HTTP_REFERER'];
+        $output['page_base64'] = base64_encode($_SERVER['HTTP_REFERER']);
         $output['page_type'] = get_page_type($_GET['page_type']);
         $output['page_type_slug'] = $page_type;
         $output['texts'] = $texts['IMPACT_MEASUREMENT'];
