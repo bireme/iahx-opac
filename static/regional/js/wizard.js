@@ -144,9 +144,8 @@ $(document).ready(function(){
         return true;
     });
 
-    // check if url has parameter to show wizard popup on page load
+    // check if url has parameter to show wizard popup on page  load
     if (url_params.has('display_wizard')){
-        console.log("tem display_wizard");
         $('#btnOpenWizard').click();
     }
 
