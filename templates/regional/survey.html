@@ -13,6 +13,7 @@
 			<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
 			<input type="hidden" name="page" value="{{ page }}">
 			<input type="hidden" name="page_type" value="{{ page_type }}">
+			<input type="hidden" name="page_type_slug" value="{{ page_type_slug }}">
 		</form>
 		{% for key, question in questions %}
 			<form id="feedbackForm{{ key }}">
@@ -142,11 +143,13 @@
 	</div>
 	<div class="feedback-message">
 		<div class="alert alert-success im-survey" role="alert">
-            <form method="post" action="{{ config.impact_measurement_domain }}/survey/" id="surveyForm" target="_blank">
+            <form action="{{ config.impact_measurement_domain }}/survey/" id="surveyForm" target="_blank">
                 <input type="hidden" name="code" value="{{ code }}">
 				<input type="hidden" name="user" value="{{ user }}">
 				<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
-				<input type="hidden" name="page" value="{{ page_type_slug }}">
+				<input type="hidden" name="page" value="{{ page_base64 }}">
+				<input type="hidden" name="page_type" value="{{ page_type }}">
+				<input type="hidden" name="page_type_slug" value="{{ page_type_slug }}">
 
                 {{ texts.THANKS }}<br />
             	{{ texts.SURVEY_LINK_DESC }}<br />
@@ -162,6 +165,16 @@
         </div>
     </div>
 </div>
+{% else %}
+	{% if page_type_slug != 'iahx-document' %}
+		<div id="conteudoFeedback">
+			<div class="im-error text-center">
+		        <div class="alert alert-secondary" role="alert">
+		            {{ texts.NOT_FOUND }}
+		        </div>
+		    </div>
+		</div>
+	{% endif %}
 {% endif %}
 
 {% block footerscripts %}
