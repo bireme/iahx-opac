@@ -1,5 +1,8 @@
 $(document).ready(function(){
 
+    const queryString = window.location.search;
+    const url_params = new URLSearchParams(queryString);
+
     $('#btnOpenWizard').click(function(e){
         e.preventDefault();
         var wizard_id = $(this).data('wizard');
@@ -141,5 +144,10 @@ $(document).ready(function(){
         return true;
     });
 
+    // check if url has parameter to show wizard popup on page load
+    if (url_params.has('display_wizard')){
+        console.log("tem display_wizard");
+        $('#btnOpenWizard').click();
+    }
 
 });
