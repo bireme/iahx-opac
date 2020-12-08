@@ -39,7 +39,7 @@ $app->get('list-filter/{filter_id}', function (Request $request, $filter_id) use
 
     $dia = new Dia($site, $col, 1, 'site', $lang);
     $dia->setParam('fb', $fb);
-    $dia->setParam('initial_filter', $initial_filter );
+    $dia->setParam('initial_filter', $initial_filter);
     $dia->setParam('filter_list', $config_cluster_list);
 
     $dia_response = $dia->search($q, $index, $filter);

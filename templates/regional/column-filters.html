@@ -93,6 +93,18 @@
             {% endfor %}
         {% endif %}
     {% endfor %}
+
+    <!-- add filters not present int config_list (ex. wizard list) -->
+    {% for name, items in filters if filters is defined %}
+        {% if name not in config_cluster_list %}
+            {% for item in items %}
+                {% set cluster_item_id = name ~ '_' ~ loop.index %}
+                <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}" id="{{ cluster_item_id }}">
+            {% endfor %}
+        {% endif %}
+    {% endfor %}
+
+    <!-- add filters of view_filter -->
     {% for vf_value in view_filter if view_filter is defined %}
         <input type="hidden" id="view_filter_{{vf_value}}" name="view_filter[]" value="{{vf_value}}">
     {% endfor %}
