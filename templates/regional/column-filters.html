@@ -54,7 +54,7 @@
                     <li class="filter">{{ attribute(texts.REFINE, cluster) }}
                         <ul>
                             {% for item in items %}
-                                {% set item_value = cluster ~ '_' ~ loop.index %}
+                                {% set item_value = cluster ~ '_' ~ item|md5 %}
                                 <li>
                                     {% if '^' in item %}
                                         {{ item|subfield(lang) }}
@@ -94,20 +94,12 @@
         {% endif %}
     {% endfor %}
 
-    <!-- add filters not present int config_list (ex. wizard list) -->
-    {% for name, items in filters if filters is defined %}
-        {% if name not in config_cluster_list %}
-            {% for item in items %}
-                {% set cluster_item_id = name ~ '_' ~ loop.index %}
-                <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}" id="{{ cluster_item_id }}">
-            {% endfor %}
-        {% endif %}
-    {% endfor %}
-
     <!-- add filters of view_filter -->
     {% for vf_value in view_filter if view_filter is defined %}
         <input type="hidden" id="view_filter_{{vf_value}}" name="view_filter[]" value="{{vf_value}}">
     {% endfor %}
+
+    {% set cluster_id_list = '' %}
 
     {% for name, cluster in clusters if cluster|length > 0 %}
 
@@ -146,17 +138,24 @@
 
                         <div class="box2 collapse show" id="{{ name }}" >
                             {% for item in cluster if item.0 != '' %}
-                                {% set cluster_item_id = name ~ '_' ~ loop.index %}
+                                {% set cluster_item_id = name ~ '_' ~ item.0|md5 %}
+                                {% set filter_checked = '' %}
 
                                 {% if name in only_translated_items_clusters and not has_translation(item.0, cluster_labels) %}
                                 {% else %}
+
+                                    {###  check if current filter item is already applied ###}
+                                    {% for filter_name, filter in filters if filter_name == name %}
+                                        {% if item.0 in filter %}
+                                            {% set filter_checked = 'true' %}
+                                            {% set cluster_id_list = cluster_id_list ~ '|' ~ cluster_item_id  %}
+                                        {% endif %}
+                                    {% endfor %}
+
                                     <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
                                         <div class="inputCheck1">
                                             <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
-                                            {% for filter_name, filter in filters if filter_name == name %}
-                                                {% if item.0 in filter %}checked="true"{% endif %}
-                                            {% endfor %}
-                                            >
+                                                {% if filter_checked == 'true' %}checked="true"{% endif %}>
                                         </div>
                                         <label class="labelCheck1" for="{{ cluster_item_id }}">
                                             <a href="javascript: add_filter('{{ cluster_item_id }}');"
@@ -242,6 +241,16 @@
         <button type="submit" class="btnBlueM" id="btnFiltroD">{{texts.FILTER}}</button>
         </div>
     {% endif %}
+
+    {### if current applied filters are not presented (ex. wizard list) add then as hidden fields ###}
+    {% for name, items in filters if filters is defined %}
+        {% for item in items %}
+            {% set cluster_item_id = name ~ '_' ~ item|md5 %}
+            {% if cluster_item_id not in cluster_id_list %}
+                <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}" id="{{ cluster_item_id }}">
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
 
     </form>
 </div>

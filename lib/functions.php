@@ -573,4 +573,9 @@ function get_page_type($ptype, $slug=false) {
     return $page;
 }
 
+function filter_md5($text) {
+    return md5($text);
+}
+
+
 ?>

@@ -133,5 +133,6 @@ $app['twig']->addFilter('truncate', new Twig_Filter_Function('filter_truncate'))
 $app['twig']->addFilter('slugify', new Twig_Filter_Function('filter_slugify'));
 $app['twig']->addFilter('subfield', new Twig_Filter_Function('filter_subfield'));
 $app['twig']->addFilter('filters_to_string', new Twig_Filter_Function('filters_to_string'));
+$app['twig']->addFilter('md5', new Twig_Filter_Function('filter_md5'));
 
 ?>
