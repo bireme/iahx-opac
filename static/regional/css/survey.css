@@ -136,10 +136,16 @@
     margin-top: 6px;
 }
 
+@media (max-width: 768px){
+	#boxFeedback{
+		top: 80px;
+	}
+}
+
+/*
 #detail_survey_box #boxFeedback {
 	position: initial;
 	width: 100%;
-	/*background: #f5f5f5;*/
 }
 #detail_survey_box #conteudoFeedback {
 	float: none;
@@ -166,11 +172,9 @@
 }
 
 @media (max-width: 768px){
-	#boxFeedback{
-		top: 80px;
-	}
 	#detail_survey_box .rowOptions {
 	    flex-direction: column;
 	    text-align: left;
 	}
 }
+*/
