@@ -82,6 +82,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         $site = $DEFAULT_PARAMS['defaultSite'];
         $col = $DEFAULT_PARAMS['defaultCollection'];
         $initial_filter = html_entity_decode($collectionData->initial_filter);
+        $filter_list = array($step_filter);
 
         // filter browse param (ex. tag:999)
         $fb = $step_filter . ":999";
@@ -89,6 +90,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         $dia = new Dia($site, $col, 1, 'site', $lang);
         $dia->setParam('fb', $fb);
         $dia->setParam('initial_filter', $initial_filter);
+        $dia->setParam('filter_list', $filter_list);
 
         $solr_response = $dia->search($q, $index, $filters_to_apply);
         $solr_result = json_decode($solr_response, true);

@@ -74,10 +74,10 @@ class Dia
             foreach ($filter_list as $filter){
                 $filter_name = (string) $filter;
                 $this->param["facet.field"][] = (string) $filter;
-                if ($filter['sort'] != ''){
+                if (isset($filter['sort']) && $filter['sort'] != ''){
                     $this->param['f.' . $filter_name . '.facet.sort'] = $filter['sort'];
                 }
-                if ($filter['limit'] != ''){
+                if (isset($filter['limit']) && $filter['limit'] != ''){
                     $this->param['f.' . $filter_name . '.facet.limit'] = $filter['limit'];
                 }
 
