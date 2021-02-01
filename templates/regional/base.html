@@ -150,7 +150,7 @@
         </form>
 
         <!-- survey box -->
-        {% if config.impact_measurement_code != '' and current_page != 'detail' %}
+        {% if config.impact_measurement_code != '' %}
             <div id="im_survey_box" class="im-ajax">
                 <div id="boxFeedback">
                     <div id="conteudoFeedback">
@@ -254,16 +254,12 @@
                 var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}';
             {% endif %}
 
-            {% if current_page == 'detail' %}
-                $("#detail_survey_box" ).load(im_service_url);
-            {% else %}
-                $(document).on('click', '#im_survey_box.im-ajax', function(e){
-                    var _this = $(this);
-                    $("#conteudoFeedback").load(im_service_url + ' #conteudoFeedback > *', function(){
-                        _this.removeClass('im-ajax');
-                    });
+            $(document).on('click', '#im_survey_box.im-ajax', function(e){
+                var _this = $(this);
+                $("#conteudoFeedback").load(im_service_url + ' #conteudoFeedback > *', function(){
+                    _this.removeClass('im-ajax');
                 });
-            {% endif %}
+            });
         </script>
         <script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
         {% endif %}

@@ -166,15 +166,13 @@
     </div>
 </div>
 {% else %}
-	{% if page_type_slug != 'iahx-document' %}
-		<div id="conteudoFeedback">
-			<div class="im-error text-center">
-		        <div class="alert alert-secondary" role="alert">
-		            {{ texts.NOT_FOUND }}
-		        </div>
-		    </div>
-		</div>
-	{% endif %}
+	<div id="conteudoFeedback">
+		<div class="im-error text-center">
+	        <div class="alert alert-secondary" role="alert">
+	            {{ texts.NOT_FOUND }}
+	        </div>
+	    </div>
+	</div>
 {% endif %}
 
 {% block footerscripts %}
