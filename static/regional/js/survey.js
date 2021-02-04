@@ -60,8 +60,8 @@
         /* Click */
         $(document).on('click','.star-rating',function(e){
             var rating = $(this).data('rating');
-            $('#rating').val(rating);
-            $('.star-rating').removeClass("fa-star, starClick");
+            $(this).closest('.rowStarRating').find('#rating').val(rating);
+            $(this).siblings('.star-rating').removeClass("fa-star, starClick");
             $(this).addClass("fa-star, starClick");
             $(this).prevAll().addClass("fa-star, starClick");
         })
@@ -73,7 +73,7 @@
         $(document).on('click','div.rowQuestion input:radio, label.btn-yesno, .star-rating',function(e){
             // Check if all questions have been answered
             var len = $('div.rowQuestion:not(:has(:radio:checked,:hidden[value!=""]))').length;
-            if ( len == 0 ) $('#formdata-submit').attr("disabled", false);
+            if ( len == 0 ) $('#formdata-submit').toggleClass("btn-secondary btn-primary").attr("disabled", false);
         });
 
         // Attach a submit handler to the form
