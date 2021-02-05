@@ -19,7 +19,7 @@
 			<form id="feedbackForm{{ key }}">
 				<input type="hidden" name="question" value="{{ question.id }}">
 				{% if 'star' == question.type %}
-					<div class="row rowQuestion text-center">
+					<div class="row rowQuestion rowStarRating text-center">
 						<input type="hidden" id="rating" name="rating" value="">
 						<div class="col-12 feedbackTitulo">
 							<b>{{ question.question[lang] }}</b>
@@ -138,7 +138,7 @@
 	</div>
 	<div class="row im-formdata-submit">
 		<div class="col-12 marginT1">
-			<button type="button" id="formdata-submit" class="btn btn-block btn-primary" disabled>{{ texts.SEND }}</button>
+			<button type="button" id="formdata-submit" class="btn btn-block btn-secondary" disabled>{{ texts.SEND }}</button>
 		</div>
 	</div>
 	<div class="feedback-message">
