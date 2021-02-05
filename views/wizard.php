@@ -29,10 +29,10 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
 
     /* DEBUG
     print_r($wizard_session);
-    print('previous_fiter_name: '  . $previous_filter_name . ' previous_filter_value: '  . $previous_filter_value);
+    print('** previous_fiter_name: '  . $previous_filter_name . ' previous_filter_value: '  . $previous_filter_value . ' **');
     */
 
-    if ($previous_filter_name != '' && $previous_filter_value != ''){
+    if (isset($previous_filter_name) && $previous_filter_name != 'undefined' && isset($previous_filter_value) && $previous_filter_value != 'undefined'){
         $previous_step = $step - 1;
         $previous_filter = array('filter' => $previous_filter_name, 'value' => $previous_filter_value, 'label' => $previous_filter_label);
 
@@ -48,6 +48,9 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     // update session
     $SESSION->set('wizard_session', $wizard_session);
     $SESSION->save();
+    /* DEBUG
+    print_r($wizard_session);
+    */
 
     // mount internal class filter param used to Solr query
     $filters_to_apply = array();
@@ -62,10 +65,6 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
             }
         }
     }
-    /* DEBUG
-    print('FILTERS_TO_APPLY:');
-    print_r($filters_to_apply);
-    */
 
     // get step info
     $step_url = $wizard_api_url . '/step/?wizard=' . $wizard_id . '&step=' . $step;
@@ -122,10 +121,6 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
 
     if ($wizard_session[$step]){
         $output_array['previous_session_selection'] = $wizard_session[$step];
-        /* DEBUG
-        print_r($wizard_session[$step]);
-        */
-
     }
 
     return $app['twig']->render(custom_template('wizard-step.html'), $output_array);

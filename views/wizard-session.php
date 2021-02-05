@@ -18,11 +18,12 @@ $app->match('wizard-session/{action}', function (Request $request, $action) use 
         $filter_name = $params['filter_name'];
         $filter_value = $params['filter_value'];
         $filter_label = $params['filter_label'];
+        $filter_step = $params['filter_step'];
 
         if ($filter_name != '' && $filter_value != ''){
             $new_filter = array('filter' => $filter_name, 'value' => $filter_value, 'label' => $filter_label);
             //update wizard_session
-            $wizard_session[] = $new_filter;
+            $wizard_session[$filter_step] = $new_filter;
         }
     }
 

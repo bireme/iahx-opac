@@ -59,7 +59,7 @@ $(document).ready(function(){
                             // add filter to search form
                             add_wizard_filter(filter_name, filter_value);
                             // add last step filter to session
-                            $.post("wizard-session/add", {"filter_name": filter_name, "filter_value": filter_value, "filter_label": filter_label});
+                            $.post("wizard-session/add", {"filter_name": filter_name, "filter_value": filter_value, "filter_label": filter_label, "filter_step": current_step});
                         });
 
                     }else{
@@ -103,7 +103,10 @@ $(document).ready(function(){
             var previous_option_value = $('#option-step-' + previous_step + ' option:selected').val();
 
             // update previous step title
-            $('#step-' + previous_step + '-title').html(previous_option_text);
+            if (previous_option_text != ''){
+                console.log(previous_option_text);
+                $('#step-' + previous_step + '-title').html(previous_option_text);
+            }
             // filter next step with previous values
             ajaxURL += '&previous_filter_name=' + previous_filter + '&previous_filter_value=' + previous_option_value + '&previous_filter_label=' + previous_option_text;
         }
