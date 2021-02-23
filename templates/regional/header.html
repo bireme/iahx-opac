@@ -33,7 +33,9 @@
                     <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
                     {% endif %}
                     {% if config_wizard_list %}
-                        <a href="#" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" id="btnOpenWizard" data-wizard="{{config_wizard_list.0}}" class="btnBlue">{{ texts.WIZARD.BUTTON }}</a><br/>
+                        <a href="#" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" id="btnOpenWizard" data-wizard="{{config_wizard_list.0}}" class="btnBlue" onclick="gtag('event', 'Open wizard popup', {'event_category': 'Wizard'});">
+                            {{ texts.WIZARD.BUTTON }}
+                        </a><br/>
                     {% endif %}
 
 				</div>
