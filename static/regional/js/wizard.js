@@ -33,20 +33,32 @@ $(document).ready(function(){
         last_step = parseInt($('#smartwizard').data('total'));
         next_step = current_step+1;
 
+        // register current step info at Google Analytics
         var user_selected_options = $(".step-option-list");
 
         user_selected_options.each(function(index){
-            var filter_name = $(this).attr('name');
-            var filter_value = $(this).val();
-            var filter_label = $(this).text();
+            var current_step_index = parseInt(current_step)-1;
+            if (index == current_step_index){
+                var step_selected_option = $("option:selected", this);
+                var step_filter_label = step_selected_option.text();
 
-        // fire Google Analytics event
-        gtag('event', 'Step ' + current_step, {'event_category': 'Wizard', 'event_label': filter_label});
+                // fire GA event
+                gtag('event', 'Step ' + current_step, {'event_category': 'Wizard', 'event_label': step_filter_label});
+            }
+        });
+
 
         // if last step add all filters of wizard steps to form_clusters and submit the query
         if (current_step == last_step){
             // remove all previous interface applied filters
             $("#form_clusters input[name^='filter']").remove();
+
+            var user_selected_options = $(".step-option-list");
+
+            user_selected_options.each(function(index){
+                var filter_name = $(this).attr('name');
+                var filter_value = $(this).val();
+                var filter_label = $(this).text();
 
                 if (filter_name == 'wizard_option_group'){
                     // skip internal wizard filter
@@ -110,7 +122,6 @@ $(document).ready(function(){
 
             // update previous step title
             if (previous_option_text != ''){
-                console.log(previous_option_text);
                 $('#step-' + previous_step + '-title').html(previous_option_text);
             }
             // filter next step with previous values
