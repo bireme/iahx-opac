@@ -7,6 +7,11 @@ $(document).ready(function(){
         e.preventDefault();
         var wizard_id = $(this).data('wizard');
 
+        $('#modal-wizard-' + wizard_id).modal({
+            backdrop: 'static',
+            keyboard: false
+        });
+
         // SmartWizard initialize
         $('#smartwizard').smartWizard({
             theme: 'dots',
@@ -20,8 +25,6 @@ $(document).ready(function(){
         });
         // show modal
         $('#modal-wizard-' + wizard_id).modal('show');
-        // show loading
-        $('#smartwizard').smartWizard("loader", "show");
     });
 
 
