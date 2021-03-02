@@ -26,6 +26,9 @@
 {% if doc.ip %}
 {{"IS  - " ~ doc.ip.0}}#BR#
 {% endif %}
+{% if doc.is %}
+{{"SN  - " ~ doc.is.0}}#BR#
+{% endif %}
 {{"DB  - " ~ doc.db.0|default(doc.db)}}#BR#
 {{"DP  - " ~ config.bvs_url}}#BR#
 {{"ID  - " ~ doc.id}}#BR#
