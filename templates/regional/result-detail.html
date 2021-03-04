@@ -170,17 +170,19 @@
                 <!-- relation: preprint -> article -->
                 {% if doc.id_published %}
                     <div style="margin-top: 20px">
-                        <strong>Preprint</strong><br/>
                         {% if lang == 'pt' %}
-                            Este artigo de periódico científico é provavelmente baseado em um preprint previamente disponível, por meio do reconhecimento de similaridade realizado por uma máquina. A confirmação humana ainda está pendente.<br/>
+                            <strong>Artigo de periódico</strong><br/>
+                            Um artigo publicado em periódico científico está disponível e provavelmente é baseado neste preprint, por meio do reconhecimento de similaridade realizado por uma máquina. A confirmação humana ainda está pendente.<br/>
                             <i class="fas fa-exclamation-triangle"></i>
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_published.0 }}">Ver artigo de periódico</a>
                         {% elseif lang == 'es' %}
-                            Este artículo de revista científica es probablemente basado en un preprint previamente disponible, por medio del reconocimiento de similitud realizado por una máquina. La confirmación humana aún está pendiente.<br/>
+                            <strong>Artículo de revista</strong><br/>
+                            Un artículo publicado en revista científica está disponible y probablemente es basado en este preprint, por medio del reconocimiento de similitud realizado por una máquina. La confirmación humana aún está pendiente.<br/>
                             <i class="fas fa-exclamation-triangle"></i>
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_published.0 }}">Ver artículo de revista</a>
                         {% else %}
-                            This scientific journal article is probably based on a previously available preprint, through the recognition of similarity performed by a machine. Human confirmation is still pending.<br/>
+                            <strong>Journal article</strong><br/>
+                            A scientific journal published article is available and it is probably based on this preprint, through the recognition of similarity performed by a machine. Human confirmation is still pending.<br/>
                             <i class="fas fa-exclamation-triangle"></i>
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_published.0 }}">See journal article</a>
                         {% endif %}
