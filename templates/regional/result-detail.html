@@ -182,7 +182,7 @@
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_published.0 }}">Ver artículo de revista</a>
                         {% else %}
                             <strong>Journal article</strong><br/>
-                            A scientific journal published article is available and it is probably based on this preprint, through the recognition of similarity performed by a machine. Human confirmation is still pending.<br/>
+                            A scientific journal published article is available and is probably based on this preprint. It has been identified through a machine matching algorithm, human confirmation is still pending.<br/>
                             <i class="fas fa-exclamation-triangle"></i>
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_published.0 }}">See journal article</a>
                         {% endif %}
@@ -201,7 +201,7 @@
                             <i class="fas fa-exclamation-triangle"></i>
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_pprint.0 }}">Ver preprint</a>
                         {% else %}
-                            This scientific journal article is probably based on a previously available preprint, through the recognition of similarity performed by a machine. Human confirmation is still pending.<br/>
+                            This scientific journal article is probably based on a previously available preprint. It has been identified through a machine matching algorithm, human confirmation is still pending.<br/>
                             <i class="fas fa-exclamation-triangle"></i>
                             <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id_pprint.0 }}">See preprint</a>
                         {% endif %}
