@@ -201,7 +201,7 @@
         {% endif %}
     {% endfor %}
 
-    {% if docs|length > 0 %}
+    {% if docs|length > 0 and config.range_year_field != '' %}
         <div>
             <div class="titleBox2" data-toggle="collapse" data-target="#range_year">
                 {{ texts.YEAR_RANGE }} <span class="acordionIcone float-right fas fa-angle-up"></span>

@@ -91,39 +91,42 @@
                         {% endif %}
                     {% endif %}
                 {% endfor %}
-                <div class="col-md-6">
-                    <div class="box5">
-                        <div class="titleBox3">
-                            {{ texts.YEAR_RANGE }}
-                        </div>
 
-                        <div class="row overflow2" id="range_year">
-                            <div class="boxCheck col-md-6 col-lg-4">
-                                <div class="inputCheck1">
-                                    <input id="last_5years" type="radio" name="years" onclick="javascript:fill_range(5)">
-                                </div>
-                                <label class="labelCheck1" for="last_5years">{{ texts.LAST_5_YEARS }}</label>
-                            </div>
-                            <div class="boxCheck col-md-6 col-lg-4">
-                                <div class="inputCheck1">
-                                    <input id="last_10years" type="radio" name="years" onclick="javascript:fill_range(10)">
-                                </div>
-                                <label class="labelCheck1" for="last_10years">{{ texts.LAST_10_YEARS }}</label>
+                {% if config.range_year_field != '' %}
+                    <div class="col-md-6">
+                        <div class="box5">
+                            <div class="titleBox3">
+                                {{ texts.YEAR_RANGE }}
                             </div>
 
-                            <div class="boxCheck col-md-12">
-                                <div class="form-row">
-                                    <div class="col-4">
-                                        <input id="range_start" class="form-control" type="text" name="range_year_start" value="{{ range_year_start }}" placeholder="yyyy">
+                            <div class="row overflow2" id="range_year">
+                                <div class="boxCheck col-md-6 col-lg-4">
+                                    <div class="inputCheck1">
+                                        <input id="last_5years" type="radio" name="years" onclick="javascript:fill_range(5)">
                                     </div>
-                                    <div class="col-4">
-                                        <input id="range_end" class="form-control" type="text" name="range_year_end" value="{{ range_year_end }}" placeholder="yyyy">
+                                    <label class="labelCheck1" for="last_5years">{{ texts.LAST_5_YEARS }}</label>
+                                </div>
+                                <div class="boxCheck col-md-6 col-lg-4">
+                                    <div class="inputCheck1">
+                                        <input id="last_10years" type="radio" name="years" onclick="javascript:fill_range(10)">
+                                    </div>
+                                    <label class="labelCheck1" for="last_10years">{{ texts.LAST_10_YEARS }}</label>
+                                </div>
+
+                                <div class="boxCheck col-md-12">
+                                    <div class="form-row">
+                                        <div class="col-4">
+                                            <input id="range_start" class="form-control" type="text" name="range_year_start" value="{{ range_year_start }}" placeholder="yyyy">
+                                        </div>
+                                        <div class="col-4">
+                                            <input id="range_end" class="form-control" type="text" name="range_year_end" value="{{ range_year_end }}" placeholder="yyyy">
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                {% endif %}
 
                 <!-- Texto Completo -->
                 {% for name, cluster in clusters %}
