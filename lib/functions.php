@@ -418,6 +418,7 @@ function get_translated_label($target_lang,  $label, $lang, $translations, $defa
 
 }
 
+// ==============  FILTERS ===================
 
 function filter_substring_after($text, $needle = '-'){
     if (strpos($text, $needle) !== false){
@@ -491,6 +492,41 @@ function filter_subfield($text, $id) {
     }
 
     return $subfields[$id];
+}
+
+
+function filter_subfield_value($value, $subfield){
+    $subfield = substr($subfield,0,2);
+    $out = '';
+    if ( is_array($value) ){
+        foreach($value as $current_value){
+            $print_values[] = extract_sub_value($current_value, $subfield);
+        }
+        $out = implode(', ', $print_values);
+    }else{
+        $out = extract_sub_value($value, $subfield);
+    }
+    return $out;
+}
+
+function extract_sub_value($string, $subfield, $default_subfield = 'en'){
+    $subfield_value = array();
+    $occs = preg_split('/\|/', $string);
+
+    foreach ($occs as $occ){
+        $re_sep = (strpos($occ, '~') !== false ? '/\~/' : '/\^/');
+        $lv = preg_split($re_sep, $occ);
+        $lang = substr($lv[0],0,2);
+        $value = $lv[1];
+        $subfield_value[$lang] = trim($value);
+    }
+    if ( isset($subfield_value[$subfield]) ){
+        $out = $subfield_value[$subfield];
+    }else{
+        $out = $subfield_value[$default_subfield];
+    }
+
+    return $out;
 }
 
 
