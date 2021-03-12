@@ -373,7 +373,7 @@
     {% if config.epistemonikos_token %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">
-            doc_id = '{% if "MEDLINE" in doc.db %}{{ doc.id|substring_after('-') }}{% else %}{{ doc.id }}{% endif %}';
+            doc_id = '{% if "MEDLINE" in doc.db %}{% if doc.alternate_id %}{{ doc.alternate_id.0|substring_after('-') }}{% else %}{{ doc.id|substring_after('-') }}{% endif %}{% else %}{{ doc.id }}{% endif %}';
             service_url = '{{ constant("SEARCH_URL") }}' + 'epistemonikos/' + LANG + '/' + doc_id;
 
             $("#epistemonikos_info" ).load(service_url);
