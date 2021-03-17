@@ -32,10 +32,16 @@
                     {% if (not config.show_advanced_search_button or config.show_advanced_search_button == 'true') %}
                     <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
                     {% endif %}
-                    {% if config_wizard_list %}
-                        <a href="#" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" id="btnOpenWizard" data-wizard="{{config_wizard_list.0}}" class="btnBlue" onclick="gtag('event', 'Open wizard popup', {'event_category': 'Wizard'});">
-                            {{ texts.WIZARD.BUTTON }}
-                        </a><br/>
+                    {% if collectionData.wizard_list.wizard is defined %}
+                        {% if current_page != 'result' %}
+                            <a href="{{ constant('SEARCH_URL') }}?lang={{lang}}&display_wizard=true" class="btnBlue" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" onclick="gtag('event', 'Open wizard popup', {'event_category': 'Wizard'});">
+                                {{ texts.WIZARD.BUTTON }}
+                            </a><br/>
+                        {% else %}
+                            <a href="#" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" id="btnOpenWizard" data-wizard="{{config_wizard_list.0}}" class="btnBlue" onclick="gtag('event', 'Open wizard popup', {'event_category': 'Wizard'});">
+                                {{ texts.WIZARD.BUTTON }}
+                            </a><br/>
+                        {% endif %}
                     {% endif %}
 
 				</div>
@@ -100,23 +106,26 @@
                                 <a id="speakBtn" href="#"><i class="fas fa-microphone-alt"></i></a>
 							</div>
                             {% if collectionData.where_list.where is defined %}
-                                <select name="where" class="formSelect" id="selectWhere">
-                                    {% for where in collectionData.where_list.where %}
-                                        {% set tab = '' %}
-                                        {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
+                                <div class="col-md-4 selectBoxSearch">
+                                    <select name="where" class="formSelect" id="selectWhere">
+                                        {% for where in collectionData.where_list.where %}
+                                            {% set tab = '' %}
+                                            {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
 
-                                        {% if params.where is defined %}
-                                            {% if where.name == params.where %}
-                                                <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
+                                            {% if params.where is defined %}
+                                                {% if where.name == params.where %}
+                                                    <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                                {% else %}
+                                                    <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                                {% endif %}
                                             {% else %}
-                                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
+                                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
                                             {% endif %}
-                                        {% else %}
-                                            <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.REFINE_db, where.name) }}</option>
-                                        {% endif %}
-                                    {% endfor %}
-                                </select>
+                                        {% endfor %}
+                                    </select>
+                                </div>
                             {% endif %}
+
 							<div class="col-md-2 btnBoxSearch">
 								<button type="submit" name="search_form_submit">
 									<i class="fas fa-search"></i>
