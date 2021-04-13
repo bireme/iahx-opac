@@ -136,7 +136,7 @@
 .tab-pane h1{font-size: 24px;}
 .tab-pane h2{font-size: 22px;}
 .tab-pane h3{font-size: 20px;}
-.social{ float: right; width: 40px; margin:0 0 20px 20px; position: sticky; top: 0; margin-top: 38px;}
+.social{ float: right; width: 40px; margin:0 0 20px 20px; position: sticky; top: 0; margin-top: 38px; z-index:10}
 .mediaSocial{
 	padding: 10px; display: block; font-size: 20px; width: 40px; text-align: center;
 	text-decoration: none; margin: 2px 1px; transition: all .3s ease;
