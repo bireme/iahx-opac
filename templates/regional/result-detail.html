@@ -240,10 +240,10 @@
                     {% endif %}
 
                     <div class="social">
-                        <a href="https://www.facebook.com/sharer.php?u={{ current_url }}" target="_blank" class="mediaSocial fab fa-facebook-f" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Facebook' , {'event_category': 'Social'});" {% endif %}></a>
-                        <a href="https://twitter.com/intent/tweet?text={{doc.ti.0}} {{ current_url }}" target="_blank" class="mediaSocial fab fa-twitter" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Twitter' , {'event_category': 'Social'});" {% endif %}></a>
-                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}&title={{ doc.ti.0 }} - {{ texts.BVS_TITLE }}" target="_blank" class="mediaSocial fab fa-linkedin-in" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Linkedin' , {'event_category': 'Social'});" {% endif %}></a>
-                        <a href="https://api.whatsapp.com/send?text={{ doc.ti.0 }} - {{ texts.BVS_TITLE }} - {{ current_url }}" target="_blank" class="mediaSocial fab fa-whatsapp" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Whatsapp' , {'event_category': 'Social'});" {% endif %}></a>
+                        <a href="https://www.facebook.com/sharer.php?u={{ current_url }}" target="_blank" class="mediaSocial fab fa-facebook-f" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Facebook' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
+                        <a href="https://twitter.com/intent/tweet?text={{doc.ti.0}} {{ current_url }}" target="_blank" class="mediaSocial fab fa-twitter" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Twitter' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
+                        <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}&title={{ doc.ti.0 }} - {{ texts.BVS_TITLE }}" target="_blank" class="mediaSocial fab fa-linkedin-in" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Linkedin' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
+                        <a href="https://api.whatsapp.com/send?text={{ doc.ti.0 }} - {{ texts.BVS_TITLE }} - {{ current_url }}" target="_blank" class="mediaSocial fab fa-whatsapp" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Whatsapp' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
                         <div class="clearfix"></div>
                     </div>
 
@@ -301,10 +301,10 @@
                 </div> <!-- /box4 -->
             {% else %}
                 <div class="social">
-                    <a href="https://www.facebook.com/sharer.php?u={{ current_url }}" target="_blank" class="mediaSocial fab fa-facebook-f" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Facebook' , {'event_category': 'Social'});" {% endif %}></a>
-                    <a href="https://twitter.com/intent/tweet?text={{doc.ti.0}} {{ current_url }}" target="_blank" class="mediaSocial fab fa-twitter" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Twitter' , {'event_category': 'Social'});" {% endif %}></a>
-                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}&title={{ doc.ti.0 }} - {{ texts.BVS_TITLE }}" target="_blank" class="mediaSocial fab fa-linkedin-in" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Linkedin' , {'event_category': 'Social'});" {% endif %}></a>
-                    <a href="https://api.whatsapp.com/send?text={{ doc.ti.0 }} - {{ texts.BVS_TITLE }} - {{ current_url }}" target="_blank" class="mediaSocial fab fa-whatsapp" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Whatsapp' , {'event_category': 'Social'});" {% endif %}></a>
+                    <a href="https://www.facebook.com/sharer.php?u={{ current_url }}" target="_blank" class="mediaSocial fab fa-facebook-f" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Facebook' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
+                    <a href="https://twitter.com/intent/tweet?text={{doc.ti.0}} {{ current_url }}" target="_blank" class="mediaSocial fab fa-twitter" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Twitter' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
+                    <a href="https://www.linkedin.com/shareArticle?mini=true&url={{ current_url }}&title={{ doc.ti.0 }} - {{ texts.BVS_TITLE }}" target="_blank" class="mediaSocial fab fa-linkedin-in" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Linkedin' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
+                    <a href="https://api.whatsapp.com/send?text={{ doc.ti.0 }} - {{ texts.BVS_TITLE }} - {{ current_url }}" target="_blank" class="mediaSocial fab fa-whatsapp" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Whatsapp' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></a>
                     <div class="clearfix"></div>
                 </div>
             {% endif %}

@@ -149,7 +149,7 @@
 {% endif %}
 
 {% if doc.aid is defined and doc.aid != ''  %}
-    <span class="__dimensions_badge_embed__" data-doi="{{doc.aid}}" data-hide-zero-citations="true" data-style="large_rectangle" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Dimensions' , {'event_category': 'Social'});" {% endif %}></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script><br/>
+    <span class="__dimensions_badge_embed__" data-doi="{{doc.aid}}" data-hide-zero-citations="true" data-style="large_rectangle" {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Dimensions' , {'event_category': 'Social', 'event_label': '{{doc.ti.0}}'});" {% endif %}></span><script async src="https://badge.dimensions.ai/badge.js" charset="utf-8"></script><br/>
 {% endif %}
 
 <div class="box2 box2B">
