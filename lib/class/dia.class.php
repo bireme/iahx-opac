@@ -150,7 +150,8 @@ class Dia
                 }
             }
         }
-        $requestUrl = "http://" . $this->DIASERVER . "/iahx-controller/?" . substr($urlParam,1);
+        $protocol = (substr($this->DIASERVER, 0, 4) != "http" ? "http://" : "");
+        $requestUrl = $protocol . $this->DIASERVER . "/iahx-controller/?" . substr($urlParam,1);
 
         return $requestUrl;
     }
@@ -180,7 +181,12 @@ class Dia
             "Content-Length: $contentLength\r\n\r\n".
             "$query\n";
         // Open the connection to the host
-        $fp = fsockopen($host, $port, $errno, $errstr, $timeout);
+
+        if (substr($url, 0, 5) === "https"){
+            $fp = fsockopen("ssl://{$host}", 443, $errno, $errstr, $timeout);
+        }else{
+            $fp = fsockopen($host, $port, $errno, $errstr, $timeout);
+        }
 
         fputs( $fp, $ReqHeader );
         if ($fp) {
