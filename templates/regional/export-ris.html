@@ -11,6 +11,9 @@
 {% for author in doc.au %}
 {{"AU  - " ~ author}}#BR#
 {% endfor %}
+{% for afiliacao_autor in doc.afiliacao_autor %}
+{{"AD  - " ~ afiliacao_autor}}#BR#
+{% endfor %}
 {{"TI  - " ~ doc.ti.0}}#BR#
 {% for title in doc.ti %}
 {% if not loop.first %}
