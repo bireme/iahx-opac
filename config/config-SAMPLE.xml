@@ -9,6 +9,7 @@
 	<services_platform_domain>http://platserv.bvsalud.org</services_platform_domain>
 	<impact_measurement_domain>https://im.bireme.org</impact_measurement_domain>
 	<impact_measurement_code></impact_measurement_code>
+	<impact_measurement_survey_link></impact_measurement_survey_link>
 	<impact_measurement_cookie_domain_scope>/</impact_measurement_cookie_domain_scope>
 	<impact_measurement_bvs_cookie_domain></impact_measurement_bvs_cookie_domain>
 	<impact_measurement_bvsalud_cookie_domain></impact_measurement_bvsalud_cookie_domain>

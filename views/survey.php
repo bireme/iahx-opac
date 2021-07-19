@@ -31,6 +31,7 @@ $app->match('impact-measurement/{lang}/{code}', function (Request $request, $lan
         $output['page_type_slug'] = $page_type;
         $output['texts'] = $texts['IMPACT_MEASUREMENT'];
         $output['lang'] = ( 'pt' == $lang ) ? 'pt-BR' : $lang;
+        $output['im_survey_link'] = $config->impact_measurement_survey_link;
         $output['config'] = $config;
 
         $response = $app['twig']->render('survey.html', $output);

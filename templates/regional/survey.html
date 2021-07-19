@@ -142,24 +142,42 @@
 		</div>
 	</div>
 	<div class="feedback-message">
-		<div class="alert alert-success im-survey" role="alert">
-            <form action="{{ config.impact_measurement_domain }}/survey/" id="surveyForm" target="_blank">
-                <input type="hidden" name="code" value="{{ code }}">
-				<input type="hidden" name="user" value="{{ user }}">
-				<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
-				<input type="hidden" name="page" value="{{ page_base64 }}">
-				<input type="hidden" name="page_type" value="{{ page_type }}">
-				<input type="hidden" name="page_type_slug" value="{{ page_type_slug }}">
+		{% if im_survey_link == '' %}
+			<div class="alert alert-success im-survey" role="alert">
+	            <form action="{{ config.impact_measurement_domain }}/survey/" id="surveyForm" target="_blank">
+	                <input type="hidden" name="code" value="{{ code }}">
+					<input type="hidden" name="user" value="{{ user }}">
+					<input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
+					<input type="hidden" name="page" value="{{ page_base64 }}">
+					<input type="hidden" name="page_type" value="{{ page_type }}">
+					<input type="hidden" name="page_type_slug" value="{{ page_type_slug }}">
 
+	                {{ texts.THANKS }}<br />
+	            	{{ texts.SURVEY_LINK_DESC }}<br />
+	                
+	                <button type="submit" id="survey-submit" class="btn btn-block btn-success">{{ texts.SURVEY_LINK_TEXT }}</button>
+	            </form>
+	        </div>
+	    {% else %}
+	        <div class="alert alert-success im-survey" role="alert">
                 {{ texts.THANKS }}<br />
-            	{{ texts.SURVEY_LINK_DESC }}<br />
-                
-                <button type="submit" id="survey-submit" class="btn btn-block btn-success">{{ texts.SURVEY_LINK_TEXT }}</button>
-            </form>
-        </div>
-        <div class="alert alert-success result-ok" role="alert">
-            {{ texts.THANKS }}
-        </div>
+                {{ texts.SURVEY_LINK_DESC }}<br />
+                <a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
+        	</div>
+        {% endif %}
+
+		{% if im_survey_link == '' %}
+	        <div class="alert alert-success result-ok" role="alert">
+	            {{ texts.THANKS }}
+	        </div>
+        {% else %}
+	        <div class="alert alert-success result-ok" role="alert">
+                {{ texts.THANKS }}<br />
+                {{ texts.SURVEY_LINK_DESC }}<br />
+                <a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
+	        </div>
+	    {% endif %}
+
         <div class="alert alert-warning result-error" role="alert">
             {{ texts.ERROR|raw }}
         </div>
