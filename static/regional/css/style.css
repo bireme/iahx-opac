@@ -323,6 +323,10 @@
 	word-break: break-all;
 }
 
+#semantic{
+	position: relative;
+}
+
 #lineSemantic{
 	z-index: 1;
 	position: absolute;
