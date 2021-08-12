@@ -209,6 +209,54 @@
                 {% endif %}
             </div>
 
+            {% if doc.semantic_triple %}
+                <div class="box4">
+                    <div>
+                        <div class="semantic_box" style="margin-top: 20px;">
+                            <strong>{{ texts.SEMANTIC.DISCLAIMER }} <a href="https://skr3.nlm.nih.gov/SemMedDB/" target="_blank">SemMedBD</a> ({{ texts.SEMANTIC.BY_NLM }}) <span id="affiliations" class="fas fa-angle-down"  data-toggle="collapse" href="#semantic" role="button"></span></strong>
+                            <div id="semantic" class="collapse">
+                                {% for semantic_triple in doc.semantic_triple %}
+                                    {{ semantic_triple }} <br/>
+
+                                    {% set semantic_subject = doc.semantic_subject[loop.index0] %}
+                                    {% set semantic_predicate = doc.semantic_predicate[loop.index0] %}
+                                    {% set semantic_object = doc.semantic_object[loop.index0] %}
+
+                                    <div id="lineSemantic"></div>
+                                    <div id="semanticBtn">
+                                        <div class="d-flex justify-content-between bd-highlight mb-3">
+                                            <div class="p-2 bd-highlight">
+                                                <a href="" class="btn btn-sm btn-light">{{ texts.SEMANTIC.SUBJECT }}</a> <br>
+                                                {{ semantic_subject }}
+                                            </div>
+                                            <div class="p-2 bd-highlight text-center">
+                                                <a href="" class="btn btn-sm btn-light">{{ texts.SEMANTIC.PREDICATE }}</a> <br>
+                                                {{ semantic_predicate }}
+                                            </div>
+                                            <div class="p-2 bd-highlight text-right">
+                                                <a href="" class="btn btn-sm btn-light ">{{ texts.SEMANTIC.OBJECT }}</a> <br>
+                                                {{ semantic_object }}
+                                            </div>
+                                        </div>
+                                        <div class="clearfix"></div>
+                                    </div>
+                                    <br><br><br><br>
+
+                                    <div id=semantic_btns>
+                                        <b>{{ texts.SEMANTIC.SEARCH_BY }}:</b><br>
+                                        <a href='{{ constant("SEARCH_URL") }}?lang={{lang}}&q=semantic_subject:"{{semantic_subject}}" AND semantic_predicate:"{{semantic_predicate}}"' class="btn btn-sm btn-outline-dark">{{ doc.semantic_subject[loop.index0] }} + {{ doc.semantic_predicate[loop.index0] }}</a>
+                                        <a href='{{ constant("SEARCH_URL") }}?lang={{lang}}&q=semantic_predicate:"{{semantic_predicate}}" AND semantic_object:"{{semantic_object}}"' class="btn btn-sm btn-outline-dark">{{ doc.semantic_predicate[loop.index0] }} + {{ doc.semantic_object[loop.index0] }}</a>
+                                        <a href='{{ constant("SEARCH_URL") }}?lang={{lang}}&q=semantic_subject:"{{semantic_subject}}" AND semantic_object:"{{semantic_object}}"' class="btn btn-sm btn-outline-dark">{{ doc.semantic_subject[loop.index0] }} + {{ doc.semantic_object[loop.index0] }}</a>
+                                        <a href='{{ constant("SEARCH_URL") }}?lang={{lang}}&q=semantic_subject:"{{semantic_subject}}" AND semantic_predicate:"{{semantic_predicate}}" AND semantic_object:"{{semantic_object}}"' class="btn btn-sm btn-outline-dark">{{ doc.semantic_subject[loop.index0] }} + {{ doc.semantic_predicate[loop.index0] }} + {{ doc.semantic_object[loop.index0] }}</a>
+                                    </div>
+
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endif %}
+
             {% if doc.ab or doc.mh %}
                 <!-- abstract / subject box -->
                 <div class="box4 d-print-flex-12">

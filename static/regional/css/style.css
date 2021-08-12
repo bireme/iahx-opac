@@ -323,10 +323,33 @@
 	word-break: break-all;
 }
 
+#lineSemantic{
+	z-index: 1;
+	position: absolute;
+	top: 45px;
+	left: 5%;
+	height: 4px;
+	width: 90%;
+	background: #dcdcdc;
+}
+#semanticBtn{
+	position: absolute;
+	width: 100%;
+	z-index: 2;
+}
+#semantic_btns .btn{
+	margin-bottom: 3px;
+	text-align: left;
+}
+#semantic_btns .btn:hover{
+	color: #fff;
+}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
 	.modal-xl{max-width: 90%;}
+	#lineSemantic{top: 70px;}
 }
 @media (max-width: 1024px){
 	.sw.sw-justified>.nav>li h6{min-height: 77px;}
