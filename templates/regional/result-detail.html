@@ -221,26 +221,28 @@
                                     {% set semantic_subject = doc.semantic_subject[loop.index0] %}
                                     {% set semantic_predicate = doc.semantic_predicate[loop.index0] %}
                                     {% set semantic_object = doc.semantic_object[loop.index0] %}
-                                    <div id="semanticContent">
+                                    <div class="semanticContent">
                                         <div id="lineSemantic"></div>
                                         <div id="semanticBtn">
-                                            <div class="d-flex justify-content-between bd-highlight mb-3">
-                                                <div class="p-2 bd-highlight">
-                                                    <a href="" class="btn btn-sm btn-light">{{ texts.SEMANTIC.SUBJECT }}</a> <br>
+                                            <div class="d-md-flex justify-content-between bd-highlight mb-3">
+                                                <div class="p-2 bd-highlight semanticSubject">
+                                                    <a href="" class="btn btn-sm btn-light">{{ texts.SEMANTIC.SUBJECT }}</a>
+                                                    <br>
                                                     {{ semantic_subject }}
                                                 </div>
-                                                <div class="p-2 bd-highlight text-center">
-                                                    <a href="" class="btn btn-sm btn-light">{{ texts.SEMANTIC.PREDICATE }}</a> <br>
+                                                <div class="p-2 bd-highlight semanticPredicate">
+                                                    <a href="" class="btn btn-sm btn-light">{{ texts.SEMANTIC.PREDICATE }}</a>
+                                                    <br>
                                                     {{ semantic_predicate }}
                                                 </div>
-                                                <div class="p-2 bd-highlight text-right">
-                                                    <a href="" class="btn btn-sm btn-light ">{{ texts.SEMANTIC.OBJECT }}</a> <br>
+                                                <div class="p-2 bd-highlight semanticObject">
+                                                    <a href="" class="btn btn-sm btn-light ">{{ texts.SEMANTIC.OBJECT }}</a>
+                                                    <br>
                                                     {{ semantic_object }}
                                                 </div>
                                             </div>
                                             <div class="clearfix"></div>
                                         </div>
-                                        <br><br><br><br>
 
                                         <div id=semantic_btns>
                                             <b>{{ texts.SEMANTIC.SEARCH_BY }}:</b><br>

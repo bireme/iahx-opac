@@ -324,13 +324,26 @@
 }
 
 #semantic{
-	position: relative;
+	margin-top: 20px;
 }
-
+.semanticContent{
+	position: relative;
+	margin-bottom: 20px;
+	padding: 20px;
+	border:1px solid #ccc;
+	border-radius: 3px;
+	border-left:5px solid #d5d7ff ;
+}
+.semanticContent:nth-child(odd){
+	background-color: #f9f9f9;
+}
+.semanticContent .btn-light{
+	background: #e2e2e2;
+}
 #lineSemantic{
 	z-index: 1;
 	position: absolute;
-	top: 45px;
+	top: 65px;
 	left: 5%;
 	height: 4px;
 	width: 90%;
@@ -338,20 +351,24 @@
 }
 #semanticBtn{
 	position: absolute;
-	width: 100%;
+	width: 95%;
 	z-index: 2;
 }
+#semantic_btns{
+	padding-top:80px;
+}
 #semantic_btns .btn{
-	margin-bottom: 3px;
+	margin-bottom:3px;
 	text-align: left;
 }
 #semantic_btns .btn:hover{
 	color: #fff;
 }
-
-#semanticContent{
-	border-bottom: 1px solid #ccc;
-	margin-bottom: 20px;
+.semanticPredicate{
+	text-align: center;
+}
+.semanticObject{
+	text-align: right;
 }
 
 /******************** Breakpoints *******************/
