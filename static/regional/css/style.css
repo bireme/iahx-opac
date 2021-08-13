@@ -426,6 +426,11 @@
 	.overflow1, .overflow2{height: auto;}
 	#wizardName{font-size: 14px!important; margin-top: 10px;}
 	.wizardModalTitle h4{font-size: 20px!important;}
+
+	#lineSemantic{ display: none; }
+	#semanticBtn{position: static;}
+	.semanticPredicate, .semanticObject{text-align: left;}
+	#semantic_btns{	padding-top: 10px;}
 }
 @media (max-width: 640px){
 	.sw.sw-justified>.nav>li h6{min-height: auto;}

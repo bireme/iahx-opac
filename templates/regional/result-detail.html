@@ -216,12 +216,12 @@
                             <strong>{{ texts.SEMANTIC.DISCLAIMER }} <a href="https://skr3.nlm.nih.gov/SemMedDB/" target="_blank">SemMedBD</a> ({{ texts.SEMANTIC.BY_NLM }}) <span id="affiliations" class="fas fa-angle-down"  data-toggle="collapse" href="#semantic" role="button"></span></strong>
                             <div id="semantic" class="collapse">
                                 {% for semantic_triple in doc.semantic_triple %}
-                                    {{loop.index}}. {{ semantic_triple }} <br/>
 
                                     {% set semantic_subject = doc.semantic_subject[loop.index0] %}
                                     {% set semantic_predicate = doc.semantic_predicate[loop.index0] %}
                                     {% set semantic_object = doc.semantic_object[loop.index0] %}
                                     <div class="semanticContent">
+                                        {{loop.index}}. {{ semantic_triple }} <br/>
                                         <div id="lineSemantic"></div>
                                         <div id="semanticBtn">
                                             <div class="d-md-flex justify-content-between bd-highlight mb-3">
