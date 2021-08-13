@@ -349,6 +349,11 @@
 	color: #fff;
 }
 
+#semanticContent{
+	border-bottom: 1px solid #ccc;
+	margin-bottom: 20px;
+}
+
 /******************** Breakpoints *******************/
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
