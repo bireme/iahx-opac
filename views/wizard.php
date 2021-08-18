@@ -20,6 +20,8 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     if(isset($params['lang']) and $params['lang'] != "") {
         $lang = $params['lang'];
     }
+    // translation file
+    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
     $step = (isset($params['step']) ? intval($params['step']) : 1);
     $previous_filter_name = $params['previous_filter_name'];
@@ -96,6 +98,23 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
 
         $option_list = $solr_result['diaServerResponse'][0]['facet_counts']['facet_fields'][$step_filter];
 
+        // create a array with only valid options (translated and of same prefix)
+        $option_list_step = array();
+        $label_group = 'REFINE_' . $step_filter;
+        foreach ($option_list as $index=>$option) {
+            if ( in_array(step_info['filter_name'], $only_translated_items_filters) and !has_translation($option[0], $label_group) ){
+            }else{
+                if ( !$filter_by_prefix or substr($option[0], 0, strlen($filter_by_prefix)) === $filter_by_prefix){
+                    // add translation to array
+                    array_push($option, translate($option[0], $label_group));
+                    $option_list_step[] = $option;
+                }
+            }
+        }
+        // sort by translation (array index 2)
+        usort($option_list_step, function($a, $b) {
+            return $a[2] <=> $b[2];
+        });
     // option list from API
     }else{
         $option_list = $step_info['options'];
@@ -105,9 +124,6 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         }
     }
 
-    // translation file
-    $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-
     // output vars
     $output_array = array();
     $output_array['lang'] = $lang;
@@ -115,6 +131,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     $output_array['config'] = $filter_config;
     $output_array['step_info'] = $step_info;
     $output_array['option_list'] = $option_list;
+    $output_array['option_list_step'] = $option_list_step;
     $output_array['option_group'] = $option_group;
     $output_array['filter_by_prefix'] = $filter_by_prefix;
     $output_array['only_translated_items_filters'] = $only_translated_items_filters;

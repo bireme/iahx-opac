@@ -9,13 +9,8 @@
         {% if step_info.filter_name != '' %}
             <select name="{{step_info.filter_name}}" id="option-step-{{step_info.step}}" class="form-control step-option-list wizard-color-step-{{step_info.step}}" data-step="{{step_info.step}}">
                 <option value=""></option>
-                {% for option in option_list %}
-                    {% if step_info.filter_name in only_translated_items_filters and not has_translation(option.0, filter_labels) %}
-                    {% else %}
-                        {% if not filter_by_prefix or option.0|starts_with(filter_by_prefix) %}
-                            <option value="{{option.0}}" {% if option.0 == previous_session_selection.value %}selected="true"{% endif %} >{{ translate(option.0, filter_labels ) }}</option>
-                        {% endif %}
-                    {% endif %}
+                {% for option in option_list_step %}
+                    <option value="{{option.0}}" {% if option.0 == previous_session_selection.value %}selected="true"{% endif %} >{{ option.2 }}</option>
                 {% endfor %}
             </select>
         {% else %}
