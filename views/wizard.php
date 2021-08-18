@@ -102,7 +102,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         $option_list_step = array();
         $label_group = 'REFINE_' . $step_filter;
         foreach ($option_list as $index=>$option) {
-            if ( in_array(step_info['filter_name'], $only_translated_items_filters) and !has_translation($option[0], $label_group) ){
+            if ( in_array($step_info['filter_name'], $only_translated_items_filters) and !has_translation($option[0], $label_group) ){
             }else{
                 if ( !$filter_by_prefix or substr($option[0], 0, strlen($filter_by_prefix)) === $filter_by_prefix){
                     // add translation to array
