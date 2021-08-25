@@ -319,6 +319,10 @@
 	padding-left: 30px;
 }
 
+#affiliations{
+	cursor:pointer;
+}
+
 .linksBox{
 	word-break: break-all;
 }
