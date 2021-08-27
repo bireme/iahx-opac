@@ -39,12 +39,12 @@
                     <link>{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}</link>
                     <description>
                         <![CDATA[
-                        {% if doc.ab %}
+                        {% if app.request.query.get('sourceasdescription') == 'true' %}
+                            {{ doc.fo.0 }}
+                        {% elseif doc.ab %}
                             {% for abstract in doc.ab %}
                                 {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
                             {% endfor %}
-                        {% else %}
-                            {{ doc.fo.0 }}
                         {% endif %}
                         ]]>
                     </description>
