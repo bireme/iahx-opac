@@ -49,8 +49,8 @@
 {{"DA  - " ~  doc.da|slice(0,4) ~ "/" ~ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{doc.da|slice(6,2)}}{% endif %}#BR#
 {{"PY  - " ~  doc.da|slice(0,4)}}#BR#
 {% endif %}
-{% if doc.doi %}
-{{"DO  - " ~ doc.doi}}#BR#
+{% if doc.aid %}
+{{"DO  - " ~ doc.aid}}#BR#
 {% endif %}
 {% for mesh in doc.mh %}
 {{"KW  - " ~  mesh}}#BR#
