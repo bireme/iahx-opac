@@ -1,7 +1,9 @@
 {% spaceless %}
 {% if from == '0' %}ID,Title,Authors,Source,Journal,Database,Type,Language,Publication year,Descriptor(s),Publication Country,Fulltext URL, Abstract,Entry Date,Volume number,Issue number,DOI,ISSN#BR#{% endif %}
+{% autoescape false %}
 {%- for doc in docs -%}
 "{{ doc.id }}","{% for title in doc.ti %}{{ title }}{% if not loop.last %}/ {% endif %}{% endfor %}","{% for author in doc.au %}{{author}}{% if not loop.last %}; {% endif %}{% endfor %}","{{ doc.fo.0 }}","{{ doc.ta.0 }}","{{ doc.db.0|default(doc.db) }}","{{ doc.type.0 }}","{{ doc.la[0] }}","{{ doc.da|slice(0,4) }}","{% for mesh in doc.mh %}{{ mesh }}{% if not loop.last %}; {% endif %}{% endfor %}","{{ doc.cp.0 }}","{{ doc.ur.0 }}","{{ doc.ab.0 }}",{{ doc.entry_date }},{{ doc.vi.0 }},{{ doc.ip.0 }},{{ doc.aid }},{{ doc.is.0 }}
 #BR#
 {%- endfor -%}
+{% endautoescape %}
 {% endspaceless %}

@@ -1,5 +1,6 @@
 {% for doc in docs %}
 {% spaceless %}
+{% autoescape false %}
 {% if doc.type.0 == "article" %}
 {{"TY  - JOUR"}}
 {% elseif doc.type.0 == "book" %}
@@ -67,5 +68,6 @@
 {% endif %}
 {{"ER  -" }}#BR#
 #BR#
+{% endautoescape  %}
 {% endspaceless %}
 {% endfor %}
