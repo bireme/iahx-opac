@@ -151,23 +151,23 @@
 
         <!-- survey box -->
         {% if config.impact_measurement_code != '' %}
-            <div id="im_survey_box" class="im-ajax">
-                <div id="boxFeedback">
-                    <div id="conteudoFeedback">
-                        <div class="im-loading">
-                            <div class="col-md-12 text-center">
-                                <div class="spinner-border text-center">
-                                    <span class="sr-only">...</span>
-                                </div>
+        <div id="im_survey_box" class="im-ajax">
+            <div id="boxFeedback">
+                <div id="conteudoFeedback">
+                    <div class="im-loading">
+                        <div class="col-md-12 text-center">
+                            <div class="spinner-border text-center">
+                                <span class="sr-only">...</span>
                             </div>
                         </div>
                     </div>
-                    <div id="iconFeedback">
-                        <img src="{{ constant("STATIC_URL") }}/image/{{ lang|slice(0, 2) }}/iconFeedback.svg" alt="">
-                    </div>
-                    <div class="clear"></div>
                 </div>
+                <div id="iconFeedback">
+                    <img src="{{ constant("STATIC_URL") }}/image/{{ lang|slice(0, 2) }}/iconFeedback.svg" alt="">
+                </div>
+                <div class="clear"></div>
             </div>
+        </div>
         {% endif %}
 
         <!-- load base js files for pages -->

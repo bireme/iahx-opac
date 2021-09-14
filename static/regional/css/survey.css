@@ -55,6 +55,7 @@
 #feedbackFechar {
 	float: right;
 	cursor: pointer;
+    margin-left: 10px;
 }
 #feedbackFechar:hover {
 	color: #999;
