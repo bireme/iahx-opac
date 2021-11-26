@@ -250,7 +250,7 @@
                 var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}_skfp_true';
             {% elseif current_page == 'result' and config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
                 var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}_skfp_false';
-            {% else %}                
+            {% else %}
                 var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}';
             {% endif %}
 
@@ -263,6 +263,11 @@
         </script>
         <script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
         {% endif %}
+
+        {% if config.show_accept_cookie != 'false' %}
+        <script src="https://politicas.bireme.org/cookiebar/cookiebar-latest.js"></script>
+        {% endif %}
+
 
         {% block footerscripts %}
         {% endblock %}

@@ -44,6 +44,7 @@
     <show_decs_lookup_button>true</show_decs_lookup_button>
 	<show_search_google_button>true</show_search_google_button>
 	<request_cluster_list>true</request_cluster_list>
+	<show_accept_cookie>true</show_accept_cookie>
 
 	<search_collection_list>
 		<collection>
