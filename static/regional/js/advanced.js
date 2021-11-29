@@ -16,6 +16,7 @@ function show_index(line, update){
 
     init = $('#input-' + block_id).val();
     index = $('#index-' + block_id).find(':selected').val();
+    index = (index) ? index : 'tw'          //if index is not informed assume tw
     options = $('#select-' + block_id);
 
     options.find('option').remove().end();
