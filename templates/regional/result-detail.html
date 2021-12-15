@@ -343,8 +343,7 @@
                         <!-- subject -->
                         <div class="tags{% if lang not in ['pt', 'es', 'en'] %}_disable_tooltip{% endif %}" id="tags">
                             {% for subject in doc.mh %}
-                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'})|raw }}"' class="link1 decs" id="decs_{{loop.index}}">{{ subject|raw }}</a>
-                                {% if not loop.last %}; {% endif %}
+                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'})|raw }}"' class="link1 decs" id="decs_{{loop.index}}">{{ subject|raw }}</a>{% if not loop.last %}; {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -354,8 +353,7 @@
                         <!-- subject -->
                         <div id="keywords" class="tags" >
                             {% for kw in doc.kw %}
-                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=kw:"{{ kw|replace({'&amp;':'%26'})|raw }}"' class="link1">{{ kw }}</a>
-                                {% if not loop.last %}; {% endif %}
+                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=kw:"{{ kw|replace({'&amp;':'%26'})|raw }}"' class="link1">{{ kw }}</a>{% if not loop.last %}; {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}
