@@ -259,7 +259,7 @@
                 </div>
             {% endif %}
 
-            {% if doc.ab or doc.mh %}
+            {% if doc.ab or doc.mh or doc.kw %}
                 <!-- abstract / subject box -->
                 <div class="box4 d-print-flex-12">
                     {% set mark_ab_list = [] %}
@@ -348,6 +348,18 @@
                             {% endfor %}
                         </div>
                     {% endif %}
+
+                    {% if doc.kw is defined  %}
+                        <b>{{ texts.RESULT.LABEL_KEYWORDS }}</b><br>
+                        <!-- subject -->
+                        <div id="keywords" class="tags" >
+                            {% for kw in doc.kw %}
+                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=kw:"{{ kw|replace({'&amp;':'%26'})|raw }}"' class="link1">{{ kw }}</a>
+                                {% if not loop.last %}, {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
                 </div> <!-- /box4 -->
             {% else %}
                 <div class="social">
