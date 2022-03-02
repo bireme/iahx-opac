@@ -519,7 +519,8 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
                 $content_type = 'text/csv';
             }
             if ( !isset($export_total) ){
-                $export_total = ( (isset($config->max_export_records) && $config->max_export_records > 0)  ? $config->max_export_records : $pag['total']);
+                $config_max_export_records = intval($config->max_export_records);
+                $export_total = ( ($config_max_export_records > 0 && $config_max_export_records < $pag['total'] ) ? $config_max_export_records : $pag['total'] );
             }
 
             $export_content = "";
