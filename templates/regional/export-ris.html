@@ -36,6 +36,7 @@
 {{"DB  - " ~ doc.db.0|default(doc.db)}}#BR#
 {{"DP  - " ~ config.bvs_url}}#BR#
 {{"ID  - " ~ doc.id}}#BR#
+{{"C8  - " ~ doc.id}}#BR#
 {{"LA  - " ~ doc.la[0]}}#BR#
 {% if doc.pg.0  %}
 {% if "-" in doc.pg.0 %}
@@ -52,6 +53,15 @@
 {% endif %}
 {% if doc.aid %}
 {{"DO  - " ~ doc.aid}}#BR#
+{% endif %}
+{% if doc.pmcid %}
+{{"PMC  - " ~ doc.pmcid.0}}#BR#
+{{"C2  - " ~ doc.pmcid.0}}#BR#
+{% endif %}
+{% if doc.si %}
+{% for si in doc.si %}
+{{"AN  - " ~ si}}#BR#
+{% endfor %}
 {% endif %}
 {% for mesh in doc.mh %}
 {{"KW  - " ~  mesh}}#BR#
