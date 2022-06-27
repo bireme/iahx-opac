@@ -126,7 +126,7 @@
         function showQualifierInfo(qlf_id) {
             var lng = {% if lang != 'pt' %}'{{lang}}/'{% else %}'/'{% endif %};
 
-            var decs_url = 'http://decs.bvsalud.org/' + lng + 'ths/resource/?id=' + qlf_id + '#myTabContent';
+            var decs_url = 'http://decs.bvsalud.org/' + lng + 'ths/resource/?id=' + qlf_id + '#Details';
             window.open(decs_url, 'decsqlf', 'scrollbars=1,width=630,height=650');
         }
 
