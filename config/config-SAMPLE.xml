@@ -31,6 +31,7 @@
 	<show_related_button>true</show_related_button>
 	<related_min_score>40</related_min_score>
 	<google_analytics_tracking_id></google_analytics_tracking_id>
+	<google_analytics_GA4_id></google_analytics_GA4_id>
 	<maintenance>false</maintenance>
 	<feedback_id></feedback_id>
 	<browse_index_url></browse_index_url>
