@@ -373,45 +373,47 @@
                 {% include custom_template('column-detail-actions.html') %}
             </div>
 
-            <div class="titleArt"><h4><b>{{ texts.RELATED_DOCUMENTS }}</b></h4></div>
-            <div id="similares">
-                <div class="box4" >
-                    <div class="titleArt"><b>MEDLINE</b></div>
-                    <hr>
-                    <div id="similar-MEDLINE">
-                        <div class="row">
-                            <div class="col-md-12 text-center">
-                                <div class="spinner-border text-center" role="status">
-                                    <span class="sr-only">...</span>
+            {% if config.show_similar_docs == 'true' %}
+                <div class="titleArt"><h4><b>{{ texts.RELATED_DOCUMENTS }}</b></h4></div>
+                <div id="similares">
+                    <div class="box4" >
+                        <div class="titleArt"><b>MEDLINE</b></div>
+                        <hr>
+                        <div id="similar-MEDLINE">
+                            <div class="row">
+                                <div class="col-md-12 text-center">
+                                    <div class="spinner-border text-center" role="status">
+                                        <span class="sr-only">...</span>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                        <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-MEDLINE">
+                            <span class="acordionIcone fas fa-angle-down"></span>
+                        </div>
                     </div>
-                    <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-MEDLINE">
-                        <span class="acordionIcone fas fa-angle-down"></span>
-                    </div>
-                </div>
 
-                <div class="box4">
-                    <div class="titleArt"><b>LILACS</b></div>
-                    <hr>
-                    <div id="similar-LILACS">
+                    <div class="box4">
+                        <div class="titleArt"><b>LILACS</b></div>
+                        <hr>
+                        <div id="similar-LILACS">
+                        </div>
+                        <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-LILACS">
+                            <span class="acordionIcone fas fa-angle-down"></span>
+                        </div>
                     </div>
-                    <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-LILACS">
-                        <span class="acordionIcone fas fa-angle-down"></span>
-                    </div>
-                </div>
 
-                <div class="box4">
-                    <div class="titleArt"><b>LIS</b></div>
-                    <hr>
-                    <div id="similar-LIS">
+                    <div class="box4">
+                        <div class="titleArt"><b>LIS</b></div>
+                        <hr>
+                        <div id="similar-LIS">
+                        </div>
+                        <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-LIS">
+                            <span class="acordionIcone fas fa-angle-down"></span>
+                        </div>
                     </div>
-                    <div class="text-center similaresMais" data-toggle="collapse" data-target="#more-LIS">
-                        <span class="acordionIcone fas fa-angle-down"></span>
-                    </div>
-                </div>
-            </div> <!-- /similares -->
+                </div> <!-- /similares -->
+            {% endif %}
 
         </div> <!-- /col-md-9 -->
 
