@@ -29,6 +29,7 @@
 	</addthis_buttons>
 	<show_related_docs>true</show_related_docs>
 	<show_related_button>true</show_related_button>
+	<show_similar_docs>false</show_similar_docs>
 	<related_min_score>40</related_min_score>
 	<google_analytics_tracking_id></google_analytics_tracking_id>
 	<google_analytics_GA4_id></google_analytics_GA4_id>
