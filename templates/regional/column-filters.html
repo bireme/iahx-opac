@@ -152,7 +152,7 @@
                                         {% endif %}
                                     {% endfor %}
 
-                                    <div class="boxCheck {% if '/' in item.0 %}subtopic{% endif %}">
+                                    <div class="boxCheck {% if '/' in item.0 %} subtopic{% endif %}">
                                         <div class="inputCheck1">
                                             <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
                                                 {% if filter_checked == 'true' %}checked="true"{% endif %}>
