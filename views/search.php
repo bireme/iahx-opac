@@ -278,6 +278,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $config_cluster_list = $collectionData->cluster_list->cluster;
     $default_cluster_list = getDefaultClusterList($collectionData);
     $only_translated_items_clusters = getOnlyTranslatedItemsClusterList($collectionData);
+    $query_info_clusters = getShowQueryInfoClusterList($collectionData);
 
     $SESSION->set('user_preference_filter', $user_preference_filter);
 
@@ -390,6 +391,7 @@ $app->match('/', function (Request $request) use ($app, $DEFAULT_PARAMS, $config
     $output_array['config_cluster_list'] = $config_cluster_list;
     $output_array['default_cluster_list'] = $default_cluster_list;
     $output_array['only_translated_items_clusters'] = $only_translated_items_clusters;
+    $output_array['query_info_clusters'] = $query_info_clusters;
     $output_array['history'] = $history;
     $output_array['index'] = $index;
     $output_array['parsing_filters'] = $solr_param_fq;

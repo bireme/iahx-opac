@@ -184,6 +184,9 @@
         <script src="{{ constant("STATIC_URL") }}/js/functions.js?ver=1.0.1"></script>
         <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
         <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
+        {% if query_info_clusters %}
+        <script src="{{ constant("STATIC_URL") }}/js/query_info.js"></script>
+        {% endif %}
         {% if config_view_filter %}
         <script src="{{ constant("STATIC_URL") }}/js/sidebar.js"></script>
         {% endif %}
