@@ -59,7 +59,7 @@
 #footer{font-size: 12px;}
 .boxCheck{position: relative;}
 .inputCheck1{display: inline-block; width: 60px; position: absolute; top: 5px;}
-.labelCheck1{ display: inline-block; min-width: 100%; position: relative; left: 25px;  font-weight: 600; cursor: pointer;}
+.labelCheck1{ display: inline-block; min-width: 80%; position: relative; left: 25px;  font-weight: 600; cursor: pointer;}
 .labelCheck1:hover{text-decoration: underline;}
 .labelCheck2:hover{text-decoration: none!important;}
 .inputCheck1 small{margin:-20px 0 0 7px; position: relative; top: -3px;}
