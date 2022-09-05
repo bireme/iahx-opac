@@ -7,7 +7,7 @@ function open_popup_url(popup_url) {
 }
 
 function open_query_info_popup(filter_id, topic_id){
-    var query_info_api_url = 'https://iahx-topic-query.bvsalud.org/api/topic/';
+    var query_info_api_url = 'https://iahx-topic-query.bvsalud.org/api/topic/?filter=' + filter_id + '&topic=' + topic_id;
 
     instance_id = window.location.pathname.replaceAll('/', '');
 
