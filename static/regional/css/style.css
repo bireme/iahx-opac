@@ -380,7 +380,11 @@
 	padding: 10px 0 0 10px;
 	color: #999;
 	cursor: pointer;
+	position: absolute;
+	right: 0;
+	top: -2px;
 }
+
 .icon-info:hover{
 	color: #30348d;
 	z-index: ;
