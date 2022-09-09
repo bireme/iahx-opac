@@ -395,6 +395,7 @@
 	#resumo, #tabResumo{width: 90%;}
 	.modal-xl{max-width: 90%;}
 	#lineSemantic{top: 70px;}
+	.labelCheck1{max-width: 65%;}
 }
 @media (max-width: 1024px){
 	.sw.sw-justified>.nav>li h6{min-height: 77px;}
@@ -450,6 +451,7 @@
 	#semanticBtn{position: static;}
 	.semanticPredicate, .semanticObject{text-align: left;}
 	#semantic_btns{	padding-top: 10px;}
+	.labelCheck1{max-width: 80%;}
 }
 @media (max-width: 640px){
 	.sw.sw-justified>.nav>li h6{min-height: auto;}
