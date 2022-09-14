@@ -68,7 +68,7 @@
                                         {% for current_term in i_tree %}
                                             <ul class="tree">
                                                 <li>
-                                                    {% if loop.first %}{{ tree_count }}.{% endif %} <a href="#" onclick="view_tree('{{ current_term|substring_before('|') }}')">{{ current_term|substring_after('|') }} </a>
+                                                    <a href="#" onclick="view_tree('{{ current_term|substring_before('|') }}')">{{ current_term|substring_after('|') }} {% if loop.first %} [{{ current_term|substring_before('|') }}]{% endif %}</a>
 
 
                                                 {% if loop.last and tree_count == 1 %}
