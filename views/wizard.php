@@ -24,6 +24,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
 
     $step = (isset($params['step']) ? intval($params['step']) : 1);
+    $output = (isset($params['output']) ? $params['output'] : 'html');
     $previous_filter_name = $params['previous_filter_name'];
     $previous_filter_value = $params['previous_filter_value'];
     $previous_filter_label = $params['previous_filter_label'];
@@ -140,7 +141,11 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         $output_array['previous_session_selection'] = $wizard_session[$step];
     }
 
-    return $app['twig']->render(custom_template('wizard-step.html'), $output_array);
+    if ($output == 'json'){
+        return $app->json($output_array);
+    }else{
+        return $app['twig']->render(custom_template('wizard-step.html'), $output_array);
+    }
 
 });
 
