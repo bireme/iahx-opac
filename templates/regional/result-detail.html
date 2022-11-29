@@ -338,6 +338,22 @@
                         </div>
     			    {% endif %}
 
+                    {% if doc.license is defined  %}
+                        <b>{{ texts.RESULT.LABEL_LICENSE }}</b><br>
+                        <!-- license -->
+                        <div class="license">
+                            {% for license in doc.license %}
+                                {% if license|slice(0, 3) == 'CC ' %}
+                                    {% set cc_license = license|substring_before(' - ')|substring_after('CC ') %}
+                                    <a href="https://creativecommons.org/licenses/{{ cc_license|lower }}/4.0/" target="cc_info">{{ license }}</a><br/>
+                                {% else %}
+                                    {{ license }}
+                                {% endif %}
+                                <br/>
+                            {% endfor %}
+                        </div>
+                    {% endif %}
+
                     {% if doc.mh is defined  %}
                         <b>{{ texts.RESULT.LABEL_SUBJECT }}</b><br>
                         <!-- subject -->
