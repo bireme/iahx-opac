@@ -64,8 +64,14 @@
 {% endfor %}
 {% endif %}
 {% for mesh in doc.mh %}
-{{"KW  - " ~  mesh}}#BR#
+{{"MH  - " ~  mesh}}#BR#
 {% endfor %}
+{% for keyword in doc.kw %}
+{{"KW  - " ~  keyword}}#BR#
+{% endfor %}
+{% if doc.accession_number %}
+{{"AN  - " ~  doc.accession_number.0}}#BR#
+{% endif %}
 {% for abstract in doc.ab %}
 {{"AB  - " ~ abstract}}#BR#
 {% endfor %}
