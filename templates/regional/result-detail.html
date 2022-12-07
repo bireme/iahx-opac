@@ -304,7 +304,7 @@
                                 {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
                                 <li class="nav-item">
-    								<a class="nav-link {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" id="{{ ab_field }}-tab" data-toggle="tab" href="#{{ab_field}}" role="tab" aria-controls="{{ ab_field }}" aria-selected="true">
+    								<a class="nav-link {{' '}}{% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %}" id="{{ ab_field }}-tab" data-toggle="tab" href="#{{ab_field}}" role="tab" aria-controls="{{ ab_field }}" aria-selected="true">
                                         {{ attribute(texts.RESULT, label_name) }}
                                     </a>
     							</li>
@@ -315,7 +315,7 @@
                                 {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : 'en' %}
                                 {% set label_name = ab_lang != 'ab' ?  'LABEL_ABSTRACT_' ~ ab_lang|upper : 'LABEL_ABSTRACT' %}
 
-                                <div class="tab-pane fade show {% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %} abstract" id="{{ab_field}}" role="tabpanel" aria-labelledby="{{ ab_field }}-tab" lang="{{ab_lang}}">
+                                <div class="tab-pane fade show {{' '}}{% if ab_active_lang %}{% if ab_lang == ab_active_lang %}active{% endif %}{% elseif loop.index == 1%}active{% endif %} abstract" id="{{ab_field}}" role="tabpanel" aria-labelledby="{{ ab_field }}-tab" lang="{{ab_lang}}">
                                     <div class="d-none d-print-block">{{ attribute(texts.RESULT, label_name) }}</div>
                                     {{ attribute(doc, ab_field).0|raw }}
                                 </div>
@@ -338,9 +338,9 @@
                         </div>
     			    {% endif %}
 
+                    <!-- license -->
                     {% if doc.license is defined  %}
                         <b>{{ texts.RESULT.LABEL_LICENSE }}</b><br>
-                        <!-- license -->
                         <div class="license">
                             {% for license in doc.license %}
                                 {% if license|slice(0, 3) == 'CC ' %}
