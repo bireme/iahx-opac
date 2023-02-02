@@ -23,13 +23,16 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
     $data = json_decode($api_result, TRUE);
     //print_r($data);
 
-    if ($data['metadata']['classification']){
+    $classification = $data['metadata']['classification'];
+    $classification_status = $data['metadata']['classification_status'];
+
+    if ($classification != 'raw' && $classification_status != 'pending'){
         $output = array();
         $output['doc_id'] = (strpos($id, '-') !== false ? $id : 'mdl-' . $id);
         $output['texts'] = $texts['EPISTEMONIKOS'];
         $output['lang_param'] = "/" . $lang . "/";
-        $output['classification'] = $data['metadata']['classification'];
-        $output['classification_status'] = $data['metadata']['classification_status'];
+        $output['classification'] = $classification;
+        $output['classification_status'] = $classification_status;
         $output['primary_study_ref'] = (isset($data['relations_info']['references']['primary-study']) ? $data['relations_info']['references']['primary-study'] : '');
         $output['systematic_review_ref'] = (isset($data['relations_info']['references']['systematic-review']) ? $data['relations_info']['references']['systematic-review'] : '');
         $output['epistemonikos_doc_url'] = $data['external_links']['epistemonikos'];
