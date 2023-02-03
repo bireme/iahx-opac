@@ -25,8 +25,9 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
 
     $classification = $data['metadata']['classification'];
     $classification_status = $data['metadata']['classification_status'];
+    $excluded = $data['metadata']['excluded'];
 
-    if ($classification != 'raw' && $classification_status != 'pending'){
+    if ($classification != 'raw' && $classification_status != 'pending' && !isset($excluded)){
         $output = array();
         $output['doc_id'] = (strpos($id, '-') !== false ? $id : 'mdl-' . $id);
         $output['texts'] = $texts['EPISTEMONIKOS'];
