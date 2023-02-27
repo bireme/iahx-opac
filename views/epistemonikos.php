@@ -23,11 +23,13 @@ $app->match('epistemonikos/{lang}/{id}', function (Request $request, $lang, $id)
     $data = json_decode($api_result, TRUE);
     //print_r($data);
 
-    $classification = $data['metadata']['classification'];
-    $classification_status = $data['metadata']['classification_status'];
-    $excluded = $data['metadata']['excluded'];
+    if ($data != null){
+        $classification = $data['metadata']['classification'];
+        $classification_status = $data['metadata']['classification_status'];
+        $excluded = $data['metadata']['excluded'];
+    }
 
-    if ($classification != 'raw' && $classification_status != 'pending' && !isset($excluded)){
+    if ($data != null && $classification != 'raw' && $classification_status != 'pending' && !isset($excluded)){
         $output = array();
         $output['doc_id'] = (strpos($id, '-') !== false ? $id : 'mdl-' . $id);
         $output['texts'] = $texts['EPISTEMONIKOS'];
