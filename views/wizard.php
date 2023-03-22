@@ -142,6 +142,7 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
     }
 
     if ($output == 'json'){
+        header('Access-Control-Allow-Origin: *');
         return $app->json($output_array);
     }else{
         return $app['twig']->render(custom_template('wizard-step.html'), $output_array);
