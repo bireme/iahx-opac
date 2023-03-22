@@ -38,17 +38,25 @@ $app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PAR
     $descriptor = $request->get("descriptor");  // allow get detais of specific descriptor
     $mode = $request->get("mode");        // allow mode dataentry
 
-    $decs_service_url = "https://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs?lang=" . $lang;
-
     if ($descriptor != ''){
-        $decs_service_url .= "&bool=101%20" . str_replace(' ','%20', $descriptor); // get descriptor by authorized term
+        $api_url = "https://api.bvsalud.org/decs/v1/search-boolean?lang=" . $lang;
+        $api_url .= "&bool=101%20" . str_replace(' ','%20', $descriptor); // get descriptor by authorized term
     }else{
-        $decs_service_url .= "&tree_id=" . $tree_id;        // get descriptor by tree
+        $api_url = "https://api.bvsalud.org/decs/v1/get-tree?lang=" . $lang;
+        $api_url .= "&tree_id=" . $tree_id;        // get descriptor by tree
     }
 
-    $decs_response = file_get_contents($decs_service_url);
+    $opts = array(
+        'http'=>array(
+          'method' => "GET",
+          'header' =>' apikey: ' . DECS_APIKEY
+        )
+    );
 
-    $decs_xml = simplexml_load_string($decs_response);
+    $context = stream_context_create($opts);
+    $api_result = file_get_contents($api_url, false, $context);
+
+    $decs_xml = simplexml_load_string($api_result);
 
     // translate
     $texts_interface = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
