@@ -39,10 +39,10 @@ $app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PAR
     $mode = $request->get("mode");        // allow mode dataentry
 
     if ($descriptor != ''){
-        $api_url = "https://api.bvsalud.org/decs/v1/search-boolean?lang=" . $lang;
+        $api_url = "https://api.bvsalud.org/decs/v2/search-boolean?lang=" . $lang;
         $api_url .= "&bool=101%20" . str_replace(' ','%20', $descriptor); // get descriptor by authorized term
     }else{
-        $api_url = "https://api.bvsalud.org/decs/v1/get-tree?lang=" . $lang;
+        $api_url = "https://api.bvsalud.org/decs/v2/get-tree?lang=" . $lang;
         $api_url .= "&tree_id=" . $tree_id;        // get descriptor by tree
     }
 
@@ -54,8 +54,6 @@ $app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PAR
           'header' =>' apikey: ' . $API_KEY
         )
     );
-
-    echo($API_KEY);
 
     $context = stream_context_create($opts);
     $api_result = file_get_contents($api_url, false, $context);
