@@ -46,16 +46,21 @@ $app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PAR
         $api_url .= "&tree_id=" . $tree_id;        // get descriptor by tree
     }
 
+    $API_KEY = ($mode == 'dataentry' ? DECS_APIKEY_DATAENTRY : DECS_APIKEY_LOCATE);
+
     $opts = array(
         'http'=>array(
           'method' => "GET",
-          'header' =>' apikey: ' . DECS_APIKEY
+          'header' =>' apikey: ' . $API_KEY
         )
     );
+
+    echo($API_KEY);
 
     $context = stream_context_create($opts);
     $api_result = file_get_contents($api_url, false, $context);
 
+    //die($api_result);
     $decs_xml = simplexml_load_string($api_result);
 
     // translate
