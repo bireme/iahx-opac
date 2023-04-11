@@ -94,7 +94,7 @@ $app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PAR
                 $current_tree_id = preg_split('/\|/', $ancestors_tree[$i]);
                 $next_tree_id = preg_split('/\|/', $ancestors_tree[$i+1]);
 
-                if ( strlen($current_tree_id[0]) > strlen($next_tree_id[0]) ) {
+                if ( strlen($current_tree_id[0]) >= strlen($next_tree_id[0]) ) {
                     $tree++;
                 }
             }
