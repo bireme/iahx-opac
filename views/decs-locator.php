@@ -76,7 +76,7 @@ $app->match('decs-locator/', function (Request $request) use ($app, $DEFAULT_PAR
     // log user action
     log_user_action($lang, '', '', $tree_id, '', '', '', '', 'decs_lookup', $SESSION->getId());
 
-    if ($decs_xml->decsws_response->tree->ancestors) {
+    if ($decs_xml->decsws_response->tree->ancestors->term_list) {
         $ancestors_tree = array();
         foreach ($decs_xml->decsws_response->tree->ancestors->term_list->term as $ancestor) {
             //var_dump($ancestor);
