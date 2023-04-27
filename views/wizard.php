@@ -122,6 +122,15 @@ $app->get('wizard/{wizard_id}', function (Request $request, $wizard_id) use ($ap
         $option_group = '';
         if ($previous_filter_name == 'wizard_option_group'){
             $option_group = $previous_filter_value;
+            // filter option_list for option_group
+            $option_list_filtered_by_group = [];
+            foreach ($option_list as $option){
+                if ($option['group'] == $option_group){
+                    $option_list_filtered_by_group[] = $option;
+                }
+            }
+            $option_list = $option_list_filtered_by_group;
+
         }
     }
 

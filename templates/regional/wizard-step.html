@@ -21,26 +21,24 @@
             </div>
             <div class="row marginTB1">
                 {% for option in option_list %}
-                    {% if not option_group or option.group == option_group %}
-                        {% set option_label = get_translated_label(lang, option.label, option.language, option.translations) %}
-                        <div class="col-md-6 marginTB1">
-                            <div class="card h-100 cartbt wizard-color-step-{{step_info.step}}">
-                                {% if option.filter_query != '' %}
-                                    <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','filter_query'); $('#option_wizard_group_{{step_info.step}}').val('{{option.filter_query}}').text('{{option_label}}').trigger('change');">
-                                        <div class="card-body">
-                                            {{option_label}}
-                                        </div>
-                                    </a>
-                                {% else %}
-                                    <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','wizard_option_group'); $('#option_wizard_group_{{step_info.step}}').val('{{option.group}}').text('{{option_label}}').trigger('change');">
-                                        <div class="card-body">
-                                            {{option_label}}
-                                        </div>
-                                    </a>
-                                {% endif %}
-                            </div>
+                    {% set option_label = get_translated_label(lang, option.label, option.language, option.translations) %}
+                    <div class="col-md-6 marginTB1">
+                        <div class="card h-100 cartbt wizard-color-step-{{step_info.step}}">
+                            {% if option.filter_query != '' %}
+                                <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','filter_query'); $('#option_wizard_group_{{step_info.step}}').val('{{option.filter_query}}').text('{{option_label}}').trigger('change');">
+                                    <div class="card-body">
+                                        {{option_label}}
+                                    </div>
+                                </a>
+                            {% else %}
+                                <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','wizard_option_group'); $('#option_wizard_group_{{step_info.step}}').val('{{option.group}}').text('{{option_label}}').trigger('change');">
+                                    <div class="card-body">
+                                        {{option_label}}
+                                    </div>
+                                </a>
+                            {% endif %}
                         </div>
-                    {% endif %}
+                    </div>
                 {% endfor %}
             </div>
         {% endif %}
