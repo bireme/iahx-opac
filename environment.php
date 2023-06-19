@@ -135,6 +135,6 @@ $app['twig']->addFilter('subfield', new Twig_Filter_Function('filter_subfield'))
 $app['twig']->addFilter('subfield_value', new Twig_Filter_Function('filter_subfield_value'));
 $app['twig']->addFilter('filters_to_string', new Twig_Filter_Function('filters_to_string'));
 $app['twig']->addFilter('md5', new Twig_Filter_Function('filter_md5'));
-
+$app['twig']->addFilter('json2array', new Twig_Filter_Function('filter_json2array'));
 
 ?>

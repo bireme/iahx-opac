@@ -492,17 +492,31 @@ function filter_slugify($text) {
 }
 
 function filter_subfield($text, $id) {
-    // check for old language code compatibility (pt=p, es=e, en=i)
-    if (strlen($id) == 2){
-        $id = ( $id == 'en' ? 'i' : substr($id,0,1) );
-    }
+    # case: pt-br^Collection / Subcollection|es^Collection / Subcollecion|en^Collection / Subcollection
+    if (strpos($text, '|') !== false) {
+        $occs = preg_split('/\|/', $text);
+        foreach ($occs as $occ){
+            $sv = preg_split('/\^/', $occ);
+            if ($sv){
+                $subfield = substr($sv[0],0,2);
+                $value = $sv[1];
+                $subfield_value[$subfield] = $value;
+            }
+        }
+        return $subfield_value[$id];
+    }else{
+        # case: ^pCollection^eCollection^iCollection
 
-    $subfields = array();
-
-    $sub_list = preg_split('/\^/', $text);
-    foreach($sub_list as $sub){
-        $sub_id = substr($sub,0,1);
-        $subfields[$sub_id] = substr($sub,1);
+        # check for old language code compatibility (pt=p, es=e, en=i)
+        if (strlen($id) == 2){
+            $id = ( $id == 'en' ? 'i' : substr($id,0,1) );
+        }
+        $subfields = array();
+        $sub_list = preg_split('/\^/', $text);
+        foreach($sub_list as $sub){
+            $sub_id = substr($sub,0,1);
+            $subfields[$sub_id] = substr($sub,1);
+        }
     }
 
     return $subfields[$id];
@@ -627,5 +641,11 @@ function filter_md5($text) {
     return md5($text);
 }
 
+function filter_json2array($string){
+    $string_json = str_replace("'", "\"", $string);
+    $json_array = json_decode($string_json, true);
+
+    return json_decode($string_json, true);
+}
 
 ?>

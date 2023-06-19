@@ -160,11 +160,11 @@
                                         <label class="labelCheck1" for="{{ cluster_item_id }}">
                                             <a href="javascript: add_filter('{{ cluster_item_id }}');"
                                                 {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', '{{name}}' , {'event_category': 'Filter', 'event_label': '{{item.0}}'}); gtag('event', 'Cluster' , {'event_category': 'Filter', 'event_label': '{{name}}'});" {% endif %}>
-                                                {% if '/' in item.0 %}
+                                                {% if '^' in item.0 %}
+                                                    {{ item.0|subfield(lang) }}
+                                                {% elseif '/' in item.0 %}
                                                     {% set item_part = item.0|split('/') %}
                                                     {{ translate(item_part.1, cluster_labels ) }}
-                                                {% elseif '^' in item.0 %}
-                                                    {{ item.0|subfield(lang) }}
                                                 {% elseif '+' in item.0 %}
                                                     {{ item.0|replace('+','/') }}
                                                 {% else %}
