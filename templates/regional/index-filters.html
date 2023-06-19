@@ -54,11 +54,11 @@
                                                         >
                                                     </div>
                                                     <label class="labelCheck1 labelCheck2" for="{{ cluster_item_id }}">
-                                                        {% if '/' in item.0 %}
+                                                        {% if '^' in item.0 %}
+                                                            {{ item.0|subfield(lang) }}
+                                                        {% elseif '/' in item.0 %}
                                                             {% set item_part = item.0|split('/') %}
                                                             {{ translate(item_part.1, cluster_labels ) }}
-                                                        {% elseif '^' in item.0 %}
-                                                            {{ item.0|subfield(lang) }}
                                                         {% elseif '+' in item.0 %}
                                                             {{ item.0|replace('+','/') }}
                                                         {% else %}
