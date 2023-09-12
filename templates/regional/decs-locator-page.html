@@ -147,17 +147,56 @@
                             {% if decs.record_list.record is defined %}
                                 <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger">
                                     {% if lang == 'pt' %}
-                                        <strong>{{ decs.record_list.record.descriptor_list.descriptor.2 }}
-                                        / {{ decs.record_list.record.descriptor_list.descriptor.0 }}
-                                        / {{ decs.record_list.record.descriptor_list.descriptor.1 }}</strong>
+                                        <strong>
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'pt-br' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'es' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'en' %}{{ descriptor_lang }}{% endif %}
+                                            {% endfor %}
+                                        </strong>
                                     {% elseif lang == 'es' %}
-                                        <strong>{{ decs.record_list.record.descriptor_list.descriptor.1 }}
-                                        / {{ decs.record_list.record.descriptor_list.descriptor.0 }}
-                                        / {{ decs.record_list.record.descriptor_list.descriptor.2 }}</strong>
+                                        <strong>
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'es' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'en' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'pt-br' %}{{ descriptor_lang }}{% endif %}
+                                            {% endfor %}
+                                        </strong>
+                                    {% elseif lang == 'fr' %}
+                                        <strong>
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'fr' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'en' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'es' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'pt-br' %}{{ descriptor_lang }}{% endif %}
+                                            {% endfor %}
+                                        </strong>
                                     {% else %}
-                                        <strong>{{ decs.record_list.record.descriptor_list.descriptor.0 }}
-                                        / {{ decs.record_list.record.descriptor_list.descriptor.1 }}
-                                        / {{ decs.record_list.record.descriptor_list.descriptor.2 }}</strong>
+                                        <strong>
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'en' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'es' %}{{ descriptor_lang }} / {% endif %}
+                                            {% endfor %}
+                                            {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
+                                                {% if descriptor_lang.attributes.lang == 'pt-br' %}{{ descriptor_lang }}{% endif %}
+                                            {% endfor %}
+                                        </strong>
                                     {% endif %}
 
                                     {% if mode is defined and mode == 'dataentry' %}
