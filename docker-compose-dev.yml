@@ -1,0 +1,18 @@
+version: '3'
+
+services:
+  iahx_opac:
+    image: docker.io/bitnami/php-fpm:8.2
+    restart: unless-stopped
+    container_name: iahx-opac
+    ports:
+      - 8080:8080
+    volumes:
+      - ./docker/conf/php/php-fpm.conf:/opt/bitnami/php/etc/php-fpm.conf
+      - ./docker/conf/php/custom.ini:/opt/bitnami/php/etc/conf.d/custom.ini
+      #- ${PATH_VAR}:/app/var
+      - .:/app
+    #entrypoint: ["php", "-S", "0.0.0.0:8080", "-t", "/app/public"]
+    entrypoint: ["tail", "-f", "/dev/null"]
+
+
