@@ -11,8 +11,9 @@ class AppExtension extends \Twig\Extension\AbstractExtension
     {
         return [
             new \Twig\TwigFunction('custom_template', [$this,  'custom_template']),
+            new \Twig\TwigFunction('has_translation', [$this, 'has_translation']),
+            new \Twig\TwigFunction('translate', [$this, 'translate']),
             new \Twig\TwigFunction('occ', [$this, 'occ']),
-
         ];
     }
 
@@ -25,16 +26,52 @@ class AppExtension extends \Twig\Extension\AbstractExtension
             new \Twig\TwigFilter('contains', [$this, 'filter_contains']),
             new \Twig\TwigFilter('starts_with', [$this, 'filter_starts_with']),
             new \Twig\TwigFilter('truncate', [$this, 'filter_truncate']),
+            new \Twig\TwigFilter('slugify', [$this, 'filter_slugify']),
             new \Twig\TwigFilter('subfield', [$this, 'filter_subfield']),
             new \Twig\TwigFilter('subfield_value', [$this, 'filter_subfield_value']),
             new \Twig\TwigFilter('subfield_value', [$this, 'filter_subfield_value']),
             new \Twig\TwigFilter('filters_to_string', [$this, 'filters_to_string']),
             new \Twig\TwigFilter('md5', [$this, 'filter_md5']),
             new \Twig\TwigFilter('json2array', [$this, 'filter_json2array']),
-
         ];
     }
 
+    function has_translation($label, $group=NULL)
+    {
+        global $texts, $lang;
+
+        // labels on texts.ini must be array key without spaces
+        $label_norm = preg_replace('/[&,\'\s]+/', '_', $label);
+
+        if($group == NULL) {
+            return (isset($texts[$label_norm]) and $texts[$label_norm] != "");
+        } else {
+            return (isset($texts[$group][$label_norm]) and $texts[$group][$label_norm] != "");
+        }
+    }
+
+    function translate($label, $group=NULL)
+    {
+        global $texts, $lang;
+
+        // labels on texts.ini must be array key without spaces
+        $label_norm = preg_replace('/[&,\'\s]+/', '_', $label);
+
+        if($group == NULL) {
+            if(isset($texts[$label_norm]) and $texts[$label_norm] != "") {
+                return $texts[$label_norm];
+            }
+        } else {
+            if(isset($texts[$group][$label_norm]) and $texts[$group][$label_norm] != "") {
+                return $texts[$group][$label_norm];
+            }
+        }
+
+        // case translation not found return original label ucfirst
+        return ucfirst($label);
+    }
+
+    // Twig Functions
     public function custom_template($filename)
     {
         if( file_exists(CUSTOM_TEMPLATE_PATH . $filename) ) {
@@ -75,9 +112,13 @@ class AppExtension extends \Twig\Extension\AbstractExtension
 
     }
 
+    function remove_accents($string)
+    {
+        $no_accents = preg_replace('/[^p{L}p{N}s]/u', '', $string);
+        return $no_accents;
+    }
 
-    // FILTERS
-
+    // Twig Filters
     public function filter_substring_after($text, $needle = '-'){
         if (strpos($text, $needle) !== false){
             return substr($text, strpos($text, $needle)+strlen($needle));
@@ -127,7 +168,7 @@ class AppExtension extends \Twig\Extension\AbstractExtension
     public function filter_slugify($text)
     {
         // replace non letter or digits by -
-        $text = remove_accents($text);
+        $text = $this->remove_accents($text);
         $text = preg_replace('/[^a-z0-9]/i', '-', $text);
 
         // trim

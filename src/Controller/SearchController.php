@@ -593,17 +593,13 @@ final class SearchController extends AbstractController
                     }
                 }
 
+                // var_dump($texts);
+                // die();
+
                 return $this->render( $this->auxFunctions->custom_template($view . '/index.html'), $output_array);
 
                 break;
         }
 
-
-        /* END */
-
-        return $this->render(TEMPLATE_PATH . '/index.html', [
-            'paginator' => 1,
-            'tagName' => 2,
-        ]);
     }
 }
