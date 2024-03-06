@@ -7,25 +7,25 @@
         <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
         <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
         {% else %}
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/all.min.css">
+        <link rel="stylesheet" href="{{ asset('regional/css/bootstrap.min.css') }}">
+        <link rel="stylesheet" href="{{ asset('regional/css/all.min.css') }}">
         {% endif %}
 
         <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,900" rel="stylesheet">
 
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/style.css">
+        <link rel="stylesheet" href="{{ asset('regional/css/style.css') }}">
         {% if config.use_custom_stylesheet == 'true' %}
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/custom/css/style.css">
+        <link rel="stylesheet" href="{{ asset('regional/custom/css/style.css') }}">
         {% endif %}
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/acessibilidade.css">
+        <link rel="stylesheet" href="{{ asset('regional/css/acessibilidade.css') }}">
         {% if config_view_filter %}
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/sidebar.css">
+        <link rel="stylesheet" href="{{ asset('regional/css/sidebar.css') }}">
         {% endif %}
         {% if config_wizard_list %}
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/smart_wizard_all.min.css">
+        <link rel="stylesheet" href="{{ asset('regional/css/smart_wizard_all.min.css') }}">
         {% endif %}
-        {% if config.impact_measurement_code != '' %}
-        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/survey.css">
+        {% if config.impact_measurement_code is defined %}
+        <link rel="stylesheet" href="{{ asset('regional/css/survey.css') }}">
         {% endif %}
 
         <!-- meta-tags -->
@@ -41,7 +41,7 @@
         {% endblock %}
 
         <!-- Page icon -->
-        <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}/image/favicon.ico">
+        <link rel="shortcut icon" href="{{ asset('regional/image/favicon.ico') }}">
 
         <script language="javascript" type="text/javascript">
             var LANG = '{{ lang }}';
@@ -63,7 +63,7 @@
             var SITE = '{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}'.trim();
         </script>
 
-        {% if config.google_analytics_tracking_id != '' %}
+        {% if config.google_analytics_tracking_id is defined %}
             {% for ga_tag_id in config.google_analytics_tracking_id %}
                 <!-- Global site tag (gtag.js) - Google Analytics -->
                 <script async src="https://www.googletagmanager.com/gtag/js?id={{ga_tag_id}}"></script>
@@ -75,7 +75,7 @@
                 </script>
             {% endfor %}
         {% endif %}
-        {% if config.google_tag_manager_id != '' %}
+        {% if config.google_tag_manager_id is defined %}
             <!-- Google Tag Manager -->
             <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
             new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
@@ -86,7 +86,7 @@
         {% endif %}
 
         {% block extrahead %}
-            {% if config.impact_measurement_code != '' %}
+            {% if config.impact_measurement_code is defined and im_cookie is defined %}
                 {% for src in im_cookie %}
                 <script type="text/javascript">
                     var el = document.createElement("img");
@@ -102,7 +102,7 @@
     <body>
         <!-- loading box -->
         <div class="loading d-none">
-            <img src="{{ constant("STATIC_URL") }}/image/loading.gif" class="rounded" alt="loading">
+            <img src="{{ asset('regional/image/loading.gif') }}" class="rounded" alt="loading">
         </div>
         {% block header %}
             {% include custom_template("accessibility-bar.html") %}
@@ -164,7 +164,7 @@
                     </div>
                 </div>
                 <div id="iconFeedback">
-                    <img src="{{ constant("STATIC_URL") }}/image/{{ lang|slice(0, 2) }}/iconFeedback.svg" alt="">
+                    <img src="{{ asset('regional/image/{{ lang|slice(0, 2) }}/iconFeedback.svg') }}" alt="">
                 </div>
                 <div class="clear"></div>
             </div>
@@ -176,28 +176,28 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
         <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
         {% else %}
-        <script src="{{ constant("STATIC_URL") }}/js/jquery.min.js"></script>
-        <script src="{{ constant("STATIC_URL") }}/js/bootstrap.min.js"></script>
+        <script src="{{ asset('regional/js/jquery.min.js') }}"></script>
+        <script src="{{ asset('regional/js/bootstrap.min.js') }}"></script>
         {% endif %}
         <!-- application js files -->
-        <script src="{{ constant("STATIC_URL") }}/js/cookie.js"></script>
-        <script src="{{ constant("STATIC_URL") }}/js/accessibility.js"></script>
-        <script src="{{ constant("STATIC_URL") }}/js/functions.js?ver=1.0.1"></script>
-        <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
-        <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
+        <script src="{{ asset('regional/js/cookie.js') }}"></script>
+        <script src="{{ asset('regional/js/accessibility.js') }}"></script>
+        <script src="{{ asset('regional/js/functions.js') }}"></script>
+        <script src="{{ asset('regional/js/ready.js') }}"></script>
+        <script src="{{ asset('regional/js/main.js') }}"></script>
         {% if query_info_clusters %}
-        <script src="{{ constant("STATIC_URL") }}/js/query_info.js"></script>
+        <script src="{{ asset('regional/js/query_info.js') }}"></script>
         {% endif %}
         {% if config_view_filter %}
-        <script src="{{ constant("STATIC_URL") }}/js/sidebar.js"></script>
+        <script src="{{ asset('regional/js/sidebar.js') }}"></script>
         {% endif %}
         {% if config_wizard_list %}
-        <script src="{{ constant("STATIC_URL") }}/js/jquery.smartWizard.min.js" type="text/javascript"></script>
-        <script src="{{ constant("STATIC_URL") }}/js/wizard.js" type="text/javascript"></script>
+        <script src="{{ asset('regional/js/jquery.smartWizard.min.js') }}" type="text/javascript"></script>
+        <script src="{{ asset('regional/js/wizard.js') }}" type="text/javascript"></script>
         {% endif %}
 
         {% if config.services_platform_domain != '' %}
-        <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
+        <script src="{{ asset('regional/js/add_collection.js') }}"></script>
         <script type="text/javascript">
             $(document).ready( function(){
                 var userTK = unescape(getCookie('userTK'));
@@ -213,7 +213,7 @@
                     obj.site = SITE;
                     obj.query = QUERY;
                     obj.index = $.trim('{{ index }}');
-                    obj.where = $.trim('{{ where }}');
+                    obj.where = $.trim('{{ params.where is defined ? params.where }}');
                     obj.filter = FILTER;
                     obj.page = $.trim('{{ page }}');
                     obj.output = $.trim('{{ current_page }}');
@@ -265,7 +265,7 @@
                 });
             });
         </script>
-        <script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
+        <script src="{{ asset('regional/js/survey.js') }}"></script>
         {% endif %}
 
         {% if config.show_accept_cookie != 'false' %}

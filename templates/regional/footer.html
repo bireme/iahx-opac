@@ -19,15 +19,15 @@
 
             {% if config.show_terms_and_policy is defined and config.show_terms_and_policy == 'true' %}
             <div class="col-md-4 text-right">
-                <a href="http://politicas.bireme.org/terminos/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.TERMS_CONDITIONS }}</a>
+                <a href="http://politicas.bireme.org/terminos/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.TERMS_CONDITIONS is defined ? texts.TERMS_CONDITIONS }}</a>
                 |
-                <a href="http://politicas.bireme.org/privacidad/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.PRIVACY_POLICY }}</a>
+                <a href="http://politicas.bireme.org/privacidad/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.PRIVACY_POLICY is defined ? texts.PRIVACY_POLICY }}</a>
             </div>
             {% endif %}
 		</div>
         <div class="row">
             <div class="col-md-4 text-left">
-                <em>{{ texts.MEDLINE_NLM }}</em>
+                <em>{{ texts.MEDLINE_NLM is defined ? texts.MEDLINE_NLM }}</em>
             </div>
         </div>
 	</div>

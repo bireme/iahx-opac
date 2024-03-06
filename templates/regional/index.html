@@ -1,7 +1,7 @@
 {% extends custom_template("base.html") %}
 
 {% block breadcrumb_last %}
-    {% if params.filterLabel != "" %}
+    {% if params.filterLabel is defined and params.fiterLabel is not empty %}
         {{ params.filterLabel|truncate(90) }}
     {% elseif params.q is defined and params.q != "" %}
         {{ params.q|truncate(90) }}
@@ -22,7 +22,7 @@
     {% endif %}
 
     {% if docs|length > 0 %}
-        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
             {% include custom_template('index-filters.html') %}
         {% else %}
         <section class="">
@@ -384,9 +384,9 @@
 			</div>
 		</div>
 	</div>
-        {% if config.feedback_button_urls %}
+        {% if config.feedback_button_urls is defined %}
             <div id="iconeFeedback">
-                <a href="{{ attribute(config.feedback_button_urls, lang) }}" target="blank"><img src="{{ constant("STATIC_URL") }}/image/{{lang}}/iconFeedback.svg" alt=""></a>
+                <a href="{{ attribute(config.feedback_button_urls, lang) }}" target="blank"><img src="{{ asset('regional/image/{{lang}}/iconFeedback.svg') }}" alt=""></a>
             </div>
         {% endif %}
     {% endif %}
@@ -394,9 +394,9 @@
 
 
 {% block footerscripts %}
-    <script src="{{ constant("STATIC_URL") }}/js/clusters.js?ver=1.0.1"></script>
-    <script src="{{ constant("STATIC_URL") }}/js/my_selection.js"></script>
-    {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
-    <script src="{{ constant("STATIC_URL") }}/js/ready-index-filter.js"></script>
+    <script src="{{ asset('regional/js/clusters.js') }}"></script>
+    <!--script src="{{ asset('regional/js/my_selection.js') }}"></script-->
+    {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
+    <script src="{{ asset('regional/js/ready-index-filter.js') }}"></script>
     {% endif %}
 {% endblock %}

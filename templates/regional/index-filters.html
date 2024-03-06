@@ -36,11 +36,11 @@
 
                                     <a name="{{ name }}"></a>
                                     <div class="titleBox3">
-                                        {{ attribute(texts.REFINE, name) }}
+                                        {{ attribute(texts.REFINE, name) is defined ? attribute(texts.REFINE, name) }}
                                     </div>
 
                                     <div class="row overflow1" id="{{ name }}" >
-                                        {% for item in cluster if item.0 != '' %}
+                                        {% for item in cluster %}
                                             {% set cluster_item_id = name ~ '_' ~ item.0|slugify %}
 
                                             {% if name in only_translated_items_clusters and not has_translation(item.0, cluster_labels) %}
@@ -48,8 +48,10 @@
                                                 <div class="boxCheck col-md-12 {% if '/' in item.0 %}subtopic{% endif %}">
                                                     <div class="inputCheck1">
                                                         <input type="checkbox" name="filter[{{ name }}][]" value='{{ item.0 }}' id="{{ cluster_item_id }}"
-                                                        {% for filter_name, filter in filters if filter_name == name %}
-                                                            {% if item.0 in filter %}checked="true"{% endif %}
+                                                        {% for filter_name, filter in filters %}
+                                                            {% if filter_name == name %}
+                                                                {% if item.0 in filter %}checked="true"{% endif %}
+                                                            {% endif %}
                                                         {% endfor %}
                                                         >
                                                     </div>

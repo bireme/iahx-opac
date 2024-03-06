@@ -21,7 +21,7 @@
 				</div>
 				<div class="headerBt">
                     {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
-                        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+                        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is defined %}
                             <a href="{{ constant("SEARCH_URL") }}decs-locator/?lang={{lang}}" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                         {% else %}
                             <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
@@ -65,34 +65,38 @@
                         <input type="hidden" name="sort" id="sort" value="{{ sort }}">
                         <input type="hidden" name="format" id="format" value="{{ format }}">
                         <input type="hidden" name="count" id="count" value="{{ pag.count }}">
-                        {% if params.filterLabel != "" %}
+                        {% if params.filterLabel is defined %}
                             <input type="hidden" name="filterLabel" id="label" value="{{ params.filterLabel }}">
                         {% endif %}
                         <input type="hidden" name="fb" id="fb" value="">
-                        <input type="hidden" name="page" id="page" value="{% if params.page is defined %}{{ params.page }}{% else %}1{% endif %}">
+                        <input type="hidden" name="page" id="page" value="{{ params.page is defined ? params.page : '1' }}">
 
-                        {% for name, items in filters if filters is defined %}
-                            {% for item in items %}
-                                <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
+                        {% if filters is defined %}
+                            {% for name, items in filters %}
+                                {% for item in items %}
+                                    <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
+                                {% endfor %}
                             {% endfor %}
-                        {% endfor %}
+                        {% endif %}
 
-                        {% for vf_value in view_filter if view_filter is defined %}
-                            <input type="hidden" name="view_filter[]" value="{{vf_value}}">
-                        {% endfor %}
+                        {% if view_filter is defined %}
+                            {% for vf_value in view_filter %}
+                                <input type="hidden" name="view_filter[]" value="{{vf_value}}">
+                            {% endfor %}
+                        {% endif %}
 
                         {% if range_year_start %}
                             <input type="hidden" name="range_year_start" id="range_year_start" value="{{ range_year_start }}">
                             <input type="hidden" name="range_year_end" id="range_year_end" value="{{ range_year_end }}">
                         {% endif %}
                         <!-- flag to skip filter page -->
-                        <input type="hidden" name="skfp" id="skfp" value="{{params.skfp}}">
+                        <input type="hidden" name="skfp" id="skfp" value="{{ params.skfp is defined ? params.skfp }}">
 
                         <div class="row">
                             {% if collectionData.index_list.index is defined %}
                                 <div class="col-md-4 selectBoxSearch">
                                     <select name="index" class="formSelect" id="selectIndex">
-                                        {% for index in collectionData.index_list.index if not index.advanced %}
+                                        {% for index in collectionData.index_list.index %}
                                             {% if params.index is defined %}
                                                 {% if index.prefix == params.index %}
                                                     <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
@@ -100,7 +104,7 @@
                                                     <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
                                                 {% endif %}
                                             {% else %}
-                                                <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                                <option value="{{ index.prefix }}" >{{ index.name }}</option>
                                             {% endif %}
                                         {% endfor %}
                                     </select>
@@ -108,7 +112,7 @@
                             {% endif %}
 
 							<div class="col-md-6 inputBoxSearch">
-                                <input type="text" name="q" id="q" value="{{ params.q }}" class="inputText" title="{{texts.SEARCH_WORDS}}">
+                                <input type="text" name="q" id="q" value="{{ params.q is defined ? params.q }}" class="inputText">
                                 <a id="speakBtn" href="#"><i class="fas fa-microphone-alt"></i></a>
 							</div>
                             {% if collectionData.where_list.where is defined %}

@@ -20,7 +20,7 @@
                         <li>
                             <a class="nav-link" href="#step-{{step}}">
                                 <h6 class="text-center">{{ attribute(texts.WIZARD, question_label) }}</h6>
-                                <p id="step-{{step}}-title">{{ attribute(wizard_session, step_number).label }}</p>
+                                <p id="step-{{step}}-title">{{ attribute(wizard_session, step_number) is defined ? attribute(wizard_session, step_number).label }}</p>
                             </a>
                         </li>
                 {% endfor %}
