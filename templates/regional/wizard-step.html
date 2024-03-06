@@ -1,0 +1,46 @@
+{% set filter_labels = 'REFINE_' ~ step_info.filter_name %}
+
+<div id="content" class="row marginTB1">
+    <div class="col-md-12">
+        <h5 class="text-center">{{ get_translated_label(lang, step_info.label, step_info.language, step_info.translations) }}</h5>
+    </div>
+
+    <div class="col-12">
+        {% if step_info.filter_name != '' %}
+            <select name="{{step_info.filter_name}}" id="option-step-{{step_info.step}}" class="form-control step-option-list wizard-color-step-{{step_info.step}}" data-step="{{step_info.step}}">
+                <option value=""></option>
+                {% for option in option_list_step %}
+                    <option value="{{option.0}}" {% if option.0 == previous_session_selection.value %}selected="true"{% endif %} >{{ option.2 }}</option>
+                {% endfor %}
+            </select>
+        {% else %}
+            <div style="display: none">
+                <select name="" id="option-step-{{step_info.step}}" class="step-option-list" data-step="{{step_info.step}}">
+                    <option value="" id="option_wizard_group_{{step_info.step}}"></option>
+                </select>
+            </div>
+            <div class="row marginTB1">
+                {% for option in option_list %}
+                    {% set option_label = get_translated_label(lang, option.label, option.language, option.translations) %}
+                    <div class="col-md-6 marginTB1">
+                        <div class="card h-100 cartbt wizard-color-step-{{step_info.step}}">
+                            {% if option.filter_query != '' %}
+                                <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','filter_query'); $('#option_wizard_group_{{step_info.step}}').val('{{option.filter_query}}').text('{{option_label}}').trigger('change');">
+                                    <div class="card-body">
+                                        {{option_label}}
+                                    </div>
+                                </a>
+                            {% else %}
+                                <a href="#" onclick="$('#option-step-{{step_info.step}}').attr('name','wizard_option_group'); $('#option_wizard_group_{{step_info.step}}').val('{{option.group}}').text('{{option_label}}').trigger('change');">
+                                    <div class="card-body">
+                                        {{option_label}}
+                                    </div>
+                                </a>
+                            {% endif %}
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+    </div>
+</div>

@@ -1,0 +1,23 @@
+{% for similar in similar_docs['document']  %}
+    {% if similar['id'] != doc_id %}
+        {% if loop.first %}
+            <div class="row">
+        {% endif %}
+
+        {% if loop.index == 7 %}
+            </div> <!-- close main div row-->
+                <div class="row collapse" id="more-{{source}}">
+        {% endif %}
+
+        <div class="col-md-4 similares">
+            <a href="{{ constant('SEARCH_URL') }}resource/{{lang}}/{{similar['id']}}?src=similardocs" class="link1" target="_blank">
+                {{ get_preference_field_lang(similar,'ti', [lang, 'en', 'es', 'pt', 'fr']) }}
+            </a>
+        </div>
+        {% if loop.index > 7 and loop.last %}
+            </div>
+        {% elseif loop.last %}
+            </div>
+        {% endif %}
+    {% endif %}
+{% endfor %}

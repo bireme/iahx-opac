@@ -1,0 +1,41 @@
+<!-- Rodapé -->
+<footer id="footer" class="padding1">
+	<div class="container">
+		<hr><br>
+		<div class="row">
+			<div class="col-md-4">
+				Powered by iAHx - {{ texts.BVS_TITLE }}
+			</div>
+
+            <div class="col-md-4 text-center">
+                {% if lang == 'pt' %}
+                    <a href="https://bvsalud.org/contate-nos/" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% elseif lang == 'es' %}
+                    <a href="https://bvsalud.org/es/contactenos/" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% else %}
+                    <a href="https://bvsalud.org/en/contact_us/" target="_blank">{{ texts.FEEDBACK_SERVICE }}</a>
+                {% endif %}
+            </div>
+
+            {% if config.show_terms_and_policy is defined and config.show_terms_and_policy == 'true' %}
+            <div class="col-md-4 text-right">
+                <a href="http://politicas.bireme.org/terminos/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.TERMS_CONDITIONS }}</a>
+                |
+                <a href="http://politicas.bireme.org/privacidad/{% if lang != 'fr' %}{{lang}}{% else %}en{% endif %}/" target="_blank">{{ texts.PRIVACY_POLICY }}</a>
+            </div>
+            {% endif %}
+		</div>
+        <div class="row">
+            <div class="col-md-4 text-left">
+                <em>{{ texts.MEDLINE_NLM }}</em>
+            </div>
+        </div>
+	</div>
+</footer>
+
+<!-- seta up -->
+<div id="to-top" class="to-top">
+	<span class="float-left">
+		<i class="fas fa-arrow-up"></i>
+	</span>
+</div>

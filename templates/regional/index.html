@@ -1,0 +1,402 @@
+{% extends custom_template("base.html") %}
+
+{% block breadcrumb_last %}
+    {% if params.filterLabel != "" %}
+        {{ params.filterLabel|truncate(90) }}
+    {% elseif params.q is defined and params.q != "" %}
+        {{ params.q|truncate(90) }}
+    {% endif %}
+    ({{ pag.total_formatted }})
+{% endblock %}
+
+{% block content %}
+
+    {{ parent() }}
+
+    {% if flash_message is defined %}
+        <div id="flash" style="display: none;">
+            <div class="alert alert-primary" role="alert">
+                {{ attribute(texts, flash_message) }}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if docs|length > 0 %}
+        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+            {% include custom_template('index-filters.html') %}
+        {% else %}
+        <section class="">
+    		<div class="container">
+    			<div class="row">
+    				<div class="col-md-7 offset-md-3 d-print-none">
+    					<div class="row padding1">
+    						<div class="col-md-4">
+                                {% if collectionData.sort_list.sort|length > 1 %}
+                                    <select name="sortBy" id="sortBy" class="selectOrder" onchange="javascript:change_sort(this);">
+                                        <option value="">{{ texts.SORT_OPTIONS }}</option>
+                                        {% for sort in collectionData.sort_list.sort %}
+
+                                            {% if params.sort is defined %}
+                                                {% if sort.name == params.sort %}
+                                                    <option value="{{ sort.name }}" selected="true">{{ attribute(texts.SORT, sort.name) }}</option>
+                                                {% else %}
+                                                    <option value="{{ sort.name }}" >{{ attribute(texts.SORT, sort.name) }}</option>
+                                                {% endif %}
+                                            {% else %}
+                                                <option value="{{ sort.name }}" >{{ attribute(texts.SORT, sort.name) }}</option>
+                                            {% endif %}
+
+                                        {% endfor %}
+                                    </select>
+                                {% endif %}
+    						</div>
+    						<div class="col-md-4 text-center">
+                                <small>{{texts.SHOW}}:</small>
+                                {% if count is defined and count == 20 %}<b>20</b>{% else %}<a href="javascript: change_count('20');">20</a>{% endif %}
+                                | {% if count is defined and count == 50 %}<b>50</b>{% else %}<a href="javascript: change_count('50');">50</a>{% endif %}
+                                | {% if count is defined and count == 100 %}<b>100</b>{% else %}<a href="javascript: change_count('100');">100</a>{% endif %}
+    						</div>
+    						<div class="col-md-4 text-right resultM">
+                                <small>
+                                    {{texts.RESULTS}}
+                                    </strong>
+                                     {{ pag.start+1 }} -
+                                     {% if pag.start+pag.count <= pag.total %}
+                                         {{ pag.start+pag.count }}
+                                     {% else %}
+                                         {{ pag.total }}
+                                     {% endif %}
+                                    </strong> de <strong>{{ pag.total_formatted }}</strong>
+                                </small></div>
+    					</div>
+    				</div>
+                    <!-- Filter column -->
+                    {% include custom_template('column-filters.html') %}
+    				<!-- Result column -->
+    				<div class="col-md-7 d-print-block" id="main_container">
+    					{% for doc in docs %}
+    						<div class="box1">
+    							<div class="inputCheck1 d-print-none">
+                                    <input type="checkbox" class="my_selection" value="{{ doc.id }}"
+                                    {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
+                                    <small>{{ loop.index + pag.start }}.</small>
+                                </div>
+    							<div class="textArt">
+    								<div class="titleArt">
+                                        {% if 'DECS' in doc.db  %}
+                                            {% set descriptor = 'ti_' ~ lang %}
+                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}"
+                                                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Descriptor', {'event_category': 'Show detail', 'event_label': this.href});"{% endif %}>
+                                                {{ attribute(doc, descriptor ).0 }}
+                                            </a>
+                                        {% else %}
+                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}"
+                                                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article', {'event_category': 'Show detail', 'event_label': this.href});"{% endif %}>
+                                                {% autoescape false %}{{ occ( {'element': doc.ti|raw, separator: ' / '} ) }}{% endautoescape %}
+                                            </a>
+                                        {% endif %}
+                                    </div>
+
+                                    {% if doc.au is defined %}
+                                       <div class="author">
+                                           {% for author in doc.au %}
+                                               <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
+                                           {% endfor %}
+                                       </div>
+                                   {% endif %}
+
+                                   <!-- display source fields -->
+                                   {% include custom_template("result-inc-source.html") %}
+
+                                   <!-- More details div -->
+    							    <div class="reference-detail collapse" >
+                                        {% if doc.ab %}
+        									<br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
+                                            {% for abstract in doc.ab %}
+                                                <p>{{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}</p>
+                                            {% endfor %}
+                                        {% endif %}
+
+                                        {% if doc.mh %}
+        									<br><h5 class="title2">{{ texts.RESULT.LABEL_SUBJECT }}</h5>
+                                            {% for subject in doc.mh %}
+                                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'}) }}"'>{{ subject|raw }}</a>
+                                                {% if not loop.last %}, {% endif %}
+                                            {% endfor %}
+                                        {% endif %}
+    								</div>
+    							</div>
+    						</div>
+    					{% endfor %}
+    				</div>
+                    <!-- Options column -->
+                    {% include custom_template('column-result-actions.html') %}
+    			</div>
+                <!-- <div class="text-center">
+    				Página <input type="text" value="1" size="1" class="text-center"> de 10 <a href=""><i class="fas fa-angle-right fa-2x"></i></a>
+    			</div> -->
+
+                {% if pag.total_pages > 0 %}
+        			<nav aria-label="Page navigation example" class="d-print-none">
+        				<ul class="pagination justify-content-center">
+
+                            {% if params.page is defined and params.page > 1 %}
+                                <li class="page-item">
+            						<a class="page-link" href="javascript:go_to_page('1')" title="{{ texts.FIRST_PAGE }}"><i class="fas fa-angle-double-left"></i></a>
+            					</li>
+
+                                <li class="page-item">
+            						<a class="page-link" href="javascript:go_to_page('{{ params.page-1 }}')" tabindex="-1" aria-disabled="true" title="{{ texts.GO_TO_PAGE }} {{ params.page-1 }}"><i class="fas fa-angle-left"></i></a>
+            					</li>
+                            {% else %}
+                                <li class="page-item disabled">
+            						<a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
+            					</li>
+            					<li class="page-item disabled">
+            						<a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-left"></i></a>
+            					</li>
+                            {% endif %}
+
+                            {% for i in pag.pages %}
+                                {% if params.page is defined %}
+                                    {% if params.page != i %}
+                                        <li class="page-item"><a class="page-link" href="javascript:go_to_page('{{ i }}')" title="{{ texts.GO_TO_PAGE }} {{ i }}">{{ i }}</a></li>
+                                    {% else %}
+                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                    {% endif %}
+                                {% else %}
+                                    {% if i != 1 %}
+                                        <li class="page-item"><a class="page-link" href="javascript:go_to_page('{{ i }}')" title="{{ texts.GO_TO_PAGE }} {{ i }}">{{ i }}</a></li>
+                                    {% else %}
+                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+
+                            {% if params.page is defined %}
+                                {% if params.page < pag.total_pages %}
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:go_to_page('{{ params.page+1 }}')" title="{{ texts.GO_TO_PAGE }} {{ params.page+1 }}"><i class="fas fa-angle-right"></i></a>
+                                    </li>
+                                    <li class="page-item">
+                                        <a class="page-link" href="javascript:go_to_page('{{ pag.total_pages }}')" title="{{ texts.GO_TO_PAGE }} {{ pag.total_pages }}"><i class="fas fa-angle-double-right"></i></a>
+                                    </li>
+                                {% else %}
+                                    <li class="page-item disabled">
+                						<a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-right"></i></a>
+                					</li>
+                					<li class="page-item disabled">
+                						<a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-double-right"></i></a>
+                					</li>
+                                {% endif %}
+                            {% else %}
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:go_to_page('2')" title="{{ texts.GO_TO_PAGE }} 2"><i class="fas fa-angle-right"></i></a>
+                                </li>
+                                <li class="page-item">
+                                    <a class="page-link" href="javascript:go_to_page('{{ pag.total_pages }}')" title="{{ texts.GO_TO_PAGE }} {{ pag.total_pages }}"><i class="fas fa-angle-double-right"></i></a>
+                                </li>
+                            {% endif %}
+        				</ul>
+        			</nav>
+                {% endif %}
+    		</div>
+    	</section>
+        {% endif %}
+    {% else %}
+
+    <section class="">
+        <div class="container">
+            <div class="row">
+                <div class="col-md-8 offset-md-3 d-print-none">
+
+                        <div class="alert alert-dark text-center" role="alert">
+                            <h5>{{ texts.NO_RESULTS }}</h5>
+                        </div>
+
+                </div>
+                {% include custom_template('column-filters.html') %}
+            </div>
+        </div>
+    {% endif %}
+
+{% endblock %}
+
+{% block extrafooter %}
+    {% if docs|length > 0 %}
+
+    <!-- Modal Query Detail -->
+	<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Consulta Detalhada</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<code>(instance:"regional") AND ( year_cluster:("2002") AND pais_afiliacao:("^iUnited States^eEstados"))(instance:"regional") AND ( year_cluster:("2002") AND pais_afiliacao:("^iUnited States^eEstados"))(instance:"regional") AND ( year_cluster:("2002") AND pais_afiliacao:("^iUnited States^eEstados"))(instance:"regional") AND ( year_cluster:("2002") AND pais_afiliacao:("^iUnited States^eEstados"))</code>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-danger" data-dismiss="modal">Fechar</button>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Modal Email -->
+	<div class="modal fade" id="ModalEmail" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-lg modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">{{ texts.SEND_BY_EMAIL }}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+
+                    <form name="emailForm" method="POST" action="{% if current_page == 'detail' %}{{ constant("SEARCH_URL") }}{% else %}{{ current_url }}{% endif %}" onsubmit="return send_email();">
+                        <input type="hidden" name="is_email" value="true" />
+
+                        <formset>
+                            <label for="yourName">{{ texts.MAIL_FROM_NAME }} </label>
+                            <input type="text" class="form-control" id="yourName" name="name" placeholder="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue">
+
+                            <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }} </label>
+                            <input type="text" class="form-control" id="yourEmail" name="your_email" placeholder="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue" required>
+
+                            <label for="email">{{ texts.SEND_RESULT_TO }}</label> <!-- a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a-->
+                            <div id="destinatarios">
+                                <input type="text" class="form-control" id="email_dest" name="email[]" placeholder="{{ texts.MAIL_TO_EMAIL }}" title="{{ texts.MAIL_TO_EMAIL }}" class="defaultValue" required>
+                            </div>
+                            <div id="more-destinatarios"></div>
+
+                            <label for="subject">{{ texts.MAIL_SUBJECT }}</label>
+                            <input type="text" class="form-control" id="subject" name="subject" placeholder="{{ texts.MAIL_SUBJECT }}" title="{{ texts.MAIL_SUBJECT }}" class="defaultValue">
+
+                            <label for="comment">{{ texts.MAIL_COMMENT }}</label>
+                            <textarea id="comment" class="form-control" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue" placeholder="{{ texts.MAIL_COMMENT }}"></textarea>
+
+                            {% if current_page == 'detail' %}
+                                <input type="hidden" name="q" value="{{q}}" />
+                            {% else %}
+                                <label for="selection">{{ texts.SEND_RESULT }}</label><br>
+                                <fieldset>
+                                    <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page"> {{ texts.THIS_PAGE }}</label>
+                                    <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)</label>
+                                    <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES }} ({{texts.ALL_REFERENCES_LIMIT}}&nbsp; 300)</label>
+                                </fieldset>
+                            {% endif %}
+                            <div>
+                                <input type="submit" value=" {{ texts.SEND }} " class="btn btn-primary">
+                            </div>
+                        </formset>
+                    </form>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Modal Export Resul -->
+	<div class="modal fade" id="ModalExport" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">{{ texts.EXPORT }}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+                    <h5>{{ texts.EXPORT_FORMAT }}:</h5>
+                    <form name="exportForm">
+                        <fieldset name="exportForm">
+                            <input type="radio" name="format" id="format_ris" value="ris" checked><label for="format_ris"> {{ texts.EXPORT_FORMAT_RIS }}</label><br/>
+                            <input type="radio" name="format" id="format_csv" value="csv"><label for="format_csv"> {{ texts.EXPORT_FORMAT_CSV }}</label><br/>
+                            <input type="radio" name="format" id="format_citation" value="citation"><label for="format_citation"> {{ texts.EXPORT_FORMAT_CITATION }}</label>
+                        </fieldset>
+                    </form>
+
+                    {% if current_page == 'detail' %}
+                        <input class="submit" onclick="javascript:export_record('{{q}}')" value="{{ texts.EXPORT }}" type="button" class="btn btn-primary">
+                    {% else %}
+                        <h5>{{ texts.EXPORT }}:</h5>
+                        <a href="javascript:export_result('{{ pag.count }}');" title="{{ texts.THIS_PAGE }}" class="btn btn-primary">
+                            {{ texts.THIS_PAGE }}
+                        </a>
+                        <a href="javascript:export_result('selection');" title="{{ texts.YOUR_SELECTION }}" class="btn btn-primary">
+                            {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)
+                        </a>
+                        <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}" class="btn btn-primary">
+                            {{ texts.ALL_REFERENCES }}
+                            {% if max_export_records > 0 and pag.total > max_export_records %}
+                                ({{texts.ALL_REFERENCES_LIMIT}}&nbsp;{{max_export_records|number_format(0, ',', '.')}})
+                            {% endif %}
+                        </a>
+                    {% endif %}
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Modal RSS -->
+	<div class="modal fade" id="ModalRSS" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">RSS</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+                    <a href="javascript:change_output('rss');" class="btn btn-primary">
+                        {{ texts.VIEW_RSS }}
+                    </a>
+                    <a href="javascript:;" class="add-rss btn btn-primary">
+                        {{ texts.ADD_RSS }}
+                    </a>
+				</div>
+			</div>
+		</div>
+	</div>
+
+    <!-- Modal Print -->
+	<div class="modal fade" id="ModalPrint" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">{{ texts.PRINT }}</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+                    <a href="javascript:print_page();" class="btn btn-primary">
+                        {{ texts.THIS_PAGE }}
+                    </a>
+                    <a href="javascript:print_page(true);" class="btn btn-primary">
+                        {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)
+                    </a>
+				</div>
+			</div>
+		</div>
+	</div>
+        {% if config.feedback_button_urls %}
+            <div id="iconeFeedback">
+                <a href="{{ attribute(config.feedback_button_urls, lang) }}" target="blank"><img src="{{ constant("STATIC_URL") }}/image/{{lang}}/iconFeedback.svg" alt=""></a>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
+
+{% block footerscripts %}
+    <script src="{{ constant("STATIC_URL") }}/js/clusters.js?ver=1.0.1"></script>
+    <script src="{{ constant("STATIC_URL") }}/js/my_selection.js"></script>
+    {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+    <script src="{{ constant("STATIC_URL") }}/js/ready-index-filter.js"></script>
+    {% endif %}
+{% endblock %}

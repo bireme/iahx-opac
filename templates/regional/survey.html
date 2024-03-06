@@ -1,0 +1,329 @@
+{% block extrahead %}
+{% endblock %}
+
+{% if questions %}
+<div id="conteudoFeedback">
+    <div id="feedbackFechar"><i class="fas fa-times"></i></div>
+    <h1>{{ texts.TITLE }}</h1>
+    <hr />
+    <div class="im-questions">
+        <form action="{{ config.impact_measurement_domain }}/send-feedback/" id="feedbackForm">
+            <input type="hidden" name="code" value="{{ code }}">
+            <input type="hidden" name="user" value="{{ user }}">
+            <input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
+            <input type="hidden" name="page" value="{{ page }}">
+            <input type="hidden" name="page_type" value="{{ page_type }}">
+            <input type="hidden" name="page_type_slug" value="{{ page_type_slug }}">
+        </form>
+        {% for key, question in questions %}
+            {% set text = question.question[lang] %}
+            {% set text = ( text is defined and text is not null ) ? text : question.question['en'] %}
+            {% if text %}
+                <form id="feedbackForm{{ key }}">
+                    <input type="hidden" name="question" value="{{ question.id }}">
+                    {% if 'star' == question.type %}
+                        <div class="row rowQuestion rowStarRating text-center">
+                            <input type="hidden" id="rating" name="rating" value="">
+                            <div class="col-12 feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 feedbackTitulo">
+                                <i class="far fa-star star1 star-rating" data-rating="1"></i>
+                                <i class="far fa-star star2 star-rating" data-rating="2"></i>
+                                <i class="far fa-star star3 star-rating" data-rating="3"></i>
+                                <i class="far fa-star star4 star-rating" data-rating="4"></i>
+                                <i class="far fa-star star5 star-rating" data-rating="5"></i>
+                            </div>
+                        </div>
+                    {% elseif 'number' == question.type %}
+                        <div class="row rowQuestion text-center">
+                            <div class="col-12 feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12">
+                                <span class="feedRadio">
+                                    <label for="1a">1</label>
+                                    <input type="radio" id="1a" name="rating" value="1">
+                                </span>
+                                <span class="feedRadio">
+                                    <label for="2a">2</label>
+                                    <input type="radio" id="2a" name="rating" value="2">
+                                </span>
+                                <span class="feedRadio">
+                                    <label for="3a">3</label>
+                                    <input type="radio" id="3a" name="rating" value="3">
+                                </span>
+                                <span class="feedRadio">
+                                    <label for="4a">4</label>
+                                    <input type="radio" id="4a" name="rating" value="4">
+                                </span>
+                                <span class="feedRadio">
+                                    <label for="5a">5</label>
+                                    <input type="radio" id="5a" name="rating" value="5">
+                                </span>
+                            </div>
+                        </div>
+                    {% elseif 'yes-no' == question.type %}
+                        <div class="row rowQuestion text-center">
+                            <div class="col-12 feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                    <label class="btn btn-secondary btn-yesno">
+                                        <input type="radio" name="rating" id="opt1" autocomplete="off" value="1"> {{ texts.LABEL_YES }}
+                                    </label>
+                                    <label class="btn btn-secondary btn-yesno">
+                                        <input type="radio" name="rating" id="opt2" autocomplete="off" value="2"> {{ texts.LABEL_NO }}
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'likert-1' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="5b" name="rating" value="5">
+                                    <label for="5b">{{ texts.LIKERT_1_OP_1 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="4b" name="rating" value="4">
+                                    <label for="4b">{{ texts.LIKERT_1_OP_2 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="3b" name="rating" value="3">
+                                    <label for="3b">{{ texts.LIKERT_1_OP_3 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2b" name="rating" value="2">
+                                    <label for="2b">{{ texts.LIKERT_1_OP_4 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1b" name="rating" value="1">
+                                    <label for="1b">{{ texts.LIKERT_1_OP_5 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'likert-2' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="5c" name="rating" value="5">
+                                    <label for="5c">{{ texts.LIKERT_2_OP_1 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="4c" name="rating" value="4">
+                                    <label for="4c">{{ texts.LIKERT_2_OP_2 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="3c" name="rating" value="3">
+                                    <label for="3c">{{ texts.LIKERT_2_OP_3 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2c" name="rating" value="2">
+                                    <label for="2c">{{ texts.LIKERT_2_OP_4 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1c" name="rating" value="1">
+                                    <label for="1c">{{ texts.LIKERT_2_OP_5 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'likert-3-likely' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="5d" name="rating" value="5">
+                                    <label for="5d">{{ texts.LIKERT_3_OP_1 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="4d" name="rating" value="4">
+                                    <label for="4d">{{ texts.LIKERT_3_OP_2 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="3d" name="rating" value="3">
+                                    <label for="3d">{{ texts.LIKERT_3_OP_3 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2d" name="rating" value="2">
+                                    <label for="2d">{{ texts.LIKERT_3_OP_4 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1d" name="rating" value="1">
+                                    <label for="1d">{{ texts.LIKERT_3_OP_5 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'likert-4-reliable' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="5e" name="rating" value="5">
+                                    <label for="5e">{{ texts.LIKERT_4_OP_1 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="4e" name="rating" value="4">
+                                    <label for="4e">{{ texts.LIKERT_4_OP_2 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="3e" name="rating" value="3">
+                                    <label for="3e">{{ texts.LIKERT_4_OP_3 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2e" name="rating" value="2">
+                                    <label for="2e">{{ texts.LIKERT_4_OP_4 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1e" name="rating" value="1">
+                                    <label for="1e">{{ texts.LIKERT_4_OP_5 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'likert-5-well' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="5f" name="rating" value="5">
+                                    <label for="5f">{{ texts.LIKERT_5_OP_1 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="4f" name="rating" value="4">
+                                    <label for="4f">{{ texts.LIKERT_5_OP_2 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="3f" name="rating" value="3">
+                                    <label for="3f">{{ texts.LIKERT_5_OP_3 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2f" name="rating" value="2">
+                                    <label for="2f">{{ texts.LIKERT_5_OP_4 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1f" name="rating" value="1">
+                                    <label for="1f">{{ texts.LIKERT_5_OP_5 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'likert-6-excellent' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="4g" name="rating" value="4">
+                                    <label for="4g">{{ texts.LIKERT_6_OP_1 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="3g" name="rating" value="3">
+                                    <label for="3g">{{ texts.LIKERT_6_OP_2 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2g" name="rating" value="2">
+                                    <label for="2g">{{ texts.LIKERT_6_OP_3 }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1g" name="rating" value="1">
+                                    <label for="1g">{{ texts.LIKERT_6_OP_4 }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% elseif 'yes-somewhat-no' == question.type %}
+                        <div class="row rowQuestion rowLikert">
+                            <div class="col-12 text-center feedbackTitulo">
+                                <b>{{ text }}</b>
+                            </div>
+                            <div class="col-12 rowOptions">
+                                <div>
+                                    <input type="radio" id="3h" name="rating" value="3">
+                                    <label for="3h">{{ texts.LABEL_YES }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="2h" name="rating" value="2">
+                                    <label for="2h">{{ texts.LABEL_SOMEWHAT }}</label>
+                                </div>
+                                <div>
+                                    <input type="radio" id="1h" name="rating" value="1">
+                                    <label for="1h">{{ texts.LABEL_NO }}</label>
+                                </div>
+                            </div>
+                        </div>
+                    {% endif %}
+                </form>
+            {% endif %}
+        {% endfor %}
+    </div>
+    <div class="row im-formdata-submit">
+        <div class="col-12 marginT1">
+            <button type="button" id="formdata-submit" class="btn btn-block btn-secondary" disabled>{{ texts.SEND }}</button>
+        </div>
+    </div>
+    <div class="feedback-message">
+        {% if im_survey_link == '' %}
+            <div class="alert alert-success im-survey" role="alert">
+                <form action="{{ config.impact_measurement_domain }}/survey/" id="surveyForm" target="_blank">
+                    <input type="hidden" name="code" value="{{ code }}">
+                    <input type="hidden" name="user" value="{{ user }}">
+                    <input type="hidden" name="myvhl_user" value="{{ myvhl_user }}">
+                    <input type="hidden" name="page" value="{{ page_base64 }}">
+                    <input type="hidden" name="page_type" value="{{ page_type }}">
+                    <input type="hidden" name="page_type_slug" value="{{ page_type_slug }}">
+
+                    {{ texts.THANKS }}<br />
+                    {{ texts.SURVEY_LINK_DESC }}<br />
+                    
+                    <button type="submit" id="survey-submit" class="btn btn-block btn-success">{{ texts.SURVEY_LINK_TEXT }}</button>
+                </form>
+            </div>
+        {% else %}
+            <div class="alert alert-success im-survey" role="alert">
+                {{ texts.THANKS }}<br />
+                {{ texts.SURVEY_LINK_DESC }}<br />
+                <a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
+            </div>
+        {% endif %}
+
+        {% if im_survey_link == '' %}
+            <div class="alert alert-success result-ok" role="alert">
+                {{ texts.THANKS }}
+            </div>
+        {% else %}
+            <div class="alert alert-success result-ok" role="alert">
+                {{ texts.THANKS }}<br />
+                {{ texts.SURVEY_LINK_DESC }}<br />
+                <a href="{{ im_survey_link }}" target="_blank">{{ texts.SURVEY_LINK_TEXT }}</a>
+            </div>
+        {% endif %}
+
+        <div class="alert alert-warning result-error" role="alert">
+            {{ texts.ERROR|raw }}
+        </div>
+    </div>
+</div>
+{% else %}
+    <div id="conteudoFeedback">
+        <div class="im-error text-center">
+            <div class="alert alert-secondary" role="alert">
+                {{ texts.NOT_FOUND }}
+            </div>
+        </div>
+    </div>
+{% endif %}
+
+{% block footerscripts %}
+{% endblock %}

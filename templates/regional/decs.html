@@ -1,0 +1,12 @@
+{% if concept == "" %}
+    <em>{{ texts.DescNF }}</em>
+{% else %}
+    <p>{{ concept }}</p>
+{% endif %}
+
+<div class="jBox-footer">
+    {{ texts.source }}
+    <a href="{{ href }}" target="_blank">DeCS - {{ texts.DeCS }}
+        <img src="{{ constant("STATIC_URL") }}/image/common/logo_decs.gif" alt="DeCS"></img>
+    </a>
+</div>

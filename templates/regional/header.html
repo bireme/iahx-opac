@@ -1,0 +1,153 @@
+<!-- Topo -->
+<header id="header" class="d-print-none">
+	<div class="container">
+		<div class="row">
+			<div class="col-md-3" id="logo">
+				<a href="{{ config.home_url }}{% if lang != config.default_lang %}{{ lang }}/{% endif %}">
+                    <img src="{{ constant("STATIC_URL") }}/image/{{lang}}/logo.svg" alt="" class="img-fluid">
+                </a>
+			</div>
+			<div class="col-md-9">
+                <div id="titleMain" class="float-left">
+                    <div class="titleMain1">{{texts.BVS_TITLE}}</div>
+                	<div class="titleMain2">{{texts.TITLE}}</div>
+                </div>
+				<div class="lang">
+					<ul>
+                        {% for langcode, item in texts.AVAILABLE_LANGUAGES %}
+                            <li><a href="javascript:change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="active" {% endif %}>{{ item }}</a></li>
+                        {% endfor %}
+					</ul>
+				</div>
+				<div class="headerBt">
+                    {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
+                        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+                            <a href="{{ constant("SEARCH_URL") }}decs-locator/?lang={{lang}}" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                        {% else %}
+                            <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                        {% endif %}
+                    {% else %}
+                         <br/>
+                    {% endif %}
+                    {% if (not config.show_advanced_search_button or config.show_advanced_search_button == 'true') %}
+                    <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
+                    {% endif %}
+                    {% if collectionData.wizard_list.wizard is defined %}
+                        {% if current_page != 'result' %}
+                            <a href="{{ constant('SEARCH_URL') }}?lang={{lang}}&display_wizard=true" class="btnBlue" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" onclick="gtag('event', 'Open wizard popup', {'event_category': 'Wizard'});">
+                                {{ texts.WIZARD.BUTTON }}
+                            </a><br/>
+                        {% else %}
+                            <a href="#" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" id="btnOpenWizard" data-wizard="{{config_wizard_list.0}}" class="btnBlue" onclick="gtag('event', 'Open wizard popup', {'event_category': 'Wizard'});">
+                                {{ texts.WIZARD.BUTTON }}
+                            </a><br/>
+                        {% endif %}
+                    {% endif %}
+                    {% if config.show_evideasy_button == 'true' %}
+                        {% set lang_evid = (lang != 'es' ? lang : '') %}
+                        <a href="http://bvsalud.org/evideasy/{{lang_evid}}" target="evideasy" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" class="btnBlue" onclick="gtag('event', 'Open search page', {'event_category': 'Evid@Easy'});">
+                            {{ texts.WIZARD.BUTTON }}
+                        </a><br/>
+                    {% endif %}
+
+				</div>
+				<div class="{% if current_page != 'decs_lookup'%}headerSearch{% else %}d-none{% endif %}">
+
+                    {% if params.q is defined and params.q|length > 2048 %}
+                        <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="POST">
+                    {% else %}
+                        <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
+                    {% endif %}
+
+                        <input type="hidden" name="output" id="output" value="{{ output }}">
+                        <input type="hidden" name="lang" id="lang" value="{{ lang }}">
+                        <input type="hidden" name="from" id="from" value="{{ from }}">
+                        <input type="hidden" name="sort" id="sort" value="{{ sort }}">
+                        <input type="hidden" name="format" id="format" value="{{ format }}">
+                        <input type="hidden" name="count" id="count" value="{{ pag.count }}">
+                        {% if params.filterLabel != "" %}
+                            <input type="hidden" name="filterLabel" id="label" value="{{ params.filterLabel }}">
+                        {% endif %}
+                        <input type="hidden" name="fb" id="fb" value="">
+                        <input type="hidden" name="page" id="page" value="{% if params.page is defined %}{{ params.page }}{% else %}1{% endif %}">
+
+                        {% for name, items in filters if filters is defined %}
+                            {% for item in items %}
+                                <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
+                            {% endfor %}
+                        {% endfor %}
+
+                        {% for vf_value in view_filter if view_filter is defined %}
+                            <input type="hidden" name="view_filter[]" value="{{vf_value}}">
+                        {% endfor %}
+
+                        {% if range_year_start %}
+                            <input type="hidden" name="range_year_start" id="range_year_start" value="{{ range_year_start }}">
+                            <input type="hidden" name="range_year_end" id="range_year_end" value="{{ range_year_end }}">
+                        {% endif %}
+                        <!-- flag to skip filter page -->
+                        <input type="hidden" name="skfp" id="skfp" value="{{params.skfp}}">
+
+                        <div class="row">
+                            {% if collectionData.index_list.index is defined %}
+                                <div class="col-md-4 selectBoxSearch">
+                                    <select name="index" class="formSelect" id="selectIndex">
+                                        {% for index in collectionData.index_list.index if not index.advanced %}
+                                            {% if params.index is defined %}
+                                                {% if index.prefix == params.index %}
+                                                    <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
+                                                {% else %}
+                                                    <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                                {% endif %}
+                                            {% else %}
+                                                <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+
+							<div class="col-md-6 inputBoxSearch">
+                                <input type="text" name="q" id="q" value="{{ params.q }}" class="inputText" title="{{texts.SEARCH_WORDS}}">
+                                <a id="speakBtn" href="#"><i class="fas fa-microphone-alt"></i></a>
+							</div>
+                            {% if collectionData.where_list.where is defined %}
+                                <div class="col-md-4 selectBoxSearch">
+                                    <select name="where" class="formSelect" id="selectWhere">
+                                        {% for where in collectionData.where_list.where %}
+                                            {% set tab = '' %}
+                                            {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
+
+                                            {% if params.where is defined %}
+                                                {% if where.name == params.where %}
+                                                    <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                                {% else %}
+                                                    <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                                {% endif %}
+                                            {% else %}
+                                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            {% endif %}
+
+							<div class="col-md-2 btnBoxSearch">
+								<button type="submit" name="search_form_submit">
+									<i class="fas fa-search"></i>
+									<span class="textBTSearch"> {{ texts.SEARCH_SUBMIT }}</span>
+								</button>
+							</div>
+                        </div>
+                    </form>
+                </div>
+                <div style="margin-top: 10px;">
+                    {% if config_view_filter %}
+                        <a href="#" id="btSidebar" data-view="{{config_view_filter}}" class="btn btn-sm btn-outline-primary">{{ texts.VIEW_FILTER }}</a>
+                    {% endif %}
+                </div>
+			</div>
+		</div>
+	</div>
+
+</header>

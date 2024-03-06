@@ -1,0 +1,115 @@
+{% extends custom_template("base.html") %}
+
+{% block breadcrumb_last %}{{ texts.ADVANCED_SEARCH }}{% endblock %}
+
+{% block content %}
+    <div class="row padding1">
+        <div class="col-md-12 box4">
+            <h4 class="title2"><h2>{{ texts.ADVANCED_SEARCH }}</h2></h4> <br>
+            <form name="advanced" id="advanced" onsubmit="return search();">
+                <div class="marginB2">
+                    <b>{{ texts.ADVANCED_FORM_TIP }}</b>
+                </div>
+
+                <div class="row marginB1">
+                    <div class="col-md-2">
+                    </div>
+                    <div class="col-md-6">
+                        <input type="text" name="q[]" class="form-control formControl marginMC1 q" value="" id="input-1">
+                        {% if config.browse_index_url is defined and config.browse_index_url != '' %}
+                            <a href="#" onclick="show_index(this)" class="updateIndexList openerIndexes" id="show-1">{{ texts.SHOW_INDEX }}</a>
+                        {% endif %}
+
+                        <div class="indexList" style="display: none;" id="list-1">
+                            <div class="vBlockL first">
+                                <select class="form-control indexTerms" multiple="multiple" size="10" id="select-1" onchange="select_term(this)">
+                                </select>
+                            </div>
+                            <div class="vBlockR">
+                                <div class="prev"><a href="#" onclick="show_prev(this)" class="prev" id="prev-1">{{ texts.PREVIOUS_KEYS }}</a></div>
+                                <div class="next"><a href="#" onclick="show_next(this)" class="next" id="next-1">{{ texts.NEXT_KEYS }}</a></div>
+                                <div class="refresh"><a href="#" onclick="show_index(this, true)" class="updateIndexList" id="refresh-1">{{ texts.UPDATE_KEYS }}</a></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-2">
+                        <select name="index[]" class="form-control formControl marginMC1" id="index-1">
+                            {% for index in collectionData.index_list.index %}
+                                {% if params.index is defined %}
+                                    {% if index.prefix == params.index %}
+                                        <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
+                                    {% else %}
+                                        <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                    {% endif %}
+                                {% else %}
+                                    <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-2">
+
+                    </div>
+                </div>
+
+                <div class="block-q">
+                    <div class="row marginB1 marginMC1 marginB2">
+                        <div class="col-md-2">
+                            <select name="bool[]" class="form-control formControl marginMC1">
+                                <option value="AND">AND</option>
+                                <option value="OR">OR</option>
+                                <option value="AND NOT">AND NOT</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6">
+                            <input type="text" name="q[]" class="form-control formControl marginMC1 q" id="input-2">
+                            <div class="indexList" style="display: none;" id="list-2">
+                                <div class="vBlockL">
+                                    <select class="form-control indexTerms" multiple="multiple" size="10" id="select-2" onchange="select_term(this)">
+                                    </select>
+                                </div>
+                                <div class="vBlockR">
+                                    <div class="prev"><a href="#" onclick="show_prev(this)" class="prev" id="prev-2">{{ texts.PREVIOUS_KEYS }}</a></div>
+                                    <div class="next"><a href="#" onclick="show_next(this)" class="next" id="next-2">{{ texts.NEXT_KEYS }}</a></div>
+                                    <div class="refresh"><a href="#" onclick="show_index(this, true)" class="updateIndexList" id="refresh-2">{{ texts.UPDATE_KEYS }}</a></div>
+                                </div>
+                            </div>
+                            {% if config.browse_index_url is defined and config.browse_index_url != '' %}
+                                <a href="#" onclick="show_index(this)" class="updateIndexList openerIndexes" id="show-2">{{ texts.SHOW_INDEX }}</a>
+                            {% endif %}
+                        </div>
+                        <div class="col-md-2">
+                            <select name="index[]" class="form-control formControl marginMC1" id="index-2">
+                                {% for index in collectionData.index_list.index %}
+                                    {% if params.index is defined %}
+                                        {% if index.prefix == params.index %}
+                                            <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
+                                        {% else %}
+                                            <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                        {% endif %}
+                                    {% else %}
+                                        <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
+                                    {% endif %}
+                                {% endfor %}
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                <div class="more"></div>
+                <div class="row">
+                    <div class="col-md-3">
+                        <a href="javascript:add_new_line()" class="btnTools"><i class="far fa-plus-square"></i> {{ texts.ADD_LINE }} </a>
+                    </div>
+                </div>
+
+                <div class="float-right">
+                    <input type="submit" value="{{texts.SEARCH_SUBMIT}}" class="btnFilter">
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}
+
+{% block extrafooter %}
+    <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}/js/advanced.js?ver=1.0.2"></script>
+{% endblock %}

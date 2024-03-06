@@ -1,0 +1,280 @@
+<!DOCTYPE html>
+<html dir="ltr" xml:lang="{{lang}}" lang="{{lang}}" xmlns="http://www.w3.org/1999/xhtml">
+    <head>{% block head %}
+        <title>{% block title %}{{ texts.SEARCH_HOME }} | {{ texts.BVS_TITLE }}{% endblock %}</title>
+
+        {% if config.use_external_cdn == 'true' %}
+        <link rel="stylesheet" href="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="//use.fontawesome.com/releases/v5.8.1/css/all.css">
+        {% else %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/all.min.css">
+        {% endif %}
+
+        <link href="//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,900" rel="stylesheet">
+
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/style.css">
+        {% if config.use_custom_stylesheet == 'true' %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/custom/css/style.css">
+        {% endif %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/acessibilidade.css">
+        {% if config_view_filter %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/sidebar.css">
+        {% endif %}
+        {% if config_wizard_list %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/smart_wizard_all.min.css">
+        {% endif %}
+        {% if config.impact_measurement_code != '' %}
+        <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/survey.css">
+        {% endif %}
+
+        <!-- meta-tags -->
+        <meta charset="UTF-8">
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta http-equiv="Content-Language" content="{{ lang }}">
+
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="keywords" content="{{ texts.KEYWORDS }}">
+        <meta http-equiv="description" content="{{ texts.DESCRIPTION }} ">
+
+        {% block headerscripts %}
+        {% endblock %}
+
+        <!-- Page icon -->
+        <link rel="shortcut icon" href="{{ constant("STATIC_URL") }}/image/favicon.ico">
+
+        <script language="javascript" type="text/javascript">
+            var LANG = '{{ lang }}';
+            var SEARCH_URL = '{{ constant("SEARCH_URL") }}';
+            var STATIC_URL = '{{ constant("STATIC_URL") }}';
+            var RESULT_PAGE = {% if pag.total %}true{% else %}false{% endif %};
+            var ADD_TO_COLLECTION_SUCCESS = '{{ texts.ADD_TO_COLLECTION_SUCCESS }}';
+            var ADD_TO_COLLECTION_ERROR = '{{ texts.ADD_TO_COLLECTION_ERROR }}';
+            var COLLECTION_EXISTS = '{{ texts.COLLECTION_EXISTS }}';
+            var ADD_LINK_SUCCESS = '{{ texts.ADD_LINK_SUCCESS }}';
+            var ADD_LINK_ERROR = '{{ texts.ADD_LINK_ERROR }}';
+            var LINK_EXISTS = '{{ texts.LINK_EXISTS }}';
+            var ADD_RSS_SUCCESS = '{{ texts.ADD_RSS_SUCCESS }}';
+            var ADD_RSS_ERROR = '{{ texts.ADD_RSS_ERROR }}';
+            var RSS_EXISTS = '{{ texts.RSS_EXISTS }}';
+            var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain }}';
+            var QUERY = '{{ q }}'.trim();
+            var FILTER = '{{ filters|filters_to_string }}'.trim();
+            var SITE = '{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}'.trim();
+        </script>
+
+        {% if config.google_analytics_tracking_id != '' %}
+            {% for ga_tag_id in config.google_analytics_tracking_id %}
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+                <script async src="https://www.googletagmanager.com/gtag/js?id={{ga_tag_id}}"></script>
+                <script>
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '{{ga_tag_id}}');
+                </script>
+            {% endfor %}
+        {% endif %}
+        {% if config.google_tag_manager_id != '' %}
+            <!-- Google Tag Manager -->
+            <script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+            new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+            j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+            'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+            })(window,document,'script','dataLayer','{{config.google_tag_manager_id}}');</script>
+            <!-- End Google Tag Manager -->
+        {% endif %}
+
+        {% block extrahead %}
+            {% if config.impact_measurement_code != '' %}
+                {% for src in im_cookie %}
+                <script type="text/javascript">
+                    var el = document.createElement("img");
+                    el.setAttribute('src', "{{ src }}");
+                </script>
+                {% endfor %}
+            {% endif %}
+        {% endblock %}
+
+        <noscript>Your browser doesn't support javascript.</noscript>
+    {% endblock %}</head>
+
+    <body>
+        <!-- loading box -->
+        <div class="loading d-none">
+            <img src="{{ constant("STATIC_URL") }}/image/loading.gif" class="rounded" alt="loading">
+        </div>
+        {% block header %}
+            {% include custom_template("accessibility-bar.html") %}
+            {% include custom_template("header.html") %}
+            {% if config_view_filter %}
+                {% include custom_template("sidebar.html") %}
+            {% endif %}
+            {% if config_wizard_list %}
+                {% include custom_template("wizard.html") %}
+            {% endif %}
+        {% endblock %}
+        <section class="">
+            <div class="container">
+                {% block breadcrumb %}
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{{ config.home_url }}{% if lang in ['es', 'en'] %}{{ lang }}/{% endif %}">{{ texts.BVS_HOME }}</a>
+                        </li>
+
+                        <li class="breadcrumb-item">
+                            <a href="{{ constant("SEARCH_URL") }}?lang={{ lang }}">{{ texts.SEARCH_HOME }}</a>
+                        </li>
+
+                        <li class="breadcrumb-item active" aria-current="page">
+                            {% block breadcrumb_last %}{% endblock %}
+                        </li>
+                    </ol>
+                </nav>
+                {% endblock %}
+                {% block content %}
+
+                {% endblock %}
+            </div>
+        </section>
+
+        {% block footer %}
+            {% include custom_template("footer.html") %}
+        {% endblock %}
+
+        {% block extrafooter %}
+        {% endblock %}
+
+        <form name="language">
+            <input type="hidden" name="lang" value="{{ lang }}">
+        </form>
+
+        <!-- survey box -->
+        {% if config.impact_measurement_code != '' %}
+        <div id="im_survey_box" class="im-ajax">
+            <div id="boxFeedback">
+                <div id="conteudoFeedback">
+                    <div class="im-loading">
+                        <div class="col-md-12 text-center">
+                            <div class="spinner-border text-center">
+                                <span class="sr-only">...</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div id="iconFeedback">
+                    <img src="{{ constant("STATIC_URL") }}/image/{{ lang|slice(0, 2) }}/iconFeedback.svg" alt="">
+                </div>
+                <div class="clear"></div>
+            </div>
+        </div>
+        {% endif %}
+
+        <!-- load base js files for pages -->
+        {% if config.use_external_cdn == 'true' %}
+        <script src="//ajax.googleapis.com/ajax/libs/jquery/3.4.0/jquery.min.js"></script>
+        <script src="//stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        {% else %}
+        <script src="{{ constant("STATIC_URL") }}/js/jquery.min.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/bootstrap.min.js"></script>
+        {% endif %}
+        <!-- application js files -->
+        <script src="{{ constant("STATIC_URL") }}/js/cookie.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/accessibility.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/functions.js?ver=1.0.1"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/ready.js"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/main.js"></script>
+        {% if query_info_clusters %}
+        <script src="{{ constant("STATIC_URL") }}/js/query_info.js"></script>
+        {% endif %}
+        {% if config_view_filter %}
+        <script src="{{ constant("STATIC_URL") }}/js/sidebar.js"></script>
+        {% endif %}
+        {% if config_wizard_list %}
+        <script src="{{ constant("STATIC_URL") }}/js/jquery.smartWizard.min.js" type="text/javascript"></script>
+        <script src="{{ constant("STATIC_URL") }}/js/wizard.js" type="text/javascript"></script>
+        {% endif %}
+
+        {% if config.services_platform_domain != '' %}
+        <script src="{{ constant("STATIC_URL") }}/js/add_collection.js"></script>
+        <script type="text/javascript">
+            $(document).ready( function(){
+                var userTK = unescape(getCookie('userTK'));
+
+
+                if( typeof( userTK ) != 'undefined' && userTK !== null && userTK !== 'undefined' ) {
+                    var obj = new Object();
+
+                    obj.userTK = userTK;
+                    obj.ip = $.trim('{{ app.request.server.get("REMOTE_ADDR") }}');
+                    obj.lang = $.trim('{{ lang }}');
+                    obj.col = $.trim('{{ config.search_collection_list.collection.name }}');
+                    obj.site = SITE;
+                    obj.query = QUERY;
+                    obj.index = $.trim('{{ index }}');
+                    obj.where = $.trim('{{ where }}');
+                    obj.filter = FILTER;
+                    obj.page = $.trim('{{ page }}');
+                    obj.output = $.trim('{{ current_page }}');
+                    obj.referer = $.trim(document.referrer);
+                    obj.session = $.trim('{{ app.session.getId() }}');
+                    obj.format = $.trim('{{ format }}');
+                    obj.sort = $.trim('{{ sort }}');
+
+                    $.post(SERVICES_PLATFORM_DOMAIN + '/logs/', obj, function(data){
+                        console.log(data);
+                    });
+
+                    {% if config.google_analytics_tracking_id != '' %}
+                        var userID = unescape(getCookie('userID'));
+                        if( typeof(userID) != 'undefined' && userID !== null && userID !== 'undefined' ) {
+                            gtag('config', '{{config.google_analytics_tracking_id}}', {
+                                'user_id': userID
+                            });
+                        }
+                    {% endif %}
+
+                }
+
+                function getCookie(name) {
+                    var value = "; " + document.cookie;
+                    var parts = value.split("; " + name + "=");
+                    if (parts.length == 2) return parts.pop().split(";").shift();
+                }
+            });
+        </script>
+        {% endif %}
+
+        {% if config.impact_measurement_code != '' %}
+        <script type="text/javascript">
+            var im_code = '{{ config.impact_measurement_code }}';
+
+            {% if current_page == 'result' and config.show_filter_page == 'true' and detailed_query == '' and params.skfp == 'true' %}
+                var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}_skfp_true';
+            {% elseif current_page == 'result' and config.show_filter_page == 'true' and detailed_query == '' and params.skfp != 'true' %}
+                var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}_skfp_false';
+            {% else %}
+                var im_service_url = '{{ constant("SEARCH_URL") }}' + 'impact-measurement/' + LANG + '/' + im_code + '?page_type={{ current_page }}';
+            {% endif %}
+
+            $(document).on('click', '#im_survey_box.im-ajax', function(e){
+                var _this = $(this);
+                $("#conteudoFeedback").load(im_service_url + ' #conteudoFeedback > *', function(){
+                    _this.removeClass('im-ajax');
+                });
+            });
+        </script>
+        <script src="{{ constant("STATIC_URL") }}/js/survey.js"></script>
+        {% endif %}
+
+        {% if config.show_accept_cookie != 'false' %}
+        <script src="https://politicas.bireme.org/cookiebar/cookiebar-latest.js"></script>
+        {% endif %}
+
+
+        {% block footerscripts %}
+        {% endblock %}
+
+    </body>
+</html>

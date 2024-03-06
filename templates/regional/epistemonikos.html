@@ -1,0 +1,40 @@
+<div class="epistemonikos_box" style="margin-top: 20px;">
+    <strong>{{ attribute(texts, classification|upper|replace({"-": "_"})) }}</strong>
+
+    {% if classification_status == 'machine' %}
+        <a class="epistemoniko_warning" href="#warning_message" rel="#warning_message">
+            <span class="icon-exclamation"></span>
+        </a>
+        <div id="warning_message">
+            {{ texts.CLASSIFICATION_MACHINE }}
+        </div>
+    {% endif %}
+
+    {% if primary_study_ref %}
+        | {{ texts.THIS_ARTICLE_INCLUDES }}
+        <a href="{{ primary_study_ref['url']|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show primary studies', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
+            {% if primary_study_ref['studies'] %}
+                {{ primary_study_ref['studies'] }} {{ texts.PRIMARY_STUDIES }}
+                {% if  primary_study_ref['total'] != primary_study_ref['studies'] %}
+                    ({{ total_references }} {{ texts.REFERENCES}})
+                {% endif %}
+            {% else %}
+                {{ primary_study_ref['total'] }} {{ texts.PRIMARY_STUDIES }}
+            {% endif %}
+        </a>
+    {% endif %}
+
+    {% if systematic_review_ref  %}
+        | {{ texts.THIS_ARTICLE_IS_INCLUDED }}
+        <a href="{{ systematic_review_ref['url']|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show systematic reviews', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
+            {{ systematic_review_ref['total'] }} {{ texts.SYSTEMATIC_REVIEWS }}
+            ({{ total_references }} {{ texts.REFERENCES}})
+        </a>
+    {% endif %}
+
+    | <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show article detail', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
+        <img src="{{ constant("STATIC_URL") }}/image/common/icon_epistemonikos.png" width="20" />
+        {{ texts.SEE_IN }} Epistemonikos
+    </a>
+
+</div>
