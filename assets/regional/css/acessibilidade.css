@@ -1,0 +1,76 @@
+#barAcessibilidade{background: #3b2c85; color: #fff; padding: 6px 0; font-size: 13px; }
+#barAcessibilidade a{color: #fff; text-decoration: none;}
+#barAcessibilidade a:hover{color: #ddd;}
+#acessibilidadeFontes{text-align: right;}
+#acessibilidadeFontes a{ padding: 0 5px; cursor: pointer; border-right: 1px solid #ddd; }
+#acessibilidadeFontes a:nth-last-child(1){border-right: none; }
+#acessibilidadeTutorial a{ margin-left: 10px;}
+#acessibilidadeTutorial span{ background-color: #ddd; color: #000; padding: 0 5px;}
+#acessibilidadeTutorial a:hover span{ background-color: #fff;}
+::selection {background-color: #333; color: #FF0;}
+/********************** Contraste *****************/
+.bodyBlack{background: #000; color: #fff;}
+.bodyBlack ::selection {background-color: #FF0; color: #000;}
+.bodyBlack .imgBlack{background: #fff;}
+.bodyBlack a{color: #ff0!important;}
+.bodyBlack #nav, .bodyBlack #footer, .bodyBlack #barAcessibilidade
+{background: #666;}
+/*formatação diversas*/
+.padding1{padding-top: 30px; padding-bottom: 30px;}
+.bodyBlack input[type=text], .bodyBlack input[type=password], .bodyBlack input[type=url],
+.bodyBlack input[type=search], .bodyBlack input[type=email], .bodyBlack input[type=tel],
+.bodyBlack input[type=date], .bodyBlack input[type=month], .bodyBlack input[type=week],
+.bodyBlack input[type=datetime], .bodyBlack input[type=datetime-local],
+.bodyBlack textarea, .bodyBlack select,
+.bodyBlack input[type=number]
+{background-color: #000 !important;	color: #fff !important;}
+#buscaPorVoz{position: relative}
+#speakBtn{position: absolute; font-size: 20px; top: 10px; left: 0px; z-index: 10; color: #999;}
+#speakBtn:hover{color: #000;}
+/****************** IAHX *********************/
+.bodyBlack,
+.bodyBlack .modal-content,
+.bodyBlack #header,
+.bodyBlack .headerSearch, .bodyBlack .card-header,
+.bodyBlack .homeConsult .titulo2,
+.bodyBlack .box1, .bodyBlack .box2, .bodyBlack .box3,.bodyBlack .box4, .bodyBlack #indiceLetras,
+.bodyBlack .page-link, .bodyBlack .titleArt, .bodyBlack .boxEvidence, .bodyBlack .alert-light, .bodyBlack .box5
+{background: #000; color: #fff;}
+.bodyBlack .titleBox2, .bodyBlack #topAcessibility, .bodyBlack .decs:hover, .bodyBlack .btnTools:hover
+{ background: #666; color: #fff; }
+.bodyBlack hr, .bodyBlack .page-item.disabled .page-link,.bodyBlack #linha::after, .bodyBlack .titulo2,
+.bodyBlack .titulo1::after, .bodyBlack .breadcrumb, .bodyBlack .lang ul li .active, .bodyBlack .btnBoxSearch button:hover
+{background-color: #999!important;}
+.bodyBlack #language a, .bodyBlack .btnBoxSearch button, .bodyBlack .lang ul li a,
+.bodyBlack .boxEvidence:hover, .bodyBlack .btnBlue:hover, .bodyBlack .btnBlueM:hover, .bodyBlack .btnFilter:hover, .bodyBlack .btnFilterDate:hover
+{background: #666;}
+.bodyBlack .card, .bodyBlack .card li, .bodyBlack .card,
+.bodyBlack .nav-tabs .nav-item.show .nav-link, .bodyBlack .nav-tabs .nav-link.active, .bodyBlack .table .bg-light, .bodyBlack .lang ul li a:hover
+{ background: #333!important; color: #fff!important;}
+.bodyBlack .card a, .bodyBlack .card-header button, .bodyBlack .title2
+{color: #ff0!important;}
+.bodyBlack .boxParceiros:hover, .bodyBlack .homeConsult:hover .homeIconeConsulta, .bodyBlack .similaresMais
+{background:#333;}
+.bodyBlack .iconeCS,
+.bodyBlack .slick-prev::before, .bodyBlack .slick-next::before, .bodyBlack .title1,
+.bodyBlack .breadcrumb-item.active, .bodyBlack .table, .bodyBlack>.table>thead>th
+{color: #fff!important;}
+.bodyBlack img
+{background: #fff;}
+.bodyBlack .modal-backdrop.show
+{opacity: 0.5; background: #fff;}
+.bodyBlack .homeIconeConsulta
+{border-color: #fff;}
+.bodyBlack #nav a, .bodyBlack .badgeWarning
+{color: #000!important;}
+.bodyBlack ::selection {background-color: #FF0; color: #000;}
+.bodyBlack .formSelect
+{color: #fff; background: url(../img/down2.svg) no-repeat #000;	background-position: 100% center;}
+@media (max-width: 768px){
+	#fieldSearch{padding-left: 30px;}
+	#acessibilidadeFontes{text-align: center;}
+	.hiddenMobile{display: none;}
+	#barAcessibilidade{text-align: center;}
+	#speakBtn{left: 30px;}
+	#q{padding-left: 40px;}
+}

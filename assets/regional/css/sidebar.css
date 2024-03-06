@@ -1,0 +1,51 @@
+.sidenav {
+  height: 100%;
+  width: 250px;
+  position: fixed;
+  z-index: 1000;
+  top: 0;
+  left: -250px;
+  background-color: #3b2c85;
+  overflow-x: hidden;
+  transition: 0.5s;
+  padding: 60px 10px 10px 10px;
+  color: #fff;
+}
+.sidenav a {
+  text-decoration: none;
+  color: #fff;
+  display: block;
+  transition: 0.3s;
+}
+.sidenav a:hover {
+  color: #999;
+}
+.sidenav .closebtn {
+  position: absolute;
+  top: 0;
+  right: 25px;
+  font-size: 36px;
+  margin-left: 50px;
+}
+.sidenavMove{
+  left: 0px;
+}
+#sidebarOpacity{
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 999;
+  height: 100%;
+  width: 100%;
+  background-color: rgba(0, 0, 0, .6);
+  cursor: pointer;
+  display: none;
+}
+.sidenav ul{
+  list-style: none;
+  margin-left: 20px;
+  padding: 0;
+}
+.sidenav ul li{
+  border-bottom: 1px dotted #6858bb;
+}
