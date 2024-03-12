@@ -54,6 +54,20 @@ ps:
 	@docker-compose -f $(COMPOSE_FILE) ps
 
 sh:
-	@docker-compose -f $(COMPOSE_FILE) exec iahx_php sh
+	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac sh
+
+update_static:
+	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console asset-map:compile
+
+update_env:
+	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac composer dump-env prod
+
+update_packages:
+	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac composer install --no-dev --optimize-autoloader
+
+clear_cache:
+	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console cache:clear
+
+
 
 

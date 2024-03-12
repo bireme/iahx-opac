@@ -6,4 +6,10 @@ COPY ./docker/php/custom.ini /opt/bitnami/php/etc/conf.d/custom.ini
 
 WORKDIR /app
 
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+
 EXPOSE 8000
+
+CMD ["symfony", "server:start"]

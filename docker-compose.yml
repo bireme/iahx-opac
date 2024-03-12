@@ -1,0 +1,36 @@
+version: '3'
+
+services:
+  iahx_opac:
+    container_name: iahx-opac
+    restart: unless-stopped
+    build:
+      context: .
+    volumes:
+      - .:/app
+      - phpsock:/var/run
+
+  iahx_webserver:
+    image: nginx:1.25-alpine
+    container_name: iahx-webserver
+    restart: unless-stopped
+    expose:
+      - 80
+    volumes:
+      - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - .:/app
+      - phpsock:/var/run
+    depends_on:
+      - iahx_opac
+    environment:
+      - VIRTUAL_HOST=${VIRTUAL_HOST}
+      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+    networks:
+      - nginx-proxy
+
+volumes:
+  phpsock:
+
+networks:
+  nginx-proxy:
+      external: true
