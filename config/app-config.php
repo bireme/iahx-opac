@@ -1,11 +1,11 @@
 <?php
 
 // ENVIRONMENT CONSTANTS
-$PATH = str_replace("index.php", "", $_SERVER['PHP_SELF']);
+$PATH = str_replace("/index.php/", "/", $_SERVER['PHP_SELF']);
 $PATH_DATA = "/app/";
 
 // CONFIGURATION
-$config = simplexml_load_file(__DIR__ . '/config.xml');
+$config = simplexml_load_file(__DIR__ . '/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 $lang = $config->default_lang;
 
 $config["PATH_DATA"] = $PATH_DATA;
@@ -49,6 +49,5 @@ define("STATIC_URL",  SEARCH_URL . "static/" . $config->template_name);
 $logDir = ( isset( $config->log_dir ) ? $config->log_dir : "logs/");
 define('LOG_FILE',"log" . date('Ymd') . "_search.txt");
 define('LOG_DIR', $logDir);
-
 
 ?>

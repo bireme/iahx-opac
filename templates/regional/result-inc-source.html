@@ -21,7 +21,7 @@
     {% endif %}
 
     <!-- database -->
-    {% if 'LXP' in doc.services %}
+    {% if doc.services is defined ? 'LXP' in doc.services %}
         {% set disclaimer_file = 'IBECS' in doc.db ? 'ibc_llxp_disclaimer.htm' : 'llxp_disclaimer.htm' %}
         {% set lxp_db = 'IBECS' in doc.db ? 'IBECS-Express' : 'LILACS-Express' %}
 

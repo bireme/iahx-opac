@@ -43,7 +43,7 @@
                                                     <option value="{{ sort.name }}" >{{ attribute(texts.SORT, sort.name) }}</option>
                                                 {% endif %}
                                             {% else %}
-                                                <option value="{{ sort.name }}" >{{ attribute(texts.SORT, sort.name) }}</option>
+                                                <option value="{{ sort.name }}" >{{ attribute(texts.SORT, 'RELEVANCE') }}</option>
                                             {% endif %}
 
                                         {% endfor %}
@@ -110,14 +110,14 @@
 
                                    <!-- More details div -->
     							    <div class="reference-detail collapse" >
-                                        {% if doc.ab %}
+                                        {% if doc.ab is defined %}
         									<br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
                                             {% for abstract in doc.ab %}
                                                 <p>{{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}</p>
                                             {% endfor %}
                                         {% endif %}
 
-                                        {% if doc.mh %}
+                                        {% if doc.mh is defined %}
         									<br><h5 class="title2">{{ texts.RESULT.LABEL_SUBJECT }}</h5>
                                             {% for subject in doc.mh %}
                                                 <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'}) }}"'>{{ subject|raw }}</a>

@@ -97,15 +97,12 @@
                                 <div class="col-md-4 selectBoxSearch">
                                     <select name="index" class="formSelect" id="selectIndex">
                                         {% for index in collectionData.index_list.index %}
-                                            {% if params.index is defined %}
-                                                {% if index.prefix == params.index %}
-                                                    <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
-                                                {% else %}
-                                                    <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
-                                                {% endif %}
-                                            {% else %}
-                                                <option value="{{ index.prefix }}" >{{ index.name }}</option>
-                                            {% endif %}
+                                            {% set index_name = index.name|trim %}
+                                            <option value="{{ index.prefix }}"
+                                                {% if params.index is defined and index.prefix == params.index %}selected="true"{% endif %}>
+
+                                                {{ attribute(texts.INDEXES, index_name) is defined ? attribute(texts.INDEXES, index_name) }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </div>

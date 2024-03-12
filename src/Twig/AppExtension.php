@@ -95,14 +95,14 @@ class AppExtension extends \Twig\Extension\AbstractExtension
                     $output .= $separator . " ";
                 }
                 if ( $translate == true ){
-                   $output .= translate($element[$occ], $group);
+                   $output .= $this->translate($element[$occ], $group);
                 }else{
                     $output .= $element[$occ];
                 }
             }
         }else{
             if ( $translate == true ){
-                $output = translate($element, $group);
+                $output = $this->translate($element, $group);
             }else{
                 $output = $element[$occ];
             }

@@ -25,13 +25,13 @@
         </div>
         <div class="boxTools">
             {% if config.services_platform_domain != '' and app.request.cookies.has('userTK') %}
-                <a href="" class="btnTools" data-toggle="modal" data-target="#ModalRSS" title="{{ texts.SHOW_RSS }}"><i class="fas fa-rss"></i> RSS</a>
+                <a href="" class="btnTools" data-toggle="modal" data-target="#ModalRSS" title="RSS"><i class="fas fa-rss"></i> RSS</a>
             {% else %}
-                <a href="#" onclick="javascript:change_output('rss');" class="btnTools" title="{{ texts.SHOW_RSS }}"><i class="fas fa-rss"></i> RSS</a>
+                <a href="#" onclick="javascript:change_output('rss');" class="btnTools" title="RSS"><i class="fas fa-rss"></i> RSS</a>
             {% endif %}
         </div>
         <div class="boxTools">
-            <a class="btnTools" href="#" onclick="javascript:change_output('xml');" title="{{ texts.SHOW_XML }}"><i class="fas fa-code"></i> XML</a>
+            <a class="btnTools" href="#" onclick="javascript:change_output('xml');" title="XML"><i class="fas fa-code"></i> XML</a>
         </div>
 	</div>
 	<div class="box3">
