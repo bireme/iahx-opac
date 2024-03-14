@@ -20,12 +20,14 @@ final class SearchController extends AbstractController
     ){}
 
 
-    #[Route('/')]
-    public function index(Request $request): Response
+    #[Route('{instance}/')]
+    public function index(Request $request, string $instance): Response
     {
         global $config, $lang, $texts;
 
-        require(__DIR__ . '/../../config/app-config.php');
+        $app_dir = $this->getParameter('kernel.project_dir');
+
+        require($app_dir . '/config/load-instance-definitions.php');
 
         $params = [];
         foreach($request->query as $key => $value) {

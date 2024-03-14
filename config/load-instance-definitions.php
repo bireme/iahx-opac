@@ -2,10 +2,12 @@
 
 // ENVIRONMENT CONSTANTS
 $PATH = str_replace("/index.php/", "/", $_SERVER['PHP_SELF']);
-$PATH_DATA = "/app/";
+$PATH_DATA = $this->getParameter('kernel.project_dir') . '/';
+
+$instance_dir = $this->getParameter('kernel.project_dir') . '/instance/' . $_ENV['INSTANCE'];
 
 // CONFIGURATION
-$config = simplexml_load_file(__DIR__ . '/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+$config = simplexml_load_file($instance_dir . '/config/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 $lang = $config->default_lang;
 
 $config["PATH_DATA"] = $PATH_DATA;
@@ -16,7 +18,7 @@ define("APP_PATH", $PATH_DATA);
 
 define("TEMPLATE_PATH", $config->template_name);
 define("VIEWS_PATH", APP_PATH . "views/");
-define("TRANSLATE_PATH", APP_PATH . "translations/");
+define("TRANSLATE_PATH", $instance_dir . "/translations/");
 define("CACHE_PATH", APP_PATH . "cache/");
 
 // custom applications/interface
