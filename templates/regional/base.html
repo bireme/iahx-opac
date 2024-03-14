@@ -105,13 +105,13 @@
             <img src="{{ asset('regional/image/loading.gif') }}" class="rounded" alt="loading">
         </div>
         {% block header %}
-            {% include custom_template("accessibility-bar.html") %}
-            {% include custom_template("header.html") %}
+            {% include "accessibility-bar.html" %}
+            {% include "header.html" %}
             {% if config_view_filter %}
-                {% include custom_template("sidebar.html") %}
+                {% include "sidebar.html" %}
             {% endif %}
             {% if config_wizard_list %}
-                {% include custom_template("wizard.html") %}
+                {% include "wizard.html" %}
             {% endif %}
         {% endblock %}
         <section class="">
@@ -140,7 +140,7 @@
         </section>
 
         {% block footer %}
-            {% include custom_template("footer.html") %}
+            {% include "footer.html" %}
         {% endblock %}
 
         {% block extrafooter %}
