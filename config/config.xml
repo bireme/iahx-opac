@@ -40,7 +40,7 @@
     <decs_locate_filter>mh</decs_locate_filter>
     <mobile_version>true</mobile_version>
     <show_config_filter>true</show_config_filter>
-    <use_https>false</use_https>
+    <use_https>true</use_https>
     <check_alternate_id>true</check_alternate_id>
     <epistemonikos_token>3d935650060aada1c7e4de7af8ab6a69</epistemonikos_token>
     <template_name>regional</template_name>
