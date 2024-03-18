@@ -1,4 +1,4 @@
-{% extends "base.html" %}
+{% extends "regional/base.html" %}
 
 {% block breadcrumb_last %}
     {% if params.filterLabel is defined and params.fiterLabel is not empty %}
@@ -23,7 +23,7 @@
 
     {% if docs|length > 0 %}
         {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
-            {% include custom_template('index-filters.html') %}
+            {% include 'regional/index-filters.html' %}
         {% else %}
         <section class="">
     		<div class="container">
@@ -71,7 +71,7 @@
     					</div>
     				</div>
                     <!-- Filter column -->
-                    {% include custom_template('column-filters.html') %}
+                    {% include 'regional/column-filters.html' %}
     				<!-- Result column -->
     				<div class="col-md-7 d-print-block" id="main_container">
     					{% for doc in docs %}
@@ -106,7 +106,7 @@
                                    {% endif %}
 
                                    <!-- display source fields -->
-                                   {% include custom_template("result-inc-source.html") %}
+                                   {% include 'regional/result-inc-source.html' %}
 
                                    <!-- More details div -->
     							    <div class="reference-detail collapse" >
@@ -130,7 +130,7 @@
     					{% endfor %}
     				</div>
                     <!-- Options column -->
-                    {% include custom_template('column-result-actions.html') %}
+                    {% include 'regional/column-result-actions.html' %}
     			</div>
                 <!-- <div class="text-center">
     				Página <input type="text" value="1" size="1" class="text-center"> de 10 <a href=""><i class="fas fa-angle-right fa-2x"></i></a>
@@ -215,7 +215,7 @@
                         </div>
 
                 </div>
-                {% include custom_template('column-filters.html') %}
+                {% include 'regional/column-filters.html' %}
             </div>
         </div>
     {% endif %}

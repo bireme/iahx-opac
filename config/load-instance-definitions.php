@@ -16,13 +16,10 @@ $config["SERVERNAME"] = $_SERVER["HTTP_HOST"];
 
 define("APP_PATH", $PATH_DATA);
 
-define("TEMPLATE_PATH", $config->template_name);
+define("TEMPLATE_NAME", $config->template_name);
 define("VIEWS_PATH", APP_PATH . "views/");
 define("TRANSLATE_PATH", $instance_dir . "/translations/");
 define("CACHE_PATH", APP_PATH . "cache/");
-
-// custom applications/interface
-define("CUSTOM_TEMPLATE_PATH", TEMPLATE_PATH . "/custom/");
 
 $DEFAULT_PARAMS = array();
 $DEFAULT_PARAMS['lang'] = $lang;

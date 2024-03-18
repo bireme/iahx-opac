@@ -15,7 +15,7 @@
 
         <link rel="stylesheet" href="{{ asset('regional/css/style.css') }}">
         {% if config.use_custom_stylesheet == 'true' %}
-        <link rel="stylesheet" href="{{ asset('regional/custom/css/style.css') }}">
+        <link rel="stylesheet" href="{{ asset('regional/css/custom.css') }}">
         {% endif %}
         <link rel="stylesheet" href="{{ asset('regional/css/acessibilidade.css') }}">
         {% if config_view_filter %}
@@ -105,13 +105,13 @@
             <img src="{{ asset('regional/image/loading.gif') }}" class="rounded" alt="loading">
         </div>
         {% block header %}
-            {% include "accessibility-bar.html" %}
-            {% include "header.html" %}
+            {% include "regional/accessibility-bar.html" %}
+            {% include "regional/header.html" %}
             {% if config_view_filter %}
-                {% include "sidebar.html" %}
+                {% include "regional/sidebar.html" %}
             {% endif %}
             {% if config_wizard_list %}
-                {% include "wizard.html" %}
+                {% include "regional/wizard.html" %}
             {% endif %}
         {% endblock %}
         <section class="">
@@ -140,7 +140,7 @@
         </section>
 
         {% block footer %}
-            {% include "footer.html" %}
+            {% include "regional/footer.html" %}
         {% endblock %}
 
         {% block extrafooter %}

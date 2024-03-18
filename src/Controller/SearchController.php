@@ -415,7 +415,7 @@ final class SearchController extends AbstractController
 
             $output_array['email'] = $email;
 
-            $render = $app['twig']->render( $this->auxFunctions->custom_template('export-email.html'), $output_array);
+            $render = $this->render(TEMPLATE_NAME . '/export-email.html', $output_array);
             $from_name = (isset($email['name']) ? $email['name'] : '') . ' (' . $texts['BVS_HOME'] . ')' ;
             $subject = (isset($email['subject']) ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
@@ -484,18 +484,18 @@ final class SearchController extends AbstractController
                 break;
 
             case "print":
-                return $app['twig']->render('print.html', $output_array);
+                return $this->render(TEMPLATE_NAME . '/print.html', $output_array);
                 break;
 
             case "rss":
                 $output_array['search_url'] =  'http://' . $_SERVER['HTTP_HOST'] . str_replace('output=rss', 'output=site', $_SERVER['REQUEST_URI']);
-                $response = new Response($app['twig']->render( $this->auxFunctions->custom_template('export-rss.html'), $output_array));
+                $response = new Response($this->render(TEMPLATE_NAME . '/export-rss.html', $output_array));
                 $response->headers->set('Content-type', 'text/xml');
                 return $response->sendHeaders();
                 break;
 
             case "metasearch":
-                $response = new Response($app['twig']->render('export-metasearch.html', $output_array));
+                $response = new Response($this->render(TEMPLATE_NAME . '/export-metasearch.html', $output_array));
                 $response->headers->set('Content-type', 'text/xml');
                 return $response->sendHeaders();
                 break;
@@ -543,7 +543,7 @@ final class SearchController extends AbstractController
 
                 while ($from <= $export_total){
                     // export results
-                    $export_content_range = $app['twig']->render( $this->auxFunctions->custom_template($export_template), $output_array);
+                    $export_content_range = $this->render(TEMPLATE_NAME . $export_template, $output_array);
                     // normalize line end
                     if ($output == 'csv' || $output == 'ris'){
                         $export_content_range = preg_replace("/\n/", "", $export_content_range);                 //Remove line end
@@ -598,7 +598,7 @@ final class SearchController extends AbstractController
                 // var_dump($texts);
                 // die();
 
-                return $this->render( $this->auxFunctions->custom_template($view . '/index.html'), $output_array);
+                return $this->render(TEMPLATE_NAME . $view . '/index.html', $output_array);
 
                 break;
         }

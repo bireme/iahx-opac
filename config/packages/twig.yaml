@@ -1,10 +1,10 @@
 twig:
     file_name_pattern: '*.twig'
-    default_path: '%kernel.project_dir%/templates/regional'
+    default_path: '%kernel.project_dir%/templates/'
 
     paths:
         # twig will look for the template first on this directory
-        'instance/%env(INSTANCE)%/templates/regional': ~
+        'instance/%env(INSTANCE)%/templates/': ~
 
 when@test:
     twig:
