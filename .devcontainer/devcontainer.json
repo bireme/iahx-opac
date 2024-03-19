@@ -33,7 +33,7 @@
 	// Uncomment the next line to run commands after the container is created.
 	// "postCreateCommand": "cat /etc/os-release",
 
-    "postCreateCommand": "composer update"
+    "postCreateCommand": "git config --global --add safe.directory ${containerWorkspaceFolder} && composer update"
 
 	// Configure tool-specific properties.
 	// "customizations": {},
