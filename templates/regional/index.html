@@ -36,7 +36,7 @@
                                         <option value="">{{ texts.SORT_OPTIONS }}</option>
                                         {% for sort in collectionData.sort_list.sort %}
 
-                                            {% if params.sort is defined %}
+                                            {% if params.sort is defined and params.sort %}
                                                 {% if sort.name == params.sort %}
                                                     <option value="{{ sort.name }}" selected="true">{{ attribute(texts.SORT, sort.name) }}</option>
                                                 {% else %}
