@@ -1,1 +1,0 @@
-Templates in this directory overwrite the default templates
