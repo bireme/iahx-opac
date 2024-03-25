@@ -1,13 +1,14 @@
 default: build
 
 COMPOSE_FILE = docker-compose.yml
-COMPOSE_FILE_DEV = docker-compose-dev.yml
-COMPOSE_FILE_DEMO = docker-compose-demo.yml
-
+COMPOSE_FILE_DEV = .devcontainer/docker-compose-dev.yml
 
 ## docker-compose shortcuts
 dev_build:
 	@docker-compose -f $(COMPOSE_FILE_DEV) build
+
+dev_build_no_cache:
+	@docker-compose -f $(COMPOSE_FILE_DEV) build --no-cache
 
 dev_run:
 	@docker-compose -f $(COMPOSE_FILE_DEV) up

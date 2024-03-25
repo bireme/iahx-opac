@@ -2,5 +2,5 @@ framework:
     asset_mapper:
         # The paths to make available to the asset mapper.
         paths:
-            - instance/%env(INSTANCE)%/assets/
+            - instances/%env(INSTANCE)%/assets/
             - assets/

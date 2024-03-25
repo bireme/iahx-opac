@@ -4,7 +4,7 @@ twig:
 
     paths:
         # twig will look for the template first on this directory
-        'instance/%env(INSTANCE)%/templates/': ~
+        'instances/%env(INSTANCE)%/templates/': ~
 
 when@test:
     twig:

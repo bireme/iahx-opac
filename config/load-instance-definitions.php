@@ -4,7 +4,7 @@
 $PATH = str_replace("/index.php/", "/", $_SERVER['PHP_SELF']);
 $PATH_DATA = $this->getParameter('kernel.project_dir') . '/';
 
-$instance_dir = $this->getParameter('kernel.project_dir') . '/instance/' . $_ENV['INSTANCE'];
+$instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $_ENV['INSTANCE'];
 
 // CONFIGURATION
 $config = simplexml_load_file($instance_dir . '/config/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
