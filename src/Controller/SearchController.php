@@ -351,7 +351,7 @@ final class SearchController extends AbstractController
         // check if query alread register in session
         $query_id = md5($detailed_query);
 
-        if($q != "" and find_in_array($history, 'id', $query_id) == false and $output == 'site') {
+        if($q != "" and $this->auxFunctions->find_in_array($history, 'id', $query_id) == false and $output == 'site') {
             $new_history['id'] = $query_id;
             $new_history['q'] = $params['q'];
             $new_history['detailed_query'] = $detailed_query;
