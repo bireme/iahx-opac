@@ -29,7 +29,7 @@ dev_ps:
 	@docker-compose -f $(COMPOSE_FILE_DEV) ps
 
 dev_sh:
-	@docker-compose -f $(COMPOSE_FILE_DEV) exec iahx_opac sh
+	@docker-compose -f $(COMPOSE_FILE_DEV) exec iahx_opac bash
 
 
 ## docker-compose shortcuts
@@ -55,7 +55,7 @@ ps:
 	@docker-compose -f $(COMPOSE_FILE) ps
 
 sh:
-	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac sh
+	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac bash
 
 update_static:
 	@docker-compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console asset-map:compile

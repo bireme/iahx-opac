@@ -7,7 +7,7 @@ services:
     build:
       context: .
     volumes:
-      - .:/app
+      - app_files:/app
       - phpsock:/var/run
 
   iahx_webserver:
@@ -17,18 +17,19 @@ services:
     expose:
       - 80
     volumes:
+      - app_files:/app
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
-      - .:/app
       - phpsock:/var/run
     depends_on:
       - iahx_opac
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
-      - LETSENCRYPT_HOST=${LETSENCRYPT_HOST}
+      - LETSENCRYPT_HOST=${VIRTUAL_HOST}
     networks:
       - nginx-proxy
 
 volumes:
+  app_files:
   phpsock:
 
 networks:

@@ -1,7 +1,6 @@
 <?php
 
 // ENVIRONMENT CONSTANTS
-$PATH = str_replace("/index.php/", "/", $_SERVER['PHP_SELF']);
 $PATH_DATA = $this->getParameter('kernel.project_dir') . '/';
 
 $instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $_ENV['INSTANCE'];
@@ -41,7 +40,7 @@ $DEFAULT_PARAMS['defaultDisplayFormat'] = (string) $DEFAULT_PARAMS['defaultColle
 // urls
 $protocol = ( (isset($config->use_https) && $config->use_https == 'true') ? 'https' : 'http');
 
-define("SEARCH_URL",  $protocol . "://" . $_SERVER['HTTP_HOST'] . $PATH);
+define("SEARCH_URL",  $protocol . "://" . $_SERVER['HTTP_HOST'] . '/' . $_ENV['INSTANCE'] . '/');
 define("STATIC_URL",  SEARCH_URL . "static/" . $config->template_name);
 
 // log's configuration
