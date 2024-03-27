@@ -21,13 +21,13 @@ RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Install project dependencies
+ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --optimize-autoloader
-
-# Pull submodule instances
-RUN git submodule init && git submodule update
-RUN cd instances && git checkout main
 
 # Compile project assets
 RUN php bin/console asset-map:compile
+
+# Generate environment prod
+RUN composer dump-env prod
 
 EXPOSE 80
