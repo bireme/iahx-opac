@@ -22,6 +22,9 @@ services:
       - phpsock:/var/run
     depends_on:
       - iahx_opac
+    env_file:
+      - .env
+      - .env.local
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST}
