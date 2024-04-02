@@ -59,12 +59,12 @@
                         <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
                     {% endif %}
 
-                        <input type="hidden" name="output" id="output" value="{{ output }}">
+                        <input type="hidden" name="output" id="output" value="{{ output|default(null) }}">
                         <input type="hidden" name="lang" id="lang" value="{{ lang }}">
-                        <input type="hidden" name="from" id="from" value="{{ from }}">
-                        <input type="hidden" name="sort" id="sort" value="{{ sort }}">
-                        <input type="hidden" name="format" id="format" value="{{ format }}">
-                        <input type="hidden" name="count" id="count" value="{{ pag.count }}">
+                        <input type="hidden" name="from" id="from" value="{{ from|default(null) }}">
+                        <input type="hidden" name="sort" id="sort" value="{{ sort|default(null) }}">
+                        <input type="hidden" name="format" id="format" value="{{ format|default(null) }}">
+                        <input type="hidden" name="count" id="count" value="{{ pag.count|default(null) }}">
                         {% if params.filterLabel is defined %}
                             <input type="hidden" name="filterLabel" id="label" value="{{ params.filterLabel }}">
                         {% endif %}
@@ -85,7 +85,7 @@
                             {% endfor %}
                         {% endif %}
 
-                        {% if range_year_start %}
+                        {% if range_year_start is defined %}
                             <input type="hidden" name="range_year_start" id="range_year_start" value="{{ range_year_start }}">
                             <input type="hidden" name="range_year_end" id="range_year_end" value="{{ range_year_end }}">
                         {% endif %}
@@ -143,7 +143,7 @@
                     </form>
                 </div>
                 <div style="margin-top: 10px;">
-                    {% if config_view_filter %}
+                    {% if config_view_filter is defined %}
                         <a href="#" id="btSidebar" data-view="{{config_view_filter}}" class="btn btn-sm btn-outline-primary">{{ texts.VIEW_FILTER }}</a>
                     {% endif %}
                 </div>

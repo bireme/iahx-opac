@@ -40,7 +40,7 @@ class SearchSolr
         $this->param["q"] = $query;
         $this->param["index"] = $index;
 
-        $initial_filter = $this->param['initial_filter'];
+        $initial_filter = $this->param['initial_filter'] ?? '';
 
         if ($from != "" && $from > 0){
             $this->param["start"] = ($from - 1);
@@ -72,8 +72,10 @@ class SearchSolr
 
         $this->param["fq"] = $filter;
 
-        $filter_list = $this->param["filter_list"];
-        if (isset($filter_list) && !empty($filter_list)){
+        if (isset($this->param["filter_list"])){
+
+            $filter_list = $this->param["filter_list"];
+
             foreach ($filter_list as $filter){
                 $filter_name = (string) $filter;
                 $this->param["facet.field"][] = (string) $filter;

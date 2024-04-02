@@ -1,5 +1,5 @@
 <!-- source -->
-{% if doc.fo %}
+{% if doc.fo is defined %}
     <div class="reference">
         {% set journal = doc.fo.0|substring_before(';') %}
         {% if journal != '' and doc.type.0 == 'article' %}

@@ -1,5 +1,6 @@
-{% extends "index.html" %}
-{% block title %}{{ doc.ti.0 }} {% if doc.fo.0 %} | {{ doc.fo.0 }} {% endif %} {% if doc.db %} | {{ occ({'element': doc.db, separator: ' | '}) }} {% endif %}{% endblock %}
+{% extends "regional/index.html" %}
+
+{% block title %}{{ doc.ti.0 }} {% if doc.fo.0 is defined %} | {{ doc.fo.0 }} {% endif %} {% if doc.db is defined %} | {{ occ({'element': doc.db, separator: ' | '}) }} {% endif %}{% endblock %}
 
 {% block breadcrumb_last %}
     {%if doc.ti.0 is defined %}{{doc.ti.0|slice(0,90)}}{% else %}{{ doc.ti|slice(0,90)}}{% endif %}
@@ -35,20 +36,22 @@
         {% endfor %}
     {% endif %}
 
-    {% if doc.book_title %}
+    {% if doc.book_title is defined %}
         <meta name="citation_inbook_title" content="{{ doc.book_title }}" />
     {% endif %}
 
-    {% if doc.type.0 == "article" %}
+    {% if doc.type.0 == "article" and doc.ta.0 is defined %}
         <meta name="citation_journal_title" content="{{ doc.ta.0 }}" />
     {% endif %}
 
-    {% if "-" in doc.pg.0 %}
-        <meta name="citation_firstpage" content="{{ doc.pg.0|substring_before('-')|trim }}" />
-        <meta name="citation_lastpage" content="{{ doc.pg.0|substring_after('-')|trim }}" />
-    {% else %}
-        <meta name="citation_firstpage" content="{{ doc.pg.0 }}" />
-        <meta name="citation_lastpage" content="{{ doc.pg.0 }}" />
+    {% if doc.pg is defined %}
+        {% if "-" in doc.pg.0 %}
+            <meta name="citation_firstpage" content="{{ doc.pg.0|substring_before('-')|trim }}" />
+            <meta name="citation_lastpage" content="{{ doc.pg.0|substring_after('-')|trim }}" />
+        {% else %}
+            <meta name="citation_firstpage" content="{{ doc.pg.0 }}" />
+            <meta name="citation_lastpage" content="{{ doc.pg.0 }}" />
+        {% endif %}
     {% endif %}
 
     <meta name="citation_language" content="{{ doc.la.0 }}" />
@@ -147,7 +150,8 @@
                     {% endif %}
                 </div>
 
-                {% include custom_template("result-inc-source.html") %}
+                {% include "regional/result-inc-source.html" %}
+
                 <!-- center -->
                 {% if doc.cc is defined %}
                 	<div>
@@ -168,7 +172,7 @@
                 {% endif %}
 
                 <!-- relation: preprint -> article -->
-                {% if doc.id_published %}
+                {% if doc.id_published is defined %}
                     <div style="margin-top: 20px">
                         {% if lang == 'pt' %}
                             <strong>Artigo de periódico</strong><br/>
@@ -189,7 +193,7 @@
                     </div>
                 {% endif %}
                 <!-- relation: article -> preprint -->
-                {% if doc.id_pprint %}
+                {% if doc.id_pprint is defined %}
                     <div style="margin-top: 20px">
                         <strong>Preprint</strong><br/>
                         {% if lang == 'pt' %}
@@ -209,7 +213,7 @@
                 {% endif %}
             </div>
 
-            {% if doc.semantic_triple %}
+            {% if doc.semantic_triple is defined %}
                 <div class="box4">
                     <div>
                         <div class="semantic_box" style="margin-top: 20px;">
@@ -394,7 +398,7 @@
             {% endif %}
 
             <div class="col-12 d-block d-md-none box4">
-                {% include custom_template('column-detail-actions.html') %}
+                {% include "regional/column-detail-actions.html" %}
             </div>
 
             {% if config.show_similar_docs == 'true' %}
@@ -442,7 +446,7 @@
         </div> <!-- /col-md-9 -->
 
         <div class="col-md-3 d-print-none d-none d-md-block">
-            {% include custom_template('column-detail-actions.html') %}
+            {% include "regional/column-detail-actions.html" %}
         </div>
     </div>
 
@@ -457,7 +461,7 @@
     {% if config.epistemonikos_token %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">
-            doc_id = '{% if "MEDLINE" in doc.db %}{% if doc.alternate_id %}{{ doc.alternate_id.0|substring_after('-') }}{% else %}{{ doc.id|substring_after('-') }}{% endif %}{% else %}{{ doc.id }}{% endif %}';
+            doc_id = '{% if "MEDLINE" in doc.db %}{% if doc.alternate_id is defined %}{{ doc.alternate_id.0|substring_after('-') }}{% else %}{{ doc.id|substring_after('-') }}{% endif %}{% else %}{{ doc.id }}{% endif %}';
             service_url = '{{ constant("SEARCH_URL") }}' + 'epistemonikos/' + LANG + '/' + doc_id;
 
             $("#epistemonikos_info" ).load(service_url);

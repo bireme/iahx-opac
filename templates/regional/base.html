@@ -18,10 +18,10 @@
         <link rel="stylesheet" href="{{ asset('regional/css/custom.css') }}">
         {% endif %}
         <link rel="stylesheet" href="{{ asset('regional/css/acessibilidade.css') }}">
-        {% if config_view_filter %}
+        {% if config_view_filter is defined %}
         <link rel="stylesheet" href="{{ asset('regional/css/sidebar.css') }}">
         {% endif %}
-        {% if config_wizard_list %}
+        {% if config_wizard_list is defined %}
         <link rel="stylesheet" href="{{ asset('regional/css/smart_wizard_all.min.css') }}">
         {% endif %}
         {% if config.impact_measurement_code is defined %}
@@ -47,7 +47,7 @@
             var LANG = '{{ lang }}';
             var SEARCH_URL = '{{ constant("SEARCH_URL") }}';
             var STATIC_URL = '{{ constant("STATIC_URL") }}';
-            var RESULT_PAGE = {% if pag.total %}true{% else %}false{% endif %};
+            var RESULT_PAGE = {% if pag.total is defined %}true{% else %}false{% endif %};
             var ADD_TO_COLLECTION_SUCCESS = '{{ texts.ADD_TO_COLLECTION_SUCCESS }}';
             var ADD_TO_COLLECTION_ERROR = '{{ texts.ADD_TO_COLLECTION_ERROR }}';
             var COLLECTION_EXISTS = '{{ texts.COLLECTION_EXISTS }}';
@@ -59,7 +59,7 @@
             var RSS_EXISTS = '{{ texts.RSS_EXISTS }}';
             var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain }}';
             var QUERY = '{{ q }}'.trim();
-            var FILTER = '{{ filters|filters_to_string }}'.trim();
+            var FILTER = {% if filters is defined %}'{{ filters|filters_to_string }}'.trim(){% endif %};
             var SITE = '{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}'.trim();
         </script>
 
@@ -107,10 +107,10 @@
         {% block header %}
             {% include "regional/accessibility-bar.html" %}
             {% include "regional/header.html" %}
-            {% if config_view_filter %}
+            {% if config_view_filter is defined %}
                 {% include "regional/sidebar.html" %}
             {% endif %}
-            {% if config_wizard_list %}
+            {% if config_wizard_list is defined %}
                 {% include "regional/wizard.html" %}
             {% endif %}
         {% endblock %}
@@ -185,18 +185,18 @@
         <script src="{{ asset('regional/js/functions.js') }}"></script>
         <script src="{{ asset('regional/js/ready.js') }}"></script>
         <script src="{{ asset('regional/js/main.js') }}"></script>
-        {% if query_info_clusters %}
+        {% if query_info_clusters is defined %}
         <script src="{{ asset('regional/js/query_info.js') }}"></script>
         {% endif %}
-        {% if config_view_filter %}
+        {% if config_view_filter is defined %}
         <script src="{{ asset('regional/js/sidebar.js') }}"></script>
         {% endif %}
-        {% if config_wizard_list %}
+        {% if config_wizard_list is defined %}
         <script src="{{ asset('regional/js/jquery.smartWizard.min.js') }}" type="text/javascript"></script>
         <script src="{{ asset('regional/js/wizard.js') }}" type="text/javascript"></script>
         {% endif %}
 
-        {% if config.services_platform_domain != '' %}
+        {% if config.services_platform_domain is defined %}
         <script src="{{ asset('regional/js/add_collection.js') }}"></script>
         <script type="text/javascript">
             $(document).ready( function(){
@@ -212,15 +212,15 @@
                     obj.col = $.trim('{{ config.search_collection_list.collection.name }}');
                     obj.site = SITE;
                     obj.query = QUERY;
-                    obj.index = $.trim('{{ index }}');
+                    obj.index = $.trim('{{ index|default(null) }}');
                     obj.where = $.trim('{{ params.where is defined ? params.where }}');
                     obj.filter = FILTER;
-                    obj.page = $.trim('{{ page }}');
-                    obj.output = $.trim('{{ current_page }}');
+                    obj.page = $.trim('{{ page|default(null) }}');
+                    obj.output = $.trim('{{ current_page|default(null) }}');
                     obj.referer = $.trim(document.referrer);
                     obj.session = $.trim('{{ app.session.getId() }}');
-                    obj.format = $.trim('{{ format }}');
-                    obj.sort = $.trim('{{ sort }}');
+                    obj.format = $.trim('{{ format|default(null) }}');
+                    obj.sort = $.trim('{{ sort|default(null) }}');
 
                     $.post(SERVICES_PLATFORM_DOMAIN + '/logs/', obj, function(data){
                         console.log(data);
