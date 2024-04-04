@@ -8,9 +8,6 @@ RUN apt update -y && apt install -y git
 COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
 COPY ./docker/php/custom.ini /opt/bitnami/php/etc/conf.d/custom.ini
 
-# Copy project files
-COPY . /app
-
 # Change to app directory
 WORKDIR /app
 
@@ -21,9 +18,15 @@ RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
 # Copy composer binary to the image
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
+# Copy dependencies control files
+COPY composer.json composer.lock /app
+
 # Install project dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
-RUN composer install --optimize-autoloader
+RUN composer install --optimize-autoloader --no-scripts
+
+# Copy project files
+COPY . /app
 
 # Compile project assets
 RUN php bin/console asset-map:compile

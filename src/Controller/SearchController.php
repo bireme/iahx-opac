@@ -442,6 +442,7 @@ final class SearchController extends AbstractController
         // Impact Measurement
         $im_api = 'https://im.bireme.org/api/main/?format=json&code=';
         $im_scope = strval($config->impact_measurement_cookie_domain_scope);
+        $im_code = strval($config->impact_measurement_code);
 
         $cookie_im = $request->cookies->get('impact_measurement');
         if ( !$cookie_im ) {
@@ -460,7 +461,7 @@ final class SearchController extends AbstractController
 
                 foreach ($domains as $domain => $url) {
                     if ( ! empty($url) ) {
-                        $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$code.'&im_data='.base64_encode($im_api);
+                        $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$im_code.'&im_data='.base64_encode($im_api);
                     }
                 }
 
