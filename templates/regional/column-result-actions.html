@@ -55,7 +55,13 @@
     	            {% if key == "from" or key == "page" %}
     	                <input type="hidden" name="{{ key }}" value="1">
     	            {% else %}
-    	                <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% if value is iterable %}
+                            {% for list_value in value %}
+                                <input type="hidden" name="{{ key }}[]" value="{{ list_value }}">
+                            {% endfor %}
+                        {% else %}
+    	                    <input type="hidden" name="{{ key }}" value="{{ value }}">
+                        {% endif %}
     	            {% endif %}
     	        {% endif %}
     	    {% endfor %}

@@ -386,7 +386,7 @@
 	</div>
         {% if config.feedback_button_urls is defined %}
             <div id="iconeFeedback">
-                <a href="{{ attribute(config.feedback_button_urls, lang) }}" target="blank"><img src="{{ asset('regional/image/{{lang}}/iconFeedback.svg') }}" alt=""></a>
+                <a href="{{ attribute(config.feedback_button_urls, lang) }}" target="blank"><img src="{{ asset('regional/image/' ~ lang ~ '/iconFeedback.svg') }}" alt=""></a>
             </div>
         {% endif %}
     {% endif %}

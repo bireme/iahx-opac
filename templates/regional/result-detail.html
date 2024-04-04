@@ -263,7 +263,7 @@
                 </div>
             {% endif %}
 
-            {% if doc.ab or doc.mh or doc.kw %}
+            {% if doc.ab is defined or doc.mh is defined or doc.kw is defined %}
                 <!-- abstract / subject box -->
                 <div class="box4 d-print-flex-12">
                     {% set mark_ab_list = [] %}
@@ -278,13 +278,13 @@
                         {% endif %}
                     {% endfor %}
 
-                    {% if mark_ab_list %}
+                    {% if mark_ab_list is defined %}
                         {% set ab_list = mark_ab_list %}
-                    {% elseif raw_ab_list %}
+                    {% elseif raw_ab_list is defined %}
                         {% set ab_list = raw_ab_list %}
                     {% endif %}
 
-                    {% if ab_list %}
+                    {% if ab_list is defined %}
                         {% for ab_field in ab_list %}
                             {% set ab_lang = ab_field|split('_')|last %}
                             {% if ab_lang == lang %}

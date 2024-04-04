@@ -143,7 +143,7 @@
                     </form>
                 </div>
                 <div style="margin-top: 10px;">
-                    {% if config_view_filter is defined %}
+                    {% if config_view_filter is defined and config_view_filter is not null %}
                         <a href="#" id="btSidebar" data-view="{{config_view_filter}}" class="btn btn-sm btn-outline-primary">{{ texts.VIEW_FILTER }}</a>
                     {% endif %}
                 </div>

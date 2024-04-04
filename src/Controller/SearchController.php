@@ -194,7 +194,7 @@ final class SearchController extends AbstractController
         // apply view_filters
         $view_filter_param = array();
         $view_filter = '';
-        $config_view_filter = ($collectionData->view_filter ? $collectionData->view_filter : '');
+        $config_view_filter = ($collectionData->view_filter ? $collectionData->view_filter : null);
         if( !empty($params['view_filter']) ) {
             $view_filter_param = $params['view_filter'];
             $view_filter_array = array();

@@ -18,7 +18,7 @@
         <link rel="stylesheet" href="{{ asset('regional/css/custom.css') }}">
         {% endif %}
         <link rel="stylesheet" href="{{ asset('regional/css/acessibilidade.css') }}">
-        {% if config_view_filter is defined %}
+        {% if config_view_filter is defined and config_view_filter is not null  %}
         <link rel="stylesheet" href="{{ asset('regional/css/sidebar.css') }}">
         {% endif %}
         {% if config_wizard_list is defined %}
@@ -107,7 +107,7 @@
         {% block header %}
             {% include "regional/accessibility-bar.html" %}
             {% include "regional/header.html" %}
-            {% if config_view_filter is defined %}
+            {% if config_view_filter is defined and config_view_filter is not null %}
                 {% include "regional/sidebar.html" %}
             {% endif %}
             {% if config_wizard_list is defined %}
@@ -164,7 +164,7 @@
                     </div>
                 </div>
                 <div id="iconFeedback">
-                    <img src="{{ asset('regional/image/{{ lang|slice(0, 2) }}/iconFeedback.svg') }}" alt="">
+                    <img src="{{ asset('regional/image/' ~ lang ~ '/iconFeedback.svg') }}" alt="">
                 </div>
                 <div class="clear"></div>
             </div>
@@ -188,7 +188,7 @@
         {% if query_info_clusters is defined %}
         <script src="{{ asset('regional/js/query_info.js') }}"></script>
         {% endif %}
-        {% if config_view_filter is defined %}
+        {% if config_view_filter is defined and config_view_filter is not null%}
         <script src="{{ asset('regional/js/sidebar.js') }}"></script>
         {% endif %}
         {% if config_wizard_list is defined %}
