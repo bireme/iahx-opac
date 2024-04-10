@@ -6,6 +6,7 @@ services:
       context: .
     volumes:
       - static_files:/app/public
+      - ./instances/:/app/instances
       - phpsock:/var/run
 
   iahx_webserver:
