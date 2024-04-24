@@ -108,8 +108,8 @@ function export_xml_record(id) {
 }
 
 // advanced search
-function decs_locator(base_url) {
-    $("#searchForm").attr("action",base_url + "decs-locator/");
+function decs_locator(url) {
+    $("#searchForm").attr("action", url);
     $("#searchForm").submit();
 }
 
