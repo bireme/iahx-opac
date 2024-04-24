@@ -1,4 +1,4 @@
-{% extends custom_template("base.html") %}
+{% extends "regional/base.html" %}
 
 {% block header %}
     {% if mode != 'dataentry' %}
@@ -28,17 +28,19 @@
 				<div class="col-md-12 box4">
 					<div class="form-group">
 						<label for=""><b>{{ texts.DECS_LOOKUP }}</b></label>
-                        <form action="{{ constant("SEARCH_URL") }}decs-locator/" id="DeCSForm">
+                        <form action="{{ constant("SEARCH_URL") }}decs-locator/{{lang}}/" id="DeCSForm">
                             <input type="hidden" name="lang" value="{{lang}}"/>
                             <input type="hidden" name="mode" value="{{mode}}"/>
                             <input type="hidden" name="tree_id" id="tree_id" value=""/>
-                            {% for name, items in filters if filters is defined %}
-                                {% for item in items %}
-                                    <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
+                            {% if filters is defined %}
+                                {% for name, items in filters %}
+                                    {% for item in items %}
+                                        <input type="hidden" name="filter[{{ name }}][]" value="{{ item }}">
+                                    {% endfor %}
                                 {% endfor %}
-                            {% endfor %}
+                            {% endif %}
 
-					        <input type="text" class="form-control" id="query" autocomplete="off" placeholder="{{texts.SEARCH_WORDS}}">
+					        <input type="text" class="form-control" id="query" autocomplete="off">
                         </form>
 					</div>
 					<div class="row">
@@ -47,13 +49,12 @@
 
                             {# CASE 1:  LEVEL 0 OF DECS HIERARCY #}
                             {% if decs.tree.term_list.term is defined %}
+
                                 <ul class="tree">
                                     {% for t_list in decs.tree.term_list %}
-                                        {% if t_list.attributes.lang == lang %}
-                                            {% for term in t_list %}
-                                                <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
-                                            {% endfor %}
-                                        {% endif %}
+                                        {% for term in t_list %}
+                                            <li><a href="#" onclick="view_tree('{{ term.attributes.tree_id }}')">{{ term }}</a></li>
+                                        {% endfor %}
                                     {% endfor %}
                                 </ul>
 
@@ -206,7 +207,7 @@
                                         {% endif %}
                                     {% endif %}
 
-                                    {% if decs.record_list.record.definition.occ.attributes.n != '' or decs.record_list.record.synonym_list.synonym != '' %}
+                                    {% if decs.record_list.record.definition.occ.attributes.n != '' or decs.record_list.record.synonym_list.synonym is defined %}
                                         <div class="alert alert-secondary" role="alert">
 
                                             <p>{{ decs.record_list.record.definition.occ.attributes.n }}</p>
@@ -220,7 +221,7 @@
                                                 </div>
                                             {% endif %}
 
-                                            {% if decs.record_list.record.synonym_list.synonym %}
+                                            {% if decs.record_list.record.synonym_list.synonym is defined %}
                                                 <div>
                                                     <strong>{{ texts.SYNONYMS }}:</strong>
                                                     <ul>
@@ -230,6 +231,8 @@
                                                     </ul>
                                                 </div>
                                             {% endif %}
+
+                                            {% if decs.record_list.record.tree_id_list.tree_id is defined %}
                                             <div>
                                                 <strong>{{ texts.CATEGORIES }}:</strong>
                                                 <ul>
@@ -238,6 +241,7 @@
                                                     {% endfor %}
                                                 </ul>
                                             </div>
+                                            {% endif %}
 
                                             {% if mode == 'dataentry' and decs.record_list.record.pharmacological_action_list.pharmacological_action %}
                                                 <div>
@@ -270,7 +274,7 @@
                                                 </div>
                                             {% endif %}
 
-                                            {% if decs.record_list.record.see_related_list.see_related %}
+                                            {% if decs.record_list.record.see_related_list.see_related is defined %}
                                                 <div>
                                                     <strong>{{ texts.RELATED }}:</strong>
                                                     <ul>
@@ -283,7 +287,7 @@
                                         </div>
                                     {% endif %}
 
-                                    {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier != '' %}
+                                    {% if decs.record_list.record.allowable_qualifier_list.allowable_qualifier is defined %}
                                         {% if mode is defined and mode == 'dataentry'%}
                                             <strong>{{ texts.SPECIFY_ASPECT }}</strong>
                                         {% else %}
@@ -297,7 +301,7 @@
                                                     <a href="javascript:showQualifierInfo('{{qlf.attributes.id}}')">{{  attribute(texts, qlf) }}</a>
                                                 {% else %}
                                                     <input type="checkbox" name="qlf" class="qlf" value="{{ qlf }}" id="{{ qlf }}"/>
-                                                    <label for="{{ qlf }}"> {{  attribute(texts, qlf) }}</label>
+                                                    <label for="{{ qlf }}"> {{  attribute(texts, qlf|trim) }}</label>
                                                 {% endif %}
                                                 </div>
                                             {% endfor %}
@@ -320,8 +324,13 @@
 {% endblock %}
 
 {% block footerscripts %}
-    <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    {% if config.use_external_cdn == 'true' %}
+    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/themes/smoothness/jquery-ui.min.css" />
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jqueryui/1.13.2/jquery-ui.min.js"></script>
+    {% else %}
+    <link rel="stylesheet" href="{{ asset('regional/css/jquery-ui.min.css') }}" />
+    <script src="{{ asset('regional/js/jquery-ui.min.js') }}"></script>
+    {% endif %}
 
     <script>
         // autocomplete
@@ -330,7 +339,7 @@
              $( "#query" ).autocomplete({
                   source: function( request, response ) {
                     $.ajax({
-                      url: '{{ constant("SEARCH_URL") }}lib/decs-autocomplete.php?lang={{ lang }}',
+                      url: '{{ constant("SEARCH_URL") }}decs-locator-autocomplete/{{ lang }}/',
                       dataType: "jsonp",
                       data: {
                         count: 100,
@@ -395,9 +404,9 @@
                 $.each(qlf_selected, function(index, qlf){
                     $('<input>').attr({
                         type: 'hidden',
-                        id: 'decslocator_{{qlf}}',
+                        id: 'decslocator_{{ qlf|default() }}',
                         name: 'filter[{{ filter_prefix }}][]',
-                        value: '{{ decs.tree.self.term_list.term }}/' + qlf
+                        value: '{{ decs.tree.self.term_list.term|default() }}/' + qlf
                     }).appendTo( $('#searchForm') );
                 });
 
@@ -407,7 +416,7 @@
                     type: 'hidden',
                     id: 'decslocator',
                     name: 'filter[{{ filter_prefix }}][]',
-                    value: '{{ decs.tree.self.term_list.term }}'
+                    value: '{{ decs.tree.self.term_list.term|default() }}'
                 }).appendTo( $('#searchForm') );
 
             }

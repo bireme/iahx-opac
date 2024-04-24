@@ -1,7 +1,7 @@
 <?php
 
 // ENVIRONMENT CONSTANTS
-$PATH_DATA = $this->getParameter('kernel.project_dir') . '/';
+$APP_PATH = $this->getParameter('kernel.project_dir') . '/';
 
 $instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $_ENV['INSTANCE'];
 
@@ -9,15 +9,14 @@ $instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $_EN
 $config = simplexml_load_file($instance_dir . '/config/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
 $lang = $config->default_lang;
 
-$config["PATH_DATA"] = $PATH_DATA;
 $config["DOCUMENT_ROOT"] = $_SERVER["DOCUMENT_ROOT"];
 $config["SERVERNAME"] = $_SERVER["HTTP_HOST"];
 
-define("APP_PATH", $PATH_DATA);
+define("APP_PATH", $APP_PATH);
 
 define("TEMPLATE_NAME", $config->template_name);
-define("VIEWS_PATH", APP_PATH . "views/");
 define("TRANSLATE_PATH", $instance_dir . "/translations/");
+define("APP_TRANSLATE_PATH", APP_PATH . "/translations/");
 define("CACHE_PATH", APP_PATH . "cache/");
 
 $DEFAULT_PARAMS = array();

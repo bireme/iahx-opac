@@ -22,9 +22,9 @@
 				<div class="headerBt">
                     {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
                         {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is defined %}
-                            <a href="{{ constant("SEARCH_URL") }}decs-locator/?lang={{lang}}" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                            <a href="{{ constant("SEARCH_URL") }}decs-locator/{{lang}}/" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                         {% else %}
-                            <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                            <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}decs-locator/{{lang}}/')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                         {% endif %}
                     {% else %}
                          <br/>
@@ -59,12 +59,12 @@
                         <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
                     {% endif %}
 
-                        <input type="hidden" name="output" id="output" value="{{ output|default(null) }}">
+                        <input type="hidden" name="output" id="output" value="{{ output|default() }}">
                         <input type="hidden" name="lang" id="lang" value="{{ lang }}">
-                        <input type="hidden" name="from" id="from" value="{{ from|default(null) }}">
-                        <input type="hidden" name="sort" id="sort" value="{{ sort|default(null) }}">
-                        <input type="hidden" name="format" id="format" value="{{ format|default(null) }}">
-                        <input type="hidden" name="count" id="count" value="{{ pag.count|default(null) }}">
+                        <input type="hidden" name="from" id="from" value="{{ from|default() }}">
+                        <input type="hidden" name="sort" id="sort" value="{{ sort|default() }}">
+                        <input type="hidden" name="format" id="format" value="{{ format|default() }}">
+                        <input type="hidden" name="count" id="count" value="{{ pag.count|default() }}">
                         {% if params.filterLabel is defined %}
                             <input type="hidden" name="filterLabel" id="label" value="{{ params.filterLabel }}">
                         {% endif %}
