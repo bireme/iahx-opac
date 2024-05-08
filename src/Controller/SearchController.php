@@ -305,10 +305,18 @@ final class SearchController extends AbstractController
 
         $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
         $result = json_decode($search_response, true);
+        //print_r($result);
+        //die();
 
-        // detailed query
-        $solr_param_q = $result['diaServerResponse'][0]['responseHeader']['params']['q'];
-        $solr_param_fq = @$result['diaServerResponse'][0]['responseHeader']['params']['fq'];
+        if ( isset($result['diaServerResponse'][0]) ){
+            $srv_response = $result['diaServerResponse'][0]['responseHeader'];
+            // detailed query
+            $solr_param_q = isset($srv_response['params']['q']) ? $srv_response['params']['q'] : null;
+            $solr_param_fq = isset($srv_response['params']['fq']) ? $srv_response['params']['fq'] : null;
+        }else{
+            $solr_param_q = null;
+            $solr_param_fq = null;
+        }
 
         // limpa initial filter da variavel solr_param_fq
         if ($initial_filter != ''){
@@ -544,7 +552,7 @@ final class SearchController extends AbstractController
 
                 while ($from <= $export_total){
                     // export results
-                    $export_content_range = $this->render(TEMPLATE_NAME . $export_template, $output_array);
+                    $export_content_range = $this->render(TEMPLATE_NAME . '/' . $export_template, $output_array);
                     // normalize line end
                     if ($output == 'csv' || $output == 'ris'){
                         $export_content_range = preg_replace("/\n/", "", $export_content_range);                 //Remove line end

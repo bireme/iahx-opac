@@ -1,6 +1,6 @@
-{% for doc in docs %}
-{% spaceless %}
 {% autoescape false %}
+{% for doc in docs %}
+{% apply spaceless %}
 {% if doc.type.0 == "article" %}
 {{"TY  - JOUR"}}
 {% elseif doc.type.0 == "book" %}
@@ -9,10 +9,10 @@
 {{"TY  - GEN"}}
 {% endif %}
 #BR#
-{% for author in doc.au %}
+{% for author in doc.au|default() %}
 {{"AU  - " ~ author}}#BR#
 {% endfor %}
-{% for afiliacao_autor in doc.afiliacao_autor %}
+{% for afiliacao_autor in doc.afiliacao_autor|default() %}
 {{"AD  - " ~ afiliacao_autor}}#BR#
 {% endfor %}
 {{"TI  - " ~ doc.ti.0}}#BR#
@@ -21,16 +21,16 @@
 {{"TT  - " ~ title}}#BR#
 {% endif %}
 {% endfor %}
-{% if doc.ta %}
+{% if doc.ta is defined %}
 {{"JO  - " ~  doc.ta.0}}#BR#
 {% endif %}
-{% if doc.vi %}
+{% if doc.vi is defined %}
 {{"VL  - " ~ doc.vi.0}}#BR#
 {% endif %}
-{% if doc.ip %}
+{% if doc.ip is defined %}
 {{"IS  - " ~ doc.ip.0}}#BR#
 {% endif %}
-{% if doc.is %}
+{% if doc.is is defined %}
 {{"SN  - " ~ doc.is.0}}#BR#
 {% endif %}
 {{"DB  - " ~ doc.db.0|default(doc.db)}}#BR#
@@ -38,7 +38,7 @@
 {{"ID  - " ~ doc.id}}#BR#
 {{"C8  - " ~ doc.id}}#BR#
 {{"LA  - " ~ doc.la[0]}}#BR#
-{% if doc.pg.0  %}
+{% if doc.pg.0 is defined  %}
 {% if "-" in doc.pg.0 %}
 {{"SP  - " ~ doc.pg.0|substring_before('-')|trim}}#BR#
 {{"EP  - " ~ doc.pg.0|substring_after('-')|trim}}#BR#
@@ -47,38 +47,38 @@
 {{"EP  - " ~ doc.pg.0}}#BR#
 {% endif %}
 {% endif %}
-{% if doc.da %}
+{% if doc.da is defined %}
 {{"DA  - " ~  doc.da|slice(0,4) ~ "/" ~ doc.da|slice(4,2) }}{% if doc.da|slice(6,2) %}/{{doc.da|slice(6,2)}}{% endif %}#BR#
 {{"PY  - " ~  doc.da|slice(0,4)}}#BR#
 {% endif %}
-{% if doc.aid %}
+{% if doc.aid is defined %}
 {{"DO  - " ~ doc.aid}}#BR#
 {% endif %}
-{% if doc.entry_date %}
+{% if doc.entry_date is defined %}
 {{"C1  - " ~ doc.entry_date}}#BR#
 {% endif %}
-{% if doc.pmcid %}
+{% if doc.pmcid is defined %}
 {{"C2  - " ~ doc.pmcid}}#BR#
 {% endif %}
-{% if doc.si %}
+{% if doc.si is defined %}
 {% for si in doc.si %}
 {{"AN  - " ~ si}}#BR#
 {% endfor %}
 {% endif %}
-{% for mesh in doc.mh %}
+{% for mesh in doc.mh|default() %}
 {{"MH  - " ~  mesh}}#BR#
 {% endfor %}
-{% for keyword in doc.kw %}
+{% for keyword in doc.kw|default() %}
 {{"KW  - " ~  keyword}}#BR#
 {% endfor %}
-{% if doc.accession_number %}
+{% if doc.accession_number is defined %}
 {{"AN  - " ~  doc.accession_number.0}}#BR#
 {% endif %}
-{% for abstract in doc.ab %}
+{% for abstract in doc.ab|default() %}
 {{"AB  - " ~ abstract}}#BR#
 {% endfor %}
-{% if doc.ur %}
-{% for url in doc.ur %}
+{% if doc.ur is defined %}
+{% for url in doc.ur|default() %}
 {{"UR  - " ~ url|raw}}#BR#
 {% endfor %}
 {% else %}
@@ -86,6 +86,6 @@
 {% endif %}
 {{"ER  -" }}#BR#
 #BR#
-{% endautoescape  %}
-{% endspaceless %}
+{% endapply %}
 {% endfor %}
+{% endautoescape  %}

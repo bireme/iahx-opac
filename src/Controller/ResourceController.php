@@ -96,7 +96,7 @@ final class ResourceController extends AbstractController
                 $view = '';              // use default view
             }else{
                 if ($check_mobile == 'true'){  // activate alternate template for mobile
-                    $detect = new Mobile_Detect();
+                    $detect = new MobileDetect();
                     if ($view == 'mobile' || ($detect->isMobile() && !$detect->isTablet()) )   {
                         $view = 'mobile';
                     }

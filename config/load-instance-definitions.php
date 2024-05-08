@@ -3,7 +3,7 @@
 // ENVIRONMENT CONSTANTS
 $APP_PATH = $this->getParameter('kernel.project_dir') . '/';
 
-$instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $_ENV['INSTANCE'];
+$instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $instance;
 
 // CONFIGURATION
 $config = simplexml_load_file($instance_dir . '/config/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
@@ -39,7 +39,7 @@ $DEFAULT_PARAMS['defaultDisplayFormat'] = (string) $DEFAULT_PARAMS['defaultColle
 // urls
 $protocol = ( (isset($config->use_https) && $config->use_https == 'true') ? 'https' : 'http');
 
-define("SEARCH_URL",  $protocol . "://" . $_SERVER['HTTP_HOST'] . '/' . $_ENV['INSTANCE'] . '/');
+define("SEARCH_URL",  $protocol . "://" . $_SERVER['HTTP_HOST'] . '/' . $instance . '/');
 define("STATIC_URL",  SEARCH_URL . "static/" . $config->template_name);
 
 // log's configuration
