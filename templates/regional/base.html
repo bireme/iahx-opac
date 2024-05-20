@@ -57,7 +57,7 @@
             var ADD_RSS_SUCCESS = '{{ texts.ADD_RSS_SUCCESS }}';
             var ADD_RSS_ERROR = '{{ texts.ADD_RSS_ERROR }}';
             var RSS_EXISTS = '{{ texts.RSS_EXISTS }}';
-            var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain }}';
+            var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain|default() }}';
             var QUERY = '{{ q }}'.trim();
             var FILTER = {% if filters is defined %}'{{ filters|filters_to_string }}'.trim(){% endif %};
             var SITE = '{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}'.trim();
@@ -151,7 +151,7 @@
         </form>
 
         <!-- survey box -->
-        {% if config.impact_measurement_code != '' %}
+        {% if config.impact_measurement_code is defined %}
         <div id="im_survey_box" class="im-ajax">
             <div id="boxFeedback">
                 <div id="conteudoFeedback">
@@ -246,7 +246,7 @@
         </script>
         {% endif %}
 
-        {% if config.impact_measurement_code != '' %}
+        {% if config.impact_measurement_code is defined %}
         <script type="text/javascript">
             var im_code = '{{ config.impact_measurement_code }}';
 

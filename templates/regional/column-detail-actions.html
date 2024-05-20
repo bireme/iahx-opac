@@ -10,7 +10,7 @@
                 {% for url in doc.ur %}
                     <li>
                         <a href="{{ url|raw }}" target="_blank" alt="{{ texts.FULLTEXT }} Link"
-                        {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article' , {'event_category': 'Download', 'event_label': '{{ doc.ti.0 }}'}); gtag('event', 'Database' , {'event_category': 'Download', 'event_label': '{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}'}); {% if doc.ta.0 %}gtag('event', 'Journal' , {'event_category': 'Download', 'event_label': '{{ doc.ta.0 }}'}); gtag('event', 'Journal Source' , {'event_category': 'Download', 'event_label': '{{ doc.fo.0 }}'}); {% endif %}"{% endif %}>
+                        {% if config.google_analytics_tracking_id is defined %} onclick="gtag('event', 'Article' , {'event_category': 'Download', 'event_label': '{{ doc.ti.0 }}'}); gtag('event', 'Database' , {'event_category': 'Download', 'event_label': '{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}'}); {% if doc.ta.0 is defined %}gtag('event', 'Journal' , {'event_category': 'Download', 'event_label': '{{ doc.ta.0 }}'}); gtag('event', 'Journal Source' , {'event_category': 'Download', 'event_label': '{{ doc.fo.0 }}'}); {% endif %}"{% endif %}>
                             {{ url }}
                         </a>
                     </li>
@@ -89,7 +89,7 @@
     </div>
 {% endif %}
 
-{% if config.services_platform_domain != '' %}
+{% if config.services_platform_domain is defined %}
     <!-- services platform -->
     <div class="platserv boxToolsMain">
 	  {% if app.request.cookies.has('userTK') %}

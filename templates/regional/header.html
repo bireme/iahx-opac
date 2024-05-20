@@ -43,10 +43,10 @@
                             </a><br/>
                         {% endif %}
                     {% endif %}
-                    {% if config.show_evideasy_button == 'true' %}
+                    {% if config.show_evideasy_button is defined and config.show_evideasy_button == 'true' %}
                         {% set lang_evid = (lang != 'es' ? lang : '') %}
-                        <a href="http://bvsalud.org/evideasy/{{lang_evid}}" target="evideasy" title="{{ texts.WIZARD.BUTTON_TOOLTIP }}" class="btnBlue" onclick="gtag('event', 'Open search page', {'event_category': 'Evid@Easy'});">
-                            {{ texts.WIZARD.BUTTON }}
+                        <a href="http://bvsalud.org/evideasy/{{lang_evid}}" target="evideasy" title="{{ texts.WIZARD.BUTTON_TOOLTIP|default() }}" class="btnBlue" onclick="gtag('event', 'Open search page', {'event_category': 'Evid@Easy'});">
+                            {{ texts.WIZARD.BUTTON|default() }}
                         </a><br/>
                     {% endif %}
 
