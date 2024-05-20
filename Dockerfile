@@ -1,5 +1,8 @@
 FROM docker.io/bitnami/php-fpm:8.2
 
+ARG DOCKER_TAG
+ENV APP_VER=$DOCKER_TAG
+
 # Install local git
 RUN apt update -y && apt install -y git
 

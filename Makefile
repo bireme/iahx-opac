@@ -3,6 +3,16 @@ default: build
 COMPOSE_FILE = docker-compose.yml
 COMPOSE_FILE_DEV = .devcontainer/docker-compose-dev.yml
 
+IMAGE_NAME=bireme/iahx-opac
+export APP_VER?=$(shell git describe --tags --long --always | sed 's/-g[a-z0-9]\{7\}//' | sed 's/-/\./')
+TAG_LATEST=$(IMAGE_NAME):latest
+
+## variable used in docker-compose for tag the build image
+export IMAGE_TAG=$(IMAGE_NAME):$(APP_VER)
+
+tag:
+	@echo "IMAGE TAG:" $(IMAGE_TAG)
+
 ## docker-compose shortcuts
 dev_build:
 	@docker compose -f $(COMPOSE_FILE_DEV) build
@@ -34,10 +44,12 @@ dev_sh:
 
 ## docker-compose shortcuts
 build:
-	@docker compose -f $(COMPOSE_FILE) build
+	@docker compose -f $(COMPOSE_FILE) build --build-arg DOCKER_TAG=$(APP_VER)
+	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
 
 build_no_cache:
-	@docker compose -f $(COMPOSE_FILE) build --no-cache
+	@docker compose -f $(COMPOSE_FILE) build --no-cache --build-arg DOCKER_TAG=$(APP_VER)
+	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
 
 run:
 	@docker compose -f $(COMPOSE_FILE) down
