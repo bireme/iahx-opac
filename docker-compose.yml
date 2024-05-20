@@ -4,6 +4,7 @@ services:
     restart: unless-stopped
     build:
       context: .
+    image: ${IMAGE_TAG}
     volumes:
       - static_files:/app/public
       - ./instances/:/app/instances
