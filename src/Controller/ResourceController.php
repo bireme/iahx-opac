@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\AuxFunctions;
 use App\Service\SearchSolr;
+use App\Service\CacheService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,17 +18,20 @@ final class ResourceController extends AbstractController
 
     public function __construct(
         private AuxFunctions $auxFunctions,
+        private CacheService $cache,
     ){}
 
 
     #[Route('{instance}/resource/{lang}/{id}')]
     public function index(Request $request, string $instance, string $lang, string $id): Response
     {
-        global $config, $lang, $texts;
+        global $config;
 
         $app_dir = $this->getParameter('kernel.project_dir');
-
         require($app_dir . '/config/load-instance-definitions.php');
+
+        // get texts used in template
+        $texts = $this->cache->get_texts($instance, $lang);
 
         $params = [];
         foreach($request->query as $key => $value) {
@@ -55,9 +59,6 @@ final class ResourceController extends AbstractController
         $total_found = $result['diaServerResponse'][0]['response']['numFound'];
 
         if (intval($total_found) > 0){
-            // translate
-            $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-
             // output vars
             $output_array = array();
             $output_array['lang'] = $lang;

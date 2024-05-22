@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\AuxFunctions;
 use App\Service\SearchSolr;
+use App\Service\CacheService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,6 +18,7 @@ final class SearchController extends AbstractController
 
     public function __construct(
         private AuxFunctions $auxFunctions,
+        private CacheService $cache,
     ){}
 
 
@@ -25,8 +27,8 @@ final class SearchController extends AbstractController
     {
         global $config, $lang, $texts;
 
+        // get configuration of the instance
         $app_dir = $this->getParameter('kernel.project_dir');
-
         require($app_dir . '/config/load-instance-definitions.php');
 
         $params = [];
@@ -305,8 +307,6 @@ final class SearchController extends AbstractController
 
         $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
         $result = json_decode($search_response, true);
-        //print_r($result);
-        //die();
 
         if ( isset($result['diaServerResponse'][0]) ){
             $srv_response = $result['diaServerResponse'][0]['responseHeader'];
@@ -335,19 +335,32 @@ final class SearchController extends AbstractController
             $detailed_query = preg_replace('/(?<!AND) NOT /', ' AND NOT ', $detailed_query);
         }
 
-        // translate
-        $texts = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+        // get texts used in template
+        $texts = $this->cache->get_texts($instance, $lang);
 
-        // pagination
+        // pagination and template variables
         $pag = array();
+        $template_vars = array();
+
         if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
             $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];
             $pag['total_formatted'] = number_format($pag['total'], 0, ',', '.');
             $pag['start'] = $result['diaServerResponse'][0]['response']['start'];
             $pag['total_pages'] = ($pag['total'] % $count == 0) ? (int)($pag['total']/$count) : (int)($pag['total']/$count+1);
             $pag['count'] = $count;
+
+            $template_vars['detailed_query'] = $detailed_query;
+            $template_vars['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+            $template_vars['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
+
         }else{
+            $pag['total'] = 0;
             $pag['total_pages'] = 1;
+            $pag['total_formatted'] = 1;
+
+            $template_vars['detailed_query'] = '';
+            $template_vars['docs'] = array();
+            $template_vars['clusters'] = array();
         }
 
         $range_min = (($page-5) > 0) ? $page-5 : 1;
@@ -372,58 +385,49 @@ final class SearchController extends AbstractController
             $SESSION->save();
         }
 
-        // output vars
-        $output_array = array();
-        $output_array['bookmark'] = $bookmark;
-        $output_array['user_preference_filter'] = (array) $user_preference_filter;
-        $output_array['filters'] = $filter;
-        $output_array['filters_formatted'] = $filter;
-        $output_array['config_view_filter'] = $config_view_filter;
-        $output_array['view_filter'] = $view_filter_param;
-        $output_array['lang'] = $lang;
-        $output_array['q'] = $q;
-        $output_array['fb'] = $fb;
-        $output_array['sort'] = $sort;
-        $output_array['format'] = $format;
-        $output_array['from'] = $from;
-        $output_array['count'] = $count;
-        $output_array['output'] = $output;
-        $output_array['collectionData'] = $collectionData;
-        $output_array['params'] = $params;
-        $output_array['pag'] = $pag;
-        $output_array['config'] = $config;
-        $output_array['texts'] = $texts;
-        $output_array['current_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
-        $output_array['display_file'] = "result-format-" . $format . ".html";
-        $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
-        $output_array['config_cluster_list'] = $config_cluster_list;
-        $output_array['default_cluster_list'] = $default_cluster_list;
-        $output_array['only_translated_items_clusters'] = $only_translated_items_clusters;
-        $output_array['query_info_clusters'] = $query_info_clusters;
-        $output_array['history'] = $history;
-        $output_array['index'] = $index;
-        $output_array['parsing_filters'] = $solr_param_fq;
-        $output_array['page'] = $page;
-        $output_array['current_page'] = 'result';
-        $output_array['range_year_start'] = $range_year_start;
-        $output_array['range_year_end'] = $range_year_end;
-        $output_array['config_wizard_list'] = $config_wizard_list;
-        $output_array['wizard_session'] = $wizard_session;
-        $output_array['max_export_records'] = $config->max_export_records;
-
-        if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
-            $output_array['detailed_query'] = $detailed_query;
-            $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
-            $output_array['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
-        }
-
+        $template_vars['bookmark'] = $bookmark;
+        $template_vars['user_preference_filter'] = (array) $user_preference_filter;
+        $template_vars['filters'] = $filter;
+        $template_vars['filters_formatted'] = $filter;
+        $template_vars['config_view_filter'] = $config_view_filter;
+        $template_vars['view_filter'] = $view_filter_param;
+        $template_vars['lang'] = $lang;
+        $template_vars['q'] = $q;
+        $template_vars['fb'] = $fb;
+        $template_vars['sort'] = $sort;
+        $template_vars['format'] = $format;
+        $template_vars['from'] = $from;
+        $template_vars['count'] = $count;
+        $template_vars['output'] = $output;
+        $template_vars['collectionData'] = $collectionData;
+        $template_vars['params'] = $params;
+        $template_vars['pag'] = $pag;
+        $template_vars['config'] = $config;
+        $template_vars['texts'] = $texts;
+        $template_vars['current_url'] = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on' ? "https" : "http") . "://{$_SERVER['HTTP_HOST']}{$_SERVER['REQUEST_URI']}";
+        $template_vars['display_file'] = "result-format-" . $format . ".html";
+        $template_vars['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
+        $template_vars['config_cluster_list'] = $config_cluster_list;
+        $template_vars['default_cluster_list'] = $default_cluster_list;
+        $template_vars['only_translated_items_clusters'] = $only_translated_items_clusters;
+        $template_vars['query_info_clusters'] = $query_info_clusters;
+        $template_vars['history'] = $history;
+        $template_vars['index'] = $index;
+        $template_vars['parsing_filters'] = $solr_param_fq;
+        $template_vars['page'] = $page;
+        $template_vars['current_page'] = 'result';
+        $template_vars['range_year_start'] = $range_year_start;
+        $template_vars['range_year_end'] = $range_year_end;
+        $template_vars['config_wizard_list'] = $config_wizard_list;
+        $template_vars['wizard_session'] = $wizard_session;
+        $template_vars['max_export_records'] = $config->max_export_records;
 
         // if is send email
         if(isset($params['is_email'])) {
 
-            $output_array['email'] = $email;
+            $template_vars['email'] = $email;
 
-            $render = $this->render(TEMPLATE_NAME . '/export-email.html', $output_array);
+            $render = $this->render(TEMPLATE_NAME . '/export-email.html', $template_vars);
             $from_name = (isset($email['name']) ? $email['name'] : '') . ' (' . $texts['BVS_HOME'] . ')' ;
             $subject = (isset($email['subject']) ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
@@ -441,9 +445,9 @@ final class SearchController extends AbstractController
                 ->setBody($render, 'text/html');
 
             if ( $app['mailer']->send($message) ){
-                $output_array['flash_message'] = 'MAIL_SUCCESS';
+                $template_vars['flash_message'] = 'MAIL_SUCCESS';
             }else{
-                $output_array['flash_message'] = 'MAIL_FAIL';
+                $template_vars['flash_message'] = 'MAIL_FAIL';
             }
         }
 
@@ -473,7 +477,7 @@ final class SearchController extends AbstractController
                     }
                 }
 
-                $output_array['im_cookie'] = $im_cookie;
+                $template_vars['im_cookie'] = $im_cookie;
             }
         }
 
@@ -493,18 +497,18 @@ final class SearchController extends AbstractController
                 break;
 
             case "print":
-                return $this->render(TEMPLATE_NAME . '/print.html', $output_array);
+                return $this->render(TEMPLATE_NAME . '/print.html', $template_vars);
                 break;
 
             case "rss":
-                $output_array['search_url'] =  'http://' . $_SERVER['HTTP_HOST'] . str_replace('output=rss', 'output=site', $_SERVER['REQUEST_URI']);
-                $response = new Response($this->render(TEMPLATE_NAME . '/export-rss.html', $output_array));
+                $template_vars['search_url'] =  'http://' . $_SERVER['HTTP_HOST'] . str_replace('output=rss', 'output=site', $_SERVER['REQUEST_URI']);
+                $response = new Response($this->render(TEMPLATE_NAME . '/export-rss.html', $template_vars));
                 $response->headers->set('Content-type', 'text/xml');
                 return $response->sendHeaders();
                 break;
 
             case "metasearch":
-                $response = new Response($this->render(TEMPLATE_NAME . '/export-metasearch.html', $output_array));
+                $response = new Response($this->render(TEMPLATE_NAME . '/export-metasearch.html', $template_vars));
                 $response->headers->set('Content-type', 'text/xml');
                 return $response->sendHeaders();
                 break;
@@ -552,7 +556,7 @@ final class SearchController extends AbstractController
 
                 while ($from <= $export_total){
                     // export results
-                    $export_content_range = $this->render(TEMPLATE_NAME . '/' . $export_template, $output_array);
+                    $export_content_range = $this->render(TEMPLATE_NAME . '/' . $export_template, $template_vars);
                     // normalize line end
                     if ($output == 'csv' || $output == 'ris'){
                         $export_content_range = preg_replace("/\n/", "", $export_content_range);                 //Remove line end
@@ -574,13 +578,13 @@ final class SearchController extends AbstractController
                     $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
                     $result = json_decode($search_response, true);
 
-                    $output_array['from'] = $from;
-                    $output_array['config'] = $config;
-                    $output_array['texts'] = $texts;
-                    $output_array['current_url'] = $_SERVER['REQUEST_URI'];
-                    $output_array['display_file'] = "result-format-" . $format . ".html";
-                    $output_array['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
-                    $output_array['docs'] = $result['diaServerResponse'][0]['response']['docs'];
+                    $template_vars['from'] = $from;
+                    $template_vars['config'] = $config;
+                    $template_vars['texts'] = $texts;
+                    $template_vars['current_url'] = $_SERVER['REQUEST_URI'];
+                    $template_vars['display_file'] = "result-format-" . $format . ".html";
+                    $template_vars['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
+                    $template_vars['docs'] = $result['diaServerResponse'][0]['response']['docs'];
 
                 }
                 ob_flush();
@@ -604,11 +608,7 @@ final class SearchController extends AbstractController
                     }
                 }
 
-                // var_dump($texts);
-                // die();
-
-                return $this->render(TEMPLATE_NAME . $view . '/index.html', $output_array);
-
+                return $this->render(TEMPLATE_NAME . $view . '/index.html', $template_vars);
                 break;
         }
 

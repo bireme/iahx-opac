@@ -4,10 +4,7 @@
 $APP_PATH = $this->getParameter('kernel.project_dir') . '/';
 
 $instance_dir = $this->getParameter('kernel.project_dir') . '/instances/' . $instance;
-
-// CONFIGURATION
-$config = simplexml_load_file($instance_dir . '/config/config.xml', 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
-$lang = $config->default_lang;
+$config = $this->cache->get_config($instance);
 
 $config["DOCUMENT_ROOT"] = $_SERVER["DOCUMENT_ROOT"];
 $config["SERVERNAME"] = $_SERVER["HTTP_HOST"];
@@ -20,7 +17,7 @@ define("APP_TRANSLATE_PATH", APP_PATH . "/translations/");
 define("CACHE_PATH", APP_PATH . "cache/");
 
 $DEFAULT_PARAMS = array();
-$DEFAULT_PARAMS['lang'] = $lang;
+$DEFAULT_PARAMS['lang'] = $config->default_lang;
 $DEFAULT_PARAMS['defaultCollectionData'] = $config->search_collection_list->collection[0];
 
 // verifica se existe apenas uma colecao definida no config.xml

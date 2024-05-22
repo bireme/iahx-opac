@@ -2,6 +2,8 @@
 
 namespace App\Controller;
 
+use App\Service\CacheService;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -13,17 +15,23 @@ final class DeCSLocatorController extends AbstractController
 {
 
     public function __construct(
+        private CacheService $cache,
     ){}
 
 
     #[Route('{instance}/decs-locator/{lang}/')]
     public function index(Request $request, string $instance, string $lang): Response
     {
-        global $config, $lang, $texts;
 
         $app_dir = $this->getParameter('kernel.project_dir');
 
         require($app_dir . '/config/load-instance-definitions.php');
+
+        // get texts used in template
+        $texts_ui = $this->cache->get_texts($instance, $lang);
+        $texts_decs = $this->cache->get_texts_decs_locator($lang);
+
+        $texts = array_merge($texts_ui, $texts_decs);
 
         $params = [];
         foreach($request->query as $key => $value) {
@@ -61,10 +69,10 @@ final class DeCSLocatorController extends AbstractController
         $decs_xml = simplexml_load_string($api_result);
 
         // translate
-        $texts_interface = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-        $texts_decs = parse_ini_file(APP_TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
+        // $texts_interface = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
+        // $texts_decs = parse_ini_file(APP_TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
 
-        $texts = array_merge($texts_interface, $texts_decs);
+        // $texts = array_merge($texts_interface, $texts_decs);
 
         // start session
         $SESSION = $request->getSession();
