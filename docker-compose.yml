@@ -30,6 +30,8 @@ services:
 
   iahx_cache:
     image: bitnami/redis:7.2
+    container_name: iahx-cache
+    restart: unless-stopped
     environment:
       -  ALLOW_EMPTY_PASSWORD=yes
     command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb

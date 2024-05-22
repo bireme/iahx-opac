@@ -76,6 +76,9 @@ ps:
 sh:
 	@docker compose -f $(COMPOSE_FILE) exec iahx_opac bash
 
+sh_cache:
+	@docker compose -f $(COMPOSE_FILE) exec iahx_cache sh
+
 update_static:
 	@docker compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console asset-map:compile
 
