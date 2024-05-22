@@ -15,22 +15,22 @@
 				<div class="lang">
 					<ul>
                         {% for langcode, item in texts.AVAILABLE_LANGUAGES %}
-                            <li><a href="javascript:change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="active" {% endif %}>{{ item }}</a></li>
+                            <li><a href="#" onclick="javascript:change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="active" {% endif %}>{{ item }}</a></li>
                         {% endfor %}
 					</ul>
 				</div>
 				<div class="headerBt">
                     {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
-                        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is defined %}
+                        {% if config.show_filter_page == 'true' and detailed_query|default() == '' and params.skfp is defined %}
                             <a href="{{ constant("SEARCH_URL") }}decs-locator/{{lang}}/" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                         {% else %}
-                            <a href="javascript:decs_locator('{{ constant("SEARCH_URL") }}decs-locator/{{lang}}/')" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
+                            <a href="#" onclick="decs_locator()" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                         {% endif %}
                     {% else %}
                          <br/>
                     {% endif %}
                     {% if (not config.show_advanced_search_button or config.show_advanced_search_button == 'true') %}
-                    <a href="{{ constant("SEARCH_URL") }}advanced/?lang={{ lang }}" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
+                    <a href="{{ constant("SEARCH_URL") }}advanced/{{ lang }}/" class="btnBlue">{{ texts.ADVANCED_SEARCH }}</a>
                     {% endif %}
                     {% if collectionData.wizard_list.wizard is defined %}
                         {% if current_page != 'result' %}
@@ -53,11 +53,9 @@
 				</div>
 				<div class="{% if current_page != 'decs_lookup'%}headerSearch{% else %}d-none{% endif %}">
 
-                    {% if params.q is defined and params.q|length > 2048 %}
-                        <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="POST">
-                    {% else %}
-                        <form name="searchForm" id="searchForm" action="{{ constant("SEARCH_URL") }}" method="GET">
-                    {% endif %}
+
+                    <form name="searchForm" id="searchForm"
+                        action="{{ constant("SEARCH_URL") }}" method="{% if params.q is defined and params.q|length > 2048 %}POST{% else %}GET{% endif %}">
 
                         <input type="hidden" name="output" id="output" value="{{ output|default() }}">
                         <input type="hidden" name="lang" id="lang" value="{{ lang }}">

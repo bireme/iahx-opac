@@ -58,8 +58,8 @@
             var ADD_RSS_ERROR = '{{ texts.ADD_RSS_ERROR }}';
             var RSS_EXISTS = '{{ texts.RSS_EXISTS }}';
             var SERVICES_PLATFORM_DOMAIN = '{{ config.services_platform_domain|default() }}';
-            var QUERY = '{{ q }}'.trim();
-            var FILTER = {% if filters is defined %}'{{ filters|filters_to_string }}'.trim(){% endif %};
+            var QUERY = '{{ q|default() }}'.trim();
+            var FILTER = '{{ filters|default()|filters_to_string }}'.trim();
             var SITE = '{{ app.request.server.get("SCRIPT_NAME")|split("/").1 }}'.trim();
         </script>
 
@@ -146,8 +146,8 @@
         {% block extrafooter %}
         {% endblock %}
 
-        <form name="language">
-            <input type="hidden" name="lang" value="{{ lang }}">
+        <form name="language" id="changeLanguageForm">
+            <input type="hidden" name="lang" id="change_lang" value="{{ lang }}">
         </form>
 
         <!-- survey box -->

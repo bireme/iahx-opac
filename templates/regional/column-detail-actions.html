@@ -174,7 +174,7 @@
                 {% elseif '^' in item.0 %}
                     {{ item.0|subfield(lang) }}
                 {% elseif '+' in item.0 %}
-                    {{ item.0|replace('+','/') }}
+                    {{ item.0|replace({'+': '/'}) }}
                 {% else %}
                     {{ translate(item.0, cluster_labels ) }}
                 {% endif %}

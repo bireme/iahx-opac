@@ -60,7 +60,7 @@
                                     {% if '^' in item %}
                                         {{ item|subfield(lang) }}
                                     {% elseif '+' in item %}
-										{{ item|replace('+','/') }}
+										{{ item|replace({'+': '/'}) }}
                                     {% else %}
                                         {{ translate(item, texts_group) }}
                                     {% endif %}
@@ -176,7 +176,7 @@
                                                             {% set item_part = item.0|split('/') %}
                                                             {{ translate(item_part.1, cluster_labels ) }}
                                                         {% elseif '+' in item.0 %}
-                                                            {{ item.0|replace('+','/') }}
+                                                            {{ item.0|replace({'+': '/'}) }}
                                                         {% else %}
                                                             {{ translate(item.0, cluster_labels ) }}
                                                         {% endif %}
