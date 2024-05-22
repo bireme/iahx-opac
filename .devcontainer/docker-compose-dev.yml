@@ -29,3 +29,8 @@ services:
     # Overrides default command so things don't shut down after the process ends.
     #command: /bin/sh -c "while sleep 1000; do :; done"
 
+  iahx_cache:
+    image: bitnami/redis:7.2
+    environment:
+      -  ALLOW_EMPTY_PASSWORD=yes
+    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb

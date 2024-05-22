@@ -10,6 +10,7 @@
         "ext-ctype": "*",
         "ext-iconv": "*",
         "mobiledetect/mobiledetectlib": "^4.8",
+        "predis/predis": "^2.2",
         "symfony/asset": "7.0.*",
         "symfony/asset-mapper": "7.0.*",
         "symfony/console": "7.0.*",
