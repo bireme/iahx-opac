@@ -98,7 +98,7 @@ function show_more_filter_items(filter_id, initial_from=10){
     var FILTER_LIMIT = 100;
     var from_param = initial_from;
 
-    var list_filter_url = SEARCH_URL + 'list-filter/' + filter_id + '?lang=' + LANG;
+    let list_filter_url = SEARCH_URL + 'browse-filter/' + filter_id + '/?lang=' + LANG;
     if (filter_id in more_filter_from){
         from_param = more_filter_from[filter_id];
         more_filter_from[filter_id] += FILTER_LIMIT;
@@ -106,6 +106,7 @@ function show_more_filter_items(filter_id, initial_from=10){
         more_filter_from[filter_id] = FILTER_LIMIT + from_param;
     }
     list_filter_url += '&from=' + from_param + '&limit=' + FILTER_LIMIT;
+    console.log(list_filter_url);
 
      $.ajax({
          url: list_filter_url,

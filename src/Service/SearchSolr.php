@@ -35,7 +35,7 @@ class SearchSolr
         return;
     }
 
-    function search($query, $index = '', $user_filter = array(), $range_filter = '', $view_filter = '', $from = 0){
+    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $view_filter = '', $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
