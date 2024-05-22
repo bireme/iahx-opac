@@ -1,4 +1,4 @@
-{% extends custom_template("base.html") %}
+{% extends "regional/base.html" %}
 
 {% block breadcrumb_last %}{{ texts.ADVANCED_SEARCH }}{% endblock %}
 
@@ -35,15 +35,12 @@
                     <div class="col-md-2">
                         <select name="index[]" class="form-control formControl marginMC1" id="index-1">
                             {% for index in collectionData.index_list.index %}
-                                {% if params.index is defined %}
-                                    {% if index.prefix == params.index %}
-                                        <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
-                                    {% else %}
-                                        <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
-                                    {% endif %}
-                                {% else %}
-                                    <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
-                                {% endif %}
+                                {% set index_name = index.name|trim %}
+                                <option value="{{ index.prefix }}"
+                                    {% if params.index is defined and index.prefix == params.index %}selected="true"{% endif %}>
+
+                                    {{ attribute(texts.INDEXES, index_name) is defined ? attribute(texts.INDEXES, index_name) }}
+                                </option>
                             {% endfor %}
                         </select>
                     </div>
@@ -81,15 +78,12 @@
                         <div class="col-md-2">
                             <select name="index[]" class="form-control formControl marginMC1" id="index-2">
                                 {% for index in collectionData.index_list.index %}
-                                    {% if params.index is defined %}
-                                        {% if index.prefix == params.index %}
-                                            <option value="{{ index.prefix }}" selected="true">{{ attribute(texts.INDEXES, index.name) }}</option>
-                                        {% else %}
-                                            <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
-                                        {% endif %}
-                                    {% else %}
-                                        <option value="{{ index.prefix }}" >{{ attribute(texts.INDEXES, index.name) }}</option>
-                                    {% endif %}
+                                    {% set index_name = index.name|trim %}
+                                    <option value="{{ index.prefix }}"
+                                        {% if params.index is defined and index.prefix == params.index %}selected="true"{% endif %}>
+
+                                        {{ attribute(texts.INDEXES, index_name) is defined ? attribute(texts.INDEXES, index_name) }}
+                                    </option>
                                 {% endfor %}
                             </select>
                         </div>
@@ -111,5 +105,5 @@
 {% endblock %}
 
 {% block extrafooter %}
-    <script language="javascript" type="text/javascript" src="{{ constant("STATIC_URL") }}/js/advanced.js?ver=1.0.2"></script>
+    <script src="{{ asset('regional/js/advanced.js') }}"></script>
 {% endblock %}
