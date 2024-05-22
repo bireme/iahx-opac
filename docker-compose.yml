@@ -28,6 +28,14 @@ services:
     networks:
       - nginx-proxy
 
+  iahx_cache:
+    image: bitnami/redis:7.2
+    environment:
+      -  ALLOW_EMPTY_PASSWORD=yes
+    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb
+    networks:
+      - nginx-proxy
+
 volumes:
   static_files:
   phpsock:

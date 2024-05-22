@@ -1,7 +1,7 @@
 FROM docker.io/bitnami/php-fpm:8.2 as builder
 
 # Install build packages and git
-RUN install_packages git autoconf build-essential
+RUN apt update -y && apt install -y git autoconf build-essential
 
 # Install PHP exstensions
 ENV EXTENSION_DIR="/opt/bitnami/php/lib/php/extensions"
@@ -11,6 +11,11 @@ RUN pecl config-set ext_dir $EXTENSION_DIR \
 
 RUN pecl install redis
 
+# Install Symfony CLI
+RUN curl -sS https://get.symfony.com/cli/installer | bash
+
+
+##########################################################################
 FROM docker.io/bitnami/php-fpm:8.2
 
 # Copy configuration
@@ -24,11 +29,10 @@ COPY --from=builder \
 
 ENV PHP_INI_SCAN_DIR /opt/bitnami/php/lib/inc
 
-WORKDIR /app
+# Copy Symfony CLI from builder stage
+COPY --from=builder /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
-# Install Symfony CLI
-RUN curl -sS https://get.symfony.com/cli/installer | bash
-RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+WORKDIR /app
 
 EXPOSE 8000
 

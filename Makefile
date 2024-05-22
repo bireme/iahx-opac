@@ -41,6 +41,9 @@ dev_ps:
 dev_sh:
 	@docker compose -f $(COMPOSE_FILE_DEV) exec iahx_opac bash
 
+dev_sh_cache:
+	@docker compose -f $(COMPOSE_FILE_DEV) exec iahx_cache sh
+
 
 ## docker-compose shortcuts
 build:

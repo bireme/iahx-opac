@@ -1,28 +1,45 @@
-FROM docker.io/bitnami/php-fpm:8.2
+FROM docker.io/bitnami/php-fpm:8.2 as builder
 
-ARG DOCKER_TAG
-ENV APP_VER=$DOCKER_TAG
+# Install build packages
+RUN apt update -y && apt install -y autoconf build-essential
 
-# Install local git
-RUN apt update -y && apt install -y git
+# Install PHP exstensions
+ENV EXTENSION_DIR="/opt/bitnami/php/lib/php/extensions"
+RUN pecl channel-update pecl.php.net
+RUN pecl config-set ext_dir $EXTENSION_DIR \
+       && pear config-set ext_dir $EXTENSION_DIR
 
-# Copy custom PHP/NGINX configurations
-#COPY ./docker/php/environment.conf /opt/bitnami/php/etc/environment.conf
-COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
-COPY ./docker/php/custom.ini /opt/bitnami/php/etc/conf.d/custom.ini
-
-# Change to app directory
-WORKDIR /app
+RUN pecl install redis
 
 # Install Symfony CLI
 RUN curl -sS https://get.symfony.com/cli/installer | bash
-RUN mv /root/.symfony5/bin/symfony /usr/local/bin/symfony
+
+
+##########################################################################
+FROM docker.io/bitnami/php-fpm:8.2
+
+# Copy custom PHP/NGINX configurations
+COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
+COPY ./docker/php/custom.ini /opt/bitnami/php/etc/conf.d/custom.ini
+
+# Copy extensions from builder stage
+COPY --from=builder \
+    /opt/bitnami/php/lib/php/extensions/redis.so \
+    /opt/bitnami/php/lib/php/extensions/
+
+ENV PHP_INI_SCAN_DIR /opt/bitnami/php/lib/inc
+
+# Copy Symfony CLI from builder stage
+COPY --from=builder /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
 # Copy composer binary to the image
 COPY --from=composer:latest /usr/bin/composer /usr/local/bin/composer
 
 # Copy dependencies control files
 COPY composer.json composer.lock /app
+
+# Change to app directory
+WORKDIR /app
 
 # Install project dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
@@ -36,5 +53,8 @@ RUN php bin/console asset-map:compile
 
 # Generate environment prod
 RUN composer dump-env prod
+
+ARG DOCKER_TAG
+ENV APP_VER=$DOCKER_TAG
 
 EXPOSE 80
