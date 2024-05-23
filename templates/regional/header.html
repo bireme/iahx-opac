@@ -15,13 +15,13 @@
 				<div class="lang">
 					<ul>
                         {% for langcode, item in texts.AVAILABLE_LANGUAGES %}
-                            <li><a href="#" onclick="javascript:change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="active" {% endif %}>{{ item }}</a></li>
+                            <li><a href="#" onclick="change_language('{{ langcode|lower }}')" {% if langcode|lower == lang %} class="active" {% endif %}>{{ item }}</a></li>
                         {% endfor %}
 					</ul>
 				</div>
 				<div class="headerBt">
                     {% if (not config.show_decs_lookup_button or config.show_decs_lookup_button == 'true') and lang in ['pt', 'es', 'en'] %}
-                        {% if config.show_filter_page == 'true' and detailed_query|default() == '' and params.skfp is defined %}
+                        {% if config.show_filter_page == 'true' and detailed_query|default() == '' and params.skfp is not defined %}
                             <a href="{{ constant("SEARCH_URL") }}decs-locator/{{lang}}/" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>
                         {% else %}
                             <a href="#" onclick="decs_locator()" class="btnBlue">{{ texts.DECS_LOOKUP }}</a>

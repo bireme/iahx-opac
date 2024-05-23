@@ -140,7 +140,7 @@
                             </div>
                         {% else %}
                             <div class="titleBox2" data-toggle="collapse" data-target="#{{ name }}">
-                                {{ name in texts.REFINE ? attribute(texts.REFINE, name|trim) }} <span class="acordionIcone float-right fas fa-angle-up"></span>
+                                {{ attribute(texts.REFINE, name) is defined ? attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-angle-up"></span>
                             </div>
 
                             <div class="box2 collapse show" id="{{ name }}" >

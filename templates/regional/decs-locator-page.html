@@ -207,7 +207,7 @@
                                         {% endif %}
                                     {% endif %}
 
-                                    {% if decs.record_list.record.definition.occ.attributes.n != '' or decs.record_list.record.synonym_list.synonym is defined %}
+                                    {% if decs.record_list.record.definition is defined or decs.record_list.record.synonym_list.synonym is defined %}
                                         <div class="alert alert-secondary" role="alert">
 
                                             <p>{{ decs.record_list.record.definition.occ.attributes.n }}</p>

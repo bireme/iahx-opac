@@ -37,12 +37,11 @@ function change_count(count) {
 // muda o parâmetro lang
 function change_language(lang) {
     if (RESULT_PAGE == true){
-        var form = document.searchForm;
-        form.lang.value = lang;
+        $("#searchForm #lang").val(lang);
         $("#searchForm").submit();
     }else{
-        document.language.lang.value = lang;
-        document.language.submit();
+        $("#changeLanguageForm #change_lang").val(lang);
+        $("#changeLanguageForm").submit();
     }
 }
 
@@ -108,8 +107,10 @@ function export_xml_record(id) {
 }
 
 // advanced search
-function decs_locator(url) {
-    $("#searchForm").attr("action", url);
+function decs_locator() {
+    const decs_locator_url = SEARCH_URL + 'decs-locator/' + LANG + '/';
+
+    $("#searchForm").attr("action", decs_locator_url);
     $("#searchForm").submit();
 }
 
