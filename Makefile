@@ -44,6 +44,9 @@ dev_sh:
 dev_sh_cache:
 	@docker compose -f $(COMPOSE_FILE_DEV) exec iahx_cache sh
 
+dev_clear_cache:
+	@docker compose -f $(COMPOSE_FILE_DEV) exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
+
 
 ## docker-compose shortcuts
 build:
@@ -89,7 +92,7 @@ update_packages:
 	@docker compose -f $(COMPOSE_FILE) exec iahx_opac composer install --no-dev --optimize-autoloader
 
 clear_cache:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console cache:clear
+	@docker compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
 
 
 
