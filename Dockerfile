@@ -18,10 +18,6 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 ##########################################################################
 FROM docker.io/bitnami/php-fpm:8.2
 
-# Copy custom PHP/NGINX configurations
-COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
-COPY ./docker/php/php.ini-production /opt/bitnami/php/etc/php.ini
-
 # Copy extensions from builder stage
 COPY --from=builder \
     /opt/bitnami/php/lib/php/extensions/redis.so \
@@ -44,6 +40,10 @@ WORKDIR /app
 # Install project dependencies
 ENV COMPOSER_ALLOW_SUPERUSER=1
 RUN composer install --optimize-autoloader --no-scripts
+
+# Copy custom PHP/NGINX configurations
+COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
+COPY ./docker/php/php.ini-production /opt/bitnami/php/etc/php.ini
 
 # Copy project files
 COPY . /app
