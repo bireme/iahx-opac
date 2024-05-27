@@ -35,17 +35,12 @@
                                     <select name="sortBy" id="sortBy" class="selectOrder" onchange="javascript:change_sort(this);">
                                         <option value="">{{ texts.SORT_OPTIONS }}</option>
                                         {% for sort in collectionData.sort_list.sort %}
+                                            {% set sort_name = sort.name|trim %}
 
-                                            {% if params.sort is defined and params.sort %}
-                                                {% if sort.name == params.sort %}
-                                                    <option value="{{ sort.name }}" selected="true">{{ attribute(texts.SORT, sort.name) }}</option>
-                                                {% else %}
-                                                    <option value="{{ sort.name }}" >{{ attribute(texts.SORT, sort.name) }}</option>
-                                                {% endif %}
-                                            {% else %}
-                                                <option value="{{ sort.name }}" >{{ attribute(texts.SORT, 'RELEVANCE') }}</option>
-                                            {% endif %}
-
+                                            <option value="{{ sort.name }}"
+                                            {% if params.sort is defined and params.sort == sort.name %}selected="true"{% endif %}>
+                                                {{ attribute(texts.SORT, sort_name) is defined ? attribute(texts.SORT, sort_name) }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 {% endif %}

@@ -501,16 +501,16 @@ final class SearchController extends AbstractController
                 break;
 
             case "rss":
-                $template_vars['search_url'] =  'http://' . $_SERVER['HTTP_HOST'] . str_replace('output=rss', 'output=site', $_SERVER['REQUEST_URI']);
-                $response = new Response($this->render(TEMPLATE_NAME . '/export-rss.html', $template_vars));
+                $template_vars['search_url'] = 'http://' . $_SERVER['HTTP_HOST'] . str_replace('output=rss', 'output=site', $_SERVER['REQUEST_URI']);
+                $response = new Response($this->renderView(TEMPLATE_NAME . '/export-rss.html', $template_vars));
                 $response->headers->set('Content-type', 'text/xml');
-                return $response->sendHeaders();
+                return $response;
                 break;
 
             case "metasearch":
-                $response = new Response($this->render(TEMPLATE_NAME . '/export-metasearch.html', $template_vars));
+                $response = new Response($this->renderView(TEMPLATE_NAME . '/export-metasearch.html', $template_vars));
                 $response->headers->set('Content-type', 'text/xml');
-                return $response->sendHeaders();
+                return $response;
                 break;
 
             case "citation":
