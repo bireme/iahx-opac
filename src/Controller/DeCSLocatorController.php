@@ -42,9 +42,9 @@ final class DeCSLocatorController extends AbstractController
         $site = $DEFAULT_PARAMS['defaultSite'];
         $col = $DEFAULT_PARAMS['defaultCollection'];
 
-        $tree_id = $request->get("tree_id");        // D02.065.589.099.750.124
-        $descriptor = $request->get("descriptor");  // get detais of specific descriptor
-        $mode = $request->get("mode");              // mode dataentry
+        $tree_id = $request->get("tree_id", "");        // D02.065.589.099.750.124
+        $descriptor = $request->get("descriptor", "");  // get detais of specific descriptor
+        $mode = $request->get("mode");                  // mode dataentry
 
         if ($descriptor != ''){
             $api_url = "https://api.bvsalud.org/decs/v2/search-boolean?lang=" . $lang;
@@ -63,25 +63,19 @@ final class DeCSLocatorController extends AbstractController
             )
         );
 
-        $context = stream_context_create($opts);
-        $api_result = file_get_contents($api_url, false, $context);
+        // for first level page use cache to avoid unnecessary requests to API
+        if ( $tree_id == '' && $descriptor == ''){
+            $decs_xml = $this->cache->get_decs_first_level($lang, $API_KEY);
+        }else{
+            $context = stream_context_create($opts);
+            $api_result = file_get_contents($api_url, false, $context);
 
-        $decs_xml = simplexml_load_string($api_result);
-
-        // translate
-        // $texts_interface = parse_ini_file(TRANSLATE_PATH . $lang . "/texts.ini", true);
-        // $texts_decs = parse_ini_file(APP_TRANSLATE_PATH . $lang . "/decs-locator.ini", true);
-
-        // $texts = array_merge($texts_interface, $texts_decs);
+            $decs_xml = simplexml_load_string($api_result);
+        }
 
         // start session
         $SESSION = $request->getSession();
         $SESSION->start();
-
-        //print_r($decs_xml);
-
-        // log user action
-        // log_user_action($lang, '', '', $tree_id, '', '', '', '', 'decs_lookup', $SESSION->getId());
 
         if ($decs_xml->decsws_response->tree->ancestors->term_list) {
             $ancestors_tree = array();
