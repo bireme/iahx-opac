@@ -166,7 +166,7 @@
                     </div>
                 {% endif %}
                 <!-- epistemonikos info -->
-                {% if config.epistemonikos_token %}
+                {% if config.epistemonikos_token is defined %}
                     <div id="epistemonikos_info">
                     </div>
                 {% endif %}
@@ -458,7 +458,7 @@
     <script src="{{ constant("STATIC_URL") }}/js/decs_window.js"></script>
     <script src="{{ constant("STATIC_URL") }}/js/slick.js"></script>
 
-    {% if config.epistemonikos_token %}
+    {% if config.epistemonikos is defined %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">
             doc_id = '{% if "MEDLINE" in doc.db %}{% if doc.alternate_id is defined %}{{ doc.alternate_id.0|substring_after('-') }}{% else %}{{ doc.id|substring_after('-') }}{% endif %}{% else %}{{ doc.id }}{% endif %}';
