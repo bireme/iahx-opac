@@ -20,7 +20,7 @@ FROM docker.io/bitnami/php-fpm:8.2
 
 # Copy configuration
 COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
-COPY ./docker/php/custom.ini /opt/bitnami/php/etc/conf.d/custom.ini
+COPY ./docker/php/php.ini-development /opt/bitnami/php/etc/php.ini
 
 # Copy extensions from builder
 COPY --from=builder \

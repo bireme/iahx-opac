@@ -315,12 +315,12 @@ serialize_precision = -1
 ; or per-virtualhost web server configuration file.
 ; Note: disables the realpath cache
 ; https://php.net/open-basedir
-;open_basedir =
+;open_basedir = /app:/tmp
 
 ; This directive allows you to disable certain functions.
 ; It receives a comma-delimited list of function names.
 ; https://php.net/disable-functions
-disable_functions =
+disable_functions = exec,passthru,shell_exec,system,proc_open,popen,curl_exec,curl_multi_exec,show_source
 
 ; This directive allows you to disable certain classes.
 ; It receives a comma-delimited list of class names.
@@ -395,7 +395,7 @@ zend.exception_string_param_max_len = 15
 ; threat in any way, but it makes it possible to determine whether you use PHP
 ; on your server or not.
 ; https://php.net/expose-php
-expose_php = On
+expose_php = Off
 
 ;;;;;;;;;;;;;;;;;;;
 ; Resource Limits ;
@@ -430,7 +430,7 @@ max_input_time = 60
 
 ; Maximum amount of memory a script may consume
 ; https://php.net/memory-limit
-memory_limit = 128M
+memory_limit = 256M
 
 ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
 ; Error handling and logging ;
@@ -841,7 +841,7 @@ enable_dl = Off
 
 ; Whether to allow HTTP file uploads.
 ; https://php.net/file-uploads
-file_uploads = On
+file_uploads = Off
 
 ; Temporary directory for HTTP uploaded files (will use system default if not
 ; specified).
@@ -861,7 +861,7 @@ max_file_uploads = 20
 
 ; Whether to allow the treatment of URLs (like http:// or ftp://) as files.
 ; https://php.net/allow-url-fopen
-allow_url_fopen = On
+allow_url_fopen = Off
 
 ; Whether to allow include/require to open URLs (like https:// or ftp://) as files.
 ; https://php.net/allow-url-include
@@ -1784,7 +1784,7 @@ ldap.max_links = -1
 
 [opcache]
 ; Determines if Zend OPCache is enabled
-;opcache.enable=1
+opcache.enable=0
 
 ; Determines if Zend OPCache is enabled for the CLI version of PHP
 ;opcache.enable_cli=0
@@ -1973,3 +1973,5 @@ ldap.max_links = -1
 
 ; List of headers files to preload, wildcard patterns allowed.
 ;ffi.preload=
+
+
