@@ -35,8 +35,6 @@ services:
     environment:
       -  ALLOW_EMPTY_PASSWORD=yes
     command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb
-    networks:
-      - nginx-proxy
 
 volumes:
   static_files:
