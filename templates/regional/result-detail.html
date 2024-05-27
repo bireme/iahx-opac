@@ -166,7 +166,7 @@
                     </div>
                 {% endif %}
                 <!-- epistemonikos info -->
-                {% if config.epistemonikos_token is defined %}
+                {% if config.epistemonikos is defined %}
                     <div id="epistemonikos_info">
                     </div>
                 {% endif %}
@@ -272,13 +272,13 @@
 
                     {% for key in doc|keys %}
                         {% if 'mark_ab' in key %}
-                            {% set mark_ab_list = mark_ab_list|merge({ (loop.index0): key}) %}
+                            {% set mark_ab_list = mark_ab_list|merge([key]) %}
                         {% elseif 'ab_' in key %}
-                            {% set raw_ab_list = raw_ab_list|merge({ (loop.index0): key}) %}
+                            {% set raw_ab_list = raw_ab_list|merge([key]) %}
                         {% endif %}
                     {% endfor %}
 
-                    {% if mark_ab_list is defined %}
+                    {% if mark_ab_list|length > 0 %}
                         {% set ab_list = mark_ab_list %}
                     {% elseif raw_ab_list is defined %}
                         {% set ab_list = raw_ab_list %}
@@ -301,7 +301,7 @@
                         <div class="clearfix"></div>
                     </div>
 
-                    {% if ab_list %}
+                    {% if ab_list is defined %}
                         <ul class="nav nav-tabs" id="tabResumo" role="tablist">
                             {% for ab_field in ab_list %}
                                 {% set ab_lang = 'ab_' in ab_field ? ab_field|split('_')|last : 'en' %}
@@ -334,7 +334,7 @@
                             </li>
                         </ul>
                         <div class="tab-content" id="resumo">
-                            <div class="tab-pane fade show active abstract" id="ab" role="tabpanel" aria-labelledby="ab-tab" lang="{{ab_lang}}">
+                            <div class="tab-pane fade show active abstract" id="ab" role="tabpanel" aria-labelledby="ab-tab" lang="{{ab_lang|default()}}">
         			            {% for abstract in doc.ab %}
         			                {{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}
         			            {% endfor %}
@@ -458,7 +458,7 @@
     <script src="{{ constant("STATIC_URL") }}/js/decs_window.js"></script>
     <script src="{{ constant("STATIC_URL") }}/js/slick.js"></script>
 
-    {% if config.epistemonikos is defined %}
+    {% if config.epistemonikos is defined and config.epistemonikos == 'true' %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">
             doc_id = '{% if "MEDLINE" in doc.db %}{% if doc.alternate_id is defined %}{{ doc.alternate_id.0|substring_after('-') }}{% else %}{{ doc.id|substring_after('-') }}{% endif %}{% else %}{{ doc.id }}{% endif %}';
