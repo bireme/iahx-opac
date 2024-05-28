@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\AuxFunctions;
 use App\Service\CacheService;
+use App\Service\InstanceConfigService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,14 +17,14 @@ final class BrowseIndex extends AbstractController
     public function __construct(
         private AuxFunctions $auxFunctions,
         private CacheService $cache,
+        private InstanceConfigService $instanceConfigService,
     ){}
 
     #[Route('{instance}/browse-index/{index}/')]
     public function index(Request $request, string $instance, string $index): Response
     {
 
-        $app_dir = $this->getParameter('kernel.project_dir');
-        require($app_dir . '/config/load-instance-definitions.php');
+        list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
         $init = $request->get('init', '"');
         $direction = $request->get('dir', 'next');

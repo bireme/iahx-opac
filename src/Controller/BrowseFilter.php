@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Service\AuxFunctions;
 use App\Service\CacheService;
 use App\Service\SearchSolr;
+use App\Service\InstanceConfigService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -17,25 +18,25 @@ final class BrowseFilter extends AbstractController
     public function __construct(
         private AuxFunctions $auxFunctions,
         private CacheService $cache,
+        private InstanceConfigService $instanceConfigService,
     ){}
 
     #[Route('{instance}/browse-filter/{filter}/')]
     public function index(Request $request, string $instance, string $filter): Response
     {
-        global $config, $lang, $texts;
+        global $lang, $texts;
 
-        $app_dir = $this->getParameter('kernel.project_dir');
-        require($app_dir . '/config/load-instance-definitions.php');
+        list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
-        $lang = $request->get('lang', (string)$DEFAULT_PARAMS['lang']);
+        $lang = $request->get('lang', $defaults['lang']);
         $texts = $this->cache->get_texts($instance, $lang);
 
         $from = $request->get('from', 0);
         $limit = $request->get('limit', 999999);
 
-        $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
-        $site = $DEFAULT_PARAMS['defaultSite'];
-        $col = $DEFAULT_PARAMS['defaultCollection'];
+        $collectionData = $defaults['defaultCollectionData'];
+        $site = $defaults['defaultSite'];
+        $col = $defaults['defaultCollection'];
         $initial_filter = html_entity_decode($collectionData->initial_filter);
         $config_cluster_list = $collectionData->cluster_list->cluster;
 

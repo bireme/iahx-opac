@@ -17,16 +17,8 @@ class SearchSolr
         $this->param["output"]= $output;
         $this->param["lang"]  = $lang;
         $this->param["initial_filter"]  = "";
-        $this->setDiaServer( $config->search_server );
-
-        return;
     }
 
-
-    function setDiaServer($server){
-        $this->DIASERVER = $server;
-        return;
-    }
 
     function setParam($param, $value){
         if ($value != null && $value != ""){
@@ -155,8 +147,7 @@ class SearchSolr
                 }
             }
         }
-        $protocol = (substr($this->DIASERVER, 0, 4) != "http" ? "http://" : "");
-        $requestUrl = $protocol . $this->DIASERVER . "/iahx-controller/?" . substr($urlParam,1);
+        $requestUrl = $_ENV['IAHX_CONTROLER_SERVER'] . 'iahx-controller/?' . substr($urlParam,1);
 
         return $requestUrl;
     }

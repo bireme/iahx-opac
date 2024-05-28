@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Service\CacheService;
+use App\Service\InstanceConfigService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -16,6 +17,7 @@ final class DeCSLocatorController extends AbstractController
 
     public function __construct(
         private CacheService $cache,
+        private InstanceConfigService $instanceConfigService,
     ){}
 
 
@@ -23,9 +25,7 @@ final class DeCSLocatorController extends AbstractController
     public function index(Request $request, string $instance, string $lang): Response
     {
 
-        $app_dir = $this->getParameter('kernel.project_dir');
-
-        require($app_dir . '/config/load-instance-definitions.php');
+        list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
         // get texts used in template
         $texts_ui = $this->cache->get_texts($instance, $lang);
@@ -38,9 +38,9 @@ final class DeCSLocatorController extends AbstractController
           $params[$key] = $value;
         }
 
-        $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
-        $site = $DEFAULT_PARAMS['defaultSite'];
-        $col = $DEFAULT_PARAMS['defaultCollection'];
+        $collectionData = $defaults['defaultCollectionData'];
+        $site = $defaults['defaultSite'];
+        $col = $defaults['defaultCollection'];
 
         $tree_id = $request->get("tree_id", "");        // D02.065.589.099.750.124
         $descriptor = $request->get("descriptor", "");  // get detais of specific descriptor

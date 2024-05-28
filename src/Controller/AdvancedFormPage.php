@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Service\AuxFunctions;
 use App\Service\CacheService;
+use App\Service\InstanceConfigService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -15,6 +16,7 @@ final class AdvancedFormPage extends AbstractController
 
     public function __construct(
         private AuxFunctions $auxFunctions,
+        private InstanceConfigService $instanceConfigService,
         private CacheService $cache,
     ){}
 
@@ -22,11 +24,8 @@ final class AdvancedFormPage extends AbstractController
     public function index(Request $request, string $instance, string $lang): Response
     {
 
-        $app_dir = $this->getParameter('kernel.project_dir');
-        $config = $this->cache->get_config($instance);
+        list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
         $texts = $this->cache->get_texts($instance, $lang);
-
-        require($app_dir . '/config/load-instance-definitions.php');
 
         $params = [];
         foreach($request->query as $key => $value) {

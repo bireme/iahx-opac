@@ -5,11 +5,16 @@ namespace App\Controller;
 use App\Service\AuxFunctions;
 use App\Service\SearchSolr;
 use App\Service\CacheService;
+use App\Service\InstanceConfigService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+
+use Symfony\Component\Mailer\MailerInterface;
+use Symfony\Component\Mime\Email;
+use Symfony\Component\Mime\Address;
 
 use Detection\MobileDetect;
 
@@ -19,26 +24,24 @@ final class SearchController extends AbstractController
     public function __construct(
         private AuxFunctions $auxFunctions,
         private CacheService $cache,
+        private InstanceConfigService $instanceConfigService,
     ){}
-
 
     #[Route('{instance}/')]
     public function index(Request $request, string $instance): Response
     {
-        global $config, $lang, $texts;
+        global $lang, $texts;
 
-        // get configuration of the instance
-        $app_dir = $this->getParameter('kernel.project_dir');
-        require($app_dir . '/config/load-instance-definitions.php');
+        list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
         $params = [];
         foreach($request->query as $key => $value) {
           $params[$key] = $value;
         }
 
-        $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
-        $site = $DEFAULT_PARAMS['defaultSite'];
-        $col = $DEFAULT_PARAMS['defaultCollection'];
+        $collectionData = $defaults['defaultCollectionData'];
+        $site = $defaults['defaultSite'];
+        $col = $defaults['defaultCollection'];
 
         $fb = "";
         if(isset($params['fb']) and $params['fb'] != "") {
@@ -65,7 +68,7 @@ final class SearchController extends AbstractController
             $output_as_file = ($params['output_as_file'] === 'true'? true : false);
         }
 
-        $lang = (string)$DEFAULT_PARAMS['lang'];
+        $lang = (string)$defaults['lang'];
         if(isset($params['lang']) and $params['lang'] != "") {
             $lang = $params['lang'];
         }
@@ -152,7 +155,7 @@ final class SearchController extends AbstractController
             $sort_value = $this->auxFunctions->getDefaultSort($collectionData, $q);
         }
 
-        $format = $DEFAULT_PARAMS['defaultDisplayFormat'];
+        $format = $defaults['defaultDisplayFormat'];
         if(isset($params['format'])and $params['format'] != "") {
             $format = $params['format'];
         }
@@ -193,6 +196,8 @@ final class SearchController extends AbstractController
             }
         }
 
+        $is_email = (bool)$request->query->get('is_email', false);
+
         // apply view_filters
         $view_filter_param = array();
         $view_filter = '';
@@ -229,7 +234,7 @@ final class SearchController extends AbstractController
         $user_filter = array_merge($filter, $where);
 
         // if is send email, needs to change the from parameter, or my selection
-        if(isset($params['is_email'])) {
+        if($is_email) {
 
             $email = array();
             foreach(array('name', 'your_email', 'email', 'subject', 'comment', 'selection') as $field) {
@@ -423,11 +428,14 @@ final class SearchController extends AbstractController
         $template_vars['max_export_records'] = $config->max_export_records;
 
         // if is send email
-        if(isset($params['is_email'])) {
+        if( $is_email ) {
+
+            print("*** EMAIL ");
+            die();
 
             $template_vars['email'] = $email;
 
-            $render = $this->render(TEMPLATE_NAME . '/export-email.html', $template_vars);
+            $email_content = $this->renderView(TEMPLATE_NAME . '/export-email.html', $template_vars);
             $from_name = (isset($email['name']) ? $email['name'] : '') . ' (' . $texts['BVS_HOME'] . ')' ;
             $subject = (isset($email['subject']) ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
@@ -438,17 +446,21 @@ final class SearchController extends AbstractController
                 $to_email = $email['email'];
             }
 
-            $message = \Swift_Message::newInstance()
-                ->setSubject($subject)
-                ->setFrom(array(FROM_MAIL => $from_name))
-                ->setTo($to_email)
-                ->setBody($render, 'text/html');
+            $email = (new Email())
+                ->from(new Address(FROM_MAIL, $from_name))
+                ->to($to_email)
+                ->replyTo($to_email)
+                ->priority(Email::PRIORITY_HIGH)
+                ->subject($subject)
+                ->html($email_content);
+            $mailer->send($email);
 
-            if ( $app['mailer']->send($message) ){
-                $template_vars['flash_message'] = 'MAIL_SUCCESS';
-            }else{
-                $template_vars['flash_message'] = 'MAIL_FAIL';
-            }
+            // try {
+            //     $mailer->send($email);
+            //     $template_vars['flash_message'] = 'MAIL_SUCCESS';
+            // } catch (TransportExceptionInterface $e) {
+            //     $template_vars['flash_message'] = 'MAIL_FAIL';
+            // }
         }
 
         // Impact Measurement
@@ -609,7 +621,6 @@ final class SearchController extends AbstractController
                 }
 
                 return $this->render(TEMPLATE_NAME . $view . '/index.html', $template_vars);
-                break;
         }
 
     }

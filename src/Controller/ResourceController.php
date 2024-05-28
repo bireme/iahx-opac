@@ -5,11 +5,13 @@ namespace App\Controller;
 use App\Service\AuxFunctions;
 use App\Service\SearchSolr;
 use App\Service\CacheService;
+use App\Service\InstanceConfigService;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 use Detection\MobileDetect;
 
@@ -19,16 +21,15 @@ final class ResourceController extends AbstractController
     public function __construct(
         private AuxFunctions $auxFunctions,
         private CacheService $cache,
+        private InstanceConfigService $instanceConfigService,
     ){}
 
 
     #[Route('{instance}/resource/{lang}/{id}')]
     public function index(Request $request, string $instance, string $lang, string $id): Response
     {
-        global $config;
 
-        $app_dir = $this->getParameter('kernel.project_dir');
-        require($app_dir . '/config/load-instance-definitions.php');
+        list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
         // get texts used in template
         $texts = $this->cache->get_texts($instance, $lang);
@@ -38,9 +39,9 @@ final class ResourceController extends AbstractController
           $params[$key] = $value;
         }
 
-        $collectionData = $DEFAULT_PARAMS['defaultCollectionData'];
-        $site = $DEFAULT_PARAMS['defaultSite'];
-        $col = $DEFAULT_PARAMS['defaultCollection'];
+        $collectionData = $defaults['defaultCollectionData'];
+        $site = $defaults['defaultSite'];
+        $col = $defaults['defaultCollection'];
 
         // controller response
         $dia = new SearchSolr($site, $col, 1, "site", $lang);
@@ -87,9 +88,6 @@ final class ResourceController extends AbstractController
             $SESSION = $request->getSession();
             $SESSION->start();
 
-            // log user action
-            //log_user_action($lang, $col, $site, 'id:' . $id, '', '', '', '', 'detail', $SESSION->getId());
-
             $check_mobile = $config->mobile_version;
             $view = ( isset($params['view']) ? $params['view'] : '');
 
@@ -107,13 +105,11 @@ final class ResourceController extends AbstractController
             if( !isset($view) ) {
                 $view = '';
             }
+            return $this->render(TEMPLATE_NAME . $view . '/result-detail.html', $output_array);
 
         }else{
-            // return 404 if document not found
-            header("HTTP/1.0 404 Not Found");
+            throw new NotFoundHttpException('Resource does not exist');
         }
-
-        return $this->render(TEMPLATE_NAME . $view . '/result-detail.html', $output_array);
 
     }
 }
