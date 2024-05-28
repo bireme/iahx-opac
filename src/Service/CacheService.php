@@ -72,7 +72,6 @@ class CacheService
 
         // Fetch the first level of decs or generate them if not cached
         $first_level_str = $this->cache->get($cache_key, function (ItemInterface $item) use ($lang, $api_key) {
-
             $api_url = "https://api.bvsalud.org/decs/v2/get-tree?lang=" . $lang . "&tree_id=";
             $opts = array(
                 'http'=>array(

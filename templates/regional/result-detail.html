@@ -58,9 +58,10 @@
     <meta name="citation_publication_date" content="{{ doc.da|slice(0,4) }}" />
     <meta name="dc.date" content="{{ doc.da|slice(0,4) }}" />
 
-    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/jBox.all.min.css">
-    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/slick.css">
-    <link rel="stylesheet" href="{{ constant("STATIC_URL") }}/css/slick-theme.css">
+    <link href="https://cdn.jsdelivr.net/npm/jbox@1.3.3/dist/jBox.all.min.css" rel="stylesheet">
+
+    <link href="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset('regional/css/slick-theme.css') }}">
 
 {% endblock %}
 
@@ -454,9 +455,11 @@
 
 {% block footerscripts %}
     <!--jBox library is used for highlight DeCS terms in abstract -->
-    <script src="{{ constant("STATIC_URL") }}/js/jBox.all.min.js"></script>
-    <script src="{{ constant("STATIC_URL") }}/js/decs_window.js"></script>
-    <script src="{{ constant("STATIC_URL") }}/js/slick.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jbox@1.3.3/dist/jBox.all.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/slick-carousel@1.8.1/slick/slick.min.js"></script>
+
+    <script src="{{ asset('regional/js/decs_window.js') }}"></script>
+
 
     {% if config.epistemonikos is defined and config.epistemonikos == 'true' %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}

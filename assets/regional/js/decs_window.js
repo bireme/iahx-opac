@@ -16,7 +16,7 @@ $(document).ready(
             }else{
                 lang = document.searchForm.lang.value;
             }
-            var service_url = SEARCH_URL + "decs/"+lang+"/"+encodeURI(descriptor_param);
+            var service_url = SEARCH_URL + "decs-tooltip/"+lang+"/?term="+encodeURI(descriptor_param);
             //console.log(service_url);
 
             new jBox('Tooltip', {

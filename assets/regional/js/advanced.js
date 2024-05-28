@@ -26,7 +26,7 @@ function show_index(line, update){
     $.getJSON(SEARCH_URL + "browse-index/" + index +"/?init=" + init, function(result) {
         $.each(result.terms, function() {
             options.append($("<option />").val(this).text(this));
-            console.log('term: ' + this);
+            //console.log('term: ' + this);
         });
 
     });
