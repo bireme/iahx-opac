@@ -3,3 +3,11 @@ controllers:
         path: ../src/Controller/
         namespace: App\Controller
     type: attribute
+
+# Redirect index page to search portal instance
+redirect_to_index:
+    path: /
+    controller: Symfony\Bundle\FrameworkBundle\Controller\RedirectController::urlRedirectAction
+    defaults:
+        path: /portal/
+        permanent: true
