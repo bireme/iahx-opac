@@ -54,9 +54,11 @@
         {% endif %}
     {% endif %}
 
-    <meta name="citation_language" content="{{ doc.la.0 }}" />
+    <meta name="citation_language" content="{{ doc.la.0|default() }}" />
+    {% if doc.da is defined %}
     <meta name="citation_publication_date" content="{{ doc.da|slice(0,4) }}" />
     <meta name="dc.date" content="{{ doc.da|slice(0,4) }}" />
+    {% endif %}
 
     <link href="https://cdn.jsdelivr.net/npm/jbox@1.3.3/dist/jBox.all.min.css" rel="stylesheet">
 
@@ -465,7 +467,7 @@
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}
         <script type="text/javascript">
             doc_id = '{% if "MEDLINE" in doc.db %}{% if doc.alternate_id is defined %}{{ doc.alternate_id.0|substring_after('-') }}{% else %}{{ doc.id|substring_after('-') }}{% endif %}{% else %}{{ doc.id }}{% endif %}';
-            service_url = '{{ constant("SEARCH_URL") }}' + 'epistemonikos/' + LANG + '/' + doc_id;
+            service_url = '{{ constant("SEARCH_URL") }}' + 'epistemonikos-info/' + LANG + '/' + doc_id;
 
             $("#epistemonikos_info" ).load(service_url);
         </script>
