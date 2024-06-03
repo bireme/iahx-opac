@@ -34,7 +34,7 @@ services:
     restart: unless-stopped
     environment:
       -  ALLOW_EMPTY_PASSWORD=yes
-    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb
+    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory ${APP_CACHE_MEMORY} --maxmemory-policy allkeys-lru
 
 volumes:
   static_files:

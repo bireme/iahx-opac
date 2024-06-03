@@ -33,4 +33,4 @@ services:
     image: bitnami/redis:7.2
     environment:
       -  ALLOW_EMPTY_PASSWORD=yes
-    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb
+    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb --maxmemory-policy allkeys-lru
