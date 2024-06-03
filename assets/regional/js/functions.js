@@ -108,7 +108,7 @@ function export_xml_record(id) {
 
 // advanced search
 function decs_locator() {
-    const decs_locator_url = SEARCH_URL + 'decs-locator/' + LANG + '/';
+    const decs_locator_url = SEARCH_URL + 'decs-locator/?lang=' + LANG;
 
     $("#searchForm").attr("action", decs_locator_url);
     $("#searchForm").submit();
@@ -181,4 +181,25 @@ function change_sort(obj){
 
     form.sort.value = sort;
     $("#searchForm").submit();
+}
+
+
+function send_email(){
+    let email_form = $('#emailForm');
+
+    $('#searchForm').find(':input').each(function() {
+        var input = $(this);
+        if (input.attr('name')) {
+            $('<input>').attr({
+                type: 'hidden',
+                name: input.attr('name'),
+                value: input.val()
+            }).appendTo(email_form);
+        }
+    });
+
+    console.log(email_form);
+    email_form.submit();
+    return true;
+
 }

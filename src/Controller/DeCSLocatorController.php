@@ -21,22 +21,24 @@ final class DeCSLocatorController extends AbstractController
     ){}
 
 
-    #[Route('{instance}/decs-locator/{lang}/')]
-    public function index(Request $request, string $instance, string $lang): Response
+    #[Route('{instance}/decs-locator/')]
+    public function index(Request $request, string $instance): Response
     {
 
         list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
-
-        // get texts used in template
-        $texts_ui = $this->cache->get_texts($instance, $lang);
-        $texts_decs = $this->cache->get_texts_decs_locator($lang);
-
-        $texts = array_merge($texts_ui, $texts_decs);
 
         $params = [];
         foreach($request->query as $key => $value) {
           $params[$key] = $value;
         }
+
+        $lang = $params['lang'] ?? $defaults['lang'];
+
+        // get texts used in template
+        $texts_ui = $this->cache->get_texts($instance, $lang);
+        $texts_decs = $this->cache->get_texts_decs_locator($lang);
+        $texts = array_merge($texts_ui, $texts_decs);
+
 
         $collectionData = $defaults['defaultCollectionData'];
         $site = $defaults['defaultSite'];

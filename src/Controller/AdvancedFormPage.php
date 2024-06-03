@@ -20,17 +20,20 @@ final class AdvancedFormPage extends AbstractController
         private CacheService $cache,
     ){}
 
-    #[Route('{instance}/advanced/{lang}/')]
-    public function index(Request $request, string $instance, string $lang): Response
+    #[Route('{instance}/advanced/')]
+    public function index(Request $request, string $instance): Response
     {
 
         list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
-        $texts = $this->cache->get_texts($instance, $lang);
 
         $params = [];
         foreach($request->query as $key => $value) {
           $params[$key] = $value;
         }
+
+        $lang = $params['lang'] ?? $defaults['lang'];
+
+        $texts = $this->cache->get_texts($instance, $lang);
 
         $template_vars = array();
         $template_vars['lang'] = $lang;
