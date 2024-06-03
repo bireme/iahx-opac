@@ -33,7 +33,7 @@
     {% endif %}
 
     | <a href="{{ epistemonikos_doc_url|replace({"/en/": lang_param}) }}" onclick="gtag('event', 'Show article detail', {'event_category': 'Epistemonikos', 'event_label': '{{ doc_id }}'});" target="_blank">
-        <img src="{{ constant("STATIC_URL") }}/image/common/icon_epistemonikos.png" width="20" />
+        <img src="{{ asset('regional/image/common/icon_epistemonikos.png') }}" width="20" />
         {{ texts.SEE_IN }} Epistemonikos
     </a>
 
