@@ -13,6 +13,7 @@ class AppExtension extends \Twig\Extension\AbstractExtension
             new \Twig\TwigFunction('custom_template', [$this,  'custom_template']),
             new \Twig\TwigFunction('has_translation', [$this, 'has_translation']),
             new \Twig\TwigFunction('translate', [$this, 'translate']),
+            new \Twig\TwigFunction('get_translated_label', [$this, 'get_translated_label']),
             new \Twig\TwigFunction('occ', [$this, 'occ']),
         ];
     }
@@ -36,6 +37,7 @@ class AppExtension extends \Twig\Extension\AbstractExtension
         ];
     }
 
+    // Twig Functions
     function has_translation($label, $group=NULL)
     {
         global $texts, $lang;
@@ -71,7 +73,32 @@ class AppExtension extends \Twig\Extension\AbstractExtension
         return ucfirst($label);
     }
 
-    // Twig Functions
+
+    function get_translated_label($target_lang,  $label, $lang, $translations, $default_lang = 'en')
+    {
+        $default_translated_label = $label;
+        $translated_label = '';
+
+        if ($lang == $target_lang){
+            $translated_label = $label;
+        }else{
+            foreach ($translations as $translation){
+                $translation_lang = substr($translation['language'], 0, 2);
+                if ($translation_lang == $target_lang){
+                    $translated_label = $translation['label'];
+                }elseif ($translation_lang == $default_lang){
+                    $default_translated_label = $translation['label'];
+                }
+            }
+        }
+        if ($translated_label == ''){
+            $translated_label = $default_translated_label;
+        }
+
+        return $translated_label;
+
+    }
+
     public function custom_template($filename)
     {
         if( file_exists(CUSTOM_TEMPLATE_PATH . $filename) ) {

@@ -53,7 +53,7 @@ class CacheService
             $config_xml_str = '';
 
             if (file_exists($config_file)) {
-                $config_xml = @simplexml_load_file($config_file, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+                $config_xml = simplexml_load_file($config_file, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
                 if ($config_xml === false){
                     throw new HttpException(500, 'Invalid config file');
                 }

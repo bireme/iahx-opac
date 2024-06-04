@@ -10,7 +10,7 @@
             <select name="{{step_info.filter_name}}" id="option-step-{{step_info.step}}" class="form-control step-option-list wizard-color-step-{{step_info.step}}" data-step="{{step_info.step}}">
                 <option value=""></option>
                 {% for option in option_list_step %}
-                    <option value="{{option.0}}" {% if option.0 == previous_session_selection.value %}selected="true"{% endif %} >{{ option.2 }}</option>
+                    <option value="{{option.0}}" {% if option.0 == previous_session_selection.value|default() %}selected="true"{% endif %} >{{ option.2 }}</option>
                 {% endfor %}
             </select>
         {% else %}
