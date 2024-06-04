@@ -5,6 +5,7 @@ namespace App\Service;
 use Symfony\Contracts\Cache\CacheInterface;
 use Symfony\Contracts\Cache\ItemInterface;
 
+use Symfony\Component\HttpKernel\Exception\HttpException;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 
 class CacheService
@@ -49,13 +50,19 @@ class CacheService
         // Fetch the config from cache or generate them if not cached
         $config_str = $this->cache->get($config_cache_key, function (ItemInterface $item) use ($instance) {
             $config_file = $this->projectDir . '/instances/' . $instance . '/config/config.xml';
+            $config_xml_str = '';
 
-            $config_xml = @simplexml_load_file($config_file, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
-            if ($config_xml == false){
+            if (file_exists($config_file)) {
+                $config_xml = @simplexml_load_file($config_file, 'SimpleXMLElement', LIBXML_NOCDATA | LIBXML_NOBLANKS);
+                if ($config_xml === false){
+                    throw new HttpException(500, 'Invalid config file');
+                }
+                // Convert SimpleXMLElement to string for serialization
+                $config_xml_str = $config_xml->asXML();
+            }else{
                 throw new NotFoundHttpException('The instance does not exist');
             }
-            // Convert SimpleXMLElement to string for serialization
-            $config_xml_str = $config_xml->asXML();
+
             return $config_xml_str;
         });
 
