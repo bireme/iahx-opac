@@ -252,19 +252,19 @@
 				</div>
 				<div class="modal-body">
 
-                    <form name="emailForm" method="POST" action="{% if current_page == 'detail' %}{{ constant("SEARCH_URL") }}{% else %}{{ current_url }}{% endif %}" onsubmit="return send_email();">
+                    <form name="emailForm" id="emailForm" method="POST" action="{{ constant("SEARCH_URL") }}">
                         <input type="hidden" name="is_email" value="true" />
 
                         <formset>
                             <label for="yourName">{{ texts.MAIL_FROM_NAME }} </label>
-                            <input type="text" class="form-control" id="yourName" name="name" placeholder="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue" autocomplete="on">
+                            <input type="text" class="form-control" id="yourName" name="from_name" placeholder="{{ texts.MAIL_FROM_NAME }}" title="{{ texts.MAIL_FROM_NAME }}" class="defaultValue" autocomplete="on">
 
                             <label for="yourEmail">{{ texts.MAIL_FROM_EMAIL }} </label>
-                            <input type="text" class="form-control" id="yourEmail" name="your_email" placeholder="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue" required>
+                            <input type="text" class="form-control" id="yourEmail" name="from_email" placeholder="{{ texts.MAIL_FROM_EMAIL }}" title="{{ texts.MAIL_FROM_EMAIL }}" class="defaultValue" required>
 
                             <label for="email_dest">{{ texts.SEND_RESULT_TO }}</label> <!-- a href="javascript:add_more_email();">{{ texts.MAIL_TO_ADD }}</a-->
                             <div id="destinatarios">
-                                <input type="text" class="form-control" id="email_dest" name="email[]" placeholder="{{ texts.MAIL_TO_EMAIL }}" title="{{ texts.MAIL_TO_EMAIL }}" class="defaultValue" required>
+                                <input type="text" class="form-control" id="email_dest" name="to_email" placeholder="{{ texts.MAIL_TO_EMAIL }}" title="{{ texts.MAIL_TO_EMAIL }}" class="defaultValue" required>
                             </div>
                             <div id="more-destinatarios"></div>
 
@@ -274,18 +274,15 @@
                             <label for="comment">{{ texts.MAIL_COMMENT }}</label>
                             <textarea id="comment" class="form-control" name="comment" title="{{ texts.MAIL_COMMENT }}" class="defaultValue" placeholder="{{ texts.MAIL_COMMENT }}"></textarea>
 
-                            {% if current_page == 'detail' %}
-                                <input type="hidden" name="q" value="{{q}}" />
-                            {% else %}
-                                {{ texts.SEND_RESULT }}<br>
-                                <fieldset>
-                                    <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page"> {{ texts.THIS_PAGE }}</label>
-                                    <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)</label>
-                                    <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES }} ({{texts.ALL_REFERENCES_LIMIT}}&nbsp; 300)</label>
-                                </fieldset>
-                            {% endif %}
+                            {{ texts.SEND_RESULT }}<br>
+                            <fieldset>
+                                <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page"> {{ texts.THIS_PAGE }}</label>
+                                <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)</label>
+                                <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES }} ({{texts.ALL_REFERENCES_LIMIT}}&nbsp; 300)</label>
+                            </fieldset>
+
                             <div>
-                                <input type="submit" value=" {{ texts.SEND }} " class="btn btn-primary">
+                                <input type="button" value=" {{ texts.SEND }} " class="btn btn-primary" onclick="send_email();">
                             </div>
                         </formset>
                     </form>

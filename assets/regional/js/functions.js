@@ -185,21 +185,17 @@ function change_sort(obj){
 
 
 function send_email(){
-    let email_form = $('#emailForm');
 
-    $('#searchForm').find(':input').each(function() {
+    // Copy all input fields from searchForm to emailForm
+    $('#searchForm input').each(function() {
         var input = $(this);
-        if (input.attr('name')) {
-            $('<input>').attr({
-                type: 'hidden',
-                name: input.attr('name'),
-                value: input.val()
-            }).appendTo(email_form);
-        }
+        var clonedInput = input.clone();
+        $('#emailForm').append(clonedInput);
     });
 
-    console.log(email_form);
-    email_form.submit();
+    console.log($('#emailForm'));
+    alert("Enviando email ...");
+    $('#emailForm').submit();
     return true;
 
 }

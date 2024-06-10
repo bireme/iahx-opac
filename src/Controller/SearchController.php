@@ -25,6 +25,7 @@ final class SearchController extends AbstractController
         private AuxFunctions $auxFunctions,
         private CacheService $cache,
         private InstanceConfigService $instanceConfigService,
+        private MailerInterface $mailer,
     ){}
 
     #[Route('{instance}/')]
@@ -35,7 +36,8 @@ final class SearchController extends AbstractController
         list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
         $params = [];
-        foreach($request->query as $key => $value) {
+        $request_params = isset($request->request) ? $request->request : $request->query;
+        foreach($request_params as $key => $value) {
           $params[$key] = $value;
         }
 
@@ -196,7 +198,7 @@ final class SearchController extends AbstractController
             }
         }
 
-        $is_email = (bool)$request->query->get('is_email', false);
+        $is_email = (isset($params['is_email']) && $params['is_email'] === 'true' ? true : false);
 
         // apply view_filters
         $view_filter_param = array();
@@ -234,22 +236,20 @@ final class SearchController extends AbstractController
         $user_filter = array_merge($filter, $where);
 
         // if is send email, needs to change the from parameter, or my selection
-        if($is_email) {
-
-            $email = array();
-            foreach(array('name', 'your_email', 'email', 'subject', 'comment', 'selection') as $field) {
+        if( $is_email ) {
+            $email_info = array();
+            foreach(array('from_name', 'from_email', 'to_email', 'subject', 'comment', 'selection') as $field) {
                 if((is_array($params[$field]) and !empty($params[$field])) or ($params[$field] != "")) {
-                    $email[$field] = $params[$field];
+                    $email_info[$field] = $params[$field];
                 }
             }
 
-            if(isset($email['selection'])) {
-                if($email['selection'] == "my_selection") {
-
+            if(isset($email_info['selection'])) {
+                if($email_info['selection'] == "my_selection") {
                     $from = 1;
                     $q = '+id:("' . join(array_keys($bookmark), '" OR "') . '")';
                 }
-                elseif($email['selection'] == "all_results") {
+                elseif($email_info['selection'] == "all_results") {
                     $from = 1;
                     $count = 300;
                 }
@@ -430,37 +430,34 @@ final class SearchController extends AbstractController
         // if is send email
         if( $is_email ) {
 
-            print("*** EMAIL ");
-            die();
-
-            $template_vars['email'] = $email;
+            $template_vars['email_info'] = $email_info;
 
             $email_content = $this->renderView(TEMPLATE_NAME . '/export-email.html', $template_vars);
-            $from_name = (isset($email['name']) ? $email['name'] : '') . ' (' . $texts['BVS_HOME'] . ')' ;
-            $subject = (isset($email['subject']) ? $email['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
+            $from_email = isset($email_info['from_email']) ? $email_info['from_email'] : $_ENV['EMAIL_FROM'];
+            $from_name = (isset($email_info['name']) ? $email_info['name'] : '') . ' (' . $texts['BVS_HOME'] . ')';
+            $subject = (isset($email_info['subject']) ? $email_info['subject'] : $texts['SEARCH_HOME'] . ' | ' . $texts['BVS_TITLE']);
 
             # check if param email (to) is in the format of email list separated by ;
-            if ( !is_array($email['email']) && strpos($email['email'], ';') !== false) {
-                $to_email = explode(';', $email['email']);
+            if ( !is_array($email_info['to_email']) && strpos($email_info['to_email'], ';') !== false) {
+                $to_email = explode(';', $email_info['to_email']);
             }else{
-                $to_email = $email['email'];
+                $to_email = $email_info['to_email'];
             }
 
             $email = (new Email())
-                ->from(new Address(FROM_MAIL, $from_name))
+                ->from(new Address($_ENV['EMAIL_FROM'], $from_email))
                 ->to($to_email)
-                ->replyTo($to_email)
+                ->replyTo($from_email)
                 ->priority(Email::PRIORITY_HIGH)
                 ->subject($subject)
                 ->html($email_content);
-            $mailer->send($email);
 
-            // try {
-            //     $mailer->send($email);
-            //     $template_vars['flash_message'] = 'MAIL_SUCCESS';
-            // } catch (TransportExceptionInterface $e) {
-            //     $template_vars['flash_message'] = 'MAIL_FAIL';
-            // }
+            try {
+                $this->mailer->send($email);
+                $template_vars['flash_message'] = 'MAIL_SUCCESS';
+            } catch (TransportExceptionInterface $e) {
+                $template_vars['flash_message'] = 'MAIL_FAIL';
+            }
         }
 
         // Impact Measurement
