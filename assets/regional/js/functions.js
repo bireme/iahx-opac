@@ -185,7 +185,6 @@ function change_sort(obj){
 
 
 function send_email(){
-
     // Copy all input fields from searchForm to emailForm
     $('#searchForm input').each(function() {
         var input = $(this);
@@ -193,9 +192,6 @@ function send_email(){
         $('#emailForm').append(clonedInput);
     });
 
-    console.log($('#emailForm'));
-    alert("Enviando email ...");
     $('#emailForm').submit();
     return true;
-
 }

@@ -1,6 +1,5 @@
 default: build
 
-COMPOSE_FILE = docker-compose.yml
 COMPOSE_FILE_DEV = .devcontainer/docker-compose-dev.yml
 
 IMAGE_NAME=bireme/iahx-opac
@@ -50,49 +49,49 @@ dev_clear_cache:
 
 ## docker-compose shortcuts
 build:
-	@docker compose -f $(COMPOSE_FILE) build --build-arg DOCKER_TAG=$(APP_VER)
+	@docker compose build --build-arg DOCKER_TAG=$(APP_VER)
 	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
 
 build_no_cache:
-	@docker compose -f $(COMPOSE_FILE) build --no-cache --build-arg DOCKER_TAG=$(APP_VER)
+	@docker compose build --no-cache --build-arg DOCKER_TAG=$(APP_VER)
 	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
 
 run:
-	@docker compose -f $(COMPOSE_FILE) down
-	@docker compose -f $(COMPOSE_FILE) up
+	@docker compose down
+	@docker compose up
 
 start:
-	@docker compose -f $(COMPOSE_FILE) up -d
+	@docker compose up -d
 
 rm:
-	@docker compose -f $(COMPOSE_FILE) rm -f
+	@docker compose rm -f
 
 logs:
-	@docker compose -f $(COMPOSE_FILE) logs -f
+	@docker compose logs -f
 
 stop:
-	@docker compose -f $(COMPOSE_FILE) stop
+	@docker compose stop
 
 ps:
-	@docker compose -f $(COMPOSE_FILE) ps
+	@docker compose ps
 
 sh:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_opac bash
+	@docker compose exec iahx_opac bash
 
 sh_cache:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_cache sh
+	@docker compose exec iahx_cache sh
 
 update_static:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console asset-map:compile
+	@docker compose exec iahx_opac php bin/console asset-map:compile
 
 update_env:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_opac composer dump-env prod
+	@docker compose exec iahx_opac composer dump-env prod
 
 update_packages:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_opac composer install --no-dev --optimize-autoloader
+	@docker compose exec iahx_opac composer install --no-dev --optimize-autoloader
 
 clear_cache:
-	@docker compose -f $(COMPOSE_FILE) exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
+	@docker compose exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
 
 
 

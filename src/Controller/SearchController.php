@@ -36,7 +36,7 @@ final class SearchController extends AbstractController
         list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
         $params = [];
-        $request_params = isset($request->request) ? $request->request : $request->query;
+        $request_params = count($request->request) > 0 ? $request->request : $request->query;
         foreach($request_params as $key => $value) {
           $params[$key] = $value;
         }
