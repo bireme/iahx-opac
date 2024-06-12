@@ -18,6 +18,7 @@ services:
       - 80
     volumes:
       - static_files:/app/public
+      - ./instances/:/app/instances
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
       - phpsock:/var/run
     depends_on:
