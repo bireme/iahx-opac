@@ -6,6 +6,10 @@ twig:
         # twig will look for the template first on this directory
         'instances/%env(INSTANCE)%/templates/': ~
 
+    globals:
+      instance: '%app.instance%'
+
+
 when@test:
     twig:
         strict_variables: true

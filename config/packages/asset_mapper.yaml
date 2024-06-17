@@ -2,5 +2,10 @@ framework:
     asset_mapper:
         # The paths to make available to the asset mapper.
         paths:
-            - instances/%env(INSTANCE)%/assets/
-            - assets/
+            - 'instances/'
+            - 'assets/'
+
+        excluded_patterns:
+            - '*/templates/*'
+            - '*/translations/*'
+            - '*/config/*'

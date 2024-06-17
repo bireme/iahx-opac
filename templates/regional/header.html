@@ -4,7 +4,11 @@
 		<div class="row">
 			<div class="col-md-3" id="logo">
 				<a href="{{ config.home_url }}{% if lang != config.default_lang %}{{ lang }}/{% endif %}">
-                    <img src="{{ asset('regional/image/' ~ lang ~ '/logo.svg') }}" alt="" class="img-fluid">
+                    {% if instance != 'portal' %}
+                        <img src="{{ asset(instance ~ '/assets/regional/image/' ~ lang ~ '/logo.svg') }}" alt="" class="img-fluid">
+                    {% else %}
+                        <img src="{{ asset('regional/image/' ~ lang ~ '/logo.svg') }}" alt="" class="img-fluid">
+                    {% endif %}
                 </a>
 			</div>
 			<div class="col-md-9">
