@@ -2,7 +2,7 @@
 <header id="header" class="d-print-none">
 	<div class="container">
 		<div class="row">
-			<div class="col-md-3" id="logo">
+			<div class="col-md-3 col-lg-2" id="logo">
 				<a href="{{ config.home_url }}{% if lang != config.default_lang %}{{ lang }}/{% endif %}">
                     {% if config.use_custom_logo is defined and config.use_custom_logo == 'true' %}
                         <img src="{{ asset(instance ~ '/assets/regional/image/' ~ lang ~ '/logo.svg') }}" alt="" class="img-fluid">
@@ -11,7 +11,7 @@
                     {% endif %}
                 </a>
 			</div>
-			<div class="col-md-9">
+			<div class="col-md-9 col-lg-10">
                 <div id="titleMain" class="float-left">
                     <div class="titleMain1">{{texts.BVS_TITLE}}</div>
                 	<div class="titleMain2">{{texts.TITLE}}</div>

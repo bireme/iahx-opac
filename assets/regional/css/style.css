@@ -391,6 +391,11 @@
 }
 
 /******************** Breakpoints *******************/
+@media (min-width: 1200px) {
+    .container, .container-lg, .container-md, .container-sm, .container-xl {
+        max-width: 1400px;
+    }
+}
 @media (max-width: 1200px){
 	#resumo, #tabResumo{width: 90%;}
 	.modal-xl{max-width: 90%;}
