@@ -12,7 +12,7 @@ export IMAGE_TAG=$(IMAGE_NAME):$(APP_VER)
 tag:
 	@echo "IMAGE TAG:" $(IMAGE_TAG)
 
-## docker-compose shortcuts
+## dev shortcuts
 dev_build:
 	@docker compose -f $(COMPOSE_FILE_DEV) build
 
@@ -50,7 +50,7 @@ dev_clear_cache:
 	@docker compose -f $(COMPOSE_FILE_DEV) exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
 
 
-## docker-compose shortcuts
+## prod/test shortcuts
 build:
 	@docker compose build --build-arg DOCKER_TAG=$(APP_VER)
 	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
@@ -61,10 +61,10 @@ build_no_cache:
 
 run:
 	@docker compose down
-	@docker compose up
+	@docker compose -f docker-compose.yml -f logging.yml up
 
 start:
-	@docker compose up -d
+	@docker compose -f docker-compose.yml -f logging.yml up -d
 
 rm:
 	@docker compose rm -f
@@ -84,6 +84,9 @@ sh:
 sh_cache:
 	@docker compose exec iahx_cache sh
 
+sh_webserver:
+	@docker compose exec iahx_webserver sh
+
 update_static:
 	@docker compose exec iahx_opac php bin/console asset-map:compile
 
@@ -95,10 +98,7 @@ update_packages:
 
 clear_app_cache:
 	@docker compose exec iahx_opac php bin/console cache:clear
+	@docker compose exec iahx_opac /bin/sh -c 'chmod -R o+w /app/var/cache/'
 
 clear_cache:
 	@docker compose exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
-
-
-
-
