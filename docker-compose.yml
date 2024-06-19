@@ -9,6 +9,8 @@ services:
       - static_files:/app/public
       - ./instances/:/app/instances
       - phpsock:/var/run
+    environment:
+      - TZ=${TIMEZONE}
 
   iahx_webserver:
     image: nginx:1.25-alpine
@@ -26,6 +28,7 @@ services:
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - TZ=${TIMEZONE}
     networks:
       - nginx-proxy
 
@@ -34,7 +37,8 @@ services:
     container_name: iahx-cache
     restart: unless-stopped
     environment:
-      -  ALLOW_EMPTY_PASSWORD=yes
+      - ALLOW_EMPTY_PASSWORD=yes
+      - TZ=${TIMEZONE}
     command:  /opt/bitnami/scripts/redis/run.sh --maxmemory ${APP_CACHE_MEMORY} --maxmemory-policy allkeys-lru
 
 volumes:
