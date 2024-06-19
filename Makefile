@@ -61,10 +61,10 @@ build_no_cache:
 
 run:
 	@docker compose down
-	@docker compose -f docker-compose.yml -f logging.yml up
+	@docker compose -f docker-compose.yml up
 
 start:
-	@docker compose -f docker-compose.yml -f logging.yml up -d
+	@docker compose -f docker-compose.yml up -d
 
 rm:
 	@docker compose rm -f
