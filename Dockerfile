@@ -54,6 +54,9 @@ RUN php bin/console asset-map:compile
 # Generate environment prod
 RUN composer dump-env prod
 
+# Change cache directory permissions
+RUN chmod -R o+w /app/var/cache/
+
 ARG DOCKER_TAG
 ENV APP_VER=$DOCKER_TAG
 
