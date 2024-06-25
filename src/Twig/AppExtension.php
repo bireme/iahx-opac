@@ -236,7 +236,7 @@ class AppExtension extends \Twig\Extension\AbstractExtension
             }
         }
 
-        return $subfields[$id];
+        return $subfields[$id] ?? null;
     }
 
 
