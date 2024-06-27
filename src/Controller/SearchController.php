@@ -310,7 +310,13 @@ final class SearchController extends AbstractController
             $search->setParam('filter_list', $config_cluster_list);
         }
 
-        $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
+        // Try to use cache for the first page of search app (empty query)
+        if ($q == '' && empty($user_filter) && $from == 0){
+            $search_response = $this->cache->get_first_page_result($instance, $lang, $search);
+        }else{
+            $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
+        }
+
         $result = json_decode($search_response, true);
 
         if ( isset($result['diaServerResponse'][0]) ){

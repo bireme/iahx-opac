@@ -16,7 +16,7 @@ class CacheService
     ){}
 
     function get_texts($instance, $lang) {
-        // cache key id
+        // Cache key id
         $texts_cache_key = "texts_" . $lang . "_" . $instance;
 
         // Fetch the texts from cache or generate them if not cached
@@ -30,7 +30,7 @@ class CacheService
     }
 
     function get_texts_decs_locator($lang) {
-        // Create the cache key
+        // Cache key id
         $texts_cache_key = "texts_" . $lang . "_decslocator";
 
         // Fetch the texts from cache or generate them if not cached
@@ -44,7 +44,7 @@ class CacheService
     }
 
     function get_config($instance) {
-        // cache key id
+        // Cache key id
         $config_cache_key = "config_" . $instance;
 
         // Fetch the config from cache or generate them if not cached
@@ -74,7 +74,7 @@ class CacheService
 
 
     function get_decs_first_level($lang, $api_key) {
-        // Create the cache key
+        // Cache key id
         $cache_key = "decs_" . $lang . "_firstlevel";
 
         // Fetch the first level of decs or generate them if not cached
@@ -96,6 +96,22 @@ class CacheService
         $first_level_xml = simplexml_load_string($first_level_str);
 
         return $first_level_xml;
+    }
+
+
+    function get_first_page_result($instance, $lang, $search) {
+        // Cache key id
+        $cache_key = "first_page_result_" . $instance . '_' . $lang;
+
+        // Get from cache or execute the first page result query
+        $first_page_result = $this->cache->get($cache_key, function (ItemInterface $item) use ($search) {
+            $item->expiresAfter(86400);  // 3600*24 = 1 day
+            $search_response = $search->search();
+
+            return $search_response;
+        });
+
+        return $first_page_result;
     }
 
 
