@@ -268,7 +268,7 @@
                                                     <strong>{{ texts.PRECOORD }}:</strong>
                                                     <ul>
                                                         {% for entry_combination in decs.record_list.record.entry_combination_list.entry_combination %}
-                                                            <li>/{{  attribute(texts, entry_combination.attributes.sh_abbr1) }} Use <strong>{{ entry_combination }}</strong> </li>
+                                                            <li>/{{  attribute(texts, entry_combination.attributes.sh_abbr1|trim) }} Use <strong>{{ entry_combination }}</strong> </li>
                                                         {% endfor %}
                                                     </ul>
                                                 </div>

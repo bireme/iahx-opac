@@ -32,21 +32,25 @@ final class DeCSTooltip extends AbstractController
         $term = strtoupper($term);
         $term = $this->auxFunctions->remove_accents($term);
 
-        $bool = array(
-            "101", // Termo autorizado
-            "102", // Sinônimo
-            "104"  // Termo histórico
+        // search by fields 101 (autorized name) and 102 (synonym)
+        $api_url = "https://api.bvsalud.org/decs/v2/search-boolean?lang=" . $lang;
+        $api_url .= "&bool=101%20" . str_replace(' ', '%20',$term);
+        $api_url .= "%20OR%20102%20" . str_replace(' ', '%20',$term);
+
+        $opts = array(
+            'http'=>array(
+              'method' => "GET",
+              'header' =>' apikey: ' . $_ENV['DECS_APIKEY_LOCATE']
+            )
         );
 
-        $concept = 0;
-        $concept_id = 0;
-        for( $i = 0; !$concept && ($i < sizeof($bool)); $i = $i + 1 ){
-            $query = "https://decs.bvsalud.org/cgi-bin/mx/cgi=@vmx/decs/?bool=".$bool[$i]."%20$term&lang=$lang";
-            $decs = @simplexml_load_file($query);
-            if ($decs){
-                $concept = (String) @$decs->decsws_response->record_list->record->definition->occ['n'];
-                $concept_id = (String) @$decs->decsws_response->record_list->record['mfn'];
-            }
+        $context = stream_context_create($opts);
+        $api_result = file_get_contents($api_url, false, $context);
+
+        $decs = @simplexml_load_string($api_result);
+        if ($decs){
+            $concept = (String) @$decs->decsws_response->record_list->record->definition->occ['n'];
+            $concept_id = (String) @$decs->decsws_response->record_list->record['mfn'];
         }
 
         $decs_url = "https://decs.bvsalud.org/";

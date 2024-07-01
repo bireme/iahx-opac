@@ -22,6 +22,7 @@ $(document).ready(
             new jBox('Tooltip', {
               attach: "#" + parent_id + " #" + element_id,
               width: 560,
+              reload: 'strict',
               responsiveWidth: true,
               title: this.title,
               closeOnMouseleave: true,
