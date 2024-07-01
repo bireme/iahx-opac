@@ -17,16 +17,15 @@ $(document).ready(
                 lang = document.searchForm.lang.value;
             }
             var service_url = SEARCH_URL + "decs-tooltip/"+lang+"/?term="+encodeURI(descriptor_param);
-            //console.log(service_url);
 
             new jBox('Tooltip', {
               attach: "#" + parent_id + " #" + element_id,
               width: 560,
-              reload: 'strict',
               responsiveWidth: true,
               title: this.title,
               closeOnMouseleave: true,
               closeButton: true,
+              delayOpen: 1000, // set delay before open to avoid false calls
               ajax: {
                 url: service_url,
                 reload: 'strict',
@@ -35,7 +34,7 @@ $(document).ready(
                   this.setContent(response);
                 },
                 error: function () {
-                  console.log('Error loading content');
+                  this.setContent('Error loading content');
                 }
               }
             });
