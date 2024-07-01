@@ -243,7 +243,7 @@
                                             </div>
                                             {% endif %}
 
-                                            {% if mode == 'dataentry' and decs.record_list.record.pharmacological_action_list.pharmacological_action %}
+                                            {% if mode == 'dataentry' and decs.record_list.record.pharmacological_action_list.pharmacological_action is defined %}
                                                 <div>
                                                     <strong>{{ texts.PHARMACOLOGIAL_ACTION }}:</strong>
                                                     <ul>
@@ -254,7 +254,7 @@
                                                 </div>
                                             {% endif %}
 
-                                            {% if mode == 'dataentry' and decs.record_list.record.consider_also_terms_at %}
+                                            {% if mode == 'dataentry' and decs.record_list.record.consider_also_terms_at is defined %}
                                                 <div>
                                                     <strong>{{ texts.CONSIDER_ALSO_TERMS }}:</strong>
                                                     <blockquote>
@@ -263,7 +263,7 @@
                                                 </div>
                                             {% endif %}
 
-                                            {% if mode == 'dataentry' and decs.record_list.record.entry_combination_list.entry_combination %}
+                                            {% if mode == 'dataentry' and decs.record_list.record.entry_combination_list.entry_combination is defined %}
                                                 <div>
                                                     <strong>{{ texts.PRECOORD }}:</strong>
                                                     <ul>
@@ -297,10 +297,10 @@
                                             {% for qlf in decs.record_list.record.allowable_qualifier_list.allowable_qualifier %}
                                                 <div class="col-md-6">
                                                 {% if mode is defined and mode == 'dataentry'%}
-                                                    <input type="button" name="qlf" class="qlf btn btn-outline-dark" value="{{ qlf }}" id="{{ qlf }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');"  />
-                                                    <a href="javascript:showQualifierInfo('{{qlf.attributes.id}}')">{{  attribute(texts, qlf) }}</a>
+                                                    <input type="button" name="qlf" class="qlf btn btn-outline-dark" value="{{ qlf|trim }}" id="{{ qlf|trim }}" onclick="postMsg('{{ decs.tree.self.term_list.term }}/{{  attribute(texts, qlf|trim) }}|^d{{ decs.record_list.record.attributes.mfn }}^s{{ qlf.attributes.id }}');"  />
+                                                    <a href="javascript:showQualifierInfo('{{qlf.attributes.id}}')">{{  attribute(texts, qlf|trim) }}</a>
                                                 {% else %}
-                                                    <input type="checkbox" name="qlf" class="qlf" value="{{ qlf }}" id="{{ qlf }}"/>
+                                                    <input type="checkbox" name="qlf" class="qlf" value="{{ qlf|trim }}" id="{{ qlf|trim }}"/>
                                                     <label for="{{ qlf }}"> {{  attribute(texts, qlf|trim) }}</label>
                                                 {% endif %}
                                                 </div>

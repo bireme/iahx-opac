@@ -72,7 +72,7 @@ final class SearchController extends AbstractController
 
         $lang = (string)$defaults['lang'];
         if(isset($params['lang']) and $params['lang'] != "") {
-            $lang = $params['lang'];
+            $lang = trim($params['lang']);
         }
 
         $q = "";
