@@ -21,8 +21,12 @@ class CacheService
 
         // Fetch the texts from cache or generate them if not cached
         $texts = $this->cache->get($texts_cache_key, function (ItemInterface $item) use ($instance, $lang): array {
-            $translation_path = $this->projectDir . '/instances/' . $instance . '/translations/' . $lang;
-            $texts_ini = parse_ini_file($translation_path . "/texts.ini", true);
+            $translation_path = $this->projectDir . '/instances/' . $instance . '/translations/';
+            $texts_ini = @parse_ini_file($translation_path . $lang . '/texts.ini', true);
+            // if fail to load texts from instance, load from english texts.ini
+            if (!$texts_ini) {
+                $texts_ini = parse_ini_file($translation_path . 'en/texts.ini', true);
+            }
             return $texts_ini;
         });
 
@@ -35,8 +39,12 @@ class CacheService
 
         // Fetch the texts from cache or generate them if not cached
         $texts = $this->cache->get($texts_cache_key, function (ItemInterface $item) use ($lang): array {
-            $translation_path = $this->projectDir . '/translations/' . $lang;
-            $texts_ini = parse_ini_file($translation_path . "/decs-locator.ini", true);
+            $translation_path = $this->projectDir . '/translations/';
+            $texts_ini = @parse_ini_file($translation_path . $lang . '/decs-locator.ini', true);
+            // if fail to load texts from lang, load from english
+            if (!$texts_ini) {
+                $texts_ini = @parse_ini_file($translation_path . 'en/decs-locator.ini', true);
+            }
             return $texts_ini;
         });
 
