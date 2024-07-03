@@ -5,5 +5,8 @@ Disallow: /*mdl-*
 User-agent: TurnitinBot
 Disallow: /
 
+User-agent: PetalBot
+Disallow: /
+
 User-agent: facebookexternalhit
 Disallow: /
