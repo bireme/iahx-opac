@@ -1,9 +1,23 @@
-{% spaceless %}
+{% apply spaceless %}
 {% if from == '0' %}ID,Title,Authors,Source,Journal,Database,Type,Language,Publication year,Descriptor(s),Keyword(s),Publication Country,Fulltext URL, Abstract,Entry Date,Volume number,Issue number,DOI,ISSN,Accession number,PMCID#BR#{% endif %}
 {% autoescape false %}
 {%- for doc in docs -%}
-"{{ doc.id }}","{% for title in doc.ti %}{{ title }}{% if not loop.last %}/ {% endif %}{% endfor %}","{% for author in doc.au %}{{author}}{% if not loop.last %}; {% endif %}{% endfor %}","{{ doc.fo.0 }}","{{ doc.ta.0 }}","{{ doc.db.0|default(doc.db) }}","{{ doc.type.0 }}","{{ doc.la[0] }}","{{ doc.da|slice(0,4) }}","{% for mesh in doc.mh %}{{ mesh }}{% if not loop.last %}; {% endif %}{% endfor %}","{% for keyword in doc.kw %}{{ keyword }}{% if not loop.last %}; {% endif %}{% endfor %}","{{ doc.cp.0 }}","{{ doc.ur.0 }}","{{ doc.ab.0|replace({'"': '""'}) }}",{{ doc.entry_date }},{{ doc.vi.0 }},{{ doc.ip.0 }},{{ doc.aid }},{{ doc.is.0 }},{{ doc.accession_number.0 }},{{ doc.pmcid }}
+"{{ doc.id }}",
+"{% if doc.ti is defined %}{% for title in doc.ti %}{{ title }}{% if not loop.last %}/ {% endif %}{% endfor %}{% endif %}",
+"{% if doc.au is defined %}{% for author in doc.au %}{{author}}{% if not loop.last %}; {% endif %}{% endfor %}{% endif %}",
+"{{ doc.fo.0|default() }}","{{ doc.ta.0|default() }}","{{ doc.db.0|default(doc.db) }}","{{ doc.type.0|default() }}",
+"{{ doc.la[0]|default() }}","{% if doc.da is defined %}{{ doc.da|slice(0,4) }}{% endif %}",
+"{% if doc.mh is defined %}{% for mesh in doc.mh %}{{ mesh }}{% if not loop.last %}; {% endif %}{% endfor %}{% endif %}",
+"{% if doc.kw is defined %}{% for keyword in doc.kw %}{{ keyword }}{% if not loop.last %}; {% endif %}{% endfor %}{% endif %}",
+"{{ doc.cp.0|default() }}","{{ doc.ur.0|default() }}","{% if doc.ab is defined %}{{ doc.ab.0|replace({'"': '""'}) }}{% endif %}",
+{{ doc.entry_date|default() }},
+{{ doc.vi.0|default() }},
+{{ doc.ip.0|default() }},
+{{ doc.aid|default() }},
+{{ doc.is.0|default() }},
+{{ doc.accession_number.0|default() }},
+{{ doc.pmcid|default() }}
 #BR#
 {%- endfor -%}
 {% endautoescape %}
-{% endspaceless %}
+{% endapply %}

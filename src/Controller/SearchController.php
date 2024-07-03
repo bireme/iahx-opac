@@ -562,25 +562,25 @@ final class SearchController extends AbstractController
                 if ($output_as_file == true){
                     $response->headers->set('Content-Encoding', 'UTF-8');
                     $response->headers->set('Content-Type', $content_type .'; charset=UTF-8');
-                    header('Content-Disposition: attachment; filename=' . $export_filename);
-                    echo "\xEF\xBB\xBF"; // UTF-8 BOM
+                    $response->headers->set('Content-Disposition', 'attachment; filename=' . $export_filename);
                 }
 
                 $handle = fopen('php://output', 'w');
-                ob_clean();
-
+                @ob_clean();
+                @ob_start();
                 while ($from <= $export_total){
                     // export results
-                    $export_content_range = $this->render(TEMPLATE_NAME . '/' . $export_template, $template_vars);
+                    $export_content_range = $this->renderView(TEMPLATE_NAME . '/' . $export_template, $template_vars);
                     // normalize line end
                     if ($output == 'csv' || $output == 'ris'){
                         $export_content_range = preg_replace("/\n/", "", $export_content_range);                 //Remove line end
                         $export_content_range = preg_replace("/#BR#/", "\r\n", $export_content_range);           //Windows Line end
+                        $export_content_range = substr($export_content_range,strpos($export_content_range,"\r\n\r\n\r\n"));
                     }else{
                         $export_content_range = normalize_line_end($export_content_range);
                     }
                     // put current export range to output
-                    fputs($handle, $export_content_range);
+                    @fputs($handle, $export_content_range);
 
                     // set next from
                     $from = $from + $count;
@@ -599,13 +599,9 @@ final class SearchController extends AbstractController
                     $template_vars['current_url'] = $_SERVER['REQUEST_URI'];
                     $template_vars['display_file'] = "result-format-" . $format . ".html";
                     $template_vars['debug'] = (isset($params['debug'])) ? $params['debug'] : false;
-                    $template_vars['docs'] = $result['diaServerResponse'][0]['response']['docs'];
-
+                    $template_vars['docs'] = $result['diaServerResponse'][0]['response']['docs'] ?? array();
                 }
-                ob_flush();
-                fclose($handle);
-
-                return $response->sendHeaders();
+                return $response;
                 break;
 
             default:
