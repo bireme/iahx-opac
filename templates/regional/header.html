@@ -119,17 +119,13 @@
                                     <select name="where" class="formSelect" id="selectWhere">
                                         {% for where in collectionData.where_list.where %}
                                             {% set tab = '' %}
+                                            {% set where_name = where.name|trim %}
                                             {% if where.level == '2' %}{% set tab = '&nbsp;&nbsp;&nbsp;&nbsp;' %}{% endif %}
 
-                                            {% if params.where is defined %}
-                                                {% if where.name == params.where %}
-                                                    <option value="{{ where.name }}" selected="true">{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
-                                                {% else %}
-                                                    <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
-                                                {% endif %}
-                                            {% else %}
-                                                <option value="{{ where.name }}" >{{ tab|raw }}{{ attribute(texts.WHERE, where.name) }}</option>
-                                            {% endif %}
+                                            <option value="{{ where_name }}"
+                                                {% if params.where is defined and where_name == params.where %}selected="true"{% endif %}>
+                                                {{ tab|raw }}{{ attribute(texts.WHERE, where_name) is defined ? attribute(texts.WHERE, where_name) }}
+                                            </option>
                                         {% endfor %}
                                     </select>
                                 </div>
