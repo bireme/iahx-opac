@@ -22,6 +22,9 @@ dev_build_no_cache:
 dev_run:
 	@docker compose -f $(COMPOSE_FILE_DEV) up
 
+dev_run_no_cache:
+	@docker compose -f $(COMPOSE_FILE_DEV) up iahx_opac
+
 dev_start:
 	@docker compose -f $(COMPOSE_FILE_DEV) up -d
 
