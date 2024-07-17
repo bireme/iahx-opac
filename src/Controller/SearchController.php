@@ -76,7 +76,8 @@ final class SearchController extends AbstractController
         }
 
         $q = "";
-        if(isset($params['q']) and $params['q'] != "") {
+        // check for valid query param (ignore old $ isis operator)
+        if(isset($params['q']) and $params['q'] != "" and $params['q'] != "$") {
             $q = $params['q'];
         }
 
