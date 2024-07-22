@@ -1,0 +1,13 @@
+x-logging: &default-logging
+  driver: "json-file"
+  options:
+    max-size: "50m"
+    max-file: "5"
+    labels: "container_name,environment"
+
+services:
+  iahx_opac:
+    logging: *default-logging
+    labels:
+      container_name: "iahx-opac"
+      environment: "${APP_ENV}"

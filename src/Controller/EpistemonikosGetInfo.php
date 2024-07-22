@@ -32,42 +32,47 @@ final class EpistemonikosGetInfo extends AbstractController
         // Create a stream for token authorization
         $opts = array(
           'http'=>array(
+            'ignore_errors' => true,
             'method'=>"GET",
-            'header'=>'Authorization: Token token="' . $_ENV['EPISTEMONIKOS_TOKEN'] . "\r\n"
+            'header'=>'Authorization: Token token="' . $_ENV['EPISTEMONIKOS_TOKEN'] . '"' . "\r\n"
           )
         );
 
         $context = stream_context_create($opts);
         $api_result = @file_get_contents($api_url, false, $context);
+        // Get the response status code
+        preg_match('/\b\d{3}\b/', $http_response_header[0], $matches);
+        $status_code = $matches[0];
 
-        $data = json_decode($api_result, TRUE);
-        // print_r($data);
+        if ($api_result && $status_code != '404') {
+            $data = @json_decode($api_result, true);
 
-        if ($data != null){
-            $classification = $data['metadata']['classification'] ?? '';
-            $classification_status = $data['metadata']['classification_status'] ?? '';
-            $excluded = $data['metadata']['excluded'] ?? null;
-        }
+            if ($data != null){
+                $classification = $data['metadata']['classification'] ?? '';
+                $classification_status = $data['metadata']['classification_status'] ?? '';
+                $excluded = $data['metadata']['excluded'] ?? null;
+                //print(" CLASSIFICATION: " . $classification . " CLASSIFICATION STATUS: " . $classification_status . " EXCLUDED: " . $excluded);
+            }
 
-        //print(" CLASSIFICATION: " . $classification . " CLASSIFICATION STATUS: " . $classification_status . " EXCLUDED: " . $excluded);
+            if ($data != null && $classification != 'raw' && $classification_status != 'pending' && !isset($excluded)){
+                $template_vars = array();
+                $template_vars['doc_id'] = (strpos($id, '-') !== false ? $id : 'mdl-' . $id);
+                $template_vars['texts'] = $texts['EPISTEMONIKOS'];
+                $template_vars['lang_param'] = "/" . $lang . "/";
+                $template_vars['classification'] = $classification;
+                $template_vars['classification_status'] = $classification_status;
+                $template_vars['primary_study_ref'] = (isset($data['relations_info']['references']['primary-study']) ? $data['relations_info']['references']['primary-study'] : '');
+                $template_vars['systematic_review_ref'] = (isset($data['relations_info']['references']['systematic-review']) ? $data['relations_info']['references']['systematic-review'] : '');
+                $template_vars['epistemonikos_doc_url'] = $data['external_links']['epistemonikos'];
+                $template_vars['total_references'] = $data['relations_info']['total_references'];
+                $template_vars['related_references'] = (isset($data['related_references']) ? $data['related_references'] : '') ;
 
-        if ($data != null && $classification != 'raw' && $classification_status != 'pending' && !isset($excluded)){
-            $template_vars = array();
-            $template_vars['doc_id'] = (strpos($id, '-') !== false ? $id : 'mdl-' . $id);
-            $template_vars['texts'] = $texts['EPISTEMONIKOS'];
-            $template_vars['lang_param'] = "/" . $lang . "/";
-            $template_vars['classification'] = $classification;
-            $template_vars['classification_status'] = $classification_status;
-            $template_vars['primary_study_ref'] = (isset($data['relations_info']['references']['primary-study']) ? $data['relations_info']['references']['primary-study'] : '');
-            $template_vars['systematic_review_ref'] = (isset($data['relations_info']['references']['systematic-review']) ? $data['relations_info']['references']['systematic-review'] : '');
-            $template_vars['epistemonikos_doc_url'] = $data['external_links']['epistemonikos'];
-            $template_vars['total_references'] = $data['relations_info']['total_references'];
-            $template_vars['related_references'] = (isset($data['related_references']) ? $data['related_references'] : '') ;
-
-            $response = $this->render(TEMPLATE_NAME . '/epistemonikos-info.html', $template_vars);
-
+                $response = $this->render(TEMPLATE_NAME . '/epistemonikos-info.html', $template_vars);
+            }else{
+                $response = new Response('', 200);
+            }
         }else{
-            $response = new Response('No Content', 204);
+            $response = new Response('', 200);
         }
 
         return $response;
