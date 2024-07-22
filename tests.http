@@ -1,5 +1,0 @@
-GET http://0.0.0.0:8000/portal/wizard/evidence-informed?output=json
-
-###
-
-GET http://pesquisa.bvsalud.org/portal/wizard/evidence-informed?output=json
