@@ -2,23 +2,27 @@
     <body>
         <table class="table table-striped">
             <tr>
-                <th scope="col">Type</th>
+                <th scope="col">Name</th>
                 <th scope="col">Info</th>
                 <th scope="col">Provider</th>
-                <th scope="col">Full Text</th>
+                <th scope="col">Link</th>
             </tr>
 
             {% for item in set %}
                 <tr>
-                    <td>{{ item.SubjectType }}</td>
+                    <td>{{ item.LinkName|default() }}</td>
                     <td>
                     {% for attr in item.Attribute %}
                        {{ attr }}
                     {% endfor %}
                     </td>
 
-                    <td>{{ item.Provider.Name }}</td>
-                    <td><a href="{{ item.Url }}" target="blank"><img src="{{ item.IconUrl  }}" border="0"/></a></td>
+                    <td>{{ item.Provider.Name|default() }}</td>
+                    <td>
+                        <a href="{{ item.Url }}" target="blank">
+                            {{ item.Url }}
+                        </a>
+                    </td>
                 </tr>
             {% endfor %}
     </body>
