@@ -225,10 +225,9 @@ final class SearchController extends AbstractController
         $config_wizard_list = $collectionData->wizard_list->wizard;
 
         // BOOKMARK SESSION
-
-        $SESSION = $request->getSession();
-        $bookmark = $SESSION->get('bookmark');
-        $wizard_session = $SESSION->get('wizard_session');
+        $session = $request->getSession();
+        $bookmark = $session->get('bookmark', []);
+        $wizard_session = $session->get('wizard_session');
 
 
         // initial filter (defined on configuration file)
@@ -248,7 +247,7 @@ final class SearchController extends AbstractController
             if(isset($email_info['selection'])) {
                 if($email_info['selection'] == "my_selection") {
                     $from = 1;
-                    $q = '+id:("' . join(array_keys($bookmark), '" OR "') . '")';
+                    $q = '+id:("' . join('" OR "', array_keys($bookmark)) . '")';
                 }
                 elseif($email_info['selection'] == "all_results") {
                     $from = 1;
@@ -265,18 +264,14 @@ final class SearchController extends AbstractController
             }elseif ($count == 'selection'){
                 $from = 0;
                 $count = $config->documents_per_page * 100; // max for selection option
-                $q = '+id:("' . join(array_keys($bookmark), '" OR "') . '")';
+                $q = '+id:("' . join('" OR "', array_keys($bookmark)) . '")';
             }else{
                 $export_total = $from + $count;
             }
         }
 
         // USER PREFERENCE FILTERS SESSION
-        if(!$SESSION->has("user_preference_filter")) {
-            $SESSION->set('user_preference_filter', array());
-        }
-
-        $user_preference_filter = $SESSION->get('user_preference_filter');
+        $user_preference_filter = $session->get('user_preference_filter', []);
 
         // add to session filters from form
         if (  isset($params['config_filter_submit']) ) {
@@ -288,14 +283,10 @@ final class SearchController extends AbstractController
         $only_translated_items_clusters = $this->auxFunctions->getOnlyTranslatedItemsClusterList($collectionData);
         $query_info_clusters = $this->auxFunctions->getShowQueryInfoClusterList($collectionData);
 
-        $SESSION->set('user_preference_filter', $user_preference_filter);
+        $session->set('user_preference_filter', $user_preference_filter);
 
         // HISTORY SESSION
-        if(!$SESSION->has("history")) {
-            $SESSION->set('history', array());
-        }
-
-        $history = $SESSION->get('history');
+        $history = $session->get('history', []);
 
         // check and replace for history mark at query string
         if (strpos($q, '#') !== false){
@@ -393,8 +384,7 @@ final class SearchController extends AbstractController
             $new_history['time'] = time();
 
             array_push($history, $new_history);
-            $SESSION->set('history', $history);
-            $SESSION->save();
+            $session->set('history', $history);
         }
 
         $template_vars['bookmark'] = $bookmark;
@@ -496,10 +486,6 @@ final class SearchController extends AbstractController
                 $template_vars['im_cookie'] = $im_cookie;
             }
         }
-
-        //log_user_action($lang, $col, $site, $q, $index, $params['where'], $solr_param_fq,
-        //                $page, $output, $SESSION->getId(), $format, $sort);
-
 
         // output
         switch($output) {

@@ -387,7 +387,7 @@
 
 {% block footerscripts %}
     <script src="{{ asset('regional/js/clusters.js') }}"></script>
-    <!--script src="{{ asset('regional/js/my_selection.js') }}"></script-->
+    <script src="{{ asset('regional/js/my_selection.js') }}"></script>
     {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
     <script src="{{ asset('regional/js/ready-index-filter.js') }}"></script>
     {% endif %}
