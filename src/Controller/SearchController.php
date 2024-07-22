@@ -458,32 +458,34 @@ final class SearchController extends AbstractController
         }
 
         // Impact Measurement
-        $im_api = 'https://im.bireme.org/api/main/?format=json&code=';
-        $im_scope = strval($config->impact_measurement_cookie_domain_scope);
         $im_code = strval($config->impact_measurement_code);
+        if ($im_code){
+            $im_api = 'https://im.bireme.org/api/main/?format=json&code=';
+            $im_scope = strval($config->impact_measurement_cookie_domain_scope);
 
-        $cookie_im = $request->cookies->get('impact_measurement');
-        if ( !$cookie_im ) {
-            $impact_measurement_cookie = md5(uniqid(rand(), true));
-            setcookie("impact_measurement", $impact_measurement_cookie, (time() + (10 * 365 * 24 * 60 * 60)), '/', $im_scope);
+            $cookie_im = $request->cookies->get('impact_measurement');
+            if ( !$cookie_im ) {
+                $impact_measurement_cookie = md5(uniqid(rand(), true));
+                setcookie("impact_measurement", $impact_measurement_cookie, (time() + (10 * 365 * 24 * 60 * 60)), '/', $im_scope);
 
-            $domains = array(
-                '.bvs.br' => $config->impact_measurement_bvs_cookie_domain,
-                '.bvsalud.org' => $config->impact_measurement_bvsalud_cookie_domain,
-                '.bireme.org' => $config->impact_measurement_bireme_cookie_domain
-            );
+                $domains = array(
+                    '.bvs.br' => $config->impact_measurement_bvs_cookie_domain,
+                    '.bvsalud.org' => $config->impact_measurement_bvsalud_cookie_domain,
+                    '.bireme.org' => $config->impact_measurement_bireme_cookie_domain
+                );
 
-            if ( array_key_exists($im_scope, $domains) ) {
-                $im_cookie = array();
-                unset($domains[$im_scope]);
+                if ( array_key_exists($im_scope, $domains) ) {
+                    $im_cookie = array();
+                    unset($domains[$im_scope]);
 
-                foreach ($domains as $domain => $url) {
-                    if ( ! empty($url) ) {
-                        $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$im_code.'&im_data='.base64_encode($im_api);
+                    foreach ($domains as $domain => $url) {
+                        if ( ! empty($url) ) {
+                            $im_cookie[] = $url.'/setcookie.php?im_cookie='.$impact_measurement_cookie.'&im_code='.$im_code.'&im_data='.base64_encode($im_api);
+                        }
                     }
-                }
 
-                $template_vars['im_cookie'] = $im_cookie;
+                    $template_vars['im_cookie'] = $im_cookie;
+                }
             }
         }
 
@@ -564,7 +566,7 @@ final class SearchController extends AbstractController
                         $export_content_range = preg_replace("/#BR#/", "\r\n", $export_content_range);           //Windows Line end
                         $export_content_range = substr($export_content_range,strpos($export_content_range,"\r\n\r\n\r\n"));
                     }else{
-                        $export_content_range = normalize_line_end($export_content_range);
+                        $export_content_range = $this->auxFunctions->normalize_line_end($export_content_range);
                     }
                     // put current export range to output
                     @fputs($handle, $export_content_range);
