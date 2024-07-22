@@ -31,13 +31,18 @@ final class ResourceController extends AbstractController
 
         list($config, $defaults) = $this->instanceConfigService->loadInstanceConfiguration($instance);
 
-        // get texts used in template
-        $texts = $this->cache->get_texts($instance, $lang);
-
         $params = [];
         foreach($request->query as $key => $value) {
           $params[$key] = $value;
         }
+
+        // if is set param lang overwrite route param
+        if(isset($params['lang']) and $params['lang'] != '') {
+            $lang = preg_replace('/[^a-zA-Z-]/', '',$params['lang']);
+        }
+
+        // get texts used in template
+        $texts = $this->cache->get_texts($instance, $lang);
 
         $collectionData = $defaults['defaultCollectionData'];
         $site = $defaults['defaultSite'];
