@@ -212,7 +212,7 @@
 
                                             <p>{{ decs.record_list.record.definition.occ.attributes.n }}</p>
 
-                                            {% if mode == 'dataentry' and decs.record_list.record.indexing_annotation %}
+                                            {% if mode == 'dataentry' and decs.record_list.record.indexing_annotation is defined %}
                                                 <div>
                                                     <strong>{{ texts.INDEXING_ANNOTATION }}:</strong>
                                                     <blockquote>
