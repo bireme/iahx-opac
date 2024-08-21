@@ -159,7 +159,7 @@
                 {% if doc.cc is defined %}
                 	<div>
                 		{{ texts.RESULT.LABEL_RESPONSIBLE }}:
-                		<a href="http://centros.bvsalud.org/?search={{ doc.cc.0 }}&prefix=search&lang={{ lang }}" target="_blank">{{ doc.cc.0 }}</a>
+                		<a href="http://bvsalud.org/centros/?q={{ doc.cc.0 }}" target="_blank">{{ doc.cc.0 }}</a>
                 	</div>
                 {% endif %}
                 <!-- document localization -->
