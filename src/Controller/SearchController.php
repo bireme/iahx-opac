@@ -201,24 +201,18 @@ final class SearchController extends AbstractController
 
         $is_email = (isset($params['is_email']) && $params['is_email'] === 'true' ? true : false);
 
-        // apply view_filters
-        $view_filter_param = array();
-        $view_filter = '';
-        $config_view_filter = ($collectionData->view_filter ? $collectionData->view_filter : null);
-        if( !empty($params['view_filter']) ) {
-            $view_filter_param = $params['view_filter'];
-            $view_filter_array = array();
-            // load view filter configuration
-            $view_filter_json = file_get_contents(PATH_DATA . 'config/filter-' . $config_view_filter . '.json');
-            $view_filter_config = json_decode($view_filter_json, true);
+        // check if tab filter is defined in config
+        $config_tab_list = ($collectionData->tab_list ? $collectionData->tab_list : null);
+        $tab_filter = null;
+        if( $config_tab_list ) {
+            $tab_param = isset($params['tab']) ? (int)$params['tab'] : 1;
 
-            foreach ($view_filter_param as $vf){
-                $vf_data = explode("_", $vf);
-                $vf_group = $vf_data[0];
-                $vf_item = $vf_data[1];
-                array_push($view_filter_array, $view_filter_config['filter'][$vf_group]['options'][$vf_item]['value']);
+            if ($config_tab_list) {
+                $config_tab_cluster = (string)$config_tab_list->attributes()->cluster;
+                $config_tab_filter = (string)$config_tab_list->tab[$tab_param - 1]->attributes()->value;
+                $tab_filter = $config_tab_cluster . ':"' . $config_tab_filter . '"';
+
             }
-            $view_filter = join(' OR ', $view_filter_array);
         }
 
         // wizard
@@ -306,7 +300,7 @@ final class SearchController extends AbstractController
         if ($q == '' && empty($user_filter) && $from == 0){
             $search_response = $this->cache->get_first_page_result($instance, $lang, $search);
         }else{
-            $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
+            $search_response = $search->search($q, $index, $user_filter, $range_filter, $tab_filter, $from);
         }
 
         $result = json_decode($search_response, true);
@@ -391,8 +385,6 @@ final class SearchController extends AbstractController
         $template_vars['user_preference_filter'] = (array) $user_preference_filter;
         $template_vars['filters'] = $filter;
         $template_vars['filters_formatted'] = $filter;
-        $template_vars['config_view_filter'] = $config_view_filter;
-        $template_vars['view_filter'] = $view_filter_param;
         $template_vars['lang'] = $lang;
         $template_vars['q'] = $q;
         $template_vars['fb'] = $fb;
@@ -579,7 +571,7 @@ final class SearchController extends AbstractController
                     $search->setParam('sort', $sort_value);
                     $search->setParam('initial_filter', $initial_filter );
 
-                    $search_response = $search->search($q, $index, $user_filter, $range_filter, $view_filter, $from);
+                    $search_response = $search->search($q, $index, $user_filter, $range_filter, $tab_filter, $from);
                     $result = json_decode($search_response, true);
 
                     $template_vars['from'] = $from;

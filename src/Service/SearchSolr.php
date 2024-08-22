@@ -27,7 +27,7 @@ class SearchSolr
         return;
     }
 
-    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $view_filter = '', $from = 0){
+    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $tab_filter = '', $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
@@ -57,9 +57,9 @@ class SearchSolr
             $filter.= "(" . $range_filter . ")";
         }
 
-        if ( $view_filter != '' ){
+        if ( $tab_filter != '' ){
             $filter = ($filter != '' ? $filter . " AND " : '');
-            $filter.= "(" . $view_filter . ")";
+            $filter.= "(" . $tab_filter . ")";
         }
 
         $this->param["fq"] = $filter;
