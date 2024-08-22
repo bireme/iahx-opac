@@ -27,175 +27,209 @@
         {% else %}
         <section class="">
     		<div class="container">
-    			<div class="row">
-    				<div class="col-md-7 offset-md-3 d-print-none">
-    					<div class="row padding1">
-    						<div class="col-md-4">
-                                {% if collectionData.sort_list.sort|length > 1 %}
-                                    <select name="sortBy" id="sortBy" class="selectOrder" onchange="javascript:change_sort(this);">
-                                        <option value="">{{ texts.SORT_OPTIONS }}</option>
-                                        {% for sort in collectionData.sort_list.sort %}
-                                            {% set sort_name = sort.name|trim %}
+                {# Present result split by tabs based on cluster values #}
+                {% if collectionData.tab_list is defined %}
 
-                                            <option value="{{ sort.name }}"
-                                            {% if params.sort is defined and params.sort == sort.name %}selected="true"{% endif %}>
-                                                {{ attribute(texts.SORT, sort_name) is defined ? attribute(texts.SORT, sort_name) }}
-                                            </option>
-                                        {% endfor %}
-                                    </select>
-                                {% endif %}
-    						</div>
-    						<div class="col-md-4 text-center">
-                                <small>{{texts.SHOW}}:</small>
-                                {% if count is defined and count == 20 %}<b>20</b>{% else %}<a href="javascript: change_count('20');">20</a>{% endif %}
-                                | {% if count is defined and count == 50 %}<b>50</b>{% else %}<a href="javascript: change_count('50');">50</a>{% endif %}
-                                | {% if count is defined and count == 100 %}<b>100</b>{% else %}<a href="javascript: change_count('100');">100</a>{% endif %}
-    						</div>
-    						<div class="col-md-4 text-right resultM">
-                                <small>
-                                    {{texts.RESULTS}}
-                                    </strong>
-                                     {{ pag.start+1 }} -
-                                     {% if pag.start+pag.count <= pag.total %}
-                                         {{ pag.start+pag.count }}
-                                     {% else %}
-                                         {{ pag.total }}
-                                     {% endif %}
-                                    </strong> de <strong>{{ pag.total_formatted }}</strong>
-                                </small></div>
-    					</div>
-    				</div>
-                    <!-- Filter column -->
-                    {% include "regional/column-filters.html" %}
-    				<!-- Result column -->
-    				<div class="col-md-7 d-print-block" id="main_container">
-    					{% for doc in docs %}
-    						<div class="box1">
-    							<div class="inputCheck1 d-print-none">
-                                    <input type="checkbox" class="my_selection" value="{{ doc.id }}"
-                                    {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
-                                    <small>{{ loop.index + pag.start }}.</small>
-                                </div>
-    							<div class="textArt">
-    								<div class="titleArt">
-                                        {% if doc.db is defined and 'DECS' in doc.db  %}
-                                            {% set descriptor = 'ti_' ~ lang %}
-                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}"
-                                                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Descriptor', {'event_category': 'Show detail', 'event_label': this.href});"{% endif %}>
-                                                {{ attribute(doc, descriptor ).0 }}
-                                            </a>
-                                        {% else %}
-                                            <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}"
-                                                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article', {'event_category': 'Show detail', 'event_label': this.href});"{% endif %}>
-                                                {% autoescape false %}{{ occ( {'element': doc.ti|raw, separator: ' / '} ) }}{% endautoescape %}
-                                            </a>
+                    {% set tab_cluster_name = collectionData.tab_list.attributes.cluster|trim() %}
+                    {% set tab_cluster = clusters[tab_cluster_name] %}
+
+                    <ul class="nav nav-tabs" id="tabOptions" role="tablist">
+                        {% for tab in collectionData.tab_list.tab %}
+
+                            {% set tab_param = params.tab|default(1) %}
+                            {% set tab_occ = loop.index %}
+                            {% set tab_name = tab|trim() %}
+                            {% set tab_value = tab.attributes.value %}
+                            {% set tab_count %}
+                                {% for tab_item in tab_cluster %}
+                                    {% if tab_item.0 == tab_value %}
+                                        {{ tab_item.1 }}
+                                    {% endif %}
+                                {% endfor %}
+                            {% endset %}
+
+                            <li class="nav-item" role="presentation">
+                                <button class="nav-link {% if tab_param == tab_occ %}active{% endif %}" id="tab-{{tab_occ}}" data-tab="{{tab_occ}}" data-toggle="tab" type="button" role="tab">
+                                    <b>{{ attribute(texts.TABS, tab_name) is defined ? attribute(texts.TABS, tab_name) }}</b><br>
+                                </button>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+
+                <div class="tab-content" id="tabResult">
+                    <div class="tab-pane fade show active" role="tabpanel">
+                        <div class="row">
+                            <div class="col-md-7 offset-md-3 d-print-none">
+                                <div class="row padding1">
+                                    <div class="col-md-4">
+                                        {% if collectionData.sort_list.sort|length > 1 %}
+                                            <select name="sortBy" id="sortBy" class="selectOrder" onchange="javascript:change_sort(this);">
+                                                <option value="">{{ texts.SORT_OPTIONS }}</option>
+                                                {% for sort in collectionData.sort_list.sort %}
+                                                    {% set sort_name = sort.name|trim %}
+
+                                                    <option value="{{ sort.name }}"
+                                                    {% if params.sort is defined and params.sort == sort.name %}selected="true"{% endif %}>
+                                                        {{ attribute(texts.SORT, sort_name) is defined ? attribute(texts.SORT, sort_name) }}
+                                                    </option>
+                                                {% endfor %}
+                                            </select>
                                         {% endif %}
                                     </div>
+                                    <div class="col-md-4 text-center">
+                                        <small>{{texts.SHOW}}:</small>
+                                        {% if count is defined and count == 20 %}<b>20</b>{% else %}<a href="javascript: change_count('20');">20</a>{% endif %}
+                                        | {% if count is defined and count == 50 %}<b>50</b>{% else %}<a href="javascript: change_count('50');">50</a>{% endif %}
+                                        | {% if count is defined and count == 100 %}<b>100</b>{% else %}<a href="javascript: change_count('100');">100</a>{% endif %}
+                                    </div>
+                                    <div class="col-md-4 text-right resultM">
+                                        <small>
+                                            {{texts.RESULTS}}
+                                            </strong>
+                                            {{ pag.start+1 }} -
+                                            {% if pag.start+pag.count <= pag.total %}
+                                                {{ pag.start+pag.count }}
+                                            {% else %}
+                                                {{ pag.total }}
+                                            {% endif %}
+                                            </strong> de <strong>{{ pag.total_formatted }}</strong>
+                                        </small></div>
+                                </div>
+                            </div>
+                            <!-- Filter column -->
+                            {% include "regional/column-filters.html" %}
+                            <!-- Result column -->
+                            <div class="col-md-7 d-print-block" id="main_container">
+                                {% for doc in docs %}
+                                    <div class="box1">
+                                        <div class="inputCheck1 d-print-none">
+                                            <input type="checkbox" class="my_selection" value="{{ doc.id }}"
+                                            {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
+                                            <small>{{ loop.index + pag.start }}.</small>
+                                        </div>
+                                        <div class="textArt">
+                                            <div class="titleArt">
+                                                {% if doc.db is defined and 'DECS' in doc.db  %}
+                                                    {% set descriptor = 'ti_' ~ lang %}
+                                                    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ attribute(doc, descriptor ).0 }}"
+                                                        {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Descriptor', {'event_category': 'Show detail', 'event_label': this.href});"{% endif %}>
+                                                        {{ attribute(doc, descriptor ).0 }}
+                                                    </a>
+                                                {% else %}
+                                                    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ doc.id }}" title="{{ doc.ti.0 }}"
+                                                        {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article', {'event_category': 'Show detail', 'event_label': this.href});"{% endif %}>
+                                                        {% autoescape false %}{{ occ( {'element': doc.ti|raw, separator: ' / '} ) }}{% endautoescape %}
+                                                    </a>
+                                                {% endif %}
+                                            </div>
 
-                                    {% if doc.au is defined %}
-                                       <div class="author">
-                                           {% for author in doc.au %}
-                                               <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
-                                           {% endfor %}
-                                       </div>
-                                   {% endif %}
-
-                                   <!-- display source fields -->
-                                   {% include "regional/result-inc-source.html" %}
-
-                                   <!-- More details div -->
-    							    <div class="reference-detail collapse" >
-                                        {% if doc.ab is defined %}
-        									<br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
-                                            {% for abstract in doc.ab %}
-                                                <p>{{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}</p>
-                                            {% endfor %}
+                                            {% if doc.au is defined %}
+                                            <div class="author">
+                                                {% for author in doc.au %}
+                                                    <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
+                                                {% endfor %}
+                                            </div>
                                         {% endif %}
 
-                                        {% if doc.mh is defined %}
-        									<br><h5 class="title2">{{ texts.RESULT.LABEL_SUBJECT }}</h5>
-                                            {% for subject in doc.mh %}
-                                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'}) }}"'>{{ subject|raw }}</a>
-                                                {% if not loop.last %}, {% endif %}
-                                            {% endfor %}
+                                        <!-- display source fields -->
+                                        {% include "regional/result-inc-source.html" %}
+
+                                        <!-- More details div -->
+                                            <div class="reference-detail collapse" >
+                                                {% if doc.ab is defined %}
+                                                    <br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
+                                                    {% for abstract in doc.ab %}
+                                                        <p>{{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}</p>
+                                                    {% endfor %}
+                                                {% endif %}
+
+                                                {% if doc.mh is defined %}
+                                                    <br><h5 class="title2">{{ texts.RESULT.LABEL_SUBJECT }}</h5>
+                                                    {% for subject in doc.mh %}
+                                                        <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'}) }}"'>{{ subject|raw }}</a>
+                                                        {% if not loop.last %}, {% endif %}
+                                                    {% endfor %}
+                                                {% endif %}
+                                            </div>
+                                        </div>
+                                    </div>
+                                {% endfor %}
+                            </div>
+                            <!-- Options column -->
+                            {% include "regional/column-result-actions.html" %}
+                        </div>
+                        <!-- <div class="text-center">
+                            Página <input type="text" value="1" size="1" class="text-center"> de 10 <a href=""><i class="fas fa-angle-right fa-2x"></i></a>
+                        </div> -->
+
+                        {% if pag.total_pages > 0 %}
+                            <nav aria-label="Page navigation example" class="d-print-none">
+                                <ul class="pagination justify-content-center">
+
+                                    {% if params.page is defined and params.page > 1 %}
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:go_to_page('1')" title="{{ texts.FIRST_PAGE }}"><i class="fas fa-angle-double-left"></i></a>
+                                        </li>
+
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:go_to_page('{{ params.page-1 }}')" tabindex="-1" aria-disabled="true" title="{{ texts.GO_TO_PAGE }} {{ params.page-1 }}"><i class="fas fa-angle-left"></i></a>
+                                        </li>
+                                    {% else %}
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
+                                        </li>
+                                        <li class="page-item disabled">
+                                            <a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-left"></i></a>
+                                        </li>
+                                    {% endif %}
+
+                                    {% for i in pag.pages %}
+                                        {% if params.page is defined %}
+                                            {% if params.page != i %}
+                                                <li class="page-item"><a class="page-link" href="javascript:go_to_page('{{ i }}')" title="{{ texts.GO_TO_PAGE }} {{ i }}">{{ i }}</a></li>
+                                            {% else %}
+                                                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                            {% endif %}
+                                        {% else %}
+                                            {% if i != 1 %}
+                                                <li class="page-item"><a class="page-link" href="javascript:go_to_page('{{ i }}')" title="{{ texts.GO_TO_PAGE }} {{ i }}">{{ i }}</a></li>
+                                            {% else %}
+                                                <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                            {% endif %}
                                         {% endif %}
-    								</div>
-    							</div>
-    						</div>
-    					{% endfor %}
-    				</div>
-                    <!-- Options column -->
-                    {% include "regional/column-result-actions.html" %}
-    			</div>
-                <!-- <div class="text-center">
-    				Página <input type="text" value="1" size="1" class="text-center"> de 10 <a href=""><i class="fas fa-angle-right fa-2x"></i></a>
-    			</div> -->
+                                    {% endfor %}
 
-                {% if pag.total_pages > 0 %}
-        			<nav aria-label="Page navigation example" class="d-print-none">
-        				<ul class="pagination justify-content-center">
-
-                            {% if params.page is defined and params.page > 1 %}
-                                <li class="page-item">
-            						<a class="page-link" href="javascript:go_to_page('1')" title="{{ texts.FIRST_PAGE }}"><i class="fas fa-angle-double-left"></i></a>
-            					</li>
-
-                                <li class="page-item">
-            						<a class="page-link" href="javascript:go_to_page('{{ params.page-1 }}')" tabindex="-1" aria-disabled="true" title="{{ texts.GO_TO_PAGE }} {{ params.page-1 }}"><i class="fas fa-angle-left"></i></a>
-            					</li>
-                            {% else %}
-                                <li class="page-item disabled">
-            						<a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-double-left"></i></a>
-            					</li>
-            					<li class="page-item disabled">
-            						<a class="page-link" href="#" tabindex="-1" aria-disabled="true"><i class="fas fa-angle-left"></i></a>
-            					</li>
-                            {% endif %}
-
-                            {% for i in pag.pages %}
-                                {% if params.page is defined %}
-                                    {% if params.page != i %}
-                                        <li class="page-item"><a class="page-link" href="javascript:go_to_page('{{ i }}')" title="{{ texts.GO_TO_PAGE }} {{ i }}">{{ i }}</a></li>
+                                    {% if params.page is defined %}
+                                        {% if params.page < pag.total_pages %}
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:go_to_page('{{ params.page+1 }}')" title="{{ texts.GO_TO_PAGE }} {{ params.page+1 }}"><i class="fas fa-angle-right"></i></a>
+                                            </li>
+                                            <li class="page-item">
+                                                <a class="page-link" href="javascript:go_to_page('{{ pag.total_pages }}')" title="{{ texts.GO_TO_PAGE }} {{ pag.total_pages }}"><i class="fas fa-angle-double-right"></i></a>
+                                            </li>
+                                        {% else %}
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-right"></i></a>
+                                            </li>
+                                            <li class="page-item disabled">
+                                                <a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-double-right"></i></a>
+                                            </li>
+                                        {% endif %}
                                     {% else %}
-                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:go_to_page('2')" title="{{ texts.GO_TO_PAGE }} 2"><i class="fas fa-angle-right"></i></a>
+                                        </li>
+                                        <li class="page-item">
+                                            <a class="page-link" href="javascript:go_to_page('{{ pag.total_pages }}')" title="{{ texts.GO_TO_PAGE }} {{ pag.total_pages }}"><i class="fas fa-angle-double-right"></i></a>
+                                        </li>
                                     {% endif %}
-                                {% else %}
-                                    {% if i != 1 %}
-                                        <li class="page-item"><a class="page-link" href="javascript:go_to_page('{{ i }}')" title="{{ texts.GO_TO_PAGE }} {{ i }}">{{ i }}</a></li>
-                                    {% else %}
-                                        <li class="page-item active"><a class="page-link" href="#">{{ i }}</a></li>
-                                    {% endif %}
-                                {% endif %}
-                            {% endfor %}
-
-                            {% if params.page is defined %}
-                                {% if params.page < pag.total_pages %}
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:go_to_page('{{ params.page+1 }}')" title="{{ texts.GO_TO_PAGE }} {{ params.page+1 }}"><i class="fas fa-angle-right"></i></a>
-                                    </li>
-                                    <li class="page-item">
-                                        <a class="page-link" href="javascript:go_to_page('{{ pag.total_pages }}')" title="{{ texts.GO_TO_PAGE }} {{ pag.total_pages }}"><i class="fas fa-angle-double-right"></i></a>
-                                    </li>
-                                {% else %}
-                                    <li class="page-item disabled">
-                						<a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-right"></i></a>
-                					</li>
-                					<li class="page-item disabled">
-                						<a class="page-link" href="#" aria-disabled="true"><i class="fas fa-angle-double-right"></i></a>
-                					</li>
-                                {% endif %}
-                            {% else %}
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:go_to_page('2')" title="{{ texts.GO_TO_PAGE }} 2"><i class="fas fa-angle-right"></i></a>
-                                </li>
-                                <li class="page-item">
-                                    <a class="page-link" href="javascript:go_to_page('{{ pag.total_pages }}')" title="{{ texts.GO_TO_PAGE }} {{ pag.total_pages }}"><i class="fas fa-angle-double-right"></i></a>
-                                </li>
-                            {% endif %}
-        				</ul>
-        			</nav>
-                {% endif %}
-    		</div>
+                                </ul>
+                            </nav>
+                        {% endif %}
+                    </div>
+                </div> <!-- close id="tabResult" -->
+            </div>
     	</section>
         {% endif %}
     {% else %}
