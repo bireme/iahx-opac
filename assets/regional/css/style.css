@@ -461,6 +461,9 @@
 @media (max-width: 640px){
 	.sw.sw-justified>.nav>li h6{min-height: auto;}
 	.sw.sw-justified>.nav>li{margin-bottom: -25px;}
+	/*tabs*/
+	#myTab .nav-item, #myTab .nav-item .nav-link{width: 100%;}
+	.nav{flex-direction: column!important;}
 }
 @media (max-width: 556px){
 	#resumo, #tabResumo{width: 100%;}
