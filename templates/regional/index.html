@@ -277,7 +277,7 @@
                             {{ texts.SEND_RESULT }}<br>
                             <fieldset>
                                 <input type="radio" name="selection" id="select_page" value="page" checked><label for="select_page"> {{ texts.THIS_PAGE }}</label>
-                                <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)</label>
+                                <input type="radio" name="selection" id="select_my" value="my_selection"><label for="select_my"> {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">{{ bookmark|length }}</span>)</label>
                                 <input type="radio" name="selection" id="select_all" value="all_results"><label for="select_all"> {{ texts.ALL_REFERENCES }} ({{texts.ALL_REFERENCES_LIMIT}}&nbsp; 300)</label>
                             </fieldset>
 
@@ -319,7 +319,7 @@
                             {{ texts.THIS_PAGE }}
                         </a>
                         <a href="javascript:export_result('selection');" title="{{ texts.YOUR_SELECTION }}" class="btn btn-primary">
-                            {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)
+                            {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">{{ bookmark|length }}</span>)
                         </a>
                         <a href="javascript:export_result();" title="{{ texts.ALL_REFERENCES }}" class="btn btn-primary">
                             {{ texts.ALL_REFERENCES }}
@@ -370,7 +370,7 @@
                         {{ texts.THIS_PAGE }}
                     </a>
                     <a href="javascript:print_page(true);" class="btn btn-primary">
-                        {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">0</span>)
+                        {{ texts.YOUR_SELECTION }} (<span class="my_selection_count">{{ bookmark|length }}</span>)
                     </a>
 				</div>
 			</div>
