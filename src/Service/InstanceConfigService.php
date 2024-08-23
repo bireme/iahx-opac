@@ -31,7 +31,8 @@ class InstanceConfigService
         }
         $defaults['defaultDisplayFormat'] = (string)$defaults['defaultCollectionData']->format_list[0]->format[0]->name;
 
-        $protocol = ( (isset($config->use_https) && $config->use_https == 'true') ? 'https' : 'http');
+        // Use https as default protocol unless defined in config or in local mode (localhost)
+        $protocol = ( (isset($config->use_https) && $config->use_https == 'false') || $_SERVER['SERVER_NAME'] == 'localhost' ? 'http' : 'https');
 
         // Define constants for the instance
         define('SEARCH_URL',  $protocol . "://" . $_SERVER['HTTP_HOST'] . '/' . $instanceName . '/');
