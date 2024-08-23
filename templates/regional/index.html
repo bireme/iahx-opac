@@ -21,12 +21,11 @@
         </div>
     {% endif %}
 
-    {% if docs|length > 0 %}
-        {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
-            {% include "regional/index-filters.html" %}
-        {% else %}
+    {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
+        {% include "regional/index-filters.html" %}
+    {% else %}
         <section class="">
-    		<div class="container">
+            <div class="container">
                 {# Present result split by tabs based on cluster values #}
                 {% if collectionData.tab_list is defined %}
 
@@ -60,6 +59,9 @@
                 <div class="tab-content" id="tabResult">
                     <div class="tab-pane fade show active" role="tabpanel">
                         <div class="row">
+
+                        {% if docs|length > 0 %}
+
                             <div class="col-md-7 offset-md-3 d-print-none">
                                 <div class="row padding1">
                                     <div class="col-md-4">
@@ -158,10 +160,16 @@
                             </div>
                             <!-- Options column -->
                             {% include "regional/column-result-actions.html" %}
-                        </div>
-                        <!-- <div class="text-center">
-                            Página <input type="text" value="1" size="1" class="text-center"> de 10 <a href=""><i class="fas fa-angle-right fa-2x"></i></a>
-                        </div> -->
+                        {% else %}
+
+                            <div class="col-md-8 offset-md-3 d-print-none">
+                                <div class="text-left">
+                                    <h5>{{ texts.NO_RESULTS }}</h5>
+                                </div>
+                            </div>
+
+                        {% endif %}
+                        </div> <!-- /row -->
 
                         {% if pag.total_pages > 0 %}
                             <nav aria-label="Page navigation example" class="d-print-none">
@@ -230,23 +238,7 @@
                     </div>
                 </div> <!-- close id="tabResult" -->
             </div>
-    	</section>
-        {% endif %}
-    {% else %}
-
-    <section class="">
-        <div class="container">
-            <div class="row">
-                <div class="col-md-8 offset-md-3 d-print-none">
-
-                        <div class="alert alert-dark text-center" role="alert">
-                            <h5>{{ texts.NO_RESULTS }}</h5>
-                        </div>
-
-                </div>
-                {% include "regional/column-filters.html" %}
-            </div>
-        </div>
+        </section>
     {% endif %}
 
 {% endblock %}
