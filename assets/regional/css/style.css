@@ -114,7 +114,7 @@
 }
 .to-top:hover{background: #999; color: #fff;}
 .to-topText{font-size: 10px; font-weight: bold; line-height: 10px; padding-top: 5px;}
-.breadcrumb{margin: 10px 0 -20px 0;	background: none; font-size: 12px;}
+.breadcrumb{margin-top: 10px; background: none; font-size: 12px;}
 #resumo{padding: 20px; border: solid 1px #ddd; border-top: 0; margin-bottom: 20px;}
 .atribArtigos{padding: 1px; margin: 1px; font-size: 13px; display: block;}
 .tree{list-style-type: none; font-size: 14px; margin: 0; padding: 0px; background: url(img/vline.png) repeat-y;}
