@@ -27,12 +27,13 @@ class SearchSolr
         return;
     }
 
-    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $tab_filter = '', $from = 0){
+    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
 
         $initial_filter = $this->param['initial_filter'] ?? '';
+        $tab_filter = $this->param['tab_filter'] ?? '';
 
         if ($from != "" && $from > 0){
             $this->param["start"] = ($from - 1);

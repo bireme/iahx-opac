@@ -204,9 +204,9 @@ final class SearchController extends AbstractController
         // check if tab filter is defined in config
         $config_tab_list = ($collectionData->tab_list ? $collectionData->tab_list : null);
         $tab_filter = null;
-        if( $config_tab_list ) {
-            $tab_param = isset($params['tab']) ? (int)$params['tab'] : 1;
+        $tab_param = isset($params['tab']) ? (int)$params['tab'] : 1;
 
+        if( $config_tab_list ) {
             if ($config_tab_list) {
                 $config_tab_cluster = (string)$config_tab_list->attributes()->cluster;
                 $config_tab_filter = (string)$config_tab_list->tab[$tab_param - 1]->attributes()->value;
@@ -292,15 +292,16 @@ final class SearchController extends AbstractController
         $search->setParam('fb', $fb);
         $search->setParam('sort', $sort_value);
         $search->setParam('initial_filter', $initial_filter);
+        $search->setParam('tab_filter', $tab_filter);
         if ($config->request_cluster_list && $config->request_cluster_list == 'true'){
             $search->setParam('filter_list', $config_cluster_list);
         }
 
         // Try to use cache for the first page of search app (empty query)
         if ($q == '' && empty($user_filter) && $from == 0){
-            $search_response = $this->cache->get_first_page_result($instance, $lang, $search);
+            $search_response = $this->cache->get_first_page_result($instance, $lang, $search, $tab_param);
         }else{
-            $search_response = $search->search($q, $index, $user_filter, $range_filter, $tab_filter, $from);
+            $search_response = $search->search($q, $index, $user_filter, $range_filter, $from);
         }
 
         $result = json_decode($search_response, true);
@@ -570,8 +571,9 @@ final class SearchController extends AbstractController
                     $search->setParam('fb', $fb);
                     $search->setParam('sort', $sort_value);
                     $search->setParam('initial_filter', $initial_filter );
+                    $search->setParam('tab_filter', $tab_filter );
 
-                    $search_response = $search->search($q, $index, $user_filter, $range_filter, $tab_filter, $from);
+                    $search_response = $search->search($q, $index, $user_filter, $range_filter, $from);
                     $result = json_decode($search_response, true);
 
                     $template_vars['from'] = $from;
