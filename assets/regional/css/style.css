@@ -306,7 +306,6 @@
 }
 
 /*  affiliation */
-
 #affiliationsBox{
 	padding: 10px;
 	border: 1px solid #ddd;
@@ -390,6 +389,50 @@
 	z-index: ;
 }
 
+/* Tabs */
+#tabOptions .nav-item .nav-link{
+	border:2px solid #ccc!important;
+	border-bottom: 0!important;
+	background: #ddd;
+}
+#tabOptions .nav-item{
+	margin-right: 5px;
+	border-bottom: 0!important;
+	border-bottom: 1px solid #ddd;
+}
+#tabOptions .active{
+	background: #f5f5f5!important;
+	outline: none;
+}
+.nav-tabs{
+	border-bottom: 0!important;
+}
+#tabOptions .nav-item{
+	width: 32.95%;
+}
+#tabOptions .nav-item .nav-link{
+	width: 100%;
+}
+/* Alinhamento dos botões em linha */
+#tabOptions {
+    display: flex;
+    justify-content: flex-start; /* Alinha os botões à esquerda */
+    width: 100%;
+}
+
+#tabOptions .nav-item {
+    flex: 0 1 35%;  /* Cada botão ocupa 35% do espaço do container, somando 70% com os dois botões */
+    text-align: center;
+}
+
+#tabOptions .nav-link {
+    width: 100%;
+    padding: 15px;
+    white-space: normal;
+    box-sizing: border-box;
+}
+
+
 /******************** Breakpoints *******************/
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
@@ -462,7 +505,7 @@
 	.sw.sw-justified>.nav>li h6{min-height: auto;}
 	.sw.sw-justified>.nav>li{margin-bottom: -25px;}
 	/*tabs*/
-	#myTab .nav-item, #myTab .nav-item .nav-link{width: 100%;}
+	#tabOptions .nav-item, #tabOptions .nav-item .nav-link{width: 100%;}
 	.nav{flex-direction: column!important;}
 }
 @media (max-width: 556px){
@@ -489,4 +532,17 @@
 /*coreçõe svg Internet Explorer Edge*/
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   img[src$=".svg"] { width: 100%; }
+}
+
+/* Alinhamento dos botões na tabulação */
+@media (max-width: 1024px) {
+    #tabOptions .nav-item {
+        flex: 1 1 33%;
+        box-sizing: border-box;
+    }
+    #tabOptions .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
 }

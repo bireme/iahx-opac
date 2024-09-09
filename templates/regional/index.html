@@ -54,6 +54,8 @@
                                     {{ attribute(texts.TABS, tab_desc) is defined ? attribute(texts.TABS, tab_desc) }}<br/>
                                     {% if tab_param == tab_occ %}
                                         <small>{{ pag.total_formatted }}</small>
+                                    {% else %}
+                                        <small>&nbsp;</small>
                                     {% endif %}
                                 </button>
                             </li>
