@@ -89,9 +89,10 @@ final class ResourceController extends AbstractController
             $output_array['config'] = $config;
             $output_array['texts'] = $texts;
 
-            // start session
-            $SESSION = $request->getSession();
-            $SESSION->start();
+            // session data
+            $session = $request->getSession();
+            $bookmark = $session->get('bookmark', []);
+            $output_array['bookmark'] = array();
 
             $check_mobile = $config->mobile_version;
             $view = ( isset($params['view']) ? $params['view'] : '');
