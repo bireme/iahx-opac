@@ -404,6 +404,7 @@
 	margin-right: 5px;
 	border-bottom: 0!important;
 	border-bottom: 1px solid #ddd;
+    position: relative;
 }
 #tabOptions .active{
 	background: #f5f5f5!important;
@@ -437,6 +438,12 @@
     box-sizing: border-box;
 }
 
+.info-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-decoration: none;
+}
 
 /******************** Breakpoints *******************/
 @media (min-width: 1200px) {
