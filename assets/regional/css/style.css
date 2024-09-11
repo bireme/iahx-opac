@@ -390,6 +390,11 @@
 }
 
 /* Tabs */
+#tabResult{
+    border:2px solid #ccc;
+    padding: 20px;
+    margin-top: -1px;
+}
 #tabOptions .nav-item .nav-link{
 	border:2px solid #ccc!important;
 	border-bottom: 0!important;
