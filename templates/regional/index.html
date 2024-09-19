@@ -39,24 +39,22 @@
                             {% set tab_occ = loop.index %}
                             {% set tab_name = tab|trim() %}
                             {% set tab_desc = tab_name ~ '_desc' %}
-                            {% set tab_value = tab.attributes.value %}
+                            {% set tab_value = tab.attributes.value|trim() %}
+
                             {% set tab_count %}
                                 {% for tab_item in tab_cluster %}
                                     {% if tab_item.0 == tab_value %}
-                                        {{ tab_item.1 }}
+                                        {{ tab_item.1|number_format(0, '.', '.') }}
                                     {% endif %}
                                 {% endfor %}
                             {% endset %}
+
 
                             <li class="nav-item" role="presentation">
                                 <button class="nav-link {% if tab_param == tab_occ %}active{% endif %}" id="tab-{{tab_occ}}" data-tab="{{tab_occ}}" data-toggle="tab" type="button" role="tab">
                                     <b>{{ attribute(texts.TABS, tab_name) is defined ? attribute(texts.TABS, tab_name) }}</b><br>
                                     {{ attribute(texts.TABS, tab_desc) is defined ? attribute(texts.TABS, tab_desc) }}<br/>
-                                    {% if tab_param == tab_occ %}
-                                        <small>{{ pag.total_formatted }}</small>
-                                    {% else %}
-                                        <small>&nbsp;</small>
-                                    {% endif %}
+                                    <small>{{ tab_count }}</small>
                                 </button>
                                 {% if tab_param == tab_occ %}
                                     <a href="#" target="_blank" class="info-link">

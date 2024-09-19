@@ -60,7 +60,12 @@ class SearchSolr
 
         if ( $tab_filter != '' ){
             $filter = ($filter != '' ? $filter . " AND " : '');
-            $filter.= "(" . $tab_filter . ")";
+            # Use tag to mark the cluster for exclusion in facet.field (https://solr.apache.org/guide/6_6/faceting.html)
+            $filter.= "({!tag=tab}" . $tab_filter . ")";
+
+            # Passing tab_filter_list as facet.field.terms to count all values of tab cluster
+            $tab_filter_list = $this->param['tab_filter_list'];
+            $this->param['facet.field.terms'] = $tab_filter_list;
         }
 
         $this->param["fq"] = $filter;
@@ -148,7 +153,8 @@ class SearchSolr
                 }
             }
         }
-        $requestUrl = $_ENV['IAHX_CONTROLER_SERVER'] . 'iahx-controller/?' . substr($urlParam,1);
+        #$requestUrl = $_ENV['IAHX_CONTROLER_SERVER'] . 'iahx-controller/?' . substr($urlParam,1);
+        $requestUrl = $_ENV['IAHX_CONTROLLER_URL'] . '?' . substr($urlParam,1);
 
         return $requestUrl;
     }

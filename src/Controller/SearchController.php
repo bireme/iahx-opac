@@ -201,18 +201,26 @@ final class SearchController extends AbstractController
 
         $is_email = (isset($params['is_email']) && $params['is_email'] === 'true' ? true : false);
 
-        // check if tab filter is defined in config
+        // check if tab_list element is defined in config
         $config_tab_list = ($collectionData->tab_list ? $collectionData->tab_list : null);
         $tab_filter = null;
-        $tab_param = isset($params['tab']) ? (int)$params['tab'] : 1;
+        $tab_param = !empty($params['tab']) ? (int)$params['tab'] : 1;
 
-        if( $config_tab_list ) {
-            if ($config_tab_list) {
-                $config_tab_cluster = (string)$config_tab_list->attributes()->cluster;
-                $config_tab_filter = (string)$config_tab_list->tab[$tab_param - 1]->attributes()->value;
-                $tab_filter = $config_tab_cluster . ':"' . $config_tab_filter . '"';
-
+        if($config_tab_list) {
+            $config_tab_cluster = (string)$config_tab_list->attributes()->cluster;
+            $config_tab_values = array();
+            $config_tab_filter = '';
+            $tab_occ = 1;
+            foreach($config_tab_list->tab as $tab){
+                $tab_value = (string)$tab->attributes()->value;
+                $config_tab_values[] = $tab_value;
+                if ($tab_occ == $tab_param){
+                    $config_tab_filter = $tab_value;
+                }
+                $tab_occ++;
             }
+            $tab_filter = $config_tab_cluster . ':"' . $config_tab_filter . '"';
+            $tab_filter_list = $config_tab_cluster . ':' . implode(',', $config_tab_values);
         }
 
         // wizard
@@ -292,7 +300,11 @@ final class SearchController extends AbstractController
         $search->setParam('fb', $fb);
         $search->setParam('sort', $sort_value);
         $search->setParam('initial_filter', $initial_filter);
-        $search->setParam('tab_filter', $tab_filter);
+
+        if ($config_tab_list){
+            $search->setParam('tab_filter', $tab_filter);
+            $search->setParam('tab_filter_list', $tab_filter_list);
+        }
         if ($config->request_cluster_list && $config->request_cluster_list == 'true'){
             $search->setParam('filter_list', $config_cluster_list);
         }
