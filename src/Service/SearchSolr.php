@@ -180,6 +180,7 @@ class SearchSolr
             "POST $path HTTP/1.0\r\n".
             "Host: $host\r\n".
             "User-Agent: PostIt\r\n".
+            "apikey: " . $_ENV['IAHX_CONTROLLER_KEY'] . "\r\n".
             "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n".
             "Content-Length: $contentLength\r\n\r\n".
             "$query\n";
