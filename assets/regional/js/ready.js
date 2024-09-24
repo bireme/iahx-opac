@@ -1,3 +1,11 @@
+$(window).on('pageshow', function(event) {
+    if (event.originalEvent.persisted) {
+        // Hide the loading image if the page is loaded from the cache
+        $(".loading").removeClass('d-block');
+        $(".loading").addClass('d-none');
+    }
+});
+
 $(function(){
 
     $('.defaultValue').each(function(){
@@ -60,6 +68,13 @@ $(function(){
     $(".breadcrumb-item a").click( function( event ) {
         $(".loading").removeClass('d-none');
         $(".loading").addClass('d-block');
+    });
+
+    // change filter by tabs
+    $('#tabOptions button').on('click', function() {
+        var tabValue = $(this).data('tab');
+        $("#tab").val(tabValue);
+        $("#searchForm").submit();
     });
 
 })

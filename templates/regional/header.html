@@ -72,6 +72,7 @@
                         {% endif %}
                         <input type="hidden" name="fb" id="fb" value="">
                         <input type="hidden" name="page" id="page" value="{{ params.page is defined ? params.page : '1' }}">
+                        <input type="hidden" name="tab" id="tab" value="{{ params.tab|default() }}">
 
                         {% if filters is defined %}
                             {% for name, items in filters %}

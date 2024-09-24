@@ -79,7 +79,7 @@
     <input type="hidden" name="fb" value="">
 
     {% for key, value in params %}
-        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and key != "reset_filters" and key != "view_filter" and "_submit" not in key  %}
+        {% if key != "filter" and key != "submit" and key != "fb" and key != "u_filter" and key != "reset_filters" and "_submit" not in key  %}
             {% if key == "from" or key == "page" %}
                 <input type="hidden" name="{{ key }}" value="1">
             {% else %}
@@ -94,13 +94,6 @@
                     {% endfor %}
                 {% endif %}
             {% endfor %}
-        {% endif %}
-    {% endfor %}
-
-    <!-- add filters of view_filter -->
-    {% for vf_value in view_filter  %}
-        {% if view_filter is defined %}
-        <input type="hidden" id="view_filter_{{vf_value}}" name="view_filter[]" value="{{vf_value}}">
         {% endif %}
     {% endfor %}
 

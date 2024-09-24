@@ -107,9 +107,9 @@ class CacheService
     }
 
 
-    function get_first_page_result($instance, $lang, $search) {
+    function get_first_page_result($instance, $lang, $search, $tab) {
         // Cache key id
-        $cache_key = "first_page_result_" . $instance . '_' . $lang;
+        $cache_key = "first_page_result_" . $instance . '_' . $lang . '_' . $tab;
 
         // Get from cache or execute the first page result query
         $first_page_result = $this->cache->get($cache_key, function (ItemInterface $item) use ($search) {

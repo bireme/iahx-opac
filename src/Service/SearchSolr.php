@@ -27,12 +27,13 @@ class SearchSolr
         return;
     }
 
-    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $view_filter = '', $from = 0){
+    function search($query = '', $index = '', $user_filter = array(), $range_filter = '', $from = 0){
         $this->param["op"] = "search";
         $this->param["q"] = $query;
         $this->param["index"] = $index;
 
         $initial_filter = $this->param['initial_filter'] ?? '';
+        $tab_filter = $this->param['tab_filter'] ?? '';
 
         if ($from != "" && $from > 0){
             $this->param["start"] = ($from - 1);
@@ -57,9 +58,14 @@ class SearchSolr
             $filter.= "(" . $range_filter . ")";
         }
 
-        if ( $view_filter != '' ){
+        if ( $tab_filter != '' ){
             $filter = ($filter != '' ? $filter . " AND " : '');
-            $filter.= "(" . $view_filter . ")";
+            # Use tag to mark the cluster for exclusion in facet.field (https://solr.apache.org/guide/6_6/faceting.html)
+            $filter.= "({!tag=tab}" . $tab_filter . ")";
+
+            # Passing tab_filter_list as facet.field.terms to count all values of tab cluster
+            $tab_filter_list = $this->param['tab_filter_list'];
+            $this->param['facet.field.terms'] = $tab_filter_list;
         }
 
         $this->param["fq"] = $filter;
@@ -147,7 +153,8 @@ class SearchSolr
                 }
             }
         }
-        $requestUrl = $_ENV['IAHX_CONTROLER_SERVER'] . 'iahx-controller/?' . substr($urlParam,1);
+        #$requestUrl = $_ENV['IAHX_CONTROLER_SERVER'] . 'iahx-controller/?' . substr($urlParam,1);
+        $requestUrl = $_ENV['IAHX_CONTROLLER_URL'] . '?' . substr($urlParam,1);
 
         return $requestUrl;
     }
@@ -173,6 +180,7 @@ class SearchSolr
             "POST $path HTTP/1.0\r\n".
             "Host: $host\r\n".
             "User-Agent: PostIt\r\n".
+            "apikey: " . $_ENV['IAHX_CONTROLLER_KEY'] . "\r\n".
             "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n".
             "Content-Length: $contentLength\r\n\r\n".
             "$query\n";

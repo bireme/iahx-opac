@@ -114,7 +114,7 @@
 }
 .to-top:hover{background: #999; color: #fff;}
 .to-topText{font-size: 10px; font-weight: bold; line-height: 10px; padding-top: 5px;}
-.breadcrumb{margin: 10px 0 -20px 0;	background: none; font-size: 12px;}
+.breadcrumb{margin-top: 10px; background: none; font-size: 12px;}
 #resumo{padding: 20px; border: solid 1px #ddd; border-top: 0; margin-bottom: 20px;}
 .atribArtigos{padding: 1px; margin: 1px; font-size: 13px; display: block;}
 .tree{list-style-type: none; font-size: 14px; margin: 0; padding: 0px; background: url(img/vline.png) repeat-y;}
@@ -306,7 +306,6 @@
 }
 
 /*  affiliation */
-
 #affiliationsBox{
 	padding: 10px;
 	border: 1px solid #ddd;
@@ -390,6 +389,62 @@
 	z-index: ;
 }
 
+/* Tabs */
+#tabResult{
+    border:2px solid #ccc;
+    padding: 20px;
+    margin-top: -1px;
+}
+#tabOptions .nav-item .nav-link{
+	border:2px solid #ccc!important;
+	border-bottom: 0!important;
+	background: #ddd;
+}
+#tabOptions .nav-item{
+	margin-right: 5px;
+	border-bottom: 0!important;
+	border-bottom: 1px solid #ddd;
+    position: relative;
+}
+#tabOptions .active{
+	background: #f5f5f5!important;
+	outline: none;
+}
+.nav-tabs{
+	border-bottom: 0!important;
+}
+#tabOptions .nav-item{
+	width: 32.95%;
+}
+#tabOptions .nav-item .nav-link{
+	width: 100%;
+}
+/* Alinhamento dos botões em linha */
+#tabOptions {
+    display: flex;
+    justify-content: flex-start; /* Alinha os botões à esquerda */
+    width: 100%;
+}
+
+#tabOptions .nav-item {
+    flex: 0 1 35%;  /* Cada botão ocupa 35% do espaço do container, somando 70% com os dois botões */
+    text-align: center;
+}
+
+#tabOptions .nav-link {
+    width: 100%;
+    padding: 15px;
+    white-space: normal;
+    box-sizing: border-box;
+}
+
+.info-link {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    text-decoration: none;
+}
+
 /******************** Breakpoints *******************/
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {
@@ -461,6 +516,9 @@
 @media (max-width: 640px){
 	.sw.sw-justified>.nav>li h6{min-height: auto;}
 	.sw.sw-justified>.nav>li{margin-bottom: -25px;}
+	/*tabs*/
+	#tabOptions .nav-item, #tabOptions .nav-item .nav-link{width: 100%;}
+	.nav{flex-direction: column!important;}
 }
 @media (max-width: 556px){
 	#resumo, #tabResumo{width: 100%;}
@@ -486,4 +544,17 @@
 /*coreçõe svg Internet Explorer Edge*/
 @media screen and (-ms-high-contrast: active), (-ms-high-contrast: none) {
   img[src$=".svg"] { width: 100%; }
+}
+
+/* Alinhamento dos botões na tabulação */
+@media (max-width: 1024px) {
+    #tabOptions .nav-item {
+        flex: 1 1 33%;
+        box-sizing: border-box;
+    }
+    #tabOptions .nav-link {
+        width: 100%;
+        text-align: center;
+        padding: 10px;
+    }
 }

@@ -183,6 +183,14 @@ function change_sort(obj){
     $("#searchForm").submit();
 }
 
+function change_tab(tab){
+    var form = document.searchForm;
+
+    form.tab.value = tab;
+    $("#searchForm").submit();
+}
+
+
 
 function send_email(){
     // Copy all input fields from searchForm to emailForm
