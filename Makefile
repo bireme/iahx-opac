@@ -105,3 +105,9 @@ clear_app_cache:
 
 clear_cache:
 	@docker compose exec iahx_opac php bin/console cache:pool:clear cache.global_clearer
+
+# Target to switch to a custom version (use make rollback VERSION=9.9.9)
+rollback:
+	@echo "Deploying version $$VERSION..."
+	@docker compose stop
+	@IMAGE_TAG=$(IMAGE_NAME):$(VERSION) docker compose up -d
