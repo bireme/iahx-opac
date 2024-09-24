@@ -51,9 +51,21 @@
                         {% set lang_evid = (lang != 'es' ? lang : '') %}
                         <a href="http://bvsalud.org/evideasy/{{lang_evid}}" target="evideasy" title="{{ texts.WIZARD.BUTTON_TOOLTIP|default() }}" class="btnBlue" onclick="gtag('event', 'Open search page', {'event_category': 'Evid@Easy'});">
                             {{ texts.WIZARD.BUTTON|default() }}
-                        </a><br/>
+                        </a>
                     {% endif %}
+                    {% if config.help_button.show is defined and config.help_button.show == 'true' %}
+                        {% set help_button_href %}
+                            {% if attribute(config.help_button.languages, lang) is defined %}
+                                {{ attribute(config.help_button.languages, lang) }}
+                            {% else %}
+                                {{ attribute(config.help_button.languages, config.help_button.default_lang|trim) }}
+                            {% endif %}
+                        {% endset %}
 
+                        <a href="{{ help_button_href|trim }}" target="_blank" title="" class="btnBlue">
+                            <i class="fas fa-question"></i>
+                        </a>
+                    {% endif %}
 				</div>
 				<div class="{% if current_page != 'decs_lookup'%}headerSearch{% else %}d-none{% endif %}">
 

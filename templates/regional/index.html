@@ -66,10 +66,12 @@
                     </ul>
                 {% endif %}
 
-                <div class="tab-content" id="tabResult">
-                    <div class="tab-pane fade show active" role="tabpanel">
-                        <div class="row">
+                {% if collectionData.tab_list is defined %}
+                    <div class="tab-content" id="tabResult">
+                        <div class="tab-pane fade show active" role="tabpanel">
+                {% endif %}
 
+                        <div class="row">
                         {% if docs|length > 0 %}
 
                             <div class="col-md-7 offset-md-3 d-print-none">
@@ -245,8 +247,10 @@
                                 </ul>
                             </nav>
                         {% endif %}
+                {% if collectionData.tab_list is defined %}
                     </div>
                 </div> <!-- close id="tabResult" -->
+                {% endif %}
             </div>
         </section>
     {% endif %}
