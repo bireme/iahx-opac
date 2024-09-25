@@ -22,12 +22,15 @@ services:
       - static_files:/app/public
       - ./instances/:/app/instances
       - ./docker/nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./docker/nginx/templates:/etc/nginx/templates
+      - ./docker/nginx/.htpasswd:/etc/nginx/.htpasswd
       - phpsock:/var/run
     depends_on:
       - iahx_opac
     environment:
       - VIRTUAL_HOST=${VIRTUAL_HOST}
       - LETSENCRYPT_HOST=${VIRTUAL_HOST}
+      - USE_AUTHENTICATION=${USE_AUTHENTICATION}
       - TZ=${TIMEZONE}
     networks:
       - nginx-proxy
@@ -38,6 +41,7 @@ services:
     restart: unless-stopped
     environment:
       - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_AOF_ENABLED=no
       - TZ=${TIMEZONE}
     command:  /opt/bitnami/scripts/redis/run.sh --maxmemory ${APP_CACHE_MEMORY} --maxmemory-policy allkeys-lru
 
