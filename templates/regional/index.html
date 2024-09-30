@@ -30,7 +30,7 @@
                 {% if collectionData.tab_list is defined %}
 
                     {% set tab_cluster_name = collectionData.tab_list.attributes.cluster|trim() %}
-                    {% set tab_cluster = clusters[tab_cluster_name] %}
+                    {% set tab_cluster = clusters[tab_cluster_name]|default() %}
 
                     <ul class="nav nav-tabs" id="tabOptions" role="tablist">
                         {% for tab in collectionData.tab_list.tab %}

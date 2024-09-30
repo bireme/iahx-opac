@@ -318,7 +318,7 @@ final class SearchController extends AbstractController
 
         $result = json_decode($search_response, true);
 
-        if ( isset($result['diaServerResponse'][0]) ){
+        if ( isset($result['diaServerResponse'][0]['responseHeader']) ){
             $srv_response = $result['diaServerResponse'][0]['responseHeader'];
             // detailed query
             $solr_param_q = isset($srv_response['params']['q']) ? $srv_response['params']['q'] : null;
