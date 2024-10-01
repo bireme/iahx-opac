@@ -119,6 +119,11 @@ class CacheService
             return $search_response;
         });
 
+        // If the query returns no results, delete the cache entry
+        if (!str_contains($first_page_result, 'numFound')) {
+            $this->cache->deleteItem($cache_key);
+        }
+
         return $first_page_result;
     }
 

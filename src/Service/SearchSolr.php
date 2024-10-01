@@ -184,22 +184,29 @@ class SearchSolr
             "Content-Type: application/x-www-form-urlencoded; charset=UTF-8\r\n".
             "Content-Length: $contentLength\r\n\r\n".
             "$query\n";
-        // Open the connection to the host
 
-        if (substr($url, 0, 5) === "https"){
-            $fp = fsockopen("ssl://{$host}", 443, $errno, $errstr, $timeout);
-        }else{
-            $fp = fsockopen($host, $port, $errno, $errstr, $timeout);
-        }
 
-        fputs( $fp, $ReqHeader );
-        if ($fp) {
-            while (!feof($fp)){
-                $result .= fgets($fp, 4096);
+        try {
+            // Open the connection to the host
+            if (substr($url, 0, 5) === "https"){
+                $fp = fsockopen("ssl://{$host}", 443, $errno, $errstr, $timeout);
+            }else{
+                $fp = fsockopen($host, $port, $errno, $errstr, $timeout);
             }
+
+            fputs( $fp, $ReqHeader );
+            if ($fp) {
+                while (!feof($fp)){
+                    $result .= fgets($fp, 4096);
+                }
+            }
+            $result = substr($result,strpos($result,"\r\n\r\n"));
+        } catch (Exception $e) {
+            echo 'Solr request exception: ',  $e->getMessage(), "\n";
+            return false;
         }
 
-        return substr($result,strpos($result,"\r\n\r\n"));
+        return $result;
     }
 
     function cleanArray($array) {
