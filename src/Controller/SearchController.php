@@ -310,7 +310,7 @@ final class SearchController extends AbstractController
         }
 
         // Try to use cache for the first page of search app (empty query)
-        if ($q == '' && empty($user_filter) && $from == 0){
+        if ($q == '' && empty($user_filter) && $from == 0 && empty($fb)){
             $search_response = $this->cache->get_first_page_result($instance, $lang, $search, $tab_param);
         }else{
             $search_response = $search->search($q, $index, $user_filter, $range_filter, $from);
