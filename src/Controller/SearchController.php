@@ -340,9 +340,12 @@ final class SearchController extends AbstractController
         }elseif ($solr_param_fq != ''){
             $detailed_query = $solr_param_fq;
         }
-        // replace NOT (returned from lucene parser) by AND NOT
+
         if ($detailed_query != ''){
+            // replace NOT (returned from lucene parser) by AND NOT
             $detailed_query = preg_replace('/(?<!AND) NOT /', ' AND NOT ', $detailed_query);
+            // Removing all substrings enclosed in {} characters. Ex. {!tag=tab}
+            $detailed_query = preg_replace('/\{.*?\}/', '', $detailed_query);
         }
 
         // get texts used in template
@@ -365,8 +368,8 @@ final class SearchController extends AbstractController
 
         }else{
             $pag['total'] = 0;
-            $pag['total_pages'] = 1;
-            $pag['total_formatted'] = 1;
+            $pag['total_pages'] = 0;
+            $pag['total_formatted'] = 0;
 
             $template_vars['detailed_query'] = '';
             $template_vars['docs'] = array();
