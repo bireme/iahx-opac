@@ -309,11 +309,21 @@ final class SearchController extends AbstractController
             $search->setParam('filter_list', $config_cluster_list);
         }
 
+        $search_response = null;
+        $template_vars = array();
         // Try to use cache for the first page of search app (empty query)
         if ($q == '' && empty($user_filter) && $from == 0 && empty($fb)){
             $search_response = $this->cache->get_first_page_result($instance, $lang, $search, $tab_param);
         }else{
-            $search_response = $search->search($q, $index, $user_filter, $range_filter, $from);
+            // Try to avoid common problems with doble quotes
+            $q = $this->auxFunctions->fixDoubleQuotes($q);
+            // Check if query has balanced quotes and parentheses
+            $valid_q = $this->auxFunctions->hasBalancedQuotesAndParentheses($q);
+            if ($valid_q == true){
+                $search_response = $search->search($q, $index, $user_filter, $range_filter, $from);
+            }else{
+                $template_vars['flash_message'] = 'INVALID_QUERY';
+            }
         }
 
         $result = json_decode($search_response, true);
@@ -353,7 +363,7 @@ final class SearchController extends AbstractController
 
         // pagination and template variables
         $pag = array();
-        $template_vars = array();
+
 
         if ( isset($result['diaServerResponse'][0]['response']['docs']) )  {
             $pag['total'] = $result['diaServerResponse'][0]['response']['numFound'];

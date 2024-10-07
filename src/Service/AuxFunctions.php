@@ -641,15 +641,48 @@ class AuxFunctions
         return $page;
     }
 
-    function filter_md5($text) {
-        return md5($text);
+    function hasBalancedQuotesAndParentheses($input) {
+        $quoteCount = 0;
+        $parenthesisCount = 0;
+
+        for ($i = 0; $i < strlen($input); $i++) {
+            $char = $input[$i];
+
+            // Check for double quotes
+            if ($char === '"') {
+                $quoteCount++;
+            }
+
+            // Check for parentheses
+            if ($char === '(') {
+                $parenthesisCount++;
+            } elseif ($char === ')') {
+                $parenthesisCount--;
+            }
+
+            // If parentheses are unbalanced at any point, return false
+            if ($parenthesisCount < 0) {
+                return false;
+            }
+        }
+
+        // Quotes must be even, parentheses must be balanced
+        return ($quoteCount % 2 === 0) && ($parenthesisCount === 0);
     }
 
-    function filter_json2array($string){
-        $string_json = str_replace("'", "\"", $string);
-        $json_array = json_decode($string_json, true);
+    function fixDoubleQuotes($input) {
+        // Replace curly double quotes with standard double quotes
+        $input = str_replace(['“', '”'], '"', $input);
 
-        return json_decode($string_json, true);
+        // Check if the string has an odd number of double quotes and does not end with one
+        $quoteCount = substr_count($input, '"');
+        if ($quoteCount % 2 != 0 && substr($input, -1) !== '"') {
+            return $input . '"';
+        }
+
+        return $input;
     }
+
+
 }
 ?>

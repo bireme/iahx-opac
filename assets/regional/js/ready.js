@@ -45,7 +45,7 @@ $(function(){
     });
 
     $('#flash').delay(500).fadeIn('normal', function() {
-        $(this).delay(3500).fadeOut();
+        $(this).delay(9000).fadeOut();
     });
 
     // prevent submit of default placeholder text

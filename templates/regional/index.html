@@ -14,11 +14,13 @@
     {{ parent() }}
 
     {% if flash_message is defined %}
-        <div id="flash" style="display: none;">
+        {% if attribute(texts, flash_message) is defined %}
+        <div id="flash">
             <div class="alert alert-primary" role="alert">
                 {{ attribute(texts, flash_message) }}
             </div>
         </div>
+        {% endif %}
     {% endif %}
 
     {% if config.show_filter_page == 'true' and detailed_query == '' and params.skfp is not defined %}
