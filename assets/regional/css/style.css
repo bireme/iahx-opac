@@ -390,10 +390,10 @@
 }
 
 /* Tabs */
-#tabResult{
-    border:2px solid #ccc;
+#tabResult {
     padding: 20px;
     margin-top: -1px;
+	background-color: #fff;
 }
 #tabOptions .nav-item .nav-link{
 	border:2px solid #ccc!important;
@@ -406,42 +406,83 @@
 	border-bottom: 1px solid #ddd;
     position: relative;
 }
-#tabOptions .active{
-	background: #f5f5f5!important;
-	outline: none;
-}
-.nav-tabs{
-	border-bottom: 0!important;
-}
-#tabOptions .nav-item{
-	width: 32.95%;
-}
-#tabOptions .nav-item .nav-link{
-	width: 100%;
-}
-/* Alinhamento dos botões em linha */
-#tabOptions {
-    display: flex;
-    justify-content: flex-start; /* Alinha os botões à esquerda */
-    width: 100%;
+
+#tabOptions .active {
+    background: #fff !important;
+    color: #007bff !important;
+    border-bottom: 3px solid #007bff !important; /* Linha de destaque no item ativo */
+    transition: border-bottom 0.2s ease-in-out; /* Suaviza a animação */
 }
 
-#tabOptions .nav-item {
-    flex: 0 1 35%;  /* Cada botão ocupa 35% do espaço do container, somando 70% com os dois botões */
+.nav-tabs {
+    border-bottom: 2px solid #ccc !important;
+}
+#tabOptions .nav-item .nav-link {
+    width: 100%;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    border: 2px solid transparent; /* Remove a borda padrão */
+    background: #f7f7f7; /* Fundo mais claro */
+    border-radius: 0px; /* Bordas retas para um visual moderno */
+    transition: all 0.2s ease-in-out; /* Transição mais rápida */
     text-align: center;
+    position: relative;
+    overflow: hidden;
 }
 
-#tabOptions .nav-link {
+#tabOptions .nav-item .nav-link {
     width: 100%;
-    padding: 15px;
-    white-space: normal;
-    box-sizing: border-box;
+    padding: 12px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #333;
+    border: 2px solid transparent; /* Remove a borda padrão */
+    background: #f7f7f7; /* Fundo mais claro */
+    border-radius: 0px; /* Bordas retas para um visual moderno */
+    transition: all 0.2s ease-in-out; /* Transição mais rápida */
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+}
+#tabOptions .nav-item .nav-link:hover {
+    background: #e0e0e0; /* Fundo levemente mais escuro no hover */
+    border-bottom: 3px solid #007bff; /* Linha de destaque inferior no hover */
+    color: #007bff; /* Cor do texto no hover */
 }
 
+#tabOptions .nav-item .nav-link:active {
+    background: #ccc; /* Fundo mais escuro ao clicar */
+    color: #0056b3;
+}
+/* Efeito de borda brilhante no hover */
+#tabOptions .nav-item .nav-link::before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 0;
+    height: 3px;
+    background: #007bff;
+    z-index: 1;
+    transition: width 0.3s ease;
+    opacity: 0;
+}
+
+#tabOptions .nav-item .nav-link:hover::before {
+    width: 100%;
+    opacity: 1; /* Animação suave ao passar o mouse */
+}
+
+#tabOptions .nav-item .nav-link:focus {
+    outline: none;
+    box-shadow: none; /* Remove qualquer sombra de foco */
+}
 .info-link {
     position: absolute;
     top: 10px;
-    right: 10px;
+    right: 15px;
     text-decoration: none;
 }
 
