@@ -395,11 +395,7 @@
     margin-top: -1px;
 	background-color: #fff;
 }
-#tabOptions .nav-item .nav-link{
-	border:2px solid #ccc!important;
-	border-bottom: 0!important;
-	background: #ddd;
-}
+
 #tabOptions .nav-item{
 	margin-right: 5px;
 	border-bottom: 0!important;
