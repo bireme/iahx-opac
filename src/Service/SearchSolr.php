@@ -64,8 +64,10 @@ class SearchSolr
             $filter.= "({!tag=tab}" . $tab_filter . ")";
 
             # Passing tab_filter_list as facet.field.terms to count all values of tab cluster
-            $tab_filter_list = $this->param['tab_filter_list'];
-            $this->param['facet.field.terms'] = $tab_filter_list;
+            if ( isset($this->param['tab_filter_list']) ){
+                $this->param['facet.field.terms'] = $this->param['tab_filter_list'];
+            }
+
         }
 
         $this->param["fq"] = $filter;
@@ -85,6 +87,11 @@ class SearchSolr
                 }
 
             }
+        }
+
+        // For export result operations turn off facet generation for performance
+        if (isset($this->param["output"]) && $this->param["output"] != 'site'){
+            $this->param["facet"] = 'false';
         }
 
         $searchUrl = $this->requestUrl();
