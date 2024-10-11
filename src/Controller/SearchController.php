@@ -374,7 +374,7 @@ final class SearchController extends AbstractController
 
             $template_vars['detailed_query'] = $detailed_query;
             $template_vars['docs'] = $result['diaServerResponse'][0]['response']['docs'];
-            $template_vars['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'];
+            $template_vars['clusters'] = $result['diaServerResponse'][0]['facet_counts']['facet_fields'] ?? array();
 
         }else{
             $pag['total'] = 0;

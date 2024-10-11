@@ -74,6 +74,11 @@ $(function(){
     $('#tabOptions button').on('click', function() {
         var tabValue = $(this).data('tab');
         $("#tab").val(tabValue);
+
+        // when change tab reset the from and page values
+        $("#searchForm #from").val("1");
+        $("#searchForm #page").val("1");
+        // submit the page
         $("#searchForm").submit();
     });
 
