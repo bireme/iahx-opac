@@ -40,7 +40,7 @@
         <meta name="citation_inbook_title" content="{{ doc.book_title }}" />
     {% endif %}
 
-    {% if doc.type.0 == "article" and doc.ta.0 is defined %}
+    {% if doc.type is defined and doc.type.0 == "article" and doc.ta.0 is defined %}
         <meta name="citation_journal_title" content="{{ doc.ta.0 }}" />
     {% endif %}
 
@@ -72,7 +72,7 @@
     <div class="row padding1">
         <!-- Centro -->
         <div class="col-md-9 d-print-block" id="main_container">
-            {% if 'preprint' in doc.type %}
+            {% if doc.type is defined and 'preprint' in doc.type %}
             <div class="alert alert-warning" role="alert">
                 {% if lang == 'pt' %}
                     <h4 class="alert-heading"><i class="fas fa-exclamation-triangle"></i> Este artigo é um Preprint</h4>
@@ -365,7 +365,9 @@
                     {% if doc.related_resource is defined  %}
                         <b>Related resources</b><br>
                         <div class="related_resource">
-                            {{ doc.related_resource|json2array['_t'] }}
+                        {% for related in doc.related_resource %}
+                            {{ dump(related|json2array) }}
+                        {% endfor %}
                         </div>
                     {% endif %}
 
@@ -374,7 +376,7 @@
                         <!-- subject -->
                         <div class="tags{% if lang not in ['pt', 'es', 'en'] %}_disable_tooltip{% endif %}" id="tags">
                             {% for subject in doc.mh %}
-                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&amp;':'%26'})|raw }}"' class="link1 decs" id="decs_{{loop.index}}">{{ subject|raw }}</a>{% if not loop.last %}; {% endif %}
+                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=mh:"{{ subject|replace({'&':'%26'})|raw }}"' class="link1 decs" id="decs_{{loop.index}}">{{ subject|raw }}</a>{% if not loop.last %}; {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}
@@ -384,7 +386,7 @@
                         <!-- subject -->
                         <div id="keywords" class="tags" >
                             {% for kw in doc.kw %}
-                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=kw:"{{ kw|replace({'&amp;':'%26'})|raw }}"' class="link1">{{ kw }}</a>{% if not loop.last %}; {% endif %}
+                                <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=kw:"{{ kw|replace({'&':'%26'})|raw }}"' class="link1">{{ kw }}</a>{% if not loop.last %}; {% endif %}
                             {% endfor %}
                         </div>
                     {% endif %}

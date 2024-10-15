@@ -29,7 +29,7 @@
         <section class="">
             <div class="container">
                 {# Present result split by tabs based on cluster values #}
-                {% if collectionData.tab_list is defined %}
+                {% if config.show_tabs is defined and config.show_tabs == 'true' %}
 
                     {% set tab_cluster_name = collectionData.tab_list.attributes.cluster|trim() %}
                     {% set tab_cluster = clusters[tab_cluster_name]|default() %}
@@ -68,7 +68,7 @@
                     </ul>
                 {% endif %}
 
-                {% if collectionData.tab_list is defined %}
+                {% if config.show_tabs is defined and config.show_tabs == 'true' %}
                     <div class="tab-content" id="tabResult">
                         <div class="tab-pane fade show active" role="tabpanel">
                 {% endif %}
@@ -249,7 +249,7 @@
                                 </ul>
                             </nav>
                         {% endif %}
-                {% if collectionData.tab_list is defined %}
+                {% if config.show_tabs is defined and config.show_tabs == 'true' %}
                     </div>
                 </div> <!-- close id="tabResult" -->
                 {% endif %}
