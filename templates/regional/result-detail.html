@@ -366,7 +366,7 @@
                         <b>Related resources</b><br>
                         <div class="related_resource">
                         {% for related in doc.related_resource %}
-                            {{ dump(related|json2array) }}
+                            {{ related }}
                         {% endfor %}
                         </div>
                     {% endif %}
