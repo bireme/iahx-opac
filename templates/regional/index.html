@@ -54,9 +54,8 @@
 
 
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link {% if tab_param == tab_occ %}active{% endif %}" id="tab-{{tab_occ}}" data-tab="{{tab_occ}}" data-toggle="tab" type="button" role="tab">
+                                <button class="nav-link {% if tab_param == tab_occ %}active{% endif %}" id="tab-{{tab_occ}}" data-tab="{{tab_occ}}" data-toggle="tab" type="button" role="tab" title="{{ attribute(texts.TABS, tab_desc) is defined ? attribute(texts.TABS, tab_desc) }}">
                                     <b>{{ attribute(texts.TABS, tab_name) is defined ? attribute(texts.TABS, tab_name) }}</b><br>
-                                    {{ attribute(texts.TABS, tab_desc) is defined ? attribute(texts.TABS, tab_desc) }}<br/>
                                     <small>{{ tab_count }}</small>
                                 </button>
                                 {% if attribute(texts.TABS, tab_info) is defined %}
