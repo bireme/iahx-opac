@@ -107,7 +107,6 @@ final class DeCSLocatorController extends AbstractController
 
         // output vars
         $output_array = array();
-        $output_array['q'] = $request->get("tree_id");
         $output_array['current_page'] = 'decs_lookup';
         $output_array['lang'] = $lang;
         $output_array['decs'] = $decs_xml->decsws_response;

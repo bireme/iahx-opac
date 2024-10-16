@@ -146,7 +146,7 @@
 						</div>
 						<div class="col-md-6">
                             {% if decs.record_list.record is defined %}
-                                <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger">
+                                <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger" data-test="decs_detail_box">
                                     {% if lang == 'pt' %}
                                         <strong>
                                             {% for descriptor_lang in decs.record_list.record.descriptor_list.descriptor %}
@@ -311,7 +311,7 @@
     								<div class="form-group">
                                         <form action="" onsubmit="make_search_query(); return false" id="searchDocsTrigger">
                                             {% if mode != 'dataentry'%}
-                                                <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn btn-block btn-primary" />
+                                                <input type="submit" value="{{ texts.SEARCH_DOCUMENTS }}" class="btn btn-block btn-primary" data-test="search_button" />
                                             {% endif %}
                                         </form>
     								</div>
