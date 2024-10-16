@@ -52,11 +52,20 @@
                                 {% endfor %}
                             {% endset %}
 
-
                             <li class="nav-item" role="presentation">
-                                <button class="nav-link {% if tab_param == tab_occ %}active{% endif %}" id="tab-{{tab_occ}}" data-tab="{{tab_occ}}" data-toggle="tab" type="button" role="tab" title="{{ attribute(texts.TABS, tab_desc) is defined ? attribute(texts.TABS, tab_desc) }}">
+                                <button
+                                    id="tab-{{tab_occ}}"
+                                    class="nav-link {% if tab_param == tab_occ %}active{% endif %}"
+                                    data-tab="{{tab_occ}}"
+                                    data-toggle="tab"
+                                    data-test="tab"
+                                    type="button"
+                                    role="tab"
+                                    title="{{ attribute(texts.TABS, tab_desc) is defined ? attribute(texts.TABS, tab_desc) }}"
+                                    {% if config.google_analytics_tracking_id is defined %} onclick="gtag('event', 'Click TAB' , {'tab_id': '{{tab_name}}'});"{% endif %}
+                                    >
                                     <b>{{ attribute(texts.TABS, tab_name) is defined ? attribute(texts.TABS, tab_name) }}</b><br>
-                                    <small>{{ tab_count }}</small>
+                                    <small data-test="tab_{{tab_occ}}_count">{{ tab_count }}</small>
                                 </button>
                                 {% if attribute(texts.TABS, tab_info) is defined %}
                                     <a href="{{attribute(texts.TABS, tab_info)|trim()}}" target="_blank" class="info-link">
@@ -118,7 +127,7 @@
                             <!-- Result column -->
                             <div class="col-md-7 d-print-block" id="main_container">
                                 {% for doc in docs %}
-                                    <div class="box1">
+                                    <div class="box1" data-test="result_resource_item">
                                         <div class="inputCheck1 d-print-none">
                                             <input type="checkbox" class="my_selection" value="{{ doc.id }}"
                                             {% if doc.id in bookmark|keys %}checked{% endif %} id="select_{{ doc.id }}">
