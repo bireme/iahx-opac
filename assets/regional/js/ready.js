@@ -76,7 +76,7 @@ $(function(){
         $("#tab").val(tabValue);
 
         // when change tab reset the from and page values
-        $("#searchForm #from").val("1");
+        $("#searchForm #from").val("0");
         $("#searchForm #page").val("1");
         // submit the page
         $("#searchForm").submit();
