@@ -298,10 +298,10 @@ class AppExtension extends \Twig\Extension\AbstractExtension
 
     public function filter_json2array($string)
     {
-        $string_json = str_replace("'", "\"", $string);
-        $json_array = json_decode($string_json, true);
+        $string_json = str_replace("'", "\"", trim($string));
+        $json_array = json_decode($string_json, false);
 
-        return json_decode($string_json, true);
+        return $json_array;
     }
 
 }
