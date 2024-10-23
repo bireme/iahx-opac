@@ -327,15 +327,17 @@ final class SearchController extends AbstractController
         }
 
         $result = json_decode($search_response, true);
+        $solr_param_q = null;
+        $solr_param_fq = null;
 
         if ( isset($result['diaServerResponse'][0]['responseHeader']) ){
-            $srv_response = $result['diaServerResponse'][0]['responseHeader'];
+            $resp_params = $result['diaServerResponse'][0]['responseHeader']['params'];
+
+            $solr_param_q = isset($resp_params['q']) ? $resp_params['q'] : null;
             // detailed query
-            $solr_param_q = isset($srv_response['params']['q']) ? $srv_response['params']['q'] : null;
-            $solr_param_fq = isset($srv_response['params']['fq']) ? $srv_response['params']['fq'] : null;
-        }else{
-            $solr_param_q = null;
-            $solr_param_fq = null;
+            if ( isset($resp_params['fq']) ){
+                $solr_param_fq = is_array($resp_params['fq']) ? implode(" AND ", $resp_params['fq']) : $resp_params['fq'];
+            }
         }
 
         // limpa initial filter da variavel solr_param_fq
@@ -407,6 +409,7 @@ final class SearchController extends AbstractController
             $session->set('history', $history);
         }
 
+        // $template_vars['result'] = $result;
         $template_vars['bookmark'] = $bookmark;
         $template_vars['user_preference_filter'] = (array) $user_preference_filter;
         $template_vars['filters'] = $filter;
