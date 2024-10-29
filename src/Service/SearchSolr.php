@@ -58,10 +58,14 @@ class SearchSolr
             $filter.= "(" . $range_filter . ")";
         }
 
+        if ($filter != ''){
+            $this->param["fq"][] = $filter;
+        }
+
         if ( $tab_filter != '' ){
-            $filter = ($filter != '' ? $filter . " AND " : '');
-            # Use tag to mark the cluster for exclusion in facet.field (https://solr.apache.org/guide/6_6/faceting.html)
-            $filter.= "({!tag=tab}" . $tab_filter . ")";
+            # Create a new entry in fq to pass tab_filter with tag mark for exclusion in facet.field
+            # https://solr.apache.org/guide/6_6/faceting.html
+            $this->param["fq"][] = "{!tag=tab}" . $tab_filter;
 
             # Passing tab_filter_list as facet.field.terms to count all values of tab cluster
             if ( isset($this->param['tab_filter_list']) ){
@@ -69,8 +73,6 @@ class SearchSolr
             }
 
         }
-
-        $this->param["fq"] = $filter;
 
         if (isset($this->param["filter_list"])){
 
