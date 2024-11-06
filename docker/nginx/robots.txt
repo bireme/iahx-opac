@@ -1,11 +1,16 @@
 # Disallow records from MEDLINE to be indexed
 User-agent: *
-Disallow: /*mdl-*
+Disallow: /*/resource/*/mdl-*
+
+# Disallow Bots
 
 User-agent: TurnitinBot
 Disallow: /
 
 User-agent: PetalBot
+Disallow: /
+
+User-agent: ClaudeBot
 Disallow: /
 
 User-agent: facebookexternalhit
