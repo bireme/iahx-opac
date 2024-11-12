@@ -4,7 +4,7 @@
         {% set journal = doc.fo.0|substring_before(';') %}
         {% if journal != '' and doc.type.0|default() == 'article' %}
             <em>
-                <a href="http://portal.revistas.bvs.br/{{ lang }}/journals/?q={{ journal }}" target="_blank">
+                <a href='http://portal.revistas.bvs.br/{{ lang }}/journals/?q=short_title:"{{ journal }}"' target="_blank">
                     <span>{{ journal }}</span>
                 </a>; {{ doc.fo.0|substring_after(';') }}
             </em>
