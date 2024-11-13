@@ -132,11 +132,11 @@
                                 </div>
                             </div>
                         {% else %}
-                            <div class="titleBox2" data-toggle="collapse" data-target="#{{ name }}">
-                                {{ attribute(texts.REFINE, name) is defined ? attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas fa-angle-up"></span>
+                            <div class="titleBox2 {% if name in collapsed_cluster_list %}collapsed{% endif %}" data-toggle="collapse" data-target="#{{ name }}">
+                                {{ attribute(texts.REFINE, name) is defined ? attribute(texts.REFINE, name) }} <span class="acordionIcone float-right fas {% if name in collapsed_cluster_list %}fa-angle-down{% else %}fa-angle-up{% endif %}"></span>
                             </div>
 
-                            <div class="box2 collapse show" id="{{ name }}" >
+                            <div class="box2 collapse {% if name not in collapsed_cluster_list %}show{% endif %}" id="{{ name }}" >
                                 {% for item in cluster %}
                                     {% if item.0 != '' %}
                                         {% set cluster_item_id = name ~ '_' ~ item.0|md5 %}

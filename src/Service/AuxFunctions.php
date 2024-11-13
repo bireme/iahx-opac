@@ -174,6 +174,20 @@ class AuxFunctions
         return $query_info_clusters;
     }
 
+    function getCollapsedClusterList($colectionData){
+        $collapsed_cluster_list = array();
+
+        if ( isset($colectionData->cluster_list) ){
+            foreach( $colectionData->cluster_list->cluster as $cluster  ){
+                if ($cluster['collapsed'] == 'true'){
+                    $collapsed_cluster_list[] = (string)$cluster;
+                }
+            }
+        }
+
+        return $collapsed_cluster_list;
+    }
+
 
     // function to work when PHP directive magic_quotes_gpc is OFF
     function addslashes_array($a){

@@ -284,6 +284,7 @@ final class SearchController extends AbstractController
         $default_cluster_list = $this->auxFunctions->getDefaultClusterList($collectionData);
         $only_translated_items_clusters = $this->auxFunctions->getOnlyTranslatedItemsClusterList($collectionData);
         $query_info_clusters = $this->auxFunctions->getShowQueryInfoClusterList($collectionData);
+        $collapsed_cluster_list = $this->auxFunctions->getCollapsedClusterList($collectionData);
 
         $session->set('user_preference_filter', $user_preference_filter);
 
@@ -434,6 +435,7 @@ final class SearchController extends AbstractController
         $template_vars['default_cluster_list'] = $default_cluster_list;
         $template_vars['only_translated_items_clusters'] = $only_translated_items_clusters;
         $template_vars['query_info_clusters'] = $query_info_clusters;
+        $template_vars['collapsed_cluster_list'] = $collapsed_cluster_list;
         $template_vars['history'] = $history;
         $template_vars['index'] = $index;
         $template_vars['parsing_filters'] = $solr_param_fq;
