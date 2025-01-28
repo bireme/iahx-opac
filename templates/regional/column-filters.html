@@ -59,13 +59,17 @@
                                 <li>
                                     {% if '^' in item %}
                                         {{ item|subfield(lang) }}
+                                    {% elseif '/' in item %}
+                                        {% set item_part = item|split('/') %}
+                                        {{ translate(item_part.1, texts_group ) }}
                                     {% elseif '+' in item %}
-										{{ item|replace({'+': '/'}) }}
+                                        {{ item|replace({'+': '/'}) }}
                                     {% else %}
-                                        {{ translate(item, texts_group) }}
+                                        {{ translate(item, texts_group ) }}
                                     {% endif %}
+
                                     {% if docs|length > 0 %}
-                                        <a href="javascript:remove_filter('{{ item_value }}')" title="{{ texts.REMOVE_FILTER|default('remove filtro') }}">
+                                        <a href="javascript:remove_filter('{{ item_value }}')" title="{{ texts.REMOVE_FILTER|default('Remove filtro') }}">
                                             <i class="fas fa-trash-can icon-remove"></i>
                                         </a>
                                     {% endif %}
