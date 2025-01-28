@@ -162,7 +162,7 @@ class SearchSolr
                 }
             }
         }
-        #$requestUrl = $_ENV['IAHX_CONTROLER_SERVER'] . 'iahx-controller/?' . substr($urlParam,1);
+
         $requestUrl = $_ENV['IAHX_CONTROLLER_URL'] . '?' . substr($urlParam,1);
 
         return $requestUrl;

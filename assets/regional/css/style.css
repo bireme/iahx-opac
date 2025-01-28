@@ -389,6 +389,13 @@
 	z-index: ;
 }
 
+.icon-remove{
+    color: #999;
+    font-weight: 300;
+    font-size: 14px;
+}
+
+
 /* Tabs */
 #tabResult {
     padding: 20px;

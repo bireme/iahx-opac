@@ -20,6 +20,9 @@ services:
     environment:
       - APP_VER=${APP_VER}
 
+    networks:
+      - nginx-proxy
+
     # Uncomment the next four lines if you will use a ptrace-based debugger like C++, Go, and Rust.
     # cap_add:
     #   - SYS_PTRACE
@@ -32,5 +35,13 @@ services:
   iahx_cache:
     image: bitnami/redis:7.2
     environment:
-      -  ALLOW_EMPTY_PASSWORD=yes
-    command:  /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb --maxmemory-policy allkeys-lru
+      - ALLOW_EMPTY_PASSWORD=yes
+      - REDIS_AOF_ENABLED=no
+    command: /opt/bitnami/scripts/redis/run.sh --maxmemory 100mb --maxmemory-policy allkeys-lru
+    networks:
+      - nginx-proxy
+
+
+networks:
+  nginx-proxy:
+      external: true
