@@ -490,6 +490,17 @@
     text-decoration: none;
 }
 
+.ia-text {
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    padding: 5px 10px;
+    margin-bottom: 10px;
+    margin-top: 10px;
+}
+.icon-ia-2 {
+    height: 15px;
+}
+
 /******************** Breakpoints *******************/
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {

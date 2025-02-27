@@ -151,18 +151,28 @@
                                                 {% endif %}
                                             </div>
 
+                                            {% if doc.super_ab is defined %}
+                                            <div class="ia-text">
+                                                <span class="badge text-bg-light border border-danger-subtle">
+                                                    <img src="{{ asset('regional/image/common/icon-ia-2.svg') }}" alt="" class="icon-ia-2" />
+                                                    {{ texts.CREATED_BY_AI }}:
+                                                </span>
+                                                {{ occ( {'element': doc.super_ab|raw, separator: ' / '} ) }}
+                                            </div>
+                                            {% endif %}
+
                                             {% if doc.au is defined %}
                                             <div class="author">
                                                 {% for author in doc.au %}
                                                     <a href='{{ constant("SEARCH_URL") }}?lang={{ lang }}&q=au:"{{ author }}"'>{{ author }}</a>{% if loop.last %}.{% else %};{% endif %}
                                                 {% endfor %}
                                             </div>
-                                        {% endif %}
+                                            {% endif %}
 
-                                        <!-- display source fields -->
-                                        {% include "regional/result-inc-source.html" %}
+                                            <!-- display source fields -->
+                                            {% include "regional/result-inc-source.html" %}
 
-                                        <!-- More details div -->
+                                            <!-- More details div -->
                                             <div class="reference-detail collapse" >
                                                 {% if doc.ab is defined %}
                                                     <br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
