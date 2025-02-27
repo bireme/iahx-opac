@@ -119,8 +119,8 @@ class CacheService
             return $search_response;
         });
 
-        // If the query returns no results, delete the cache entry
-        if (!str_contains($first_page_result, 'numFound')) {
+        // Delete cache if search response is not valid (numFound and facet_fields presents)
+        if (!str_contains($first_page_result, 'nunFound') && !str_contains($first_page_result, 'facet_fields')) {
             $this->cache->deleteItem($cache_key);
         }
 
