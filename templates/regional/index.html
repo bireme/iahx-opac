@@ -158,6 +158,10 @@
                                                     {{ texts.CREATED_BY_AI }}:
                                                 </span>
                                                 {{ occ( {'element': doc.super_ab|raw, separator: ' / '} ) }}
+                                                <p class="small">
+                                                    <a href="#" onclick="showAbstract('abstract_{{ doc.id }}'); return false;"> {{ texts.SHOW_ORIGINAL_ABSTRACT }}</a>
+                                                </p>
+                                                <div class="collapse" id="copy_abstract_{{ doc.id }}"></div>
                                             </div>
                                             {% endif %}
 
@@ -173,12 +177,14 @@
                                             {% include "regional/result-inc-source.html" %}
 
                                             <!-- More details div -->
-                                            <div class="reference-detail collapse" >
+                                            <div class="reference-detail collapse">
                                                 {% if doc.ab is defined %}
-                                                    <br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
-                                                    {% for abstract in doc.ab %}
-                                                        <p>{{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}</p>
-                                                    {% endfor %}
+                                                    <div id="abstract_{{ doc.id }}">
+                                                        <br><h5 class="title2">{{ texts.RESULT.LABEL_ABSTRACT }}</h4>
+                                                        {% for abstract in doc.ab %}
+                                                            <p>{{ abstract|raw }}{% if loop.last %}{% else %}<hr/>{% endif %}</p>
+                                                        {% endfor %}
+                                                    </div>
                                                 {% endif %}
 
                                                 {% if doc.mh is defined %}

@@ -47,6 +47,14 @@ $('#showDetailSwitch').click(function(){
 	}
 });
 
+// Show Abstract
+function showAbstract(ab_id){
+    // Copy the HTML content of the original div to the copy_ab_id div and display it
+    var content = $('#' + ab_id).html();
+    $('#copy_' + ab_id).html(content).show();
+    return false;
+};
+
 // Scroll totop button
 var toTop = $('#to-top');
 // $( window ).on( "load", function() {
