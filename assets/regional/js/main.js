@@ -51,7 +51,7 @@ $('#showDetailSwitch').click(function(){
 function showAbstract(ab_id){
     // Copy the HTML content of the original div to the copy_ab_id div and display it
     var content = $('#' + ab_id).html();
-    $('#copy_' + ab_id).html(content).show();
+    $('#copy_' + ab_id).html(content).toggleClass('collapse');
     return false;
 };
 
