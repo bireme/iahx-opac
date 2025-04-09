@@ -151,13 +151,17 @@
                                                 {% endif %}
                                             </div>
 
-                                            {% if doc.super_ab is defined %}
+                                            {% if doc.super_ab is defined or attribute(doc, 'super_ab_' ~ lang) is defined %}
                                             <div class="ia-text">
                                                 <span class="badge text-bg-light border border-danger-subtle">
                                                     <img src="{{ asset('regional/image/common/icon-ia-2.svg') }}" alt="" class="icon-ia-2" />
                                                     {{ texts.CREATED_BY_AI }}:
                                                 </span>
-                                                {{ occ( {'element': doc.super_ab|raw, separator: ' / '} ) }}
+                                                {% if attribute(doc, 'super_ab_' ~ lang) is defined %}
+                                                    {{ occ( {'element': doc['super_ab_' ~ lang]|raw, separator: ' / '} ) }}
+                                                {% else %}
+                                                    {{ occ( {'element': doc.super_ab|raw, separator: ' / '} ) }}
+                                                {% endif %}
                                                 <p class="small">
                                                     <a href="#" onclick="showAbstract('abstract_{{ doc.id }}'); return false;"> {{ texts.SHOW_ORIGINAL_ABSTRACT }}</a>
                                                 </p>
