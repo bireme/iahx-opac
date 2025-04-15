@@ -4,6 +4,13 @@ services:
     restart: unless-stopped
     build:
       context: .
+      args:
+        PHP_PM_MAX_CHILDREN: ${PHP_PM_MAX_CHILDREN}
+        PHP_PM_START_SERVERS: ${PHP_PM_START_SERVERS}
+        PHP_PM_MIN_SPARE_SERVERS: ${PHP_PM_MIN_SPARE_SERVERS}
+        PHP_PM_MAX_SPARE_SERVERS: ${PHP_PM_MAX_SPARE_SERVERS}
+        PHP_PM_MAX_REQUESTS: ${PHP_PM_MAX_REQUESTS}
+        PHP_PM_PROCESS_IDLE_TIMEOUT: ${PHP_PM_PROCESS_IDLE_TIMEOUT}
     image: ${IMAGE_TAG}
     volumes:
       - static_files:/app/public
