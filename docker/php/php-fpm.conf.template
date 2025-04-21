@@ -22,11 +22,11 @@ pm.min_spare_servers = ${PHP_PM_MIN_SPARE_SERVERS}
 ; pm.max_spare_servers = 75% of max_children
 pm.max_spare_servers = ${PHP_PM_MAX_SPARE_SERVERS}
 
-pm.process_idle_timeout = 20s
+pm.process_idle_timeout = ${PHP_PM_PROCESS_IDLE_TIMEOUT}
 pm.max_requests = ${PHP_PM_MAX_REQUESTS}
 
 ; Terminate requests that run longer than 5 minutes
-request_terminate_timeout = 300
+request_terminate_timeout = ${PHP_REQUEST_TERMINATE_TIMEOUT}
 
 clear_env = no
 
