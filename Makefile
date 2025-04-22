@@ -62,6 +62,10 @@ build_no_cache:
 	@docker compose build --no-cache --build-arg DOCKER_TAG=$(APP_VER)
 	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
 
+build_update_php:
+	@docker compose build --pull --no-cache --build-arg DOCKER_TAG=$(APP_VER)
+	@docker tag $(IMAGE_TAG) $(TAG_LATEST)
+
 run:
 	@docker compose down
 	@docker compose -f docker-compose.yml up
