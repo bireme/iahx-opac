@@ -1,12 +1,7 @@
-# Allow only Google and Microsoft Bing bots
-User-agent: Googlebot
-Allow: /
+User-agent: ClaudeBot
+Disallow: /
 
-User-agent: Bingbot
-Allow: /
-
-# Disallow all other bots
-User-agent: *
+User-agent: facebookexternalhit
 Disallow: /
 
 # Disallow records from MEDLINE to be indexed
