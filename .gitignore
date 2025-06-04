@@ -33,3 +33,7 @@
 
 .htpasswd
 DEV.txt
+
+# IA assistant files
+.github/prompts/
+tasks/
