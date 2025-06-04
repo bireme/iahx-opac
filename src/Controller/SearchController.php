@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Form\EmailFormType;
 use App\Service\AuxFunctions;
 use App\Service\SearchSolr;
 use App\Service\CacheService;
@@ -15,6 +16,7 @@ use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Mailer\MailerInterface;
 use Symfony\Component\Mime\Email;
 use Symfony\Component\Mime\Address;
+use Symfony\Component\Mailer\Exception\TransportExceptionInterface;
 
 use Detection\MobileDetect;
 
@@ -199,7 +201,7 @@ final class SearchController extends AbstractController
             }
         }
 
-        $is_email = (isset($params['is_email']) && $params['is_email'] === 'true' ? true : false);
+        $is_email = ($request->request->has('email_form') ? true : false);
 
         // check if tab_list element is defined in config
         $config_tab_list = ($collectionData->tab_list ? $collectionData->tab_list : null);
@@ -231,6 +233,8 @@ final class SearchController extends AbstractController
         $bookmark = $session->get('bookmark', []);
         $wizard_session = $session->get('wizard_session');
 
+        // Create CSRF-protected email form for template
+        $emailForm = $this->createForm(EmailFormType::class);
 
         // initial filter (defined on configuration file)
         $initial_filter = html_entity_decode($collectionData->initial_filter);
@@ -239,22 +243,35 @@ final class SearchController extends AbstractController
 
         // if is send email, needs to change the from parameter, or my selection
         if( $is_email ) {
-            $email_info = array();
-            foreach(array('from_name', 'from_email', 'to_email', 'subject', 'comment', 'selection') as $field) {
-                if((is_array($params[$field]) and !empty($params[$field])) or ($params[$field] != "")) {
-                    $email_info[$field] = $params[$field];
-                }
-            }
+            // Handle CSRF-protected email form
+            $emailForm->handleRequest($request);
 
-            if(isset($email_info['selection'])) {
-                if($email_info['selection'] == "my_selection") {
-                    $from = 1;
-                    $q = '+id:("' . join('" OR "', array_keys($bookmark)) . '")';
+            // Check if form is submitted and valid (includes CSRF validation)
+            if ($emailForm->isSubmitted() && $emailForm->isValid()) {
+                $email_info = $emailForm->getData();
+
+                // Process selection logic
+                if(isset($email_info['selection'])) {
+                    if($email_info['selection'] == "my_selection") {
+                        $from = 1;
+                        $q = '+id:("' . join('" OR "', array_keys($bookmark)) . '")';
+                    }
+                    elseif($email_info['selection'] == "all_results") {
+                        $from = 1;
+                        $count = 300;
+                    }
                 }
-                elseif($email_info['selection'] == "all_results") {
-                    $from = 1;
-                    $count = 300;
+            } else {
+                // Handle CSRF validation failure or other form errors
+                if ($emailForm->isSubmitted()) {
+                    if ($emailForm->getErrors(true)->count() > 0) {
+                        // CSRF token invalid or other form validation error
+                        $template_vars['flash_message'] = 'CSRF_VALIDATION_FAILED';
+                        $template_vars['email_form_errors'] = $emailForm->getErrors(true);
+                    }
                 }
+                // Set email_info to empty to prevent email processing
+                $email_info = array();
             }
         }
 
@@ -447,8 +464,11 @@ final class SearchController extends AbstractController
         $template_vars['wizard_session'] = $wizard_session;
         $template_vars['max_export_records'] = $config->max_export_records;
 
+        // Add CSRF-protected email form to template variables
+        $template_vars['email_form'] = $emailForm->createView();
+
         // if is send email
-        if( $is_email ) {
+        if( $is_email && !empty($email_info) ) {
 
             $template_vars['email_info'] = $email_info;
 

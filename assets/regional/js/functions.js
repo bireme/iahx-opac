@@ -183,14 +183,31 @@ function change_sort(obj){
     $("#searchForm").submit();
 }
 
-function send_email(){
+function isValidEmail(email) {
+  const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  return re.test(email);
+}
+
+function send_email() {
+  const fromEmail = document.getElementById("email_form_from_email");
+  const toEmail = document.getElementById("email_form_to_email");
+
+  if (
+    !fromEmail.value.trim() ||
+    !toEmail.value.trim() ||
+    !isValidEmail(fromEmail.value) ||
+    !isValidEmail(toEmail.value)
+  ) {
+    return false;
+  } else {
     // Copy all input fields from searchForm to emailForm
-    $('#searchForm input').each(function() {
-        var input = $(this);
-        var clonedInput = input.clone();
-        $('#emailForm').append(clonedInput);
+    $("#searchForm input").each(function () {
+      var input = $(this);
+      var clonedInput = input.clone();
+      $("#emailForm").append(clonedInput);
     });
 
-    $('#emailForm').submit();
+    $("#emailForm").submit();
     return true;
+  }
 }
