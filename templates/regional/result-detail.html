@@ -1,4 +1,4 @@
-{% extends "regional/index.html" %}
+{% extends "regional/base.html" %}
 
 {% block title %}{{ doc.ti.0 }} {% if doc.fo.0 is defined %} | {{ doc.fo.0 }} {% endif %} {% if doc.db is defined %} | {{ occ({'element': doc.db, separator: ' | '}) }} {% endif %}{% endblock %}
 
