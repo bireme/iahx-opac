@@ -1,7 +1,7 @@
 FROM docker.io/bitnami/php-fpm:8.2 as builder
 
 # Install build packages and git
-RUN apt update -y && apt install -y git autoconf build-essential
+RUN apt update -y && apt install -y git autoconf build-essential gettext-base
 
 # Install PHP exstensions
 ENV EXTENSION_DIR="/opt/bitnami/php/lib/php/extensions"
@@ -18,10 +18,6 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 ##########################################################################
 FROM docker.io/bitnami/php-fpm:8.2
 
-# Copy configuration
-COPY ./docker/php/php-fpm.conf /opt/bitnami/php/etc/php-fpm.conf
-COPY ./docker/php/php.ini-development /opt/bitnami/php/etc/php.ini
-
 # Copy extensions from builder
 COPY --from=builder \
     /opt/bitnami/php/lib/php/extensions/redis.so \
@@ -32,8 +28,19 @@ ENV PHP_INI_SCAN_DIR /opt/bitnami/php/lib/inc
 # Copy Symfony CLI from builder stage
 COPY --from=builder /root/.symfony5/bin/symfony /usr/local/bin/symfony
 
+# Copy from base the envsubst utility
+COPY --from=builder /usr/bin/envsubst /usr/local/bin/envsubst
+
+# Copy php configuration template and run envsubst
+COPY ./docker/php/php.ini-development /opt/bitnami/php/etc/php.ini
+COPY ./docker/php/php-fpm.conf.template /tmp/php-fpm.conf.template
+
+# Generate final config using envsubst at build time
+RUN envsubst < /tmp/php-fpm.conf.template > /opt/bitnami/php/etc/php-fpm.conf && \
+    rm /tmp/php-fpm.conf.template
+
 WORKDIR /app
 
 EXPOSE 8000
 
-CMD ["symfony", "server:start"]
+CMD ["symfony", "server:start", "--allow-all-ip"]
