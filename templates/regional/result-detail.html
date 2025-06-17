@@ -473,6 +473,9 @@
 
     <script src="{{ asset('regional/js/decs_window.js') }}"></script>
 
+    {% if config.services_platform_domain is defined and app.request.cookies.has('userTK') %}
+        <script src="{{ asset('regional/js/add_collection.js') }}"></script>
+    {% endif %}
 
     {% if config.epistemonikos is defined and config.epistemonikos == 'true' %}
         {% if 'LILACS' in doc.db or 'MEDLINE' in doc.db %}

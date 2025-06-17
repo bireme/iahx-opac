@@ -187,12 +187,10 @@
         <script src="{{ asset('regional/js/wizard.js') }}" type="text/javascript"></script>
         {% endif %}
 
-        {% if config.services_platform_domain is defined %}
-        <script src="{{ asset('regional/js/add_collection.js') }}"></script>
+        {% if config.services_platform_domain is defined and app.request.cookies.has('userTK') %}
         <script type="text/javascript">
             $(document).ready( function(){
-                var userTK = unescape(getCookie('userTK'));
-
+                var userTK = "{{ app.request.cookies.get('userTK') }}";
 
                 if( typeof( userTK ) != 'undefined' && userTK !== null && userTK !== 'undefined' ) {
                     var obj = new Object();
@@ -218,20 +216,13 @@
                     });
 
                     {% if config.google_analytics_tracking_id != '' %}
-                        var userID = unescape(getCookie('userID'));
+                        var userID = "{{ app.request.cookies.get('userID') }}";
                         if( typeof(userID) != 'undefined' && userID !== null && userID !== 'undefined' ) {
                             gtag('config', '{{config.google_analytics_tracking_id}}', {
                                 'user_id': userID
                             });
                         }
                     {% endif %}
-
-                }
-
-                function getCookie(name) {
-                    var value = "; " + document.cookie;
-                    var parts = value.split("; " + name + "=");
-                    if (parts.length == 2) return parts.pop().split(";").shift();
                 }
             });
         </script>

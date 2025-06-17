@@ -39,7 +39,6 @@ $(document).ready(
 
                 x.on('click', function(){
                     obj.userTK = unescape(getCookie('userTK'));
-                    // obj.userTK = decodeURI(getCookie('userTK'));
 
                     if ( obj.userTK == 'undefined' ){
                         var data = encodeURIComponent(JSON.stringify(obj));
@@ -112,7 +111,6 @@ $(document).ready(
 
             var obj = new Object();
             obj.userTK = unescape(getCookie('userTK'));
-            // obj.userTK = decodeURI(getCookie('userTK'));
             obj.name = $.trim(name);
             obj.url = $.trim(url);
 
