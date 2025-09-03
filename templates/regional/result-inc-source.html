@@ -26,7 +26,7 @@
 	| ID: <span class="doc_id">{{ doc.id }}</span>
     {% if doc.status_fiadmin is defined and doc.status_fiadmin == 'LILACS-Express' %}
         <p>
-            <span class="badge badge-secondary" title="{{ texts.LILACS_EXPRESS_INFO }}">
+            <span class="badge badge-secondary" title="{{ texts.LILACS_EXPRESS_INFO|default() }}">
                 <small>LILACS-Express</small>
             </span>
         </p>
