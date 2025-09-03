@@ -21,22 +21,14 @@
     {% endif %}
 
     <!-- database -->
-    {% if doc.services is defined ? 'LXP' in doc.services %}
-        {% set disclaimer_file = 'IBECS' in doc.db ? 'ibc_llxp_disclaimer.htm' : 'llxp_disclaimer.htm' %}
-        {% set lxp_db = 'IBECS' in doc.db ? 'IBECS-Express' : 'LILACS-Express' %}
-
-        {% if lang == 'pt' %}
-            {% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/P/' ~ disclaimer_file %}
-        {% elseif lang == 'es' %}
-            {% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/E/' ~ disclaimer_file %}
-        {% else %}
-            {% set lxp_disclaimer_url = 'http://bases.bireme.br/iah/online/I/' ~ disclaimer_file %}
-        {% endif %}
-        | <a href="{{ lxp_disclaimer_url }}" target="_blank" title="{{ lxp_db }}">
-            {{ lxp_db }}
-        </a>
-    {% endif %}
     {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
 
 	| ID: <span class="doc_id">{{ doc.id }}</span>
+    {% if doc.status_fiadmin is defined and doc.status_fiadmin == 'LILACS-Express' %}
+        <p>
+            <span class="badge badge-secondary" title="{{ texts.LILACS_EXPRESS_INFO }}">
+                <small>LILACS-Express</small>
+            </span>
+        </p>
+    {% endif %}
 </div>
