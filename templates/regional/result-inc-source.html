@@ -24,7 +24,7 @@
     {% if doc.db is defined %}| {% for db in doc.db %}{{ translate(db|default(doc.db), 'REFINE_db') }}{% if loop.last %}{% else %}, {% endif %}{% endfor %}{% endif %}
 
 	| ID: <span class="doc_id">{{ doc.id }}</span>
-    {% if doc.status_fiadmin is defined and doc.status_fiadmin == 'LILACS-Express' %}
+    {% if doc.status_fiadmin is defined and doc.status_fiadmin == 'LILACS-Express' and 'LILACS' in doc.db %}
         <p>
             <span class="badge badge-secondary" title="{{ texts.LILACS_EXPRESS_INFO|default() }}">
                 <small>LILACS-Express</small>
