@@ -1,4 +1,4 @@
-FROM docker.io/bitnami/php-fpm:8.2 as builder
+FROM docker.io/bitnamilegacy/php-fpm:8.2 as builder
 
 # Install build packages
 RUN apt update -y && apt install -y autoconf build-essential gettext-base
@@ -16,7 +16,7 @@ RUN curl -sS https://get.symfony.com/cli/installer | bash
 
 
 ##########################################################################
-FROM docker.io/bitnami/php-fpm:8.2
+FROM docker.io/bitnamilegacy/php-fpm:8.2
 
 # Declare and set default values for build arguments
 ARG PHP_PM_MAX_CHILDREN=300
