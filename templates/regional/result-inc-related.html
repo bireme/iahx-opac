@@ -1,0 +1,22 @@
+<!-- related resources -->
+{% if doc.related_resource is defined  %}
+    <div class="related_resource">
+        <ul>
+        {% for related in doc.related_resource %}
+            {% set rel_occ = related|json2array %}
+            {% set rel_type = rel_occ._i|upper %}
+            <li>
+                <strong>{{ attribute(texts.RESULT, rel_type)|default('') }}</strong>
+
+                {% if rel_occ._w is defined %}
+                    <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ rel_occ._w }}">{{ rel_occ._t|substring_after('|') }}</a>
+                {% elseif rel_occ._6 is defined %}
+                    <a href="{{ rel_occ._6 }}" target="_blank">{{ rel_occ._t|substring_after('|') }}</a>
+                {% elseif rel_occ._t is defined %}
+                    {{ rel_occ._t|substring_after('|') }}
+                {% endif %}
+            </li>
+        {% endfor %}
+        </ul>
+    </div>
+{% endif %}

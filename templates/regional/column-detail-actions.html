@@ -19,7 +19,7 @@
             </div>
         {% else %}
             <a href="{{ doc.ur.0|raw }}" target="_blank" title="{{ texts.FULLTEXT }}" class="btnTools btnToolsMain"
-                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article' , {'event_category': 'Download', 'event_label': '{{ doc.ti.0 }}'}); gtag('event', 'Database' , {'event_category': 'Download', 'event_label': '{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}'}); {% if doc.ta.0 is defined %}gtag('event', 'Journal' , {'event_category': 'Download', 'event_label': '{{ doc.ta.0 }}'}); gtag('event', 'Journal Source' , {'event_category': 'Download', 'event_label': '{{ doc.fo.0 }}'}); {% endif %}"{% endif %}>
+                {% if config.google_analytics_tracking_id != '' %} onclick="gtag('event', 'Article' , {'event_category': 'Download', 'event_label': '{{ doc.ti.0 }}'}); gtag('event', 'Database' , {'event_category': 'Download', 'event_label': '{{ translate(doc.db.0|default(doc.db), 'REFINE_db') }}'}); {% if doc.ta.0 is defined %}gtag('event', 'Journal' , {'event_category': 'Download', 'event_label': '{{ doc.ta.0 }}'}); gtag('event', 'Journal Source' , {'event_category': 'Download', 'event_label': '{{ doc.fo.0|default }}'}); {% endif %}"{% endif %}>
                 <i class="far fa-file-alt"></i> {{ texts.FULLTEXT }}
             </a>
         {% endif %}
