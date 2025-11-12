@@ -501,6 +501,12 @@
     height: 15px;
 }
 
+.related_resource UL{
+    padding:0;
+    margin:7px 0 0 0;
+    list-style-type: none;
+}
+
 /******************** Breakpoints *******************/
 @media (min-width: 1200px) {
     .container, .container-lg, .container-md, .container-sm, .container-xl {

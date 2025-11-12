@@ -155,7 +155,7 @@
                                             <div class="ia-text">
                                                 <span class="badge text-bg-light border border-danger-subtle">
                                                     <img src="{{ asset('regional/image/common/icon-ia-2.svg') }}" alt="" class="icon-ia-2" />
-                                                    {{ texts.CREATED_BY_AI }}:
+                                                    {{ texts.CREATED_BY_AI }}
                                                 </span>
                                                 {% if attribute(doc, 'super_ab_' ~ lang) is defined %}
                                                     {{ occ( {'element': doc['super_ab_' ~ lang]|raw, separator: ' / '} ) }}
@@ -179,6 +179,9 @@
 
                                             <!-- display source fields -->
                                             {% include "regional/result-inc-source.html" %}
+
+                                            <!-- display related resources -->
+                                            {% include "regional/result-inc-related.html" %}
 
                                             <!-- More details div -->
                                             <div class="reference-detail collapse">

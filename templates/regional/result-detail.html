@@ -214,6 +214,10 @@
                         {% endif %}
                     </div>
                 {% endif %}
+
+                <!-- display related resources -->
+                {% include "regional/result-inc-related.html" %}
+
             </div>
 
             {% if doc.semantic_triple is defined %}
@@ -358,27 +362,6 @@
                                 {% endif %}
                                 <br/>
                             {% endfor %}
-                        </div>
-                    {% endif %}
-
-                    <!-- related resources -->
-                    {% if doc.related_resource is defined  %}
-                        <b>Related resources</b><br>
-                        <div class="related_resource">
-                            <ul>
-                            {% for related in doc.related_resource %}
-                                {% set rel_occ = related|json2array %}
-                                <li>
-                                    {% if rel_occ._w is defined %}
-                                        <a href="{{ constant("SEARCH_URL") }}resource/{{ lang }}/{{ rel_occ._w }}">{{ rel_occ._t }}</a>
-                                    {% elseif rel_occ._6 is defined %}
-                                        <a href="{{ rel_occ._6 }}" target="_blank">{{ rel_occ._t }}</a>
-                                    {% else %}
-                                        {{ rel_occ._t }}
-                                    {% endif %}
-                                </li>
-                            {% endfor %}
-                            </ul>
                         </div>
                     {% endif %}
 
