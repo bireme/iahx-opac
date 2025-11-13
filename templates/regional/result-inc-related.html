@@ -2,8 +2,21 @@
 {% if doc.related_resource is defined  %}
     <div class="related_resource">
         <ul>
-        {% for related in doc.related_resource %}
-            {% set rel_occ = related|json2array %}
+
+        {# Remove duplicates based on _w and _i fields #}
+        {% set seen = [] %}
+        {% set unique = [] %}
+        {% for item in doc.related_resource %}
+            {% set item_occ = item|json2array %}
+            {% set item_dup_key = item_occ._w ~ '|' ~ item_occ._i %}
+            {% if item_dup_key not in seen %}
+                {% set seen = seen|merge([item_dup_key]) %}
+                {% set unique = unique|merge([item_occ]) %}
+            {% endif %}
+        {% endfor %}
+
+        {# Now iterate over unique items #}
+        {% for rel_occ in unique %}
             {% set rel_type = rel_occ._i|upper %}
             <li>
                 {% if rel_occ._t is defined %}
